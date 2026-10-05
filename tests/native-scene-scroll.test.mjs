@@ -9,6 +9,11 @@ const wheel=new URL('../node_modules/wheel-gestures/dist/wheel-gestures.esm.js',
 const {NativeSceneScroll}=await import(moduleURL('../src/NativeSceneScroll.ts',s=>s.replace("'./scenePaging'",JSON.stringify(paging)).replace("'./WheelSceneIntent'",JSON.stringify(intent)).replace("'wheel-gestures'",JSON.stringify(wheel))));
 const recorded=name=>JSON.parse(readFileSync(new URL('../node_modules/wheel-gestures/src/test/fixtures/'+name+'.json',import.meta.url))).wheelEvents;
 const originalDocument=globalThis.document;
+function replay(t,scroller,events){
+ let previous=events[0].timeStamp;
+ for(const event of events){t.mock.timers.tick(Math.max(0,Math.round(event.timeStamp-previous)));previous=event.timeStamp;scroller.wheel(event)}
+ t.mock.timers.tick(80);
+}
 function fixture(t){
  const doc=new EventTarget();doc.hidden=false;globalThis.document=doc;
  class Scroller extends EventTarget {
@@ -27,15 +32,16 @@ test('recorded normal trackpad gestures and their full momentum tails choose exa
  t.mock.timers.enable({apis:['setTimeout']});
  for(const name of ['swipe-down-trackpad','swipe-up-trackpad']){
   const {scroller,controller,motion}=fixture(t),events=recorded(name),direction=Math.sign(events.find(e=>e.deltaY).deltaY);
-  for(const event of events)assert.equal(scroller.wheel(event),true);
+  replay(t,scroller,events);
   assert.deepEqual(scroller.calls,[{top:(15+direction)*800,behavior:'smooth'}]);
   scroller.at(15+direction);scroller.end();t.mock.timers.tick(3000);
   assert.equal(controller.position,(direction+15)%15);assert.equal(scroller.calls.length,direction<0?2:1);assert.equal(motion.at(-1),false);
  }
 });
 test('stale scrollend cannot truncate an incoming scene or issue another scroll',t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
  const {scroller,controller}=fixture(t);
- scroller.wheel({deltaY:120});scroller.at(15.4);scroller.end();
+ scroller.wheel({deltaY:120});t.mock.timers.tick(64);scroller.at(15.4);scroller.end();
  assert.deepEqual(scroller.calls,[{top:12800,behavior:'smooth'}]);
  assert.equal(controller.moving,true);assert.equal(controller.position,.40000000000000036);
  scroller.at(16);scroller.end();scroller.end();
@@ -45,8 +51,8 @@ test('recorded fast flicks request multiple pages before momentum, with no delay
  t.mock.timers.enable({apis:['setTimeout']});
  for(const name of ['swipe-down-fast-trackpad','swipe-up-fast-trackpad']){
   const {scroller,controller}=fixture(t),events=recorded(name),direction=Math.sign(events.find(e=>e.deltaY).deltaY);
-  for(const event of events)scroller.wheel(event);
-  assert.equal(controller.target,3*direction);assert.equal(scroller.calls.at(-1).top,(15+direction*3)*800);
+  replay(t,scroller,events);
+  assert.equal(controller.target,3*direction);assert.deepEqual(scroller.calls,[{top:(15+direction*3)*800,behavior:'smooth'}]);
   const count=scroller.calls.length;scroller.at(15+direction*3);scroller.end();scroller.end();t.mock.timers.tick(3000);
   assert.equal(controller.position,(3*direction+15)%15);assert.equal(scroller.calls.length,count+(direction<0?1:0));
  }
@@ -54,14 +60,52 @@ test('recorded fast flicks request multiple pages before momentum, with no delay
 test('a fresh gesture during an unfinished transition is accepted without losing its destination',t=>{
  t.mock.timers.enable({apis:['setTimeout']});const {scroller,controller}=fixture(t);
  scroller.wheel({deltaY:120,timeStamp:0});scroller.at(15.2);t.mock.timers.tick(1001);
- scroller.wheel({deltaY:120,timeStamp:1001});scroller.end();
+ scroller.wheel({deltaY:120,timeStamp:1001});t.mock.timers.tick(64);scroller.end();
  assert.equal(controller.target,2);assert.equal(scroller.calls.length,2);
  scroller.at(17);scroller.end();assert.equal(controller.position,2);assert.equal(controller.moving,false);
 });
 test('a single large wheel event remains one page; browser zoom stays native',t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
  const {scroller,controller}=fixture(t);
- assert.equal(scroller.wheel({deltaY:2800}),true);assert.equal(controller.target,1);
+ assert.equal(scroller.wheel({deltaY:2800}),true);t.mock.timers.tick(64);assert.equal(controller.target,1);
  assert.equal(scroller.wheel({deltaY:120,ctrlKey:true}),false);assert.equal(scroller.calls.length,1);
+});
+test('late weak momentum after detector timeouts cannot create another page',t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
+ for(const gap of [160,240,360]){
+  const {scroller,controller}=fixture(t);let time=0;
+  for(const delta of [120,100,82,65,50,38,30,23,17,12,8,6,4,3]){
+   t.mock.timers.tick(16);time+=16;scroller.wheel({deltaY:delta,timeStamp:time});
+  }
+  scroller.at(16);scroller.end();t.mock.timers.tick(gap);time+=gap;
+  for(const delta of [30,18,12,8,6,4,2]){scroller.wheel({deltaY:delta,timeStamp:time});t.mock.timers.tick(16);time+=16}
+  t.mock.timers.tick(1000);
+  assert.equal(controller.target,1);assert.equal(scroller.calls.length,1);
+ }
+});
+test('a gentle renewed gesture is accepted during the prior momentum tail',t=>{
+ t.mock.timers.enable({apis:['setTimeout']});const {scroller,controller}=fixture(t);let time=0;
+ for(const delta of [120,100,82,65,50,38,30,23,17,12,8,6,4,3]){t.mock.timers.tick(16);time+=16;scroller.wheel({deltaY:delta,timeStamp:time})}
+ scroller.at(15.8);
+ for(const delta of [1,2,3,4,6,8,12]){time+=16;t.mock.timers.tick(16);scroller.wheel({deltaY:delta,timeStamp:time})}
+ t.mock.timers.tick(80);assert.equal(controller.target,2);assert.equal(scroller.calls.length,2);
+});
+test('a native momentum flag prevents even a large late tail from navigating',t=>{
+ t.mock.timers.enable({apis:['setTimeout']});const {scroller,controller}=fixture(t);
+ scroller.wheel({deltaY:120,timeStamp:0});t.mock.timers.tick(64);scroller.at(16);scroller.end();
+ t.mock.timers.tick(700);scroller.wheel({deltaY:300,timeStamp:764,momentum:true});t.mock.timers.tick(700);
+ assert.equal(controller.target,1);assert.equal(scroller.calls.length,1);
+});
+test('a renewed strong flick is accepted while the preceding momentum stream continues',t=>{
+ t.mock.timers.enable({apis:['setTimeout']});const {scroller,controller}=fixture(t);let time=0;
+ for(const delta of [120,100,82,65,50,38,30,23,17,12,8,6,4,3]){t.mock.timers.tick(16);time+=16;scroller.wheel({deltaY:delta,timeStamp:time})}
+ scroller.at(15.8);time+=32;t.mock.timers.tick(32);scroller.wheel({deltaY:140,timeStamp:time});t.mock.timers.tick(64);
+ assert.equal(controller.target,2);assert.equal(scroller.calls.length,2);
+});
+test('freezing before gesture classification cancels deferred navigation',t=>{
+ t.mock.timers.enable({apis:['setTimeout']});const {scroller,controller}=fixture(t);
+ scroller.wheel({deltaY:120});controller.freeze();const calls=scroller.calls.length;t.mock.timers.tick(1000);
+ assert.equal(controller.target,0);assert.equal(scroller.calls.length,calls);assert.equal(controller.moving,false);
 });
 test('manual scroll recovery rounds to a whole page and does not force a further advance',t=>{
  const {scroller,controller}=fixture(t);scroller.at(16.08);scroller.end();

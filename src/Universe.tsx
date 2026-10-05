@@ -54,7 +54,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
  const [brand,setBrand]=useState('all'),[sort,setSort]=useState<WorkSort>('curated'),[compact,setCompact]=useState(false),[saveData,setSaveData]=useState(false);
  const sections=useMemo(()=>buildSections(projects,sort,brand,compact?3:6),[projects,sort,brand,compact]);
  const total=sections.length,root=useRef<HTMLDivElement>(null),scroll=useRef<HTMLDivElement>(null),worldRefs=useRef(new Map<number,HTMLDivElement>()),backdropRefs=useRef(new Map<number,HTMLDivElement>());
- const [chapter,setChapter]=useState(0),[playChapter,setPlayChapter]=useState(0),[base,setBase]=useState(0),[secret,setSecret]=useState<Project|null>(null),[muted,setMuted]=useState(true),[playing,setPlaying]=useState(true),[shuffle,setShuffle]=useState(0),[held,setHeld]=useState(false);
+ const [chapter,setChapter]=useState(0),[playChapter,setPlayChapter]=useState(0),[base,setBase]=useState(0),[flight,setFlight]=useState<number[]>([]),[secret,setSecret]=useState<Project|null>(null),[muted,setMuted]=useState(true),[playing,setPlaying]=useState(true),[shuffle,setShuffle]=useState(0),[held,setHeld]=useState(false);
  const motion=useMemo<JourneyMotion>(()=>({position:0,target:0,pointerX:0,pointerY:0,velocity:0,time:0,active:true,low:false,reduced:false,invalidate:()=>{}}),[]);
  const settings=useRef({paused,reduced,secret:!!secret,quality:performance.quality});settings.current={paused,reduced,secret:!!secret,quality:performance.quality};motion.active=!paused&&!secret;motion.reduced=reduced;motion.low=performance.quality!=='full';
  const wake=useRef(()=>{}),bindPlanes=useRef(()=>{}),navigate=useRef<(index:number)=>void>(()=>{}),current=useRef(0);
@@ -67,13 +67,16 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
  useEffect(()=>{
   const scroller=scroll.current,outer=root.current;if(!scroller||!outer||!total)return;
   let raf=0,last=0,px=0,py=0,lastBase=-1,lastChapter=-1,scrolling=false;
-  motion.position=0;motion.target=0;current.current=0;setChapter(0);setPlayChapter(0);setBase(0);
+  motion.position=0;motion.target=0;current.current=0;setChapter(0);setPlayChapter(0);setBase(0);setFlight([]);
   const stage=outer.querySelector<HTMLElement>('.depth-stage')!;
   let width=scroller.clientWidth,height=stage.clientHeight,pageHeight=scroller.clientHeight;
   const native=!matchMedia('(pointer:coarse)').matches||innerWidth>=700;
   outer.dataset.native=String(native);
   const pager=new ScenePager(),landscape=outer.querySelector<HTMLElement>('.depth-landscape');
-  const nativeController=native?new NativeSceneScroll({scroller,root:outer,total,reduced:()=>settings.current.reduced,paused:()=>settings.current.paused||settings.current.secret,moving:markMoving,invalidate:start}):null;
+  const nativeController=native?new NativeSceneScroll({scroller,root:outer,total,reduced:()=>settings.current.reduced,paused:()=>settings.current.paused||settings.current.secret,moving:markMoving,invalidate:start,prepare:(from,to)=>{
+   const first=Math.round(from),direction=Math.sign(to-first),count=Math.min(total,Math.abs(to-first)+1);
+   setFlight(Array.from({length:count},(_,i)=>modulo(first+i*direction,total)));
+  }}):null;
   const animator=native&&NativeSceneAnimator.supported()?new NativeSceneAnimator(scroller):null;
   const worlds=outer.querySelector<HTMLElement>('.depth-worlds');
   let accelerated=false;
@@ -100,7 +103,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   bindPlanes.current=()=>paintPlanes(nativeController?.position??motion.position);
   function markMoving(value:boolean){motion.scrolling=value;if(value===scrolling)return;scrolling=value;outer!.dataset.moving=String(value);window.dispatchEvent(new CustomEvent('portfolio-motion',{detail:value}))}
   function paintPlanes(position:number){
-   const p=modulo(position,total),nextBase=Math.floor(p),nextChapter=modulo(Math.floor(p+.48),total);
+   const p=modulo(position,total),nextBase=Math.floor(p),nextChapter=modulo(Math.round(p),total);
    // All layout reads happen before writes, only when a scene/layout actually changes.
    const planes=Array.from(worldRefs.current,([index,layer])=>({index,layer,exits:prepare(layer)}));
    const useTimeline=!!animator&&!settings.current.reduced;
@@ -151,7 +154,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
    else{motion.position=settings.current.paused||settings.current.secret?pager.settle():pager.sample(t,settings.current.reduced);motion.target=pager.target}
    motion.velocity=(motion.position-prior)/dt;
    const response=1-Math.exp(-12*dt);motion.pointerX+=(px-motion.pointerX)*response;motion.pointerY+=(py-motion.pointerY)*response;motion.time=t/1000;
-   const p=modulo(motion.position,total),nextBase=modulo(Math.round(p),total),nextChapter=modulo(Math.floor(p+.48),total);
+   const p=modulo(motion.position,total),nextChapter=modulo(Math.round(p),total),nextBase=native&&scrolling?Math.max(0,lastBase):nextChapter;
    if(nextBase!==lastBase||nextChapter!==lastChapter){
     lastBase=nextBase;lastChapter=nextChapter;current.current=nextChapter;
     // Neighbouring planes are already mounted. Never flush React effects inside a frame.
@@ -159,7 +162,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
    }
    paintPlanes(motion.position);
    const moving=native?scrolling:pager.moving;markMoving(moving);
-   if(!moving)setPlayChapter(nextChapter);
+   if(!moving){setPlayChapter(nextChapter);setFlight(value=>value.length?[]:value)}
    outer!.dataset.position=motion.position.toFixed(4);outer!.dataset.target=String(motion.target);
    if((moving&&!accelerated)||Math.abs(px-motion.pointerX)+Math.abs(py-motion.pointerY)>.01)raf=requestAnimationFrame(draw);
    else motion.velocity=0;
@@ -193,8 +196,8 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   outer.addEventListener('pointermove',pointer,{passive:true});outer.addEventListener('portfolio-layout',start);outer.addEventListener('pointerleave',leave);document.addEventListener('visibilitychange',visibility);window.addEventListener('portfolio-home',home);start();
   return()=>{bindPlanes.current=()=>{};nativeController?.destroy();animator?.destroy();observer?.disconnect();window.removeEventListener('resize',resize);document.fonts?.removeEventListener('loadingdone',fontLayout);cancelAnimationFrame(raf);markMoving(false);scroller.removeEventListener('pointerdown',down);scroller.removeEventListener('pointermove',moveTouch);scroller.removeEventListener('pointerup',up);scroller.removeEventListener('pointercancel',cancelTouch);scroller.removeEventListener('click',click,true);outer.removeEventListener('pointermove',pointer);outer.removeEventListener('portfolio-layout',start);outer.removeEventListener('pointerleave',leave);document.removeEventListener('visibilitychange',visibility);window.removeEventListener('portfolio-home',home)};
  },[motion,sections,total,performance.reportFrame]);
- useLayoutEffect(()=>{bindPlanes.current();wake.current()},[base,chapter,paused,reduced,secret,performance.ready,performance.quality]);
- const visible=[...new Set([modulo(base-1,total),base,modulo(base+1,total)])];
+ useLayoutEffect(()=>{bindPlanes.current();wake.current()},[base,chapter,flight,paused,reduced,secret,performance.ready,performance.quality]);
+ const visible=[...new Set([modulo(base-1,total),base,modulo(base+1,total),...flight])];
  return <div ref={root} className={'journey depth-journey'+(reduced?' reduced-depth':'')} data-paused={paused||!!secret} data-ready={performance.ready} data-playing={playing&&!paused&&!secret} data-quality={performance.quality} data-theme={themes[section.theme]} data-category={section.category} data-art={section.art}>
   <div ref={scroll} className="depth-scroll" tabIndex={0} aria-label="Scroll through the portfolio in 3D" onKeyDown={e=>{if(e.target!==e.currentTarget)return;if(['PageDown','ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault();navigate.current(current.current+1)}if(['PageUp','ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();navigate.current(current.current-1)}if(e.key==='Home'){e.preventDefault();navigate.current(0)}}}>
    <div className="depth-track" style={{'--native-pages':total*3} as CSSProperties}><div className="depth-page">{header}<div className="depth-stage">

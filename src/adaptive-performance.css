@@ -34,7 +34,7 @@ html:not(.ui-ready) .home-floaters,html:not(.ui-ready) .scene-accents{visibility
 html:not(.ui-ready) .client-track,html:not(.ui-ready) .results-track,html:not(.ui-ready) .contact-strip-track{animation-play-state:paused!important}
 
 /* Automatic low-cost rendering keeps the same Explore experience. */
-html[data-quality=simple] .copy-word,html[data-quality=simple] .type-glyph,html[data-quality=simple] .name-letter,html.compat-view .copy-word,html.compat-view .type-glyph{animation:none!important;transform:none!important;filter:none!important;opacity:1!important}
+html[data-quality=simple] .copy-word,html[data-quality=simple] .type-glyph,html.compat-view .copy-word,html.compat-view .type-glyph{animation:none!important;transform:none!important;filter:none!important;opacity:1!important}
 html[data-quality=simple] .home-floaters,html[data-quality=simple] .scene-accents,html[data-quality=simple] .deck-under,html[data-quality=simple] .opening-contact-strip,html[data-quality=simple] .mobile-discovery,html[data-quality=simple] .glyph-echo{display:none!important}
 html[data-quality=simple] .portfolio-cluster *,html[data-quality=simple] .showcase-deck *,html.compat-view .portfolio-cluster *{animation:none!important;backdrop-filter:none!important}
 [data-light=true] .portfolio-cluster[data-art] .cluster-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:28px;perspective:none}
@@ -154,6 +154,25 @@ html[data-quality=simple] .depth-journey .depth-landscape{filter:blur(2px) brigh
 @media(prefers-reduced-motion:reduce){.depth-next-category>i{animation:none}}
 
 .depth-journey[data-native=true] .depth-page>.site-header{position:absolute}
+
+/* Category navigation stays prominent at every quality level. */
+.depth-journey .depth-topbar nav{flex:1;min-width:0;gap:5px;align-items:center}
+.depth-journey .depth-topbar nav button{font-size:clamp(22px,2vw,30px);font-weight:600;letter-spacing:-.035em;line-height:1.15;min-height:50px;padding:6px 14px}
+.depth-journey .depth-topbar{padding-block:12px}
+.depth-journey .depth-toolbar{top:82px}
+.portfolio-controls nav button{font-size:clamp(20px,1.8vw,26px);font-weight:600;letter-spacing:-.025em;line-height:1.2;min-height:48px}
+@media(max-width:1000px) and (min-width:700px){
+ .depth-journey .depth-topbar nav{gap:2px}
+ .depth-journey .depth-topbar nav button{font-size:20px;padding-inline:10px}
+}
+@media(max-width:699px),(max-width:1024px) and (pointer:coarse){
+ .depth-journey .depth-topbar{padding-block:6px}
+ .depth-journey .depth-topbar nav{gap:2px}
+ .depth-journey .depth-topbar nav button{font-size:18px;min-height:44px;padding-inline:11px}
+ .depth-journey .depth-toolbar{top:67px}
+ .depth-journey .zoom-world{top:108px}
+ .portfolio-controls nav button{font-size:18px;min-height:44px;padding-inline:12px}
+}
 
 /* Entry lettering must finish instead of remaining frozen at opacity zero. */
 .depth-journey .zoom-world .copy-word,.depth-journey .zoom-world .type-glyph{animation-play-state:running!important}

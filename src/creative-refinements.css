@@ -89,6 +89,6 @@
 @keyframes mobile-type{from{opacity:.3;translate:0 6px}to{opacity:1;translate:0 0}}
 @keyframes mobile-photo{from{opacity:.5;scale:1.01}to{opacity:1;scale:1}}
 @keyframes mobile-prism{0%,100%{transform:rotateX(-22deg) rotateY(30deg)}50%{transform:rotateX(8deg) rotateY(65deg)}}
-@keyframes mobile-letter{0%,100%{rotate:y 0deg}55%{rotate:y 180deg}}
+@keyframes mobile-letter{0%,100%{rotate:x 0deg}55%{rotate:x 180deg}}
 @media(prefers-reduced-motion:reduce){.mobile-discovery .float-solid,.kinetic-name.is-tapped .name-letter,.home-intro .intro-identity .copy-word,.is-simple .cluster-heading .type-glyph,.home-intro .showcase-deck .deck-front img{animation:none!important}.depth-media-surface{transition:none}}
 .sample-table{overflow-x:auto;margin:20px 0}.sample-table table{width:100%;border-collapse:collapse;table-layout:fixed;font:12px/1.65 Arial,sans-serif}.sample-table th{text-align:left;color:#cbe197;font:10px/1.5 Mono,monospace;text-transform:uppercase;padding:12px 10px;border-bottom:1px solid #bacfa766}.sample-table td{padding:13px 10px;vertical-align:top;border-bottom:1px solid #c5d6c42e;overflow-wrap:break-word}.sample-table th:first-child,.sample-table td:first-child{width:29%;font-weight:600}.process-sample details li{margin-bottom:12px}

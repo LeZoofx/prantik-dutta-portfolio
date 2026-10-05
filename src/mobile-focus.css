@@ -73,7 +73,7 @@
  .project-overlay .project-title{font-size:28px;line-height:1.1}
  .project-notes{grid-template-columns:minmax(0,1fr)}
  .site-header *,.intro-identity *,.portfolio-cluster *,.work-index *,.work-context *,.about-section *,.contact-section *,.project-overlay *{animation:none!important;transition:none!important}
- .kinetic-type>span,.copy-word,.poster-line,.name-letter{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}
- .glyph-echo,.letter-reverse{display:none}
+ .kinetic-type>span,.copy-word,.poster-line{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}
+ .glyph-echo{display:none}
  .client-track,.results-track{will-change:transform}
 }

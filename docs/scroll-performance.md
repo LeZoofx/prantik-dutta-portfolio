@@ -40,3 +40,5 @@ The first follow-up did not cover the lightweight/unsupported renderer and retai
 CSS re-snap behavior: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scroll-snap-type
 
 Wheel gesture/momentum implementation reused: https://github.com/xiel/wheel-gestures
+
+The lightweight renderer projects the existing 1200px camera perspective into a flat scale/translation instead of retaining almost full-size neighbouring planes. It keeps the same edge dispersal and avoids overlapping headings without requiring 3D rasterization.

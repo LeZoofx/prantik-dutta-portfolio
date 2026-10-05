@@ -60,3 +60,8 @@ test('native timelines cover a complete cycle and keep every resting scene sharp
   assert.equal(resting.opacity,1);assert.equal(resting.filter,'blur(0px) brightness(1)');
  }
 });
+test('lightweight depth projects the existing camera instead of overlapping full-size scenes',()=>{
+ const scale=delta=>Number(scenePose(0,delta,true,true).transform.match(/scale\(([^)]+)\)/)[1]);
+ assert.equal(scale(0),1);assert.ok(scale(1)<.6);assert.ok(scale(-1)>1);
+ for(let delta=-1;delta<1;delta+=.01)assert.ok(Math.abs(scale(delta+.01)-scale(delta))<.015);
+});

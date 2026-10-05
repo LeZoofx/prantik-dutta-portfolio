@@ -127,13 +127,14 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
     const light=settings.current.quality==='simple',travel=settings.current.reduced?0:Math.max(-1.6,Math.min(1.6,delta));
     const departure=(Math.exp(-1.6*travel)-1)/(Math.exp(1.44)-1),depth=220*(1-Math.exp(1.75*travel));
     const x=travel*Math.sin(index*1.9)*24+motion.pointerX*7,y=travel*Math.cos(index*1.3)*12-motion.pointerY*5;
-    write(layer,'transform',light?`translate3d(${(travel*48).toFixed(2)}px,${(travel*12).toFixed(2)}px,0) scale(${(1-Math.abs(travel)*.035).toFixed(3)})`:`translate3d(${x.toFixed(2)}px,${y.toFixed(2)}px,${depth.toFixed(2)}px) rotateY(${(settings.current.reduced?0:travel*Math.sin(index+1)*3+motion.pointerX*.6).toFixed(2)}deg) rotateZ(${(settings.current.reduced?0:travel*Math.cos(index+2)).toFixed(2)}deg)`);
+    const projection=1200/(1200-depth);
+    write(layer,'transform',light?`translate3d(${(x*projection).toFixed(2)}px,${(y*projection).toFixed(2)}px,0) scale(${projection.toFixed(4)})`:`translate3d(${x.toFixed(2)}px,${y.toFixed(2)}px,${depth.toFixed(2)}px) rotateY(${(settings.current.reduced?0:travel*Math.sin(index+1)*3+motion.pointerX*.6).toFixed(2)}deg) rotateZ(${(settings.current.reduced?0:travel*Math.cos(index+2)).toFixed(2)}deg)`);
     const focus=settings.current.reduced?0:smooth(.06,1.1,Math.abs(travel));
     // Quantized focus, scoped to the plane: no inherited variables invalidating every glyph.
     write(layer,'filter',`blur(${Math.round(focus*(light?2:motion.low?4:8)*2)/2}px) brightness(${(1-Math.round(focus*12)/12*.58).toFixed(2)})`);
     write(layer,'opacity',opacity.toFixed(3));write(layer,'visibility',opacity<.01?'hidden':'visible');write(layer,'pointer-events',nearest?'auto':'none');
     if(layer.inert===nearest)layer.inert=!nearest;write(layer,'z-index',String(Math.round(100-delta*10)));
-    const spread=light?departure*.22:departure;
+    const spread=departure;
     for(const {element,x:ex,y:ey,tile,film} of exits){
      if(film)write(element,'transform',`translate3d(${(spread*ex+motion.pointerX*tile*1.3).toFixed(2)}px,${(spread*ey-motion.pointerY*tile).toFixed(2)}px,0)`);
      else write(element,'translate',`${(spread*ex).toFixed(2)}px ${(spread*ey).toFixed(2)}px`);

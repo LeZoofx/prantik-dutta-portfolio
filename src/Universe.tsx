@@ -1,4 +1,4 @@
-import {Suspense,lazy,memo,useEffect,useMemo,useRef,useState,type CSSProperties,type ReactNode} from 'react';
+import {Suspense,lazy,memo,useEffect,useLayoutEffect,useMemo,useRef,useState,type CSSProperties,type ReactNode} from 'react';
 import {asset,previewAsset,previewSrcSet,href,projectPath,platformLabel,type Project} from './content';
 import {buildSections,brandFor,portfolioCategories,type PortfolioSection,type WorkSort} from './portfolioSections';
 import type {JourneyMotion} from './journeyData';
@@ -57,7 +57,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
  const [chapter,setChapter]=useState(0),[base,setBase]=useState(0),[secret,setSecret]=useState<Project|null>(null),[muted,setMuted]=useState(true),[playing,setPlaying]=useState(true),[shuffle,setShuffle]=useState(0),[held,setHeld]=useState(false);
  const motion=useMemo<JourneyMotion>(()=>({position:0,target:0,pointerX:0,pointerY:0,velocity:0,time:0,active:true,low:false,reduced:false,invalidate:()=>{}}),[]);
  const settings=useRef({paused,reduced,secret:!!secret,quality:performance.quality});settings.current={paused,reduced,secret:!!secret,quality:performance.quality};motion.active=!paused&&!secret;motion.reduced=reduced;motion.low=performance.quality!=='full';
- const wake=useRef(()=>{}),navigate=useRef<(index:number)=>void>(()=>{}),current=useRef(0);
+ const wake=useRef(()=>{}),bindPlanes=useRef(()=>{}),navigate=useRef<(index:number)=>void>(()=>{}),current=useRef(0);
  const section=sections[modulo(chapter,total)]||sections[0];
  const availableCategories=portfolioCategories.filter(category=>sections.some(s=>s.category===category.id));
  const nextCategory=availableCategories[(availableCategories.findIndex(category=>category.id===section.category)+1)%availableCategories.length];
@@ -95,6 +95,16 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
     return {element,x:vx*distance,y:vy*distance,tile:Number(element.style.getPropertyValue('--tile'))||0,film:element.classList.contains('depth-film')};
    });layouts.set(layer,{width,height,version,exits});return exits;
   }
+  // Attach the buffered world's timeline in the commit's layout phase. Waiting
+  // for an effect + another RAF let new planes paint their resting pose first.
+  function bindNativePlanes(){
+   if(!animator||settings.current.reduced||settings.current.quality==='simple')return;
+   const centerFor=(index:number)=>index+Math.round(((nativeController?.position??motion.position)+total-index)/total)*total;
+   for(const [index,layer] of worldRefs.current)animator.plane(layer,index,centerFor(index),total,prepare(layer),`${width}/${height}/${layer.dataset.layoutVersion||''}`,motion.low);
+   for(const [index,layer] of backdropRefs.current)animator.backdrop(layer,centerFor(index),total);
+   animator.prune();
+  }
+  bindPlanes.current=bindNativePlanes;
   function markMoving(value:boolean){motion.scrolling=value;if(value===scrolling)return;scrolling=value;outer!.dataset.moving=String(value);window.dispatchEvent(new CustomEvent('portfolio-motion',{detail:value}))}
   function draw(t:number){
    raf=0;if(document.hidden){markMoving(false);return}
@@ -182,9 +192,9 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   scroller.addEventListener('pointerdown',down,{passive:true});scroller.addEventListener('pointermove',moveTouch,{passive:true});scroller.addEventListener('pointerup',up,{passive:true});scroller.addEventListener('pointercancel',cancelTouch);scroller.addEventListener('click',click,true);
   const visibility=()=>{cancelAnimationFrame(raf);raf=0;last=0;motion.velocity=0;if(!document.hidden)start()};
   outer.addEventListener('pointermove',pointer,{passive:true});outer.addEventListener('portfolio-layout',start);outer.addEventListener('pointerleave',leave);document.addEventListener('visibilitychange',visibility);window.addEventListener('portfolio-home',home);start();
-  return()=>{nativeController?.destroy();animator?.destroy();observer?.disconnect();window.removeEventListener('resize',resize);document.fonts?.removeEventListener('loadingdone',fontLayout);cancelAnimationFrame(raf);markMoving(false);scroller.removeEventListener('pointerdown',down);scroller.removeEventListener('pointermove',moveTouch);scroller.removeEventListener('pointerup',up);scroller.removeEventListener('pointercancel',cancelTouch);scroller.removeEventListener('click',click,true);outer.removeEventListener('pointermove',pointer);outer.removeEventListener('portfolio-layout',start);outer.removeEventListener('pointerleave',leave);document.removeEventListener('visibilitychange',visibility);window.removeEventListener('portfolio-home',home)};
+  return()=>{bindPlanes.current=()=>{};nativeController?.destroy();animator?.destroy();observer?.disconnect();window.removeEventListener('resize',resize);document.fonts?.removeEventListener('loadingdone',fontLayout);cancelAnimationFrame(raf);markMoving(false);scroller.removeEventListener('pointerdown',down);scroller.removeEventListener('pointermove',moveTouch);scroller.removeEventListener('pointerup',up);scroller.removeEventListener('pointercancel',cancelTouch);scroller.removeEventListener('click',click,true);outer.removeEventListener('pointermove',pointer);outer.removeEventListener('portfolio-layout',start);outer.removeEventListener('pointerleave',leave);document.removeEventListener('visibilitychange',visibility);window.removeEventListener('portfolio-home',home)};
  },[motion,sections,total,performance.reportFrame]);
- useEffect(()=>{wake.current()},[base,paused,reduced,secret,performance.ready,performance.quality]);
+ useLayoutEffect(()=>{bindPlanes.current();wake.current()},[base,chapter,paused,reduced,secret,performance.ready,performance.quality]);
  const visible=[...new Set([modulo(base-1,total),base,modulo(base+1,total)])];
  return <div ref={root} className={'journey depth-journey'+(reduced?' reduced-depth':'')} data-paused={paused||!!secret} data-ready={performance.ready} data-playing={playing&&!paused&&!secret} data-quality={performance.quality} data-theme={themes[section.theme]} data-category={section.category} data-art={section.art}>
   <div ref={scroll} className="depth-scroll" tabIndex={0} aria-label="Scroll through the portfolio in 3D" onKeyDown={e=>{if(e.target!==e.currentTarget)return;if(['PageDown','ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault();navigate.current(current.current+1)}if(['PageUp','ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();navigate.current(current.current-1)}if(e.key==='Home'){e.preventDefault();navigate.current(0)}}}>

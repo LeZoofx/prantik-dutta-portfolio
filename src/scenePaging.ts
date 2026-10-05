@@ -1,8 +1,6 @@
 // Native scroll snap chooses the destination; this only repairs an unfinished rest position.
-export function nativeSnapPage(position:number,count:number,origin:number|null=null,intent=0){
- let page=Math.round(position);
- if(origin!==null&&page===Math.round(origin)&&intent!==0)page+=Math.sign(intent);
- return Math.max(0,Math.min(count-1,page));
+export function nativeSnapPage(position:number,count:number){
+ return Math.max(0,Math.min(count-1,Math.round(position)));
 }
 export function recenterPage(page:number,total:number){return total+((page%total)+total)%total}
 

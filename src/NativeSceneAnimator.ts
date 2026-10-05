@@ -23,23 +23,31 @@ export class NativeSceneAnimator {
  private records=new Map<HTMLElement,{key:string;animations:Animation[]}>();
  static supported(){return typeof (window as unknown as {ScrollTimeline?:TimelineConstructor}).ScrollTimeline==='function'}
  constructor(source:HTMLElement){const Timeline=(window as unknown as {ScrollTimeline:TimelineConstructor}).ScrollTimeline;this.timeline=new Timeline({source,axis:'block'})}
- private install(element:HTMLElement,key:string,create:()=>Animation[]){
-  if(this.records.get(element)?.key===key)return;
-  this.records.get(element)?.animations.forEach(a=>a.cancel());
-  this.records.set(element,{key,animations:create()});
+ private install(element:HTMLElement,key:string,create:()=>{element:HTMLElement;frames:Keyframe[]}[]){
+  const record=this.records.get(element);if(record?.key===key)return;
+  const specs=create(),previous=record?.animations||[];
+  const animations=specs.map((spec,i)=>{
+   const animation=previous[i],effect=animation?.effect as KeyframeEffect|null;
+   // Font/layout updates change geometry, not animation lifetime or progress.
+   if(effect?.target===spec.element){effect.setKeyframes(spec.frames);return animation}
+   animation?.cancel();
+   return spec.element.animate(spec.frames,{timeline:this.timeline,fill:'both',easing:'linear'});
+  });
+  previous.slice(specs.length).forEach(a=>a.cancel());
+  this.records.set(element,{key,animations});
  }
- private animate(element:HTMLElement,frames:Keyframe[]){return element.animate(frames,{timeline:this.timeline,fill:'both',easing:'linear'})}
+ private frames(element:HTMLElement,frames:Keyframe[]){return {element,frames}}
  plane(layer:HTMLElement,index:number,center:number,total:number,exits:SceneExit[],version:string,low:boolean){
   this.install(layer,`${center}/${total}/${version}/${low}`,()=>[
-   this.animate(layer,timelineFrames(center,total,delta=>scenePose(index,delta,low))),
-   ...exits.map(({element,x,y,film})=>this.animate(element,timelineFrames(center,total,delta=>{
+   this.frames(layer,timelineFrames(center,total,delta=>scenePose(index,delta,low))),
+   ...exits.map(({element,x,y,film})=>this.frames(element,timelineFrames(center,total,delta=>{
     const spread=(Math.exp(-1.6*clamp(delta))-1)/(Math.exp(1.44)-1);
     return film?{transform:`translate3d(${spread*x}px,${spread*y}px,0)`}:{translate:`${spread*x}px ${spread*y}px`};
    }))),
   ]);
  }
  backdrop(layer:HTMLElement,center:number,total:number){
-  this.install(layer,`${center}/${total}`,()=>[this.animate(layer,timelineFrames(center,total,delta=>({
+  this.install(layer,`${center}/${total}`,()=>[this.frames(layer,timelineFrames(center,total,delta=>({
    opacity:delta>0?smooth(.22,.75,1-delta):1-smooth(.22,.75,-delta),
    transform:`scale(${1-clamp(delta)*.035})`,
   })))]);

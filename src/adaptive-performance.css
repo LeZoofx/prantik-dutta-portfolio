@@ -157,8 +157,6 @@ html[data-quality=simple] .depth-journey .depth-landscape{filter:blur(2px) brigh
 
 .depth-journey[data-native=true] .depth-page>.site-header{position:absolute}
 
-/* Native input has one settling owner; CSS snap never fights an active wheel. */
-.depth-journey[data-native=true][data-native-input=true] .depth-scroll{scroll-snap-type:none}
 /* Entry lettering must finish instead of remaining frozen at opacity zero. */
 .depth-journey .zoom-world .copy-word,.depth-journey .zoom-world .type-glyph{animation-play-state:running!important}
 html.page-hidden .depth-journey *,html.page-hidden .client-track,html.page-hidden .results-track{animation-play-state:paused!important}

@@ -129,10 +129,8 @@ html[data-quality=simple] .depth-journey .depth-landscape{filter:blur(2px) brigh
 .depth-journey .depth-backdrop,.depth-journey .depth-landscape{will-change:transform,opacity}
 .depth-journey .depth-film-frame{contain:layout paint}
 
-/* Desktop input and momentum belong to the browser; the art follows scrollTop. */
-.native-snap-point{display:none;position:absolute;left:0;width:1px;height:var(--page-height);pointer-events:none;scroll-snap-align:start;scroll-snap-stop:normal}
-.depth-journey[data-native=true] .native-snap-point{display:block}
-.depth-journey[data-native=true] .depth-scroll{top:calc(-1 * var(--header-h,84px));overflow-y:auto!important;overflow-x:hidden!important;scroll-snap-type:y mandatory;scroll-behavior:auto;touch-action:pan-y pinch-zoom;overscroll-behavior-y:contain}
+/* The gesture controller owns paging; native smooth motion drives the artwork. */
+.depth-journey[data-native=true] .depth-scroll{top:calc(-1 * var(--header-h,84px));overflow-y:auto!important;overflow-x:hidden!important;scroll-snap-type:none;scroll-behavior:auto;touch-action:pan-y pinch-zoom;overscroll-behavior-y:contain}
 .depth-journey[data-native=true] .depth-track{height:calc(var(--native-pages) * var(--page-height))!important;min-height:0!important}
 .depth-page{height:100%}
 .depth-journey[data-native=true]{overflow:visible}

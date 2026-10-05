@@ -20,7 +20,8 @@
     "@react-three/fiber": "9.8.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "three": "0.186.1"
+    "three": "0.186.1",
+    "wheel-gestures": "2.2.48"
   },
   "devDependencies": {
     "@types/react": "^19.2.0",

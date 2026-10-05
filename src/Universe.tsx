@@ -54,7 +54,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
  const [brand,setBrand]=useState('all'),[sort,setSort]=useState<WorkSort>('curated'),[compact,setCompact]=useState(false),[saveData,setSaveData]=useState(false);
  const sections=useMemo(()=>buildSections(projects,sort,brand,compact?3:6),[projects,sort,brand,compact]);
  const total=sections.length,root=useRef<HTMLDivElement>(null),scroll=useRef<HTMLDivElement>(null),worldRefs=useRef(new Map<number,HTMLDivElement>()),backdropRefs=useRef(new Map<number,HTMLDivElement>());
- const [chapter,setChapter]=useState(0),[base,setBase]=useState(0),[secret,setSecret]=useState<Project|null>(null),[muted,setMuted]=useState(true),[playing,setPlaying]=useState(true),[shuffle,setShuffle]=useState(0),[held,setHeld]=useState(false);
+ const [chapter,setChapter]=useState(0),[playChapter,setPlayChapter]=useState(0),[base,setBase]=useState(0),[secret,setSecret]=useState<Project|null>(null),[muted,setMuted]=useState(true),[playing,setPlaying]=useState(true),[shuffle,setShuffle]=useState(0),[held,setHeld]=useState(false);
  const motion=useMemo<JourneyMotion>(()=>({position:0,target:0,pointerX:0,pointerY:0,velocity:0,time:0,active:true,low:false,reduced:false,invalidate:()=>{}}),[]);
  const settings=useRef({paused,reduced,secret:!!secret,quality:performance.quality});settings.current={paused,reduced,secret:!!secret,quality:performance.quality};motion.active=!paused&&!secret;motion.reduced=reduced;motion.low=performance.quality!=='full';
  const wake=useRef(()=>{}),bindPlanes=useRef(()=>{}),navigate=useRef<(index:number)=>void>(()=>{}),current=useRef(0);
@@ -67,7 +67,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
  useEffect(()=>{
   const scroller=scroll.current,outer=root.current;if(!scroller||!outer||!total)return;
   let raf=0,last=0,px=0,py=0,lastBase=-1,lastChapter=-1,scrolling=false;
-  motion.position=0;motion.target=0;current.current=0;setChapter(0);setBase(0);
+  motion.position=0;motion.target=0;current.current=0;setChapter(0);setPlayChapter(0);setBase(0);
   const stage=outer.querySelector<HTMLElement>('.depth-stage')!;
   let width=scroller.clientWidth,height=stage.clientHeight,pageHeight=scroller.clientHeight;
   const native=!matchMedia('(pointer:coarse)').matches||innerWidth>=700;
@@ -95,39 +95,18 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
     return {element,x:vx*distance,y:vy*distance,tile:Number(element.style.getPropertyValue('--tile'))||0,film:element.classList.contains('depth-film')};
    });layouts.set(layer,{width,height,version,exits});return exits;
   }
-  // Attach the buffered world's timeline in the commit's layout phase. Waiting
-  // for an effect + another RAF let new planes paint their resting pose first.
-  function bindNativePlanes(){
-   if(!animator||settings.current.reduced||settings.current.quality==='simple')return;
-   const centerFor=(index:number)=>index+Math.round(((nativeController?.position??motion.position)+total-index)/total)*total;
-   for(const [index,layer] of worldRefs.current)animator.plane(layer,index,centerFor(index),total,prepare(layer),`${width}/${height}/${layer.dataset.layoutVersion||''}`,motion.low);
-   for(const [index,layer] of backdropRefs.current)animator.backdrop(layer,centerFor(index),total);
-   animator.prune();
-  }
-  bindPlanes.current=bindNativePlanes;
+  // Bind every rendering path in the commit's layout phase, including the
+  // lightweight mode and browsers without ScrollTimeline. No resting-pose flash.
+  bindPlanes.current=()=>paintPlanes(nativeController?.position??motion.position);
   function markMoving(value:boolean){motion.scrolling=value;if(value===scrolling)return;scrolling=value;outer!.dataset.moving=String(value);window.dispatchEvent(new CustomEvent('portfolio-motion',{detail:value}))}
-  function draw(t:number){
-   raf=0;if(document.hidden){markMoving(false);return}
-   const elapsed=last?t-last:16,dt=Math.min(.05,Math.max(elapsed/1000,.001));last=t;
-   if(native&&(settings.current.paused||settings.current.secret))nativeController?.freeze();
-   const prior=motion.position,travelling=native?scrolling:pager.moving;
-   if(!native&&travelling&&elapsed<250)performance.reportFrame(elapsed);
-   if(nativeController){const raw=nativeController.position;motion.position=Math.abs(raw-Math.round(raw))<.001?Math.round(raw):raw;motion.target=Math.round(motion.position)}
-   else{motion.position=settings.current.paused||settings.current.secret?pager.settle():pager.sample(t,settings.current.reduced);motion.target=pager.target}
-   motion.velocity=(motion.position-prior)/dt;
-   const response=1-Math.exp(-12*dt);motion.pointerX+=(px-motion.pointerX)*response;motion.pointerY+=(py-motion.pointerY)*response;motion.time=t/1000;
-   const p=modulo(motion.position,total),nextBase=Math.floor(p),nextChapter=modulo(Math.floor(p+.48),total);
-   if(nextBase!==lastBase||nextChapter!==lastChapter){
-    lastBase=nextBase;lastChapter=nextChapter;current.current=nextChapter;
-    // Neighbouring planes are already mounted. Never flush React effects inside a frame.
-    setBase(nextBase);setChapter(nextChapter);
-   }
+  function paintPlanes(position:number){
+   const p=modulo(position,total),nextBase=Math.floor(p),nextChapter=modulo(Math.floor(p+.48),total);
    // All layout reads happen before writes, only when a scene/layout actually changes.
    const planes=Array.from(worldRefs.current,([index,layer])=>({index,layer,exits:prepare(layer)}));
-   const useTimeline=!!animator&&!settings.current.reduced&&settings.current.quality!=='simple';
+   const useTimeline=!!animator&&!settings.current.reduced;
    if(accelerated&&!useTimeline){animator?.destroy();written=new WeakMap()}
    accelerated=useTimeline;outer!.dataset.motionEngine=accelerated?'scroll-timeline':'raf';
-   const centerFor=(index:number)=>index+Math.round((motion.position+total-index)/total)*total;
+   const centerFor=(index:number)=>index+Math.round((position+total-index)/total)*total;
    const ambience=smooth(.22,.75,p%1);
    backdropRefs.current.forEach((layer,index)=>{
     if(accelerated)animator!.backdrop(layer,centerFor(index),total);
@@ -139,7 +118,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
    for(const {index,layer,exits} of planes){
     let delta=index-p;delta-=Math.round(delta/total)*total;const nearest=index===nextChapter;
     if(accelerated){
-     animator!.plane(layer,index,centerFor(index),total,exits,`${width}/${height}/${layer.dataset.layoutVersion||''}`,motion.low);
+     animator!.plane(layer,index,centerFor(index),total,exits,`${width}/${height}/${layer.dataset.layoutVersion||''}`,motion.low,settings.current.quality==='simple');
      write(layer,'visibility','visible');write(layer,'pointer-events',nearest?'auto':'none');
      if(layer.inert===nearest)layer.inert=!nearest;write(layer,'z-index',String(Math.round(100-delta*10)));
      continue;
@@ -160,9 +139,28 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
      else write(element,'translate',`${(spread*ex).toFixed(2)}px ${(spread*ey).toFixed(2)}px`);
     }
    }
+  }
+  function draw(t:number){
+   raf=0;if(document.hidden){markMoving(false);return}
+   const elapsed=last?t-last:16,dt=Math.min(.05,Math.max(elapsed/1000,.001));last=t;
+   if(native&&(settings.current.paused||settings.current.secret))nativeController?.freeze();
+   const prior=motion.position,travelling=native?scrolling:pager.moving;
+   if(!native&&travelling&&elapsed<250)performance.reportFrame(elapsed);
+   if(nativeController){const raw=nativeController.position;motion.position=Math.abs(raw-Math.round(raw))<.001?Math.round(raw):raw;motion.target=nativeController.target}
+   else{motion.position=settings.current.paused||settings.current.secret?pager.settle():pager.sample(t,settings.current.reduced);motion.target=pager.target}
+   motion.velocity=(motion.position-prior)/dt;
+   const response=1-Math.exp(-12*dt);motion.pointerX+=(px-motion.pointerX)*response;motion.pointerY+=(py-motion.pointerY)*response;motion.time=t/1000;
+   const p=modulo(motion.position,total),nextBase=modulo(Math.round(p),total),nextChapter=modulo(Math.floor(p+.48),total);
+   if(nextBase!==lastBase||nextChapter!==lastChapter){
+    lastBase=nextBase;lastChapter=nextChapter;current.current=nextChapter;
+    // Neighbouring planes are already mounted. Never flush React effects inside a frame.
+    setBase(nextBase);setChapter(nextChapter);
+   }
+   paintPlanes(motion.position);
    const moving=native?scrolling:pager.moving;markMoving(moving);
+   if(!moving)setPlayChapter(nextChapter);
    outer!.dataset.position=motion.position.toFixed(4);outer!.dataset.target=String(motion.target);
-   if((!native&&moving)||Math.abs(px-motion.pointerX)+Math.abs(py-motion.pointerY)>.01)raf=requestAnimationFrame(draw);
+   if((moving&&!accelerated)||Math.abs(px-motion.pointerX)+Math.abs(py-motion.pointerY)>.01)raf=requestAnimationFrame(draw);
    else motion.velocity=0;
   }
   function start(){if(!raf&&!document.hidden)raf=requestAnimationFrame(draw)}wake.current=start;
@@ -198,11 +196,11 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
  const visible=[...new Set([modulo(base-1,total),base,modulo(base+1,total)])];
  return <div ref={root} className={'journey depth-journey'+(reduced?' reduced-depth':'')} data-paused={paused||!!secret} data-ready={performance.ready} data-playing={playing&&!paused&&!secret} data-quality={performance.quality} data-theme={themes[section.theme]} data-category={section.category} data-art={section.art}>
   <div ref={scroll} className="depth-scroll" tabIndex={0} aria-label="Scroll through the portfolio in 3D" onKeyDown={e=>{if(e.target!==e.currentTarget)return;if(['PageDown','ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault();navigate.current(current.current+1)}if(['PageUp','ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();navigate.current(current.current-1)}if(e.key==='Home'){e.preventDefault();navigate.current(0)}}}>
-   <div className="depth-track" style={{'--native-pages':total*3} as CSSProperties}>{Array.from({length:total*3},(_,i)=><div key={i} className="native-snap-point" aria-hidden="true" style={{top:`calc(var(--page-height) * ${i})`}}/>)}<div className="depth-page">{header}<div className="depth-stage">
+   <div className="depth-track" style={{'--native-pages':total*3} as CSSProperties}><div className="depth-page">{header}<div className="depth-stage">
     <div className="depth-atmosphere" aria-hidden="true">{visible.map(index=><div key={sections[index].id} ref={el=>{if(el)backdropRefs.current.set(index,el);else backdropRefs.current.delete(index)}} className={'depth-backdrop backdrop-'+sections[index].art} style={{opacity:index===0?1:0}}>{performance.ready&&performance.quality!=='simple'&&<Scene art={sections[index].art}/>}</div>)}</div>
     <div className="depth-landscape" aria-hidden="true"><div className="depth-floor"/><div className="depth-horizon"/>{Array.from({length:8},(_,i)=><div className={'lowpoly-pillar pillar-'+i} key={i} style={{'--pillar':i} as CSSProperties}><i/><i/><i/></div>)}</div>
 
-    <div className="depth-worlds">{visible.map(index=><div ref={el=>{if(el)worldRefs.current.set(index,el);else worldRefs.current.delete(index)}} key={sections[index].id} className={'zoom-world zoom-tone-'+themes[sections[index].theme]+' zoom-layout-'+sections[index].layout} inert={index!==chapter} data-active={index===chapter} data-depth-index={index} data-section={sections[index].id} data-art={sections[index].art} aria-label={sections[index].title} style={{opacity:index===0?1:0}}><div className="depth-portal" aria-hidden="true"/><MemoDepthWorld motion={motion} rotate={rotate&&!reduced} section={sections[index]} active={index===chapter} autoplay={!reduced&&!saveData&&performance.mediaReady} compact={compact} paused={paused||!!secret} muted={muted} playing={playing} onProject={onProject} onDiscover={setSecret} onProcess={onProcess}/></div>)}</div>
+    <div className="depth-worlds">{visible.map(index=><div ref={el=>{if(el)worldRefs.current.set(index,el);else worldRefs.current.delete(index)}} key={sections[index].id} className={'zoom-world zoom-tone-'+themes[sections[index].theme]+' zoom-layout-'+sections[index].layout} inert={index!==chapter} data-active={index===chapter} data-depth-index={index} data-section={sections[index].id} data-art={sections[index].art} aria-label={sections[index].title} style={{opacity:index===0?1:0}}><div className="depth-portal" aria-hidden="true"/><MemoDepthWorld motion={motion} rotate={rotate&&!reduced} section={sections[index]} active={index===playChapter} autoplay={!reduced&&!saveData&&performance.mediaReady} compact={compact} paused={paused||!!secret} muted={muted} playing={playing} onProject={onProject} onDiscover={setSecret} onProcess={onProcess}/></div>)}</div>
   <div className="depth-topbar"><nav aria-label="Portfolio categories">{portfolioCategories.map(c=>{const index=sections.findIndex(s=>s.category===c.id);return <button key={c.id} aria-current={section.category===c.id?'location':undefined} disabled={index<0} onClick={()=>navigate.current(index)}>{c.label}</button>})}</nav><a className="depth-index" href={href('work/')} onClick={e=>{if(!e.metaKey&&!e.ctrlKey){e.preventDefault();onIndex()}}}>All work ↗</a></div>
   {!performance.ready&&<div className="depth-loading" role="status">Loading previews<span aria-hidden="true"/></div>}
   <div className="depth-toolbar"><BrandControls projects={projects} brand={brand} onBrand={setBrand} sort={sort} onSort={setSort}/>{section.category==='selected'&&<button className="depth-shuffle" onMouseEnter={()=>setHeld(true)} onMouseLeave={()=>setHeld(false)} onFocus={()=>setHeld(true)} onBlur={()=>setHeld(false)} onClick={()=>onProject(shuffleProject)} aria-label={'Open '+title(shuffleProject)}><img key={shuffleProject.id} src={previewAsset(shuffleProject.poster,320)} alt=""/><span>{showcase[shuffle%showcase.length].title}</span><i aria-hidden="true">⇄</i></button>}</div>

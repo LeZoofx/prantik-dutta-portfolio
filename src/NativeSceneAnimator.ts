@@ -5,12 +5,12 @@ const clamp=(n:number)=>Math.max(-1.6,Math.min(1.6,n));
 
 // Same camera/dispersal curve as the original artwork, sampled once. Supported
 // browsers interpolate it on their scroll timeline, independently of React/media.
-export function scenePose(index:number,delta:number,low:boolean){
+export function scenePose(index:number,delta:number,low:boolean,light=false){
  const travel=clamp(delta),focus=smooth(.06,1.1,Math.abs(travel));
  return {
-  transform:`translate3d(${travel*Math.sin(index*1.9)*24}px,${travel*Math.cos(index*1.3)*12}px,${220*(1-Math.exp(1.75*travel))}px) rotateY(${travel*Math.sin(index+1)*3}deg) rotateZ(${travel*Math.cos(index+2)}deg)`,
+  transform:light?`translate3d(${travel*48}px,${travel*12}px,0) scale(${1-Math.abs(travel)*.035})`:`translate3d(${travel*Math.sin(index*1.9)*24}px,${travel*Math.cos(index*1.3)*12}px,${220*(1-Math.exp(1.75*travel))}px) rotateY(${travel*Math.sin(index+1)*3}deg) rotateZ(${travel*Math.cos(index+2)}deg)`,
   opacity:delta<0?1-smooth(.52,.94,-delta):1-smooth(.86,1.5,delta),
-  filter:`blur(${focus*(low?4:8)}px) brightness(${1-focus*.58})`,
+  filter:`blur(${focus*(light?2:low?4:8)}px) brightness(${1-focus*.58})`,
  };
 }
 export function timelineFrames(center:number,total:number,pose:(delta:number)=>Keyframe){
@@ -37,11 +37,11 @@ export class NativeSceneAnimator {
   this.records.set(element,{key,animations});
  }
  private frames(element:HTMLElement,frames:Keyframe[]){return {element,frames}}
- plane(layer:HTMLElement,index:number,center:number,total:number,exits:SceneExit[],version:string,low:boolean){
-  this.install(layer,`${center}/${total}/${version}/${low}`,()=>[
-   this.frames(layer,timelineFrames(center,total,delta=>scenePose(index,delta,low))),
+ plane(layer:HTMLElement,index:number,center:number,total:number,exits:SceneExit[],version:string,low:boolean,light=false){
+  this.install(layer,`${center}/${total}/${version}/${low}/${light}`,()=>[
+   this.frames(layer,timelineFrames(center,total,delta=>scenePose(index,delta,low,light))),
    ...exits.map(({element,x,y,film})=>this.frames(element,timelineFrames(center,total,delta=>{
-    const spread=(Math.exp(-1.6*clamp(delta))-1)/(Math.exp(1.44)-1);
+    const spread=(Math.exp(-1.6*clamp(delta))-1)/(Math.exp(1.44)-1)*(light?.22:1);
     return film?{transform:`translate3d(${spread*x}px,${spread*y}px,0)`}:{translate:`${spread*x}px ${spread*y}px`};
    }))),
   ]);

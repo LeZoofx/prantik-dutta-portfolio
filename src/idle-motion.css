@@ -1,3 +1,4 @@
+@media (min-width:700px) and (pointer:fine),(min-width:700px) and (pointer:none),(min-width:1025px){
 /* Restore the visual languages with word/line motion rather than one GPU
    animation per glyph. Only visible scenes move; scrolling and hidden tabs pause them. */
 @media(prefers-reduced-motion:no-preference){
@@ -87,3 +88,5 @@
  .home-floaters .floating-art{scale:.5}
 }
 @media(prefers-reduced-motion:reduce){.autoplay-toggle{transition:none}.depth-next-category>i{animation:none}.depth-discovery .discovery-solid{animation:none}}
+
+}

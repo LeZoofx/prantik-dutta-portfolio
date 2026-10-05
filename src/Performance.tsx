@@ -2,9 +2,9 @@ import {createContext,useCallback,useContext,useEffect,useMemo,useRef,useState,t
 import {chooseQuality,MediaQueue,type Quality} from './capabilities';
 type Connection=EventTarget&{saveData?:boolean;effectiveType?:string;downlink?:number;rtt?:number};
 type Device=Navigator&{deviceMemory?:number;connection?:Connection};
-type Experience={quality:Quality;ready:boolean;mediaReady:boolean;playbackReady:boolean;maxPlayers:number;reportFrame:(ms:number)=>void};
+type Experience={autoplay:boolean;toggleAutoplay:()=>void;quality:Quality;ready:boolean;mediaReady:boolean;playbackReady:boolean;maxPlayers:number;reportFrame:(ms:number)=>void};
 const noop=()=>{};
-const Context=createContext<Experience>({quality:'balanced',ready:false,mediaReady:false,playbackReady:false,maxPlayers:0,reportFrame:noop});
+const Context=createContext<Experience>({autoplay:false,toggleAutoplay:noop,quality:'balanced',ready:false,mediaReady:false,playbackReady:false,maxPlayers:0,reportFrame:noop});
 const mediaQueue=new MediaQueue(1100);
 export function usePerformance(){return useContext(Context)}
 export function useVideoPermit(wanted:boolean,priority=0){
@@ -15,13 +15,15 @@ export function useVideoPermit(wanted:boolean,priority=0){
 export function listenMedia(query:MediaQueryList,callback:()=>void){if(query.addEventListener){query.addEventListener('change',callback);return()=>query.removeEventListener('change',callback)}query.addListener(callback);return()=>query.removeListener(callback)}
 function detect(){const n=navigator as Device;return chooseQuality({supported:!!(window.IntersectionObserver&&window.ResizeObserver&&typeof Element.prototype.animate==='function'&&window.CSS?.supports('transform-style','preserve-3d')),coarse:matchMedia('(pointer:coarse)').matches,memory:n.deviceMemory,cores:n.hardwareConcurrency,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,...n.connection&&{saveData:n.connection.saveData,effectiveType:n.connection.effectiveType,downlink:n.connection.downlink,rtt:n.connection.rtt}})}
 export function PerformanceProvider({children}:{children:ReactNode}){
+ const [autoplay,setAutoplay]=useState(false);
+ const toggleAutoplay=useCallback(()=>setAutoplay(value=>!value),[]);
  const [quality,setQuality]=useState<Quality>('balanced'),[ready,setReady]=useState(false),[mediaReady,setMediaReady]=useState(false),[playbackReady,setPlaybackReady]=useState(false);
  const tier=useRef(quality);tier.current=quality;const ceiling=useRef<Quality>('full'),tally=useRef({count:0,slow:0,badWindows:0});
  const reportFrame=useCallback((ms:number)=>{
   if(document.hidden||ms<4||ms>250)return;const b=tally.current;b.count++;if(ms>34)b.slow++;
   if(b.count>=45){b.badWindows=b.slow/b.count>.28?b.badWindows+1:0;if(b.badWindows>=2){const next=tier.current==='full'?'balanced':'simple';ceiling.current=next;setQuality(next);b.badWindows=0}b.count=b.slow=0}
  },[]);
- const capacity=quality==='simple'?0:quality==='full'?2:1;
+ const capacity=quality==='simple'?1:2;
  const policy=useRef({capacity,ready});policy.current={capacity,ready};
  const refresh=useRef(()=>{});
  useEffect(()=>{
@@ -75,6 +77,6 @@ export function PerformanceProvider({children}:{children:ReactNode}){
  },[]);
  useEffect(()=>{document.documentElement.dataset.quality=quality;refresh.current()},[quality,ready]);
  const maxPlayers=mediaReady?capacity:0;
- const value=useMemo(()=>({quality,ready,mediaReady,playbackReady,maxPlayers,reportFrame}),[quality,ready,mediaReady,playbackReady,maxPlayers,reportFrame]);
+ const value=useMemo(()=>({autoplay,toggleAutoplay,quality,ready,mediaReady,playbackReady,maxPlayers,reportFrame}),[autoplay,toggleAutoplay,quality,ready,mediaReady,playbackReady,maxPlayers,reportFrame]);
  return <Context.Provider value={value}>{children}</Context.Provider>;
 }

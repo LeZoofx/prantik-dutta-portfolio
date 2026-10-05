@@ -72,7 +72,6 @@
  .home-intro .showcase-deck.is-shuffling .deck-front{opacity:.12;transform:translate3d(8px,0,0) rotate(1.5deg)!important}
  .home-intro .showcase-deck .deck-front img{animation:mobile-photo .45s both!important}
  .portfolio-scroll.is-simple .portfolio-cluster .scene-accents{display:block!important;opacity:.17;filter:none;overflow:hidden}
- .portfolio-scroll.is-simple .portfolio-cluster .scene-accents *{animation:none!important}
  .is-simple .portfolio-cluster::after{content:'✳';position:absolute;right:18px;top:17px;color:var(--accent);opacity:.4;font:42px Georgia,serif;pointer-events:none}
  .is-simple .portfolio-cluster[data-art=pixel]::after{content:'▦';font-family:Mono,monospace}
  .is-simple .portfolio-cluster[data-art=retro]::after{content:'_ □';font:14px Mono,monospace}

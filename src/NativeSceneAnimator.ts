@@ -18,7 +18,7 @@ export function scenePose(index:number,delta:number,low:boolean,light=false){
 }
 export function timelineFrames(center:number,total:number,pose:(delta:number)=>Keyframe){
  const span=total*3-1;
- const deltas=[...new Set([0,...Array.from({length:41},(_,i)=>1.6-i*.07)])].sort((a,b)=>b-a);
+ const deltas=[...new Set([0,...Array.from({length:81},(_,i)=>Number((1.6-i*.04).toFixed(2)))])].sort((a,b)=>b-a);
  return [{...pose(center),offset:0},...deltas.map(delta=>({...pose(delta),offset:(center-delta)/span})).filter(frame=>frame.offset>0&&frame.offset<1),{...pose(center-span),offset:1}];
 }
 export class NativeSceneAnimator {

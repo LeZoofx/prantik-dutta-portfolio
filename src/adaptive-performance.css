@@ -36,7 +36,7 @@ html:not(.ui-ready) .client-track,html:not(.ui-ready) .results-track,html:not(.u
 /* Automatic low-cost rendering keeps the same Explore experience. */
 html[data-quality=simple] .copy-word,html[data-quality=simple] .type-glyph,html.compat-view .copy-word,html.compat-view .type-glyph{animation:none!important;transform:none!important;filter:none!important;opacity:1!important}
 html[data-quality=simple] .home-floaters,html[data-quality=simple] .scene-accents,html[data-quality=simple] .deck-under,html[data-quality=simple] .opening-contact-strip,html[data-quality=simple] .mobile-discovery,html[data-quality=simple] .glyph-echo{display:none!important}
-html[data-quality=simple] .portfolio-cluster *,html[data-quality=simple] .showcase-deck *,html.compat-view .portfolio-cluster *{animation:none!important;backdrop-filter:none!important}
+html[data-quality=simple] .portfolio-cluster *,html[data-quality=simple] .showcase-deck *,html.compat-view .portfolio-cluster *{backdrop-filter:none!important}
 [data-light=true] .portfolio-cluster[data-art] .cluster-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:28px;perspective:none}
 [data-light=true] .portfolio-cluster[data-art] .portfolio-card:nth-child(n){grid-column:auto;grid-row:auto;transform:none;translate:none;rotate:none;margin:0;padding:0;filter:none;border:0;width:100%;transition:none}
 [data-light=true] .portfolio-cluster[data-art] .portfolio-media{backdrop-filter:none;box-shadow:none;margin:0;width:100%;max-width:100%}
@@ -59,7 +59,7 @@ html.compat-view .home-floaters,html.compat-view .mode-switch,html.compat-view .
 .depth-journey .zoom-world .depth-film-body{filter:blur(var(--card-blur)) brightness(var(--frame-light));backface-visibility:hidden}
 .depth-journey .depth-film-float{animation:frame-drift 7s ease-in-out infinite;animation-delay:calc(var(--tile)*-1.1s)}
 @keyframes frame-drift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-7px,0)}}
-.depth-journey .zoom-world[inert] .scene-accents *,.depth-journey .zoom-world[inert] .depth-film-float,html.is-scrolling .depth-film-float,.depth-journey[data-playing=false] .depth-film-float{animation-play-state:paused!important}
+.depth-journey .zoom-world[inert] .scene-accents *,.depth-journey .zoom-world[inert] .depth-film-float,html.is-scrolling .depth-film-float,.depth-journey[data-paused=true] .depth-film-float{animation-play-state:paused!important}
 /* Transform the lettering as a group while scrolling, not hundreds of individual glyph layers. */
 .depth-journey .zoom-world[data-art] .glyph-front{transform:none;transition:none}
 .depth-journey .depth-topbar,.depth-journey .depth-navigation>div,.depth-journey .depth-bottom .client-marquee,.depth-journey .depth-bottom .results-ribbon{backdrop-filter:none;background-color:#101b24ef}

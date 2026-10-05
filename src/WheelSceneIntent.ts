@@ -6,6 +6,7 @@ export class WheelSceneIntent {
  private origin=0;private direction=0;private committed=false;private requested=false;
  private distance=0;private peak=0;private samples=0;private projection=0;
  private lastTime=-Infinity;private lastDelta=0;private envelope=0;private tail=false;private falls=0;private rises=0;private renewal=0;
+ private candidate=false;private steady=0;
  consume(state:WheelEventState,target:number):boolean{
   if(state.isEnding){if(this.committed)this.tail=true;return false}
   const delta=state.axisDelta[1],direction=Math.sign(delta),magnitude=Math.abs(delta);
@@ -20,28 +21,31 @@ export class WheelSceneIntent {
   // Fresh deliberate impulses or several rising samples reopen the gesture.
   const fresh=!this.direction||reversal||gap>420||
    (state.isStart&&!weak)||
-   (this.committed&&this.samples===1&&gap>=100&&magnitude>=60)||
+   (this.committed&&this.samples===1&&gap>=100&&magnitude>=8)||
    (this.committed&&this.tail&&magnitude>=Math.max(24,this.lastDelta*2.5)&&!weak);
   if(this.committed&&!fresh&&this.tail){
-   if(magnitude>=this.lastDelta+1){this.rises++;this.renewal+=magnitude}else{this.rises=0;this.renewal=0}
+   if(state.isStart&&gap>=90){this.candidate=true;this.steady=1;this.renewal=magnitude}
+   else if(this.candidate){if(magnitude>=this.lastDelta*.9){this.steady++;this.renewal+=magnitude}else{this.candidate=false;this.steady=0;this.renewal=0}}
+   else if(magnitude>=this.lastDelta+1){this.rises++;this.renewal+=magnitude}else{this.rises=0;this.renewal=0}
   }
-  const renewed=this.committed&&this.tail&&this.rises>=3&&this.renewal>=24;
+  const renewed=this.committed&&this.tail&&(this.rises>=3&&this.renewal>=24||this.candidate&&this.steady>=2&&this.renewal>=8);
   if(fresh||renewed){
+   const accumulated=renewed?this.renewal-magnitude:0;
    this.origin=target;this.direction=direction;this.committed=this.requested=false;
    this.distance=this.peak=this.samples=this.projection=this.envelope=0;
-   this.tail=false;this.falls=this.rises=this.renewal=0;
+   this.distance=accumulated;this.tail=this.candidate=false;this.falls=this.rises=this.renewal=this.steady=0;
   }
   this.lastTime=state.event.timeStamp;this.lastDelta=magnitude;this.envelope=Math.max(this.envelope,magnitude);
   if(this.committed||state.isMomentum&&!fresh&&!renewed)return false;
   this.distance+=magnitude;this.peak=Math.max(this.peak,Math.abs(state.axisVelocity[1]));this.samples++;
   this.projection=Math.max(this.projection,Math.abs(state.axisMovementProjection[1]));
-  if(this.requested||this.distance<8)return false;
+  if(this.requested||this.distance<4)return false;
   this.requested=true;return true;
  }
  decide(height:number):number|null{
   if(!this.requested||this.committed)return null;
   this.committed=true;
-  const fast=this.samples>=3&&this.peak>=Math.max(10,height*.016)&&this.distance>=height*.2;
+  const fast=this.samples>=3&&this.peak>=10&&this.distance>=height*.2;
   const pages=fast?Math.min(3,Math.max(2,Math.round(this.projection/height))):1;
   return this.origin+this.direction*pages;
  }

@@ -1,0 +1,89 @@
+/* Restore the visual languages with word/line motion rather than one GPU
+   animation per glyph. Only visible scenes move; scrolling and hidden tabs pause them. */
+@media(prefers-reduced-motion:no-preference){
+ html .copy-word,html [data-art] .type-glyph{animation:none!important;transform:none!important;opacity:1!important;clip-path:none!important}
+ .kinetic-copy{display:inline-block;max-width:100%;animation:var(--copy-motion,type-liquid) 8s cubic-bezier(.2,.8,.2,1) infinite!important;animation-play-state:paused!important;transform-origin:0 60%}
+ .kinetic-type .type-word{animation:var(--copy-motion,type-liquid) 9s cubic-bezier(.2,.8,.2,1) infinite!important;animation-play-state:paused!important}
+ .type-in-view.kinetic-copy,.type-in-view .kinetic-copy,.type-in-view.kinetic-type .type-word,.zoom-world[data-active=true] .kinetic-copy,.zoom-world[data-active=true] .type-word{animation-play-state:running!important}
+ .results-ribbon .kinetic-copy{animation:none!important;display:inline}
+ .zoom-world[inert] .kinetic-copy,.zoom-world[inert] .type-word,.portfolio-cluster:not(.is-current) .kinetic-copy,.portfolio-cluster:not(.is-current) .type-word{animation-play-state:paused!important}
+ html[data-quality=simple] .scene-accents,html[data-quality=simple] .home-floaters,html[data-quality=simple] .mobile-discovery{display:block!important}
+ html[data-quality=simple] .mobile-discovery{display:flex!important}
+ .depth-film-float{animation:frame-drift 7s ease-in-out infinite!important;animation-delay:calc(var(--tile)*-1.1s)!important}
+ .floating-art{animation:object-drift 7s ease-in-out infinite!important}
+ html[data-quality=simple] .float-solid i{backdrop-filter:none}
+ .liquid-lens{animation:liquid-orbit 14s ease-in-out infinite!important;backdrop-filter:none}
+ .aero-orb{animation:aero-float 11s ease-in-out infinite!important}
+ .cyber-emblem{animation:sigil-breathe 15s ease-in-out infinite!important}
+ .match-emblem{animation:emblem-turn 24s linear infinite!important}
+ .noir-blinds{animation:noir-pass 20s ease-in-out infinite!important}
+ .depth-discovery .discovery-solid{animation:idle-prism 12s ease-in-out infinite}
+ .depth-discovery:hover .discovery-solid{animation-play-state:paused}
+ .frame-expand-cue .expand-corners{animation:expand-invite 4s ease-in-out infinite}
+ .depth-film:not(.slot-0) .frame-expand-cue{animation:cue-glow 5s ease-in-out infinite}
+ .site-header nav a,.mode-switch button,.depth-topbar nav button,.portfolio-controls nav button,.depth-navigation>div>span,.portfolio-end button,.footer>span{animation:type-terminal 11s steps(3,end) infinite!important;animation-delay:1.5s}
+ .portfolio-cluster.is-current .portfolio-media{animation:poster-hover 9s ease-in-out infinite!important}
+ html.is-scrolling .portfolio-media,html.is-scrolling .depth-topbar nav button{animation-play-state:paused!important}
+ html.is-scrolling .kinetic-copy,html.is-scrolling .type-word,html.is-scrolling .scene-accents *,html.is-scrolling .depth-film-float,html.is-scrolling .discovery-solid,html.is-scrolling .frame-expand-cue,html.is-scrolling .expand-corners,html.page-hidden *,.depth-journey[data-paused=true] .depth-film-float,.depth-journey[data-moving=true] .kinetic-copy,.depth-journey[data-moving=true] .type-word{animation-play-state:paused!important}
+ .zoom-world[inert] .scene-accents *,.zoom-world[inert] .discovery-solid,.zoom-world[inert] .depth-film-float,.zoom-world[inert] .frame-expand-cue,.zoom-world[inert] .expand-corners{animation-play-state:paused!important}
+}
+@keyframes idle-prism{0%,100%{transform:rotateX(-20deg) rotateY(30deg)}50%{transform:rotateX(6deg) rotateY(70deg)}}
+@keyframes poster-hover{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+/* Registration/shutter movements retain complete letterforms and never animate layout. */
+@keyframes type-baroque{0%,14%,100%{transform:none}5%{transform:translateY(-3px) rotate(-2deg)}}
+@keyframes type-shutter{0%,15%,100%{transform:none}4%{transform:translateY(-2px) scaleY(.98)}9%{transform:translateY(1px)}}
+@keyframes type-scan{0%,15%,100%{transform:none}4%{transform:scaleY(1.08) skewX(-3deg)}8%{transform:scaleY(.98)}}
+
+/* Large, quiet navigation: fine rules, light type, no oversized pill backgrounds. */
+.depth-journey .depth-topbar nav{gap:clamp(6px,1.1vw,18px)}
+.depth-journey .depth-topbar nav button,.portfolio-controls nav button{font:400 clamp(21px,1.7vw,26px)/1.15 Arial,sans-serif;letter-spacing:-.035em;min-height:48px;padding:6px 8px;border:0;border-radius:0;background:none;color:#a9bdc8;transition:color .2s,background .2s;position:relative}
+.depth-journey .depth-topbar nav button[aria-current],.portfolio-controls nav button[aria-current]{background:none;color:#eef6f5;box-shadow:inset 0 -1px #ccdee4}
+.depth-journey .depth-topbar nav button:hover,.portfolio-controls nav button:hover{color:#fff;letter-spacing:-.035em}
+.depth-journey .depth-topbar{background:linear-gradient(120deg,#111c26ef,#152630f5);padding-block:10px;border-color:#b8d2de22}
+.depth-journey .depth-toolbar{top:78px;gap:18px;align-items:center}
+.depth-toolbar .autoplay-toggle{pointer-events:auto;margin-inline:auto}
+.autoplay-toggle{display:inline-flex;align-items:center;justify-content:center;gap:13px;min-height:48px;padding:9px 24px;border:1px solid #d5e5e976;border-radius:28px;background:linear-gradient(135deg,#e6eeed,#b8cfda);color:#172932;font:400 18px/1.2 Arial,sans-serif;letter-spacing:-.025em;white-space:nowrap;box-shadow:0 5px 18px #0002;transition:transform .2s,background .2s}
+.autoplay-toggle:hover{transform:translateY(-2px)}
+.autoplay-toggle[aria-pressed=true]{background:#172a34;color:#e0eeef;border-color:#a9c7d758;box-shadow:none}
+.autoplay-icon{display:grid;place-items:center;width:26px;height:26px;border:1px solid currentColor;border-radius:50%;font-size:10px;flex-shrink:0}
+.depth-navigation .depth-next-category{min-height:48px;padding:8px 21px;gap:14px;border-radius:5px;border-color:#c5dce34a;background:linear-gradient(135deg,#162934ef,#101c26ef)}
+.depth-next-category>span{font-size:10px;letter-spacing:.08em}
+.depth-next-category>strong{font:400 22px/1.1 Arial,sans-serif;letter-spacing:-.035em}
+.depth-next-category>i{font-size:24px}
+.depth-journey .depth-navigation{align-items:center}
+.depth-journey .zoom-world{top:140px;--panel-h:calc(100svh - var(--header-h,84px) - 319px)}
+.depth-journey .depth-atmosphere,.depth-journey .depth-horizon,.depth-journey .lowpoly-pillar i{transition:background-color .65s,opacity .65s}
+.portfolio-controls .autoplay-toggle{min-height:44px;font-size:16px;padding-inline:18px}
+@media(max-width:1000px) and (min-width:700px){
+ .depth-journey .depth-topbar nav{gap:3px}
+ .depth-journey .depth-topbar nav button{font-size:20px;padding-inline:7px}
+ .depth-toolbar .autoplay-toggle{font-size:16px;padding-inline:17px}
+ .depth-next-category>strong{font-size:19px}
+}
+@media(max-width:699px),(max-width:1024px) and (pointer:coarse){
+ .depth-journey .depth-topbar{padding-block:6px}
+ .depth-journey .depth-topbar nav{gap:8px}
+ .depth-journey .depth-topbar nav button,.portfolio-controls nav button{font-size:18px;min-height:44px;padding:6px 4px}
+ .depth-journey .depth-toolbar{top:65px;gap:5px}
+ .depth-toolbar .portfolio-tools{gap:4px}
+ .depth-toolbar .brand-sort{max-width:72px;padding-inline:6px;font-size:8px;min-height:36px}
+ .depth-toolbar .autoplay-toggle{min-height:42px;padding:7px 10px;gap:7px;font-size:14px;margin-inline:auto}
+ .depth-toolbar .autoplay-icon{width:20px;height:20px;font-size:8px}
+ .depth-toolbar .depth-shuffle{max-width:26px;padding:0;gap:0;flex-shrink:0}
+ .depth-toolbar .depth-shuffle img{width:26px;height:25px;object-fit:cover}
+ .depth-toolbar .depth-shuffle i,.depth-toolbar .depth-shuffle span{display:none}
+ .depth-journey .zoom-world{top:115px;--panel-h:calc(100svh - var(--header-h) - 292px)}
+ .depth-journey .depth-navigation{display:grid;grid-template-columns:auto 1fr;gap:5px}
+ .depth-navigation .depth-next-category{display:flex;justify-self:end;min-height:36px;padding:5px 10px;gap:8px}
+ .depth-next-category>span{display:none}
+ .depth-next-category>strong{font-size:16px}
+ .depth-next-category>i{font-size:18px}
+ .depth-navigation>div:last-child{grid-column:1/-1;justify-self:center}
+ .depth-journey .depth-bottom{bottom:5px}
+ .depth-journey .zoom-world{bottom:191px}
+ .portfolio-controls .autoplay-toggle{font-size:15px;min-height:42px}
+ .scene-accents{opacity:.3}
+ .home-floaters{display:block!important}
+ .home-floaters .floating-art{scale:.5}
+}
+@media(prefers-reduced-motion:reduce){.autoplay-toggle{transition:none}.depth-next-category>i{animation:none}.depth-discovery .discovery-solid{animation:none}}

@@ -1,5 +1,18 @@
 # Desktop startup and scrolling
 
+## Current motion and playback policy — 5 October 2026
+
+- Videos are off on every fresh load. The shared **Play the videos** button opts in across Explore and Overview; turning it off releases preview players.
+- The active scene uses at most two player permits on capable hardware, and one on the automatic lightweight tier. Balanced devices play the focused film and cue the next YouTube preview; full devices may play both. Incoming poster facades remain in place until playback starts. Outgoing players survive the frame rotation, so an already loaded next video becomes the focus.
+- Frame rotation runs with posters before playback is requested. During playback the focused frame holds for 60 visible seconds, starting when the preview is ready. Scrolling, pointer interaction and hidden tabs suspend the clock. Rotation changes the focused frame within the current scene; it never synthesizes a page scroll. Instagram retains the provider's native embed rather than pretending a screenshot is a playing video. External provider autoplay restrictions cannot be overridden by this site.
+- Idle typography uses the existing style-specific motion on word groups instead of separate animated layers for every character. Ornaments, floating frames, discovery objects, client rows, statistics and shuffle motion remain available on the lightweight tier. Offscreen scenes and hidden tabs pause their motion; operating-system reduced-motion preferences are respected.
+- Desktop page motion now has one position owner: a small frame-scheduled Hermite transition. A new deliberate gesture preserves the current speed instead of restarting a browser smooth-scroll curve. Existing ScrollTimeline camera, dispersal and whole-plane focus effects follow that position. Scene keyframes use finer sampling, and React category/buffer changes occur at rest.
+- Gesture recognition accepts steady gentle input after a momentum tail, plus isolated smaller mouse-wheel impulses. A late decaying tail still cannot request another page. The final scroll event produced by the controller cannot reopen an already settled transition.
+
+Primary references: [CSSOM View scroll behaviour](https://drafts.csswg.org/cssom-view/#perform-a-scroll), [Google's animation performance guide](https://web.dev/articles/animations-guide), [YouTube iframe playback API](https://developers.google.com/youtube/iframe_api_reference).
+
+The historical notes below describe earlier implementations. The current policy above supersedes their native smooth-scroll and one-shot typography decisions.
+
 The artwork, mobile swipe interaction, categories and content remain intact.
 
 ## What was making startup and tab return worse

@@ -20,7 +20,7 @@ export function buildSections(projects:Project[],sort:WorkSort='curated',brand='
  const filtered=projects.filter(p=>matchesBrand(p,brand)),sections:PortfolioSection[]=[];
  for(const group of portfolioCategories){
   let source=group.id==='selected'?showcase.slice(0,6).map(item=>filtered.find(p=>p.id===item.id)).filter((p):p is Project=>!!p):filtered.filter(p=>p.category===group.id);
-  if(group.id==='short-form')source=[...source].sort((a,b)=>{const rank=(p:Project)=>p.provider==='youtube'?0:p.id.startsWith('social-short-format')?1:2;return rank(a)-rank(b)});
+  if(group.id==='short-form')source=[...source].sort((a,b)=>{const rank=(p:Project)=>p.id==='social-short-format-02'?-1:p.provider==='youtube'?0:p.id.startsWith('social-short-format')?1:2;return rank(a)-rank(b)});
   const list=sortProjects(source,sort),context=contextFor(group.id);
   for(let start=0;start<list.length;start+=size)sections.push({id:group.id+'-'+start,category:group.id,title:context.title,summary:context.summary,focus:context.focus,items:list.slice(start,start+size),theme:group.id==='brands'?[2,1,2,5,2][Math.floor(start/size)%5]:group.id==='short-form'?[3,4,3,2,3,4][Math.floor(start/size)%6]:group.id==='youtube'?[5,0,5,1,5][Math.floor(start/size)%5]:group.theme,layout:(sections.length+group.theme)%6,offset:start,art:artSequence[group.id][Math.floor(start/size)%artSequence[group.id].length]});
  }

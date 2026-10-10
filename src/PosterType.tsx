@@ -1,6 +1,6 @@
 import type {CSSProperties} from 'react';
 import type {ArtStyle} from './artStyles';
-const emphasis=/^(hook|hooks|retention|reach|editing|motion|vfx|ai|audience|pacing|performance|identity|quality|results|watch|watching|305%|5\.2m|post-production)[.,:;!?]?$/i;
+const emphasis=/^(research|strategy|positioning|briefs|production|direction|shooting|shoot|teams|scripts|packaging|formats|hook|hooks|retention|reach|editing|graphics|motion|vfx|ai|audience|pacing|performance|identity|quality|results|watch|watching|305%|5\.2m|post-production)[.,:;!?]?$/i;
 export function KineticCopy({text,className='',art}:{text:string;className?:string;art?:ArtStyle}){
  return <span className={'kinetic-copy '+className} data-art={art} aria-label={text}>{text.split(/\s+/).map((word,i)=><span aria-hidden="true" className={'copy-word'+(emphasis.test(word)?' copy-emphasis':'')} key={i} style={{'--word':i%16} as CSSProperties}>{word}{' '}</span>)}</span>;
 }

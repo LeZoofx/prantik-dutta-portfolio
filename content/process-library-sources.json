@@ -1,0 +1,449 @@
+{
+  "claim-ledger": {
+    "title": "Claim & source ledger",
+    "document": "Win_Theory/WT_Show_Direction_Production_Final.pdf",
+    "pages": [
+      8
+    ],
+    "visuals": []
+  },
+  "research-viewpoint": {
+    "title": "Research & viewpoint",
+    "document": "Aarti_Sorted/AR04_Aarti_Creator_Strategy_Production_Final.pdf",
+    "pages": [
+      6,
+      22
+    ],
+    "visuals": []
+  },
+  "oil-research": {
+    "title": "Product verification",
+    "document": "Product_Report/PR02_Cooking_oil_episode_treatment_Production_Final.pdf",
+    "pages": [
+      3,
+      9,
+      18
+    ],
+    "visuals": []
+  },
+  "creator-promise": {
+    "title": "Personal-brand promise",
+    "document": "Aarti_Sorted/AR04_Aarti_Creator_Strategy_Production_Final.pdf",
+    "pages": [
+      2,
+      4,
+      5
+    ],
+    "visuals": []
+  },
+  "creator-identity": {
+    "title": "Voice & visual identity",
+    "document": "Aarti_Sorted/AR05_Aarti_Identity_Caption_and_Edit_Delivery.pdf",
+    "pages": [
+      2,
+      3,
+      7
+    ],
+    "visuals": [
+      {
+        "source": "Aarti_Sorted/Assets/AR_Caption_Square_Master.svg",
+        "caption": "Original Aarti square-caption master"
+      }
+    ]
+  },
+  "creator-format": {
+    "title": "Culture & creator formats",
+    "document": "Aarti_Sorted/AR04_Aarti_Creator_Strategy_Production_Final.pdf",
+    "pages": [
+      10,
+      13,
+      14,
+      17,
+      18
+    ],
+    "visuals": []
+  },
+  "consultancy-strategy": {
+    "title": "Consultancy positioning",
+    "document": "Aarti_Sorted/SO02_Sorted_Consultancy_Strategy_Production_Final.pdf",
+    "pages": [
+      2,
+      4,
+      6
+    ],
+    "visuals": []
+  },
+  "everyday-strategy": {
+    "title": "Everyday audience & content roles",
+    "document": "TruNativ/Brand_Strategy_and_Packaging/ES01_Everyday_Social_Strategy.pdf",
+    "pages": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "visuals": []
+  },
+  "collagen-strategy": {
+    "title": "Premium product strategy",
+    "document": "TruNativ/Brand_Strategy_and_Packaging/CS01_Collagen_Social_Strategy.pdf",
+    "pages": [
+      2,
+      3,
+      4
+    ],
+    "visuals": []
+  },
+  "operating-plan": {
+    "title": "Research & operating plan",
+    "document": "TruNativ/Brand_Strategy_and_Packaging/OP01_Research_and_Operating_Plan.pdf",
+    "pages": [
+      1,
+      2,
+      6
+    ],
+    "visuals": []
+  },
+  "sorted-playbook": {
+    "title": "Consultancy content playbook",
+    "document": "Aarti_Sorted/SO03_Sorted_Consultancy_Content_Playbook.pdf",
+    "pages": [
+      2,
+      3,
+      5
+    ],
+    "visuals": []
+  },
+  "buzzfeed-playbook": {
+    "title": "Four channel playbooks",
+    "document": "BuzzFeed/BF00_Editorial_Programme_Strategy.pdf",
+    "pages": [
+      3,
+      4,
+      6,
+      7
+    ],
+    "visuals": []
+  },
+  "hizzouse-bible": {
+    "title": "Recurring editorial bible",
+    "document": "Hizzouse/Documents/HZ04_Editorial_Recurring_Graphics_Bible.pdf",
+    "pages": [
+      2,
+      3,
+      4
+    ],
+    "visuals": []
+  },
+  "show-packaging": {
+    "title": "Titles & episode packaging",
+    "document": "Hizzouse/Documents/HZ01_Strategy_Identity_Designer_Delivery.pdf",
+    "pages": [
+      8,
+      9,
+      10,
+      18
+    ],
+    "visuals": []
+  },
+  "carton-handoff": {
+    "title": "Carton structure & artwork",
+    "document": "TruNativ/Brand_Strategy_and_Packaging/PK-SW_Sweet_Packaging_Handoff.pdf",
+    "pages": [
+      2,
+      3,
+      4
+    ],
+    "visuals": [
+      {
+        "source": "TruNativ/Brand_Strategy_and_Packaging/Assets/Carton_Panel_Allocation.svg",
+        "caption": "Original parametric carton-panel allocation"
+      }
+    ]
+  },
+  "collagen-packaging": {
+    "title": "Four-SKU label system",
+    "document": "TruNativ/Marine_Collagen_Packaging/CP01_Marine_Collagen_Packaging_Development.pdf",
+    "pages": [
+      2,
+      4,
+      6,
+      8
+    ],
+    "visuals": []
+  },
+  "identity-handoff": {
+    "title": "Identity & designer handoff",
+    "document": "TruNativ/Brand_Strategy_and_Packaging/ID01_Brand_Identity_Caption_and_Cover_Designer_Handoff.pdf",
+    "pages": [
+      2,
+      3,
+      6
+    ],
+    "visuals": []
+  },
+  "zoho-board": {
+    "title": "Zoho screenplay & boards",
+    "document": "Aarti_Sorted/ZO03_Zoho_One_Screenplay_and_Shot_Instructions.pdf",
+    "pages": [
+      2,
+      3,
+      15
+    ],
+    "visuals": []
+  },
+  "alanna-board": {
+    "title": "Alanna script & boards",
+    "document": "TruNativ/Alanna_Creator_Film/AL02_Alanna_Collagen_Script_and_Storyboard.pdf",
+    "pages": [
+      3,
+      7,
+      8
+    ],
+    "visuals": [
+      {
+        "source": "TruNativ/Campaign_Artwork/AL_Planning_01_04_Working.png",
+        "caption": "Alanna creator film · planning beats 01–04"
+      },
+      {
+        "source": "TruNativ/Campaign_Artwork/AL_Planning_05_08.png",
+        "caption": "Alanna creator film · planning beats 05–08"
+      }
+    ]
+  },
+  "sweet-board": {
+    "title": "Everyday Sweet storyboards",
+    "document": "TruNativ/Everyday_Sweet_Film/SW02_Everyday_Sweet_Director_and_Crew_Brief.pdf",
+    "pages": [
+      4,
+      7,
+      8
+    ],
+    "visuals": [
+      {
+        "source": "TruNativ/Everyday_Sweet_Film/Assets/Sweet_Planning_Board_A.png",
+        "caption": "Everyday Sweet · opening and routine storyboard"
+      },
+      {
+        "source": "TruNativ/Everyday_Sweet_Film/Assets/Sweet_Planning_Board_B.png",
+        "caption": "Everyday Sweet · product and close storyboard"
+      }
+    ]
+  },
+  "collagen-board": {
+    "title": "Collagen launch storyboards",
+    "document": "TruNativ/Marine_Collagen_Launch/MC02_Marine_Collagen_Screen_Text_and_Storyboard.pdf",
+    "pages": [
+      2,
+      12
+    ],
+    "visuals": [
+      {
+        "source": "TruNativ/Campaign_Artwork/MC_Planning_01_04.png",
+        "caption": "Marine Collagen · opening to jar"
+      },
+      {
+        "source": "TruNativ/Campaign_Artwork/MC_Planning_05_08.png",
+        "caption": "Marine Collagen · formula and range"
+      },
+      {
+        "source": "TruNativ/Campaign_Artwork/MC_Planning_09_12.png",
+        "caption": "Marine Collagen · objections and close"
+      }
+    ]
+  },
+  "oil-board": {
+    "title": "Cooking-oil setup drawings",
+    "document": "Product_Report/PR02_Cooking_oil_episode_treatment_Production_Final.pdf",
+    "pages": [
+      6,
+      8
+    ],
+    "visuals": [
+      {
+        "source": "Product_Report/Assets/PR_Oil_Setup_Drawings.png",
+        "caption": "Cooking Oil · setup and demonstration drawings"
+      }
+    ]
+  },
+  "camera-sound": {
+    "title": "Set, cameras & sound",
+    "document": "Hizzouse/Documents/HZ03_Set_Camera_Audio_Plan.pdf",
+    "pages": [
+      2,
+      3,
+      4
+    ],
+    "visuals": []
+  },
+  "sweet-shoot": {
+    "title": "Coverage, light & continuity",
+    "document": "TruNativ/Everyday_Sweet_Film/SW02_Everyday_Sweet_Director_and_Crew_Brief.pdf",
+    "pages": [
+      11,
+      12,
+      15
+    ],
+    "visuals": []
+  },
+  "alanna-shoot": {
+    "title": "Creator shoot & post brief",
+    "document": "TruNativ/Alanna_Creator_Film/AL03_Alanna_Collagen_Production_and_Post_Brief.pdf",
+    "pages": [
+      2,
+      3,
+      4
+    ],
+    "visuals": []
+  },
+  "oil-schedule": {
+    "title": "Research-to-shoot dependencies",
+    "document": "Product_Report/PR02_Cooking_oil_episode_treatment_Production_Final.pdf",
+    "pages": [
+      18,
+      20
+    ],
+    "visuals": []
+  },
+  "vfx-shot-brief": {
+    "title": "AI / VFX shot brief",
+    "document": "Win_Theory/WT_Photoreal_Generation_Workflow_Final.pdf",
+    "pages": [
+      5,
+      6,
+      7
+    ],
+    "visuals": []
+  },
+  "vfx-workbook": {
+    "title": "Host & figure shot sheets",
+    "document": "Win_Theory/Episode_Workbooks/WT04_7_Coolest_Guys_of_All_Time_Workbook.pdf",
+    "pages": [
+      4,
+      15
+    ],
+    "visuals": []
+  },
+  "cg-render": {
+    "title": "CG, materials & review gates",
+    "document": "TruNativ/Marine_Collagen_Launch/MC03_Marine_Collagen_Motion_and_Render_Brief.pdf",
+    "pages": [
+      2,
+      4,
+      5,
+      8
+    ],
+    "visuals": []
+  },
+  "edit-strategy": {
+    "title": "Source behaviour & edit strategy",
+    "document": "BuzzFeed/BF00_Editorial_Programme_Strategy.pdf",
+    "pages": [
+      3,
+      4,
+      7,
+      11
+    ],
+    "visuals": []
+  },
+  "conversation-edit": {
+    "title": "Multicam & conversation rules",
+    "document": "Hizzouse/Documents/HZ02_Edit_Motion_Direction.pdf",
+    "pages": [
+      3,
+      4,
+      9,
+      10
+    ],
+    "visuals": []
+  },
+  "evidence-edit": {
+    "title": "Evidence-led motion & edit",
+    "document": "Product_Report/PR03_Motion_and_Edit_Brief.pdf",
+    "pages": [
+      2,
+      9,
+      11
+    ],
+    "visuals": []
+  },
+  "graphic-system": {
+    "title": "Show identity & applications",
+    "document": "Product_Report/PR01_Show_direction_and_design_system_Production_Final.pdf",
+    "pages": [
+      4,
+      7,
+      15,
+      21
+    ],
+    "visuals": []
+  },
+  "graphic-cues": {
+    "title": "Graphic triggers & source cues",
+    "document": "Hizzouse/Documents/HZ04_Editorial_Recurring_Graphics_Bible.pdf",
+    "pages": [
+      2,
+      3,
+      4
+    ],
+    "visuals": []
+  },
+  "motion-handoff": {
+    "title": "Motion & VFX delivery",
+    "document": "Win_Theory/Design_System/WT_Designer_Motion_Handoff.pdf",
+    "pages": [
+      3,
+      7
+    ],
+    "visuals": []
+  },
+  "ai-qc": {
+    "title": "Realism & repair decisions",
+    "document": "Win_Theory/WT_Photoreal_Generation_Workflow_Final.pdf",
+    "pages": [
+      3,
+      4,
+      14,
+      15,
+      16
+    ],
+    "visuals": []
+  },
+  "cg-finishing": {
+    "title": "Motion, cutdowns & final delivery",
+    "document": "TruNativ/Marine_Collagen_Launch/MC03_Marine_Collagen_Motion_and_Render_Brief.pdf",
+    "pages": [
+      6,
+      9,
+      10
+    ],
+    "visuals": []
+  },
+  "creative-tests": {
+    "title": "Creative tests & outcome review",
+    "document": "TruNativ/Brand_Strategy_and_Packaging/OP01_Research_and_Operating_Plan.pdf",
+    "pages": [
+      6,
+      7
+    ],
+    "visuals": []
+  },
+  "format-review": {
+    "title": "Matched format comparisons",
+    "document": "Aarti_Sorted/AR04_Aarti_Creator_Strategy_Production_Final.pdf",
+    "pages": [
+      22,
+      23
+    ],
+    "visuals": []
+  },
+  "case-proof": {
+    "title": "Measurement & case proof",
+    "document": "Aarti_Sorted/SO03_Sorted_Consultancy_Content_Playbook.pdf",
+    "pages": [
+      5,
+      6
+    ],
+    "visuals": []
+  }
+}

@@ -31,7 +31,8 @@ specs = [
      'Win_Theory/Design_System/Win_Theory_Figure_Look_Development.png'),
     ('review', 'TruNativ/Brand_Strategy_and_Packaging/OP01_Research_and_Operating_Plan.pdf', 6, None),
 ]
-assets = {}
+assets_path = repo / 'content/process-assets.json'
+assets = json.loads(assets_path.read_text()) if assets_path.exists() else {}
 for slug, pdf, page, image in specs:
     doc = fitz.open(source / pdf)
     p = doc[page - 1]

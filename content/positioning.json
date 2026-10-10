@@ -1,5 +1,5 @@
 {
-  "eyebrow": "CREATIVE PRODUCER / POST-PRODUCTION SUPERVISOR",
+  "eyebrow": "CREATIVE PRODUCER / STRATEGIST / POST SUPERVISOR",
   "headline": "I research the subject. Plan the shoot. Lead the edit and the team.",
   "intro": "I set the visual direction, brief the team and stay involved through delivery. Reach, retention and how the work gets made all matter. I turn audience and brand research into positioning, campaigns, scripts and briefs.",
   "statistics": [
@@ -14,6 +14,240 @@
       "label": "Viewership growth",
       "brand": "Schbang",
       "detail": "Training the team to script and edit around audience behaviour."
+    },
+    {
+      "value": "24% → 78%",
+      "label": "30-second retention",
+      "brand": "Creator Engine",
+      "detail": "12 comparable long-form uploads over 90 days."
+    },
+    {
+      "value": "16% → 53%",
+      "label": "Average percentage viewed",
+      "brand": "Creator Engine",
+      "detail": "The same 12 comparable uploads over 90 days."
+    },
+    {
+      "value": "10 → 6 days",
+      "label": "Post-production turnaround",
+      "brand": "Creator Engine",
+      "detail": "Average turnaround with AI-assisted feedback and shot workflows."
+    },
+    {
+      "value": "4.2% → 20.4%",
+      "label": "YouTube impression CTR",
+      "brand": "Creator Engine",
+      "detail": "14 matched uploads over 90 days."
+    },
+    {
+      "value": "+62%",
+      "label": "Returning viewers",
+      "brand": "Creator Engine",
+      "detail": "Growth over 90 days."
+    },
+    {
+      "value": "+93%",
+      "label": "Organic watch time",
+      "brand": "Creator Engine",
+      "detail": "Quarterly increase at unchanged upload frequency."
+    },
+    {
+      "value": "39% → 100%",
+      "label": "AI shots accepted first review",
+      "brand": "Creator Engine",
+      "detail": "100 comparable photorealistic shot submissions."
+    },
+    {
+      "value": "−45%",
+      "label": "Paid-campaign CAC",
+      "brand": "Sorted",
+      "detail": "INR 1,200 to INR 660 over a 90-day test."
+    },
+    {
+      "value": "1.8× → 3.9×",
+      "label": "Campaign ROAS",
+      "brand": "Sorted",
+      "detail": "90-day test; INR 18 lakh spend and INR 70.2 lakh attributed revenue."
+    },
+    {
+      "value": "₹18L → ₹70.2L",
+      "label": "Spend → attributed revenue",
+      "brand": "Sorted",
+      "detail": "The same 90-day test. Attributed revenue is not profit."
+    },
+    {
+      "value": "18% → 42%",
+      "label": "Creative win rate",
+      "brand": "Sorted",
+      "detail": "50 tested concepts; winner met acquisition target after at least INR 50,000 spend."
+    },
+    {
+      "value": "5 of 8",
+      "label": "Pitches approved",
+      "brand": "Sorted",
+      "detail": "Five strategy pitches converted into approved campaigns during the quarter."
+    },
+    {
+      "value": "₹45L",
+      "label": "Production mandates",
+      "brand": "Sorted",
+      "detail": "Mandates secured from the approved strategy pitches during the quarter."
+    },
+    {
+      "value": "2.3% → 8.9%",
+      "label": "Qualified-lead conversion",
+      "brand": "Sorted",
+      "detail": "90-day campaign with aligned creative, landing-page promise and CTA."
+    },
+    {
+      "value": "1.1% → 6.4%",
+      "label": "Paid-ad link CTR",
+      "brand": "Sorted",
+      "detail": "30 matched creative tests."
+    },
+    {
+      "value": "12% → 39%",
+      "label": "Aided brand awareness",
+      "brand": "Sorted",
+      "detail": "Matched pre/post surveys of 240 target buyers each."
+    },
+    {
+      "value": "3:40 → 5:20",
+      "label": "Average view duration",
+      "brand": "BuzzFeed",
+      "detail": "45.5% increase across 20 comparable 10-minute uploads over six months."
+    },
+    {
+      "value": "−32%",
+      "label": "Post-production cost",
+      "brand": "BuzzFeed",
+      "detail": "INR 1.25 lakh to INR 85,000 per episode at equivalent scope."
+    },
+    {
+      "value": "3.8% → 6.5%",
+      "label": "YouTube impression CTR",
+      "brand": "BuzzFeed",
+      "detail": "18 comparable uploads over 90 days."
+    },
+    {
+      "value": "+48%",
+      "label": "Returning viewers",
+      "brand": "BuzzFeed",
+      "detail": "Growth over six months."
+    },
+    {
+      "value": "57% → 75%",
+      "label": "First-minute retention",
+      "brand": "BuzzFeed",
+      "detail": "Improvement after revising openings, early pacing and the review framework."
+    },
+    {
+      "value": "2.1M → 5.8M",
+      "label": "Monthly organic views",
+      "brand": "BuzzFeed",
+      "detail": "Restarted original-content programme, six months, consistent monthly upload volume."
+    },
+    {
+      "value": "−50%",
+      "label": "Paid-campaign CAC",
+      "brand": "Trunativ",
+      "detail": "INR 980 to INR 490 over 90 days."
+    },
+    {
+      "value": "1.6× → 4.8×",
+      "label": "Campaign ROAS",
+      "brand": "Trunativ",
+      "detail": "90-day test; INR 25 lakh spend and INR 1.2 crore attributed revenue."
+    },
+    {
+      "value": "₹25L → ₹1.2Cr",
+      "label": "Spend → attributed revenue",
+      "brand": "Trunativ",
+      "detail": "The same 90-day test. Attributed revenue is not profit."
+    },
+    {
+      "value": "1.8% → 3.6%",
+      "label": "Purchase conversion",
+      "brand": "Trunativ",
+      "detail": "Landing-page purchase conversion after explainer-led message tests."
+    },
+    {
+      "value": "0.9% → 2.1%",
+      "label": "Paid-ad link CTR",
+      "brand": "Trunativ",
+      "detail": "Explainer-led creative and matched landing-page messaging."
+    },
+    {
+      "value": "14% → 32%",
+      "label": "Aided brand awareness",
+      "brand": "Trunativ",
+      "detail": "Matched pre/post surveys of 250 target buyers each."
+    },
+    {
+      "value": "26% → 49%",
+      "label": "Premium-quality association",
+      "brand": "Trunativ",
+      "detail": "The same matched pre/post surveys of 250 target buyers each."
+    },
+    {
+      "value": "1.3× → 3.7×",
+      "label": "New-customer ROAS",
+      "brand": "Trunativ",
+      "detail": "Audience-specific angles and systematic hook testing over 90 days."
+    },
+    {
+      "value": "₹840 → ₹420",
+      "label": "New-customer acquisition cost",
+      "brand": "Trunativ",
+      "detail": "The same 90-day audience and hook-testing window."
+    },
+    {
+      "value": "+124%",
+      "label": "Branded-search impressions",
+      "brand": "Trunativ",
+      "detail": "50,000 to 112,000 monthly impressions over a quarter."
+    },
+    {
+      "value": "20% → 45%",
+      "label": "Creative win rate",
+      "brand": "Trunativ",
+      "detail": "8 of 40 to 18 of 40 concepts in consecutive cycles; INR 50,000 minimum spend per winner."
+    },
+    {
+      "value": "4.5% → 9.2%",
+      "label": "Product-page add-to-cart rate",
+      "brand": "Trunativ",
+      "detail": "Purchase-objection scripts, demonstrations, proof points and aligned landing-page copy."
+    },
+    {
+      "value": "24% → 41%",
+      "label": "Three-second view rate",
+      "brand": "Schbang",
+      "detail": "40 matched paid-video creative tests over six months."
+    },
+    {
+      "value": "0.8% → 1.7%",
+      "label": "Paid-video link CTR",
+      "brand": "Schbang",
+      "detail": "The same 40 matched tests over six months."
+    },
+    {
+      "value": "58% → 88%",
+      "label": "First-review approval",
+      "brand": "Schbang",
+      "detail": "Standardised briefs and creative reviews."
+    },
+    {
+      "value": "4 → 2",
+      "label": "Average revision rounds",
+      "brand": "Schbang",
+      "detail": "The same briefing and creative review improvement."
+    },
+    {
+      "value": "₹28L",
+      "label": "Post-production budget saved",
+      "brand": "OML",
+      "detail": "Savings against INR 1.4 crore approved budget across eight campaigns through resource allocation and asset reuse."
     },
     {
       "value": "+207,900%",
@@ -64,43 +298,58 @@
     "selected": {
       "title": "Highlights",
       "summary": "Creative direction, shooting, editing, AI, VFX and team management across film, campaigns and digital content. Project roles are shown where documented. Brand positioning, creative strategy, research and production briefs connect the work from the first idea to delivery.",
-      "focus": "Direction · Shooting · Editing · AI · VFX · Teams"
+      "focus": "Research · Strategy · Production · Post"
     },
     "trailers": {
       "title": "Film",
       "summary": "Trailer and teaser campaigns shaped around story, tension and reveal. Editorial structure, visual treatment and sound work together to earn the next moment. Audience positioning and release strategy guide what each trailer promises and when it reveals it.",
-      "focus": "Trailers · Teasers · Sound & picture"
+      "focus": "Audience · Release strategy · Trailers"
     },
     "brands": {
       "title": "Campaigns",
       "summary": "From a brand’s visual identity to the final cut: campaign direction, editing, motion design and 3D, adapted to the platform and the audience. Positioning, customer objections, creative testing, CAC and ROAS inform the next campaign brief.",
-      "focus": "Brand identity · Campaign post · 3D"
+      "focus": "Positioning · Campaign strategy · Production"
     },
     "short-form": {
       "title": "Short form",
       "summary": "Immediate hooks, controlled pacing and distinctive images. AI-generated shots, compositing and lip-sync extend the ideas that can be made on a short-form schedule. Audience insight, hook writing and format tests shape the brief before the cut.",
-      "focus": "Reels · AI visuals · Compositing"
+      "focus": "Audience · Scripts · Reels · AI"
     },
     "youtube": {
       "title": "YouTube",
       "summary": "Editorial structure that carries a viewer from the opening hook to the payoff. Long-form entertainment, interviews and food content, with pacing and visual identity built for the channel. Topic research, titles, thumbnails and recurring formats connect the channel strategy to the edit.",
-      "focus": "Reach · Retention · Editorial structure"
+      "focus": "Research · Packaging · Production · Retention"
     },
     "events": {
       "title": "Live & comedy",
       "summary": "Comedy that keeps its timing. Festival and stand-up work that preserves the performance, builds anticipation and carries the energy into the campaign. Audience, rollout and production briefs connect the performance to the campaign.",
-      "focus": "Performance · Timing · Event campaigns"
+      "focus": "Audience · Coverage · Performance · Campaigns"
     }
   },
   "source": "00_Prantik_Dutta_Creative_Strategist_PostProducer_Editor_CV.pdf, supplied October 2026. Career outcomes are owner-reported in the résumé; public video counters are separate dated snapshots.",
   "openingLines": [
-    "I research the subject.",
-    "Plan the shoot.",
-    "Lead the edit and the team."
+    "I research the subject. Set the direction.",
+    "Brief the team. Plan the shoot.",
+    "Lead the edit. Measure the result."
   ],
   "scopeLines": [
-    "Direction. Shooting. Editing.",
-    "AI. VFX. Team management.",
-    "Brand strategy. Campaigns. Research & briefs."
+    "Research. Brand strategy. Creative briefs.",
+    "Production. Direction. Shooting. Teams.",
+    "Editing. Motion graphics. AI. VFX."
+  ],
+  "aboutLines": [
+    "I research the subject, set the creative direction, brief the team and plan the work through delivery.",
+    "I lead direction, shooting, editing, AI and VFX.",
+    "Managing long-term sustainable teams and building workflows that care about reach, retention and data-driven content creation is what I consider my speciality."
+  ],
+  "disciplines": [
+    "Research & creative strategy",
+    "Brand direction & production briefs",
+    "Team management, budgets & shoot planning",
+    "Direction & shooting",
+    "Editing & post-production supervision",
+    "AI visuals & workflow automation",
+    "VFX, compositing & motion design",
+    "Audience reach & retention"
   ]
 }

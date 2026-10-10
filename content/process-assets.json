@@ -70,5 +70,41 @@
     "visual": "media/process/review-notes.webp",
     "document": "TruNativ/Brand_Strategy_and_Packaging/OP01_Research_and_Operating_Plan.pdf",
     "page": 6
+  },
+  "personal-brand": {
+    "preview": "media/process/library-creator-identity-1.svg",
+    "previewWidth": 1080,
+    "previewHeight": 1080,
+    "proof": "media/process/library-creator-identity-1.svg",
+    "visual": "media/process/library-creator-identity-1.svg",
+    "document": "Aarti_Sorted/AR05_Aarti_Identity_Caption_and_Edit_Delivery.pdf",
+    "page": 3
+  },
+  "packaging": {
+    "preview": "media/process/library-carton-handoff-1.svg",
+    "previewWidth": 1440,
+    "previewHeight": 660,
+    "proof": "media/process/library-carton-handoff-1.svg",
+    "visual": "media/process/library-carton-handoff-1.svg",
+    "document": "TruNativ/Brand_Strategy_and_Packaging/PK-SW_Sweet_Packaging_Handoff.pdf",
+    "page": 3
+  },
+  "playbooks": {
+    "preview": "media/process/production-preview.webp",
+    "previewWidth": 416,
+    "previewHeight": 234,
+    "proof": "media/process/production-notes.webp",
+    "visual": "media/process/production-visual.webp",
+    "document": "Hizzouse/Documents/HZ04_Editorial_Recurring_Graphics_Bible.pdf",
+    "page": 3
+  },
+  "vfx-brief": {
+    "preview": "media/process/ai-preview.webp",
+    "previewWidth": 416,
+    "previewHeight": 234,
+    "proof": "media/process/ai-notes.webp",
+    "visual": "media/process/ai-visual.webp",
+    "document": "Win_Theory/WT_Photoreal_Generation_Workflow_Final.pdf",
+    "page": 6
   }
 }

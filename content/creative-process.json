@@ -1,58 +1,283 @@
 [
   {
-    "id": "research", "label": "Research", "title": "Find the question.",
-    "lines": ["Audience language.", "Comments. Competitors. Sources."],
-    "brand": "Win Theory", "artifact": "Research & claim ledger", "tone": "paper",
-    "tags": ["Question", "Evidence", "Viewpoint"],
-    "detail": "I start with what the audience is asking, then check the subject. The research travels with the script: the claim, its source, the graphic and who checks it. That gives the team something concrete to work from."
+    "id": "research",
+    "label": "Research & evidence",
+    "title": "Start with the question.",
+    "lines": [
+      "Audience. Sources. Comments.",
+      "Find what changes the answer."
+    ],
+    "brand": "Win Theory / Aarti / The Product Report",
+    "artifact": "Research, claim ledgers & test plans",
+    "tone": "paper",
+    "tags": [
+      "Question",
+      "Source",
+      "Decision"
+    ],
+    "detail": "I research the subject and the audience before choosing a treatment. I look at the original campaign or product, check dates and comparisons, and keep claims separate from opinions. A useful brief carries the question, the evidence, the image that explains it and the person checking it. For a product test, the method and the actual purchased sample matter as much as the script.",
+    "evidence": [
+      "claim-ledger",
+      "research-viewpoint",
+      "oil-research"
+    ]
   },
   {
-    "id": "strategy", "label": "Creative strategy", "title": "Choose the angle.",
-    "lines": ["Positioning. Objections.", "One clear promise."],
-    "brand": "TruNativ", "artifact": "Brand direction & operating plan", "tone": "range",
-    "tags": ["Audience", "Proposition", "Format"],
-    "detail": "For TruNativ, premium positioning had to sit alongside clear information and everyday use. I work out the promise, the questions a film needs to answer and the format that can carry it. The identity and the explanation have to work together."
+    "id": "personal-brand",
+    "label": "Personal brands",
+    "title": "Give them a reason to return.",
+    "lines": [
+      "A point of view. A recognisable voice.",
+      "Formats that fit the person."
+    ],
+    "brand": "Aarti / The Sorted Girl / Sorted",
+    "artifact": "Creator promise, voice & recurring formats",
+    "tone": "creator",
+    "tags": [
+      "Promise",
+      "Voice",
+      "IP"
+    ],
+    "detail": "A personal brand starts with what this person can explain or do that people want to return for. I connect expertise to a recognisable voice, recurring formats and visual habits. Aarti’s marketing explanations, Mumbai interactions, two-character debates and square nostalgia format do different jobs. I research the example first, leave room for her interpretation and natural reactions, then compare the formats by viewing behaviour, shares, profile visits and follows.",
+    "evidence": [
+      "creator-promise",
+      "creator-identity",
+      "creator-format",
+      "consultancy-strategy"
+    ]
   },
   {
-    "id": "storyboard", "label": "Ideas & writing", "title": "Write it. Board it.",
-    "lines": ["Hooks. Scripts. Storyboards.", "Work out the film before the shoot."],
-    "brand": "Aarti / Sorted / Zoho", "artifact": "12-panel director's planning board", "tone": "board",
-    "tags": ["Opening", "Action", "Payoff"],
-    "detail": "I turn the angle into a script, then work out the action and coverage. These Zoho planning boards connect the office movement, product passage and calmer explanation. A production-heavy idea needs a board; a conversation needs room to happen."
+    "id": "strategy",
+    "label": "Brand & campaign strategy",
+    "title": "Work out the promise.",
+    "lines": [
+      "Positioning. Objections. Use cases.",
+      "Choose the right content role."
+    ],
+    "brand": "TruNativ / Sorted",
+    "artifact": "Audience strategy & operating plans",
+    "tone": "range",
+    "tags": [
+      "Audience",
+      "Promise",
+      "Format"
+    ],
+    "detail": "I map the audience’s questions, the buying objection and what the brand can actually support. For TruNativ, education, creator demonstrations, founder answers and a premium product film have different roles. Everyday and Marine Collagen need distinct messages and identities. I connect the angle, offer, script and landing-page promise, then set a test that can tell us what to change.",
+    "evidence": [
+      "everyday-strategy",
+      "collagen-strategy",
+      "operating-plan"
+    ]
   },
   {
-    "id": "production", "label": "Production & team briefs", "title": "Brief the room.",
-    "lines": ["Crew. Coverage. Time. Budget.", "Make the handoff usable."],
-    "brand": "Hizzouse / Jay & Silent Bob", "artifact": "Camera, sound & graphics plan", "tone": "slate",
-    "tags": ["Shoot", "Owners", "Handoff"],
-    "detail": "I set the direction, timelines and handoffs so the team knows what the edit will need. The camera plan protects the conversation and reactions; the sound plan protects usable dialogue. Briefs connect the creative idea to practical coverage and delivery."
+    "id": "playbooks",
+    "label": "Channel & content playbooks",
+    "title": "Make the next one easier.",
+    "lines": [
+      "Format rules. Source cues. Handoffs.",
+      "Build a system around the show."
+    ],
+    "brand": "BuzzFeed / Hizzouse / Sorted",
+    "artifact": "Editorial bibles & content playbooks",
+    "tone": "terminal",
+    "tags": [
+      "Format",
+      "Rules",
+      "Package"
+    ],
+    "detail": "I research how the audience uses the format before writing the edit rules. A recipe needs action and outcome; an identity film needs complete statements; a conversation needs the real setup and response. The playbook turns that into repeatable commissions, source logs, graphic triggers, caption rules, packaging and review gates. It gives the next editor a usable system without forcing every channel into the same pacing or visual language.",
+    "evidence": [
+      "buzzfeed-playbook",
+      "sorted-playbook",
+      "hizzouse-bible",
+      "show-packaging"
+    ]
   },
   {
-    "id": "edit", "label": "Editing & retention", "title": "Shape the edit.",
-    "lines": ["The opening. The pacing. The payoff.", "Keep the promise of the title."],
-    "brand": "BuzzFeed / Pero Like", "artifact": "Afro-Latino editorial board", "tone": "timeline",
-    "tags": ["Structure", "Pacing", "Review"],
-    "detail": "I edit and lead the edit. The title and cover set a promise; the opening has to deliver it. An interview, a food programme and an archive marathon need different structures. I brief and review against that structure, then carry the cut through finishing."
+    "id": "packaging",
+    "label": "Packaging & brand identity",
+    "title": "Build one clear system.",
+    "lines": [
+      "Hierarchy. Materials. Panel allocation.",
+      "From the shelf to the screen."
+    ],
+    "brand": "TruNativ / Everyday / Marine Collagen",
+    "artifact": "Carton structure & label development",
+    "tone": "range",
+    "tags": [
+      "Structure",
+      "Artwork",
+      "Proof"
+    ],
+    "detail": "I work out the reading order before fitting artwork to a real structure. Brand, product, flavour, information panels and code areas have different jobs. The packaging documents connect the vendor dieline, SKU copy, editable lettering, colour proof and print handoff. The same approved label becomes the render texture, so the physical pack, product page and CGI film recognise one product. I test the hierarchy at print size, shelf distance and phone scale.",
+    "evidence": [
+      "carton-handoff",
+      "collagen-packaging",
+      "identity-handoff"
+    ]
   },
   {
-    "id": "graphics", "label": "Identity & motion graphics", "title": "Build the system.",
-    "lines": ["Titles. Captions. Motion. Identity.", "Make the next episode recognisable."],
-    "brand": "The Product Report", "artifact": "Supplied identity & material direction", "tone": "aero",
-    "tags": ["Identity", "Templates", "Motion"],
-    "detail": "I build visual language around what the show is explaining. The Product Report uses a glass identity, cool purple and green accents and steady surfaces for evidence. Titles, source panels and comparisons become a reusable system for the next episode."
+    "id": "storyboard",
+    "label": "Writing & storyboards",
+    "title": "Work out the film first.",
+    "lines": [
+      "Hooks. Actions. Reveals. Product holds.",
+      "A board that connects to the shoot."
+    ],
+    "brand": "Zoho / Alanna / Everyday Sweet / Collagen",
+    "artifact": "Scripts, shot instructions & storyboards",
+    "tone": "board",
+    "tags": [
+      "Script",
+      "Board",
+      "Coverage"
+    ],
+    "detail": "I turn the strategy into a premise, script and visible action. Each scene earns its place: what the viewer learns, what the camera must see and what the edit needs next. Zoho’s office movement, Sweet’s household comedy, Alanna’s product explanation and Collagen’s CG argument need different boards. These are paired with dialogue, shot instructions, continuity and review notes, so the drawings lead to usable footage and renders.",
+    "evidence": [
+      "zoho-board",
+      "alanna-board",
+      "sweet-board",
+      "collagen-board",
+      "oil-board"
+    ]
   },
   {
-    "id": "ai", "label": "AI & VFX direction", "title": "Make the hard shot.",
-    "lines": ["References. Continuity. Compositing.", "Keep the image believable."],
-    "brand": "Win Theory / Creator Engine", "artifact": "Figure look development & continuity brief", "tone": "noir",
-    "tags": ["Reference", "Shot", "QC"],
-    "detail": "I set the references and shot priorities before generation. Face, hair, physique, wardrobe and adjacent shots need a shared continuity check. I take the selected shot through cleanup, compositing and review so it fits the film, rather than sitting outside it."
+    "id": "production",
+    "label": "Shoot planning & teams",
+    "title": "Plan for the edit.",
+    "lines": [
+      "Crew. Set. Camera. Sound. Light.",
+      "Coverage, continuity and dependencies."
+    ],
+    "brand": "Hizzouse / TruNativ / The Product Report",
+    "artifact": "Shoot briefs, coverage & resource plans",
+    "tone": "slate",
+    "tags": [
+      "Plan",
+      "Shoot",
+      "Handoff"
+    ],
+    "detail": "I plan the shoot around the finished explanation or performance. That means coverage, eyelines, sound, lighting, prop resets, product holds and protection takes before choosing extra movement. I group setups, assign owners and schedule the dependencies: research approval before procurement, rehearsal before trials, results before pickups. The team gets the brief, scene and take IDs, continuity records, selected material and clear delivery requirements.",
+    "evidence": [
+      "camera-sound",
+      "sweet-shoot",
+      "alanna-shoot",
+      "oil-schedule"
+    ]
   },
   {
-    "id": "review", "label": "Testing & performance", "title": "Test. Review. Repeat.",
-    "lines": ["Retention. Clicks. CAC. ROAS.", "Use the result to brief the next version."],
-    "brand": "TruNativ / Sorted", "artifact": "Creative test & outcome review", "tone": "terminal",
-    "tags": ["Test", "Measure", "Next brief"],
-    "detail": "I agree the question and the decision rule before a test starts. Change an opening, explanation or performer while keeping the proposition comparable. I review attention alongside acquisition and conversion, then use the result to commission the next brief."
+    "id": "vfx-brief",
+    "label": "VFX briefs & shot planning",
+    "title": "Brief the shot before the effect.",
+    "lines": [
+      "Plate. Lens. Light. Action. Constraints.",
+      "Know what must stay unchanged."
+    ],
+    "brand": "Win Theory / Creator Engine / Marine Collagen",
+    "artifact": "Generation briefs, shot sheets & CG gates",
+    "tone": "noir",
+    "tags": [
+      "Reference",
+      "Capture",
+      "Brief"
+    ],
+    "detail": "I separate the shot’s purpose from the technique used to make it. The brief names the reference, action, camera constraint, light direction, plate and forbidden changes. I plan clean plates, interaction, tracking needs and cut handles with production. CG starts from the real pack and approved label; AI starts from identity and continuity references. The review gates protect the premise before anyone spends time on final polish.",
+    "evidence": [
+      "vfx-shot-brief",
+      "vfx-workbook",
+      "cg-render"
+    ]
+  },
+  {
+    "id": "edit",
+    "label": "Edit strategy & retention",
+    "title": "Find the shape of this film.",
+    "lines": [
+      "Research the format. Log the source.",
+      "Structure, pacing and payoff."
+    ],
+    "brand": "BuzzFeed / Hizzouse / The Product Report",
+    "artifact": "Source behaviour & editorial playbooks",
+    "tone": "timeline",
+    "tags": [
+      "Promise",
+      "Structure",
+      "Review"
+    ],
+    "detail": "I look at the title promise, audience behaviour, comparable formats and the actual source before deciding how to cut. I log missing context, repeated setup, premature reveals and reaction mismatches. An interview, game, recipe and verification film each need a different structure. I review the dialogue or explanation first, then refine the opening, pacing, evidence and payoff. Retention findings become specific changes for the next brief.",
+    "evidence": [
+      "edit-strategy",
+      "conversation-edit",
+      "evidence-edit"
+    ]
+  },
+  {
+    "id": "graphics",
+    "label": "Identity & motion systems",
+    "title": "Make the information readable.",
+    "lines": [
+      "Titles. Evidence. Captions. Comparisons.",
+      "A shared visual language."
+    ],
+    "brand": "The Product Report / Hizzouse / Win Theory",
+    "artifact": "Show packages & motion handoffs",
+    "tone": "aero",
+    "tags": [
+      "Identity",
+      "Cue",
+      "Motion"
+    ],
+    "detail": "I connect motion to the thought being explained: object, relevant detail, comparison, then a readable hold. The identity becomes reusable source panels, lower thirds, chapter cards, rankings and caption rules. Each cue has approved copy, a source, a trigger and a version. Editable text, layered artwork and safe-area checks keep the next episode efficient and the information clear at phone size.",
+    "evidence": [
+      "graphic-system",
+      "graphic-cues",
+      "motion-handoff"
+    ]
+  },
+  {
+    "id": "ai",
+    "label": "AI, VFX & finishing",
+    "title": "Make it belong in the shot.",
+    "lines": [
+      "Identity. Movement. Contact. Continuity.",
+      "Review the whole moving image."
+    ],
+    "brand": "Win Theory / Creator Engine / TruNativ",
+    "artifact": "Realism review & finishing workflow",
+    "tone": "noir",
+    "tags": [
+      "Generate",
+      "Composite",
+      "QC"
+    ],
+    "detail": "I judge the full moving shot, not just the best frame. The review checks identity, anatomy, camera, light, motion, contact and neighbouring shots. A local defect can be repaired; a failed action or face turn needs a different performance or shot. Accepted material travels with its reference version, colour, frame rate, matte, plate and cut handles. The same discipline carries the film through graphics, sound, grading and delivery.",
+    "evidence": [
+      "ai-qc",
+      "cg-finishing",
+      "vfx-workbook"
+    ]
+  },
+  {
+    "id": "review",
+    "label": "Testing & the next brief",
+    "title": "Use the result. Change the brief.",
+    "lines": [
+      "Retention. Clicks. Enquiries. CAC. ROAS.",
+      "Matched conditions. Clear attribution."
+    ],
+    "brand": "TruNativ / Sorted / Aarti",
+    "artifact": "Creative tests, format review & case proof",
+    "tone": "terminal",
+    "tags": [
+      "Test",
+      "Read",
+      "Next brief"
+    ],
+    "detail": "I define the question and the decision rule before a test starts. I keep dates, audience, duration, distribution and spend with the result, then compare like-for-like work. Reach, viewing behaviour, qualified enquiries and purchases tell us different things. I connect the finding to one next change: a hook, explanation, performer, format or offer. That closes the loop back into research and commissioning.",
+    "evidence": [
+      "creative-tests",
+      "format-review",
+      "case-proof"
+    ]
   }
 ]

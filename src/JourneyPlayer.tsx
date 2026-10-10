@@ -3,6 +3,7 @@ import {asset,previewAsset,previewSrcSet,type Project} from './content';
 import {filmId} from './journeyData';
 import InstagramPlayer from './InstagramPlayer';
 import {usePerformance,useVideoPermit} from './Performance';
+import {requestVideoConsent} from './videoConsent';
 import './journey.css';
 type Player={mute:()=>void;unMute:()=>void;playVideo:()=>void;pauseVideo:()=>void;destroy:()=>void;loadVideoById:(id:string)=>void;cueVideoById:(id:string)=>void;seekTo:(n:number,allow:boolean)=>void;getVideoData:()=>{video_id?:string}};
 declare global {interface Window {YT?:{Player:new(el:HTMLElement,opts:Record<string,unknown>)=>Player};onYouTubeIframeAPIReady?:()=>void}}
@@ -44,7 +45,7 @@ function YouTubePlayer({project,enabled,muted,playing,onOpen}:{project:Project;e
  useEffect(()=>{if(!ready.current)return;if(playing&&!document.hidden){player.current?.playVideo();if(status!=='playing')startDeadline()}else{clearTimeout(timeout.current);player.current?.pauseVideo()}},[playing]);
  useEffect(()=>{if(status==='playing')host.current?.dispatchEvent(new Event('portfolio-video-ready',{bubbles:true}))},[status,playing]);
 
- function play(){if(status==='blocked'){onOpen();return}setRequested(true);if(ready.current){player.current?.mute();player.current?.playVideo();startDeadline()}}
+ async function play(){if(!await requestVideoConsent())return;if(status==='blocked'){onOpen();return}setRequested(true);if(ready.current){player.current?.mute();player.current?.playVideo();startDeadline()}}
  return <div className={'journey-picture '+(status==='playing'?'is-playing':'')} data-player-state={status}>
   {project.poster&&<img className="journey-poster" src={previewAsset(project.poster)} srcSet={previewSrcSet(project.poster)} sizes="(max-width:699px) 75vw, 42vw" alt={project.title} loading="lazy" decoding="async"/>}
   {status==='loading'&&playing&&<span className="preview-loading">Loading preview…</span>}

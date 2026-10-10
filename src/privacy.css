@@ -1,0 +1,7 @@
+/* Notices only. The locked portfolio layout and default motion are untouched. */
+.video-privacy{position:fixed;inset:0;margin:auto;width:min(520px,calc(100vw - 32px));max-height:calc(100svh - 32px);overflow:auto;padding:clamp(20px,4vw,32px);border:1px solid #b6c8bf66;border-radius:12px;background:#122029;color:#e4ebe4;box-shadow:0 16px 60px #0008;overscroll-behavior:contain}
+.video-privacy::backdrop{background:#071018da}.video-privacy h2{font:italic 500 clamp(30px,6vw,42px)/1.12 Ornate,Georgia,serif;margin:16px 0}.video-privacy p{font:14px/1.65 Arial,sans-serif}.video-privacy>.mono{font:10px/1.5 Mono,monospace;color:#bed2c1}.video-privacy a{font:11px/1.6 Mono,monospace;display:inline-block;margin-top:20px;text-decoration:underline}
+.video-privacy-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.video-privacy-actions button{flex:1;min-width:150px;min-height:44px;padding:10px 14px;border:1px solid #b6c8bf77;border-radius:4px;background:#c5ded70c;color:inherit;font:12px/1.4 Arial,sans-serif}
+.site-notices{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font:11px/1.5 Mono,monospace}.site-notices a,.site-notices button{min-height:44px;display:inline-flex;align-items:center;text-decoration:underline;background:none;padding:0;color:inherit}
+.video-privacy :focus-visible,.site-notices :focus-visible{outline:2px solid #d2e3b8;outline-offset:4px}
+html[data-motion-paused=true] [data-app] *,html[data-motion-paused=true] [data-app] *::before,html[data-motion-paused=true] [data-app] *::after{animation-play-state:paused!important}

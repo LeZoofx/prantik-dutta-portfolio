@@ -1,5 +1,6 @@
 import {createContext,useCallback,useContext,useEffect,useMemo,useRef,useState,type ReactNode} from 'react';
 import {chooseQuality,MediaQueue,type Quality} from './capabilities';
+import {requestVideoConsent,useVideoConsent} from './videoConsent';
 type Connection=EventTarget&{saveData?:boolean;effectiveType?:string;downlink?:number;rtt?:number};
 type Device=Navigator&{deviceMemory?:number;connection?:Connection};
 type Experience={autoplay:boolean;toggleAutoplay:()=>void;quality:Quality;ready:boolean;mediaReady:boolean;playbackReady:boolean;maxPlayers:number;reportFrame:(ms:number)=>void};
@@ -8,15 +9,17 @@ const Context=createContext<Experience>({autoplay:false,toggleAutoplay:noop,qual
 const mediaQueue=new MediaQueue(1100);
 export function usePerformance(){return useContext(Context)}
 export function useVideoPermit(wanted:boolean,priority=0){
- const {mediaReady}=usePerformance(),[permit,setPermit]=useState(false);
- useEffect(()=>{setPermit(false);if(!wanted||!mediaReady)return;let mounted=true;const release=mediaQueue.request(value=>{if(mounted)setPermit(value)},priority);return()=>{mounted=false;release()}},[wanted,mediaReady,priority]);
- return wanted&&permit;
+ const {mediaReady}=usePerformance(),{allowed}=useVideoConsent(),[permit,setPermit]=useState(false);
+ useEffect(()=>{setPermit(false);if(!wanted||!mediaReady||!allowed)return;let mounted=true;const release=mediaQueue.request(value=>{if(mounted)setPermit(value)},priority);return()=>{mounted=false;release()}},[wanted,mediaReady,priority,allowed]);
+ return wanted&&permit&&allowed;
 }
 export function listenMedia(query:MediaQueryList,callback:()=>void){if(query.addEventListener){query.addEventListener('change',callback);return()=>query.removeEventListener('change',callback)}query.addListener(callback);return()=>query.removeListener(callback)}
 function detect(){const n=navigator as Device;return chooseQuality({supported:!!(window.IntersectionObserver&&window.ResizeObserver&&typeof Element.prototype.animate==='function'&&window.CSS?.supports('transform-style','preserve-3d')),coarse:matchMedia('(pointer:coarse)').matches,memory:n.deviceMemory,cores:n.hardwareConcurrency,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,...n.connection&&{saveData:n.connection.saveData,effectiveType:n.connection.effectiveType,downlink:n.connection.downlink,rtt:n.connection.rtt}})}
 export function PerformanceProvider({children}:{children:ReactNode}){
  const [autoplay,setAutoplay]=useState(false);
- const toggleAutoplay=useCallback(()=>setAutoplay(value=>!value),[]);
+ const {allowed}=useVideoConsent();
+ const toggleAutoplay=useCallback(()=>{if(autoplay)setAutoplay(false);else void requestVideoConsent().then(ok=>{if(ok)setAutoplay(true)})},[autoplay]);
+ useEffect(()=>{if(!allowed)setAutoplay(false)},[allowed]);
  const [quality,setQuality]=useState<Quality>('balanced'),[ready,setReady]=useState(false),[mediaReady,setMediaReady]=useState(false),[playbackReady,setPlaybackReady]=useState(false);
  const tier=useRef(quality);tier.current=quality;const ceiling=useRef<Quality>('full'),tally=useRef({count:0,slow:0,badWindows:0});
  const reportFrame=useCallback((ms:number)=>{

@@ -1,7 +1,7 @@
 {
-  "eyebrow": "CREATIVE PRODUCER / STRATEGIST / POST SUPERVISOR",
-  "headline": "I research the subject. Plan the shoot. Lead the edit and the team.",
-  "intro": "I set the visual direction, brief the team and stay involved through delivery. Reach, retention and how the work gets made all matter. I turn audience and brand research into positioning, campaigns, scripts and briefs.",
+  "eyebrow": "SENIOR CREATIVE STRATEGIST / CREATIVE POST PRODUCER",
+  "headline": "I research it. Write it. Work out how to make it.",
+  "intro": "I turn research into brand direction, campaigns and briefs. Then I lead the team through the shoot, edit, graphics, AI and VFX. Reach, retention and how the work gets made all matter.",
   "statistics": [
     {
       "value": "5.2M",
@@ -276,22 +276,22 @@
   ],
   "stories": [
     {
-      "brand": "Trunativ",
-      "title": "Research, scripting, shooting and post.",
-      "outcome": "2.5K → 5.2M monthly views",
-      "text": "I scripted, shot, rendered and edited in-house content, built the explainer format and visual identity, and led 3D marketing campaigns. Competition and audience research informed the creative direction."
+      "brand": "TruNativ",
+      "title": "Research the objection.",
+      "outcome": "₹980 → ₹490 CAC",
+      "text": "Ingredients, serving and daily use before the product pitch. Education, creator routines and premium films have different jobs. CV-reported company results; not a claim for one film."
     },
     {
-      "brand": "Schbang",
-      "title": "Running a four-person team.",
-      "outcome": "305% viewership growth",
-      "text": "I trained teammates to script and edit around social viewing habits, while managing a four-person team across brand, event and film campaigns. The work balanced turnaround, quality and platform fit."
+      "brand": "BuzzFeed",
+      "title": "Build for the channel.",
+      "outcome": "3:40 → 5:20 AVD",
+      "text": "Four channel promises. Source-led hooks, original segments and a usable editorial playbook. CV comparison: twenty ten-minute uploads over six months."
     },
     {
-      "brand": "BuzzFeed / Creator Engine",
-      "title": "Setting direction for the channel.",
-      "outcome": "Hooks. Structure. Pacing. Payoff.",
-      "text": "At BuzzFeed I set edit and visual direction for high-reach YouTube work and guided junior editors. At Creator Engine I shape editorial structure and AI shot priorities, reviewing work against each channel’s retention goals."
+      "brand": "Creator Engine",
+      "title": "Direction through delivery.",
+      "outcome": "24% → 78% retention",
+      "text": "Research, writing, shoots, editor and design briefs, AI and review. CV comparison: thirty-second retention across twelve long-form uploads over ninety days. Unreleased shows have no launch results attached."
     }
   ],
   "categories": {
@@ -326,30 +326,31 @@
       "focus": "Audience · Coverage · Performance · Campaigns"
     }
   },
-  "source": "00_Prantik_Dutta_Creative_Strategist_PostProducer_Editor_CV.pdf, supplied October 2026. Career outcomes are owner-reported in the résumé; public video counters are separate dated snapshots.",
+  "source": "Prantik_Dutta_CV_Text_Fixed.pdf, current six-page October 2026 edition; supplied production packages and recorded owner decisions. Career outcomes are owner-reported, not audited account exports. Public counters are separate dated snapshots.",
   "openingLines": [
-    "I research the subject. Set the direction.",
-    "Brief the team. Plan the shoot.",
-    "Lead the edit. Measure the result."
+    "I research it. Write it.",
+    "Work out how to make it.",
+    "Lead the team. See it through."
   ],
   "scopeLines": [
-    "Research. Brand strategy. Creative briefs.",
-    "Production. Direction. Shooting. Teams.",
-    "Editing. Motion graphics. AI. VFX."
+    "Brand direction. Strategy. Briefs.",
+    "Writing. Shoots. Budgets. Teams.",
+    "Editing. Graphics. AI. VFX."
   ],
   "aboutLines": [
-    "I research the subject, set the creative direction, brief the team and plan the work through delivery.",
-    "I lead direction, shooting, editing, AI and VFX.",
-    "Managing long-term sustainable teams and building workflows that care about reach, retention and data-driven content creation is what I consider my speciality."
+    "I turn research into brand direction, campaigns and briefs, then lead the team through production and post.",
+    "I write, plan and shoot. Lead the edit, motion, AI and VFX through delivery.",
+    "Knowing the whole process helps me bring the right people together and keep the idea intact.",
+    "Long-term sustainable teams. Shorter turnarounds. Workflows that care about reach, retention and data."
   ],
   "disciplines": [
-    "Research & creative strategy",
-    "Brand direction & production briefs",
-    "Team management, budgets & shoot planning",
-    "Direction & shooting",
-    "Editing & post-production supervision",
-    "AI visuals & workflow automation",
-    "VFX, compositing & motion design",
-    "Audience reach & retention"
+    "Audience, category & cultural research",
+    "Brand direction, campaigns & creative briefs",
+    "Writing, scripts & storyboards",
+    "Budgets, teams, logistics & shoot planning",
+    "Direction, camera & supporting footage",
+    "Editing, motion graphics & post supervision",
+    "AI workflows, VFX & finishing",
+    "Creative testing, reach & retention"
   ]
 }

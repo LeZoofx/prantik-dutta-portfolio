@@ -1,0 +1,28 @@
+{
+  "baseline": "efb0559059223f88dbb14cab29e5912731b376b5",
+  "date": "2026-10-10",
+  "sha256": {
+    "src/NativeSceneAnimator.ts": "9008982b8f9ea16138e8c5135c19914932f2a90b6b5dee24c5c292ffb5493c31",
+    "src/NativeSceneScroll.ts": "89c406bd06ae342fe0268f67928eb105907807696f9718fdc5cec491364d88cb",
+    "src/SceneTransition.ts": "16ed2260e2fa6175d4d9dfbfca8af985d04f2e3abac8eea631d56e98f3e3d1ee",
+    "src/Universe.tsx": "09cc4347c2dd4c69ae878e469aa8118d643a2d89b2a36b91e2b92adf875e343f",
+    "src/WheelSceneIntent.ts": "317008884e2ab75c8a8096bfa01aa316a97c76722a473802400f392cacd10712",
+    "src/adaptive-performance.css": "68a193f526e737630c08780a68f49db122ad10be4ce8261d787ccfc2ef1c5f3f",
+    "src/art-direction.css": "23a06f6afb75f7df80cb0524f9b7459623e26ec55211832bb2990c05788962b2",
+    "src/capabilities.ts": "c43148c1382b4ef0d09018e213e1ab3658b88a73c27bb72b14e8bfdd1bc0dc41",
+    "src/creative-process.css": "bf2eb8fb1a2121369c84c5ae5f399f1a957897b56dba9a5f16c00623cf28a9d7",
+    "src/creative-refinements.css": "69a1fae76060391e91a32db4c041d4cd63725d4327c6f8f0fa0c2c0dea8fbdaa",
+    "src/depth-journey.css": "3b45045fb1db69b9f92c12baa6969ad3a0f8c83218765785beb6b09143e1f1c4",
+    "src/experience.css": "4a7c04ffea4c04709566dad0c6f12a548937bca225c5a179ac40786b1568d04d",
+    "src/idle-motion.css": "9f2918211c3fef48fcf16dc4462b962ef0968c1f870d979d95c9e96d1991489b",
+    "src/journey.css": "6830b9e07107dba656e88e77500bb2b725cb02c36a9990950557881f17282ac7",
+    "src/mobile-focus.css": "8c9eb7a78b9f1527d3d9cf2d0dac4fb9c8d7521fbb5fd588fda48135bd47e6c2",
+    "src/mobile-locked.css": "ee1d7fd97502365462ea406151c19a109bdfece42a53f156309011a08197ac0a",
+    "src/playback-refinements.css": "bd0bde7b6b2a2d279f6689882751dadadc69f705106b7e149d74c9e3c3bf8d04",
+    "src/portfolio-scroll.css": "c3b2649055f3d68e781f62175c66b99f1fb4213db280edcd2ac94be237d2eb42",
+    "src/positioning.css": "cf85a2f4793979edb1856424c69a95ac001cae7f4af792619042a29d2ac52522",
+    "src/style-worlds.css": "7e4d9bfee230fc1ad2bae1518ebb8e6590e98d2daa97b91e8f727656617717bd",
+    "src/styles.css": "1ed5f2b8ff7fb071cef196ddac7d793249684dc4ab54be423a94193a3e96ce28",
+    "src/useFrameOrbit.ts": "db78eb2fafca6b13a929e1a88560e204d956ba9b2211c60d22cced4f67ac5568"
+  }
+}

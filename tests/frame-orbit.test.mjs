@@ -16,17 +16,17 @@ function fixture(t,ready=true,playing=true){
  t.after(()=>{result.cleanups.forEach(fn=>fn?.());Object.assign(globalThis,saved)});
  return {doc,gallery,win,turns:result.turns,tick:ms=>t.mock.timers.tick(ms)};
 }
-test('a playing focal frame remains in place for 60 seconds',t=>{
- const {tick,turns}=fixture(t);tick(59999);assert.deepEqual(turns,[]);tick(1);assert.deepEqual(turns,[1]);
+test('a playing focal frame remains in place for 20 seconds',t=>{
+ const {tick,turns}=fixture(t);tick(19999);assert.deepEqual(turns,[]);tick(1);assert.deepEqual(turns,[1]);
 });
-test('the 60-second clock begins after the focal preview becomes ready',t=>{
+test('the viewing clock begins after the focal preview becomes ready',t=>{
  const {tick,gallery,turns}=fixture(t,false);tick(4000);gallery.ready=true;gallery.dispatchEvent(new Event('portfolio-video-ready'));
- tick(59999);assert.deepEqual(turns,[]);tick(1);assert.deepEqual(turns,[1]);
+ tick(19999);assert.deepEqual(turns,[]);tick(1);assert.deepEqual(turns,[1]);
 });
 test('time in a hidden tab does not consume the viewing interval',t=>{
- const {doc,tick,turns}=fixture(t);tick(20000);doc.hidden=true;doc.dispatchEvent(new Event('visibilitychange'));tick(120000);
- assert.deepEqual(turns,[]);doc.hidden=false;doc.dispatchEvent(new Event('visibilitychange'));tick(39999);assert.deepEqual(turns,[]);tick(1);assert.deepEqual(turns,[1]);
+ const {doc,tick,turns}=fixture(t);tick(5000);doc.hidden=true;doc.dispatchEvent(new Event('visibilitychange'));tick(120000);
+ assert.deepEqual(turns,[]);doc.hidden=false;doc.dispatchEvent(new Event('visibilitychange'));tick(14999);assert.deepEqual(turns,[]);tick(1);assert.deepEqual(turns,[1]);
 });
 test('poster-only idle rotation remains active before autoplay is requested',t=>{
- const {tick,turns}=fixture(t,true,false);tick(7799);assert.deepEqual(turns,[]);tick(1);assert.deepEqual(turns,[1]);
+ const {tick,turns}=fixture(t,true,false);tick(3199);assert.deepEqual(turns,[]);tick(1);assert.deepEqual(turns,[1]);
 });

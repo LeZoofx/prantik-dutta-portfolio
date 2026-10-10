@@ -5,13 +5,13 @@ export default function useFrameOrbit(count:number,enabled:boolean,motion:Journe
  const gallery=useRef<HTMLDivElement>(null),[turn,setTurn]=useState(0),[settledTurn,setSettledTurn]=useState(0),before=useRef(new Map<string,Box>()),animations=useRef<Animation[]>([]);
  useEffect(()=>{
   const el=gallery.current;if(!el)return;
-  let timer:ReturnType<typeof setTimeout>|undefined,deadline:ReturnType<typeof setTimeout>|undefined,pressed=false,started=0,remaining=playing?60000:7800,fallback=false;
+  let timer:ReturnType<typeof setTimeout>|undefined,deadline:ReturnType<typeof setTimeout>|undefined,pressed=false,started=0,remaining=playing?20000:3200,fallback=false;
   const pause=()=>{clearTimeout(timer);clearTimeout(deadline);deadline=undefined;if(started){remaining=Math.max(0,remaining-(performance.now()-started));started=0}for(const a of animations.current)if(a.playState==='running')a.pause()};
   const resume=()=>{
    if(!enabled||count<2||document.hidden||motion.scrolling||pressed)return;
    for(const a of animations.current)if(a.playState==='paused')a.play();
    if(animations.current.length||started)return;
-   // The 60-second focus clock starts when the main preview is ready, not
+   // The focus clock starts when the main preview is ready, not
    // while scripts/iframes are still loading. Blocked providers retain a facade.
    if(playing&&!fallback&&!el.querySelector('.slot-0 [data-player-state=playing],.slot-0 .instagram-player.embed-loaded')){
     if(!deadline)deadline=setTimeout(()=>{deadline=undefined;fallback=true;resume()},10000);return;
@@ -22,7 +22,7 @@ export default function useFrameOrbit(count:number,enabled:boolean,motion:Journe
   const moving=(event:Event)=>{if((event as CustomEvent<boolean>).detail)pause();else resume()};
   const visibility=()=>{if(document.hidden)pause();else resume()};
   function rotate(){
-   started=0;remaining=playing?60000:7800;fallback=false;
+   started=0;remaining=playing?20000:3200;fallback=false;
    if(!enabled||!el||document.hidden||pressed||motion.scrolling||Math.abs(motion.velocity)>.025||Math.abs(motion.target-motion.position)>.015||el.querySelector(':focus-visible')||animations.current.length){resume();return}
    before.current=new Map(Array.from(el.querySelectorAll<HTMLElement>('.depth-film')).map(card=>[card.dataset.film!,{x:card.offsetLeft,y:card.offsetTop,width:card.offsetWidth,angle:parseFloat(getComputedStyle(card).rotate)||0,filter:getComputedStyle(card.querySelector('.depth-film-body')!).filter}]));
    setTurn(value=>(value+1)%count);

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "research", "label": "Research", "title": "Find the question.",
+    "lines": ["Audience language.", "Comments. Competitors. Sources."],
+    "brand": "Win Theory", "artifact": "Research & claim ledger", "tone": "paper",
+    "tags": ["Question", "Evidence", "Viewpoint"],
+    "detail": "I start with what the audience is asking, then check the subject. The research travels with the script: the claim, its source, the graphic and who checks it. That gives the team something concrete to work from."
+  },
+  {
+    "id": "strategy", "label": "Creative strategy", "title": "Choose the angle.",
+    "lines": ["Positioning. Objections.", "One clear promise."],
+    "brand": "TruNativ", "artifact": "Brand direction & operating plan", "tone": "range",
+    "tags": ["Audience", "Proposition", "Format"],
+    "detail": "For TruNativ, premium positioning had to sit alongside clear information and everyday use. I work out the promise, the questions a film needs to answer and the format that can carry it. The identity and the explanation have to work together."
+  },
+  {
+    "id": "storyboard", "label": "Ideas & writing", "title": "Write it. Board it.",
+    "lines": ["Hooks. Scripts. Storyboards.", "Work out the film before the shoot."],
+    "brand": "Aarti / Sorted / Zoho", "artifact": "12-panel director's planning board", "tone": "board",
+    "tags": ["Opening", "Action", "Payoff"],
+    "detail": "I turn the angle into a script, then work out the action and coverage. These Zoho planning boards connect the office movement, product passage and calmer explanation. A production-heavy idea needs a board; a conversation needs room to happen."
+  },
+  {
+    "id": "production", "label": "Production & team briefs", "title": "Brief the room.",
+    "lines": ["Crew. Coverage. Time. Budget.", "Make the handoff usable."],
+    "brand": "Hizzouse / Jay & Silent Bob", "artifact": "Camera, sound & graphics plan", "tone": "slate",
+    "tags": ["Shoot", "Owners", "Handoff"],
+    "detail": "I set the direction, timelines and handoffs so the team knows what the edit will need. The camera plan protects the conversation and reactions; the sound plan protects usable dialogue. Briefs connect the creative idea to practical coverage and delivery."
+  },
+  {
+    "id": "edit", "label": "Editing & retention", "title": "Shape the edit.",
+    "lines": ["The opening. The pacing. The payoff.", "Keep the promise of the title."],
+    "brand": "BuzzFeed / Pero Like", "artifact": "Afro-Latino editorial board", "tone": "timeline",
+    "tags": ["Structure", "Pacing", "Review"],
+    "detail": "I edit and lead the edit. The title and cover set a promise; the opening has to deliver it. An interview, a food programme and an archive marathon need different structures. I brief and review against that structure, then carry the cut through finishing."
+  },
+  {
+    "id": "graphics", "label": "Identity & motion graphics", "title": "Build the system.",
+    "lines": ["Titles. Captions. Motion. Identity.", "Make the next episode recognisable."],
+    "brand": "The Product Report", "artifact": "Supplied identity & material direction", "tone": "aero",
+    "tags": ["Identity", "Templates", "Motion"],
+    "detail": "I build visual language around what the show is explaining. The Product Report uses a glass identity, cool purple and green accents and steady surfaces for evidence. Titles, source panels and comparisons become a reusable system for the next episode."
+  },
+  {
+    "id": "ai", "label": "AI & VFX direction", "title": "Make the hard shot.",
+    "lines": ["References. Continuity. Compositing.", "Keep the image believable."],
+    "brand": "Win Theory / Creator Engine", "artifact": "Figure look development & continuity brief", "tone": "noir",
+    "tags": ["Reference", "Shot", "QC"],
+    "detail": "I set the references and shot priorities before generation. Face, hair, physique, wardrobe and adjacent shots need a shared continuity check. I take the selected shot through cleanup, compositing and review so it fits the film, rather than sitting outside it."
+  },
+  {
+    "id": "review", "label": "Testing & performance", "title": "Test. Review. Repeat.",
+    "lines": ["Retention. Clicks. CAC. ROAS.", "Use the result to brief the next version."],
+    "brand": "TruNativ / Sorted", "artifact": "Creative test & outcome review", "tone": "terminal",
+    "tags": ["Test", "Measure", "Next brief"],
+    "detail": "I agree the question and the decision rule before a test starts. Change an opening, explanation or performer while keeping the proposition comparable. I review attention alongside acquisition and conversion, then use the result to commission the next brief."
+  }
+]

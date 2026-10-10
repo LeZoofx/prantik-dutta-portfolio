@@ -23,6 +23,7 @@ import {ScenePager,swipePages} from './scenePaging';
 import {NativeSceneScroll} from './NativeSceneScroll';
 import {NativeSceneAnimator,type SceneExit} from './NativeSceneAnimator';
 import PlaybackToggle from './PlaybackToggle';
+import CreativeProcess from './CreativeProcess';
 const SecretPlayer=lazy(()=>import('./SecretPlayer'));
 const themes=['glass','mass','cut','desktop','afterimage','editorial'];
 const modulo=(n:number,total:number)=>((n%total)+total)%total;
@@ -215,6 +216,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   <div className="depth-bottom"><ClientMarquee compact/><ResultsRibbon compact/><div className="depth-navigation"><div><button aria-label="Previous scene" onClick={()=>navigate.current(current.current-1)}>←</button><span>{section.title}</span><button aria-label="Next scene" onClick={()=>navigate.current(current.current+1)}>→</button></div>{mobile?<span className="depth-scroll-hint">Scroll to explore <i aria-hidden="true">↓</i></span>:<button className="depth-next-category depth-scroll-hint" onClick={()=>navigate.current(sections.findIndex(s=>s.category===nextCategory.id))} aria-label={'Explore '+nextCategory.label}><span>Next up</span><strong>{nextCategory.label}</strong><i aria-hidden="true">↗</i></button>}<div><button onClick={()=>setRotate(!rotate)} aria-pressed={rotate}>{rotate?'Rotation on':'Rotation off'}</button><button onClick={()=>setMuted(!muted)} aria-pressed={!muted}>{muted?'Sound off':'Sound on'}</button>{mobile&&<button onClick={performance.toggleAutoplay} aria-pressed={!playing}>{playing?'Pause films':'Play films'}</button>}</div></div></div>
    </div></div></div>
   </div>
+  <CreativeProcess ready={performance.ready} paused={paused||!!secret} reduced={reduced}/>
   {secret&&!paused&&<Suspense fallback={null}><SecretPlayer project={secret} kind={['aperture','film','ticket','window','frame','aperture'][section.theme]} onClose={()=>setSecret(null)} onOpen={()=>{setSecret(null);onProject(secret)}}/></Suspense>}
  </div>;
 }

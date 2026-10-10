@@ -5,10 +5,10 @@ export const artSequence:Record<string,ArtStyle[]>={
  'short-form':['pixel','curse','sigil','retro'],youtube:['aero','retro','anti','baroque'],events:['noir','sigil']
 };
 export const posterCopy:Record<string,string[]>={
- selected:['I set the direction.','Then lead the work.','Shooting / editing / AI / VFX.','Research. Teams. Reach & retention.'],
- trailers:['Story. Tension.','Reveal.','Trailers + teasers.','Picture and sound. Working together.'],
- brands:['The identity.','The campaign.','Direction / editing / motion / 3D.','Built for the platform.'],
- 'short-form':['Hook immediately.','Hold attention.','AI / compositing / lip-sync.','Distinctive images. Controlled pacing.'],
- youtube:['The opening hook.','The payoff.','Structure. Pacing. Visual identity.','Entertainment / interviews / food.'],
- events:['Keep the timing.','Carry the energy.','Comedy / festivals / live.','Performance. Anticipation. Impact.']
+ selected:['I set the direction.','Then lead the work.','Shooting / editing / AI / VFX.','Research. Teams. Reach & retention.','Brand direction. Creative strategy. Production briefs.'],
+ trailers:['Story. Tension.','Reveal.','Trailers + teasers.','Picture and sound. Working together.','Audience. Positioning. Release strategy.'],
+ brands:['The identity.','The campaign.','Direction / editing / motion / 3D.','Built for the platform.','Research. Messaging. Creative tests.'],
+ 'short-form':['Hook immediately.','Hold attention.','AI / compositing / lip-sync.','Distinctive images. Controlled pacing.','Audience insight. Scripts. Format tests.'],
+ youtube:['The opening hook.','The payoff.','Structure. Pacing. Visual identity.','Entertainment / interviews / food.','Topic research. Packaging. Retention review.'],
+ events:['Keep the timing.','Carry the energy.','Comedy / festivals / live.','Performance. Anticipation. Impact.','Audience. Rollout. Production briefs.']
 };

@@ -1,0 +1,74 @@
+{
+  "research": {
+    "preview": "media/process/research-preview.webp",
+    "previewWidth": 416,
+    "previewHeight": 234,
+    "proof": "media/process/research-notes.webp",
+    "visual": "media/process/research-notes.webp",
+    "document": "Win_Theory/WT_Show_Direction_Production_Final.pdf",
+    "page": 8
+  },
+  "strategy": {
+    "preview": "media/process/strategy-preview.webp",
+    "previewWidth": 280,
+    "previewHeight": 280,
+    "proof": "media/process/strategy-notes.webp",
+    "visual": "media/process/strategy-visual.webp",
+    "document": "TruNativ/Brand_Strategy_and_Packaging/OP01_Research_and_Operating_Plan.pdf",
+    "page": 1
+  },
+  "storyboard": {
+    "preview": "media/process/storyboard-preview.webp",
+    "previewWidth": 416,
+    "previewHeight": 234,
+    "proof": "media/process/storyboard-notes.webp",
+    "visual": "media/process/storyboard-visual.webp",
+    "document": "Aarti_Sorted/ZO02_Zoho_One_Production_Treatment_Production_Final.pdf",
+    "page": 5
+  },
+  "production": {
+    "preview": "media/process/production-preview.webp",
+    "previewWidth": 416,
+    "previewHeight": 234,
+    "proof": "media/process/production-notes.webp",
+    "visual": "media/process/production-visual.webp",
+    "document": "Hizzouse/Documents/HZ03_Set_Camera_Audio_Plan.pdf",
+    "page": 2
+  },
+  "edit": {
+    "preview": "media/process/edit-board.svg",
+    "previewWidth": 1280,
+    "previewHeight": 720,
+    "proof": "media/process/edit-notes.webp",
+    "visual": "media/process/edit-board.svg",
+    "document": "BuzzFeed/BF00_Editorial_Programme_Strategy.pdf",
+    "page": 2
+  },
+  "graphics": {
+    "preview": "media/process/graphics-preview.webp",
+    "previewWidth": 416,
+    "previewHeight": 277,
+    "proof": "media/process/graphics-notes.webp",
+    "visual": "media/process/graphics-visual.webp",
+    "document": "Product_Report/PR01_Show_direction_and_design_system_Production_Final.pdf",
+    "page": 5
+  },
+  "ai": {
+    "preview": "media/process/ai-preview.webp",
+    "previewWidth": 416,
+    "previewHeight": 234,
+    "proof": "media/process/ai-notes.webp",
+    "visual": "media/process/ai-visual.webp",
+    "document": "Win_Theory/WT_Photoreal_Generation_Workflow_Final.pdf",
+    "page": 4
+  },
+  "review": {
+    "preview": "media/process/review-preview.webp",
+    "previewWidth": 198,
+    "previewHeight": 280,
+    "proof": "media/process/review-notes.webp",
+    "visual": "media/process/review-notes.webp",
+    "document": "TruNativ/Brand_Strategy_and_Packaging/OP01_Research_and_Operating_Plan.pdf",
+    "page": 6
+  }
+}

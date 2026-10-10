@@ -18,7 +18,7 @@ const useEffect=(fn,deps)=>effect(fn,deps,false),useLayoutEffect=(fn,deps)=>effe
 const _jsx=(type,props,key)=>({type,props,key}),_jsxs=_jsx;
 const memo=x=>x,lazy=()=>()=>null,Suspense=()=>null;
 const empty=()=>null;
-const BrandControls=empty,ResultsRibbon=empty,JourneyPlayer=empty,ExpandCue=empty,KineticName=empty,KineticType=empty,SceneAccents=empty,ClientMarquee=empty,PosterType=empty,KineticCopy=empty,Scene=empty,PlaybackToggle=empty;
+const BrandControls=empty,ResultsRibbon=empty,JourneyPlayer=empty,ExpandCue=empty,KineticName=empty,KineticType=empty,SceneAccents=empty,ClientMarquee=empty,PosterType=empty,KineticCopy=empty,Scene=empty,PlaybackToggle=empty,CreativeProcess=empty;
 const asset=x=>x,previewAsset=x=>x,previewSrcSet=()=>'',href=()=>'/work/',projectPath=x=>'/work/'+x,platformLabel=()=> 'YouTube',brandFor=()=> 'Brand';
 const showcase=[{id:'p0',title:'Project 0'}],positioning={eyebrow:'Creative producer'},posterCopy={selected:[]};
 const portfolioCategories=[{id:'selected',label:'Highlights'},{id:'trailers',label:'Film'}];

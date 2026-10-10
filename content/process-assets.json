@@ -72,9 +72,9 @@
     "page": 6
   },
   "personal-brand": {
-    "preview": "media/process/library-creator-identity-1.svg",
-    "previewWidth": 1080,
-    "previewHeight": 1080,
+    "preview": "media/process/personal-brand-source-preview.webp",
+    "previewWidth": 416,
+    "previewHeight": 234,
     "proof": "media/process/library-creator-identity-1.svg",
     "visual": "media/process/library-creator-identity-1.svg",
     "document": "Aarti_Sorted/AR05_Aarti_Identity_Caption_and_Edit_Delivery.pdf",
@@ -90,7 +90,7 @@
     "page": 3
   },
   "playbooks": {
-    "preview": "media/process/production-preview.webp",
+    "preview": "media/process/playbooks-source-preview.webp",
     "previewWidth": 416,
     "previewHeight": 234,
     "proof": "media/process/production-notes.webp",
@@ -99,9 +99,9 @@
     "page": 3
   },
   "vfx-brief": {
-    "preview": "media/process/ai-preview.webp",
-    "previewWidth": 416,
-    "previewHeight": 234,
+    "preview": "media/process/vfx-brief-source-preview.webp",
+    "previewWidth": 216,
+    "previewHeight": 280,
     "proof": "media/process/ai-notes.webp",
     "visual": "media/process/ai-visual.webp",
     "document": "Win_Theory/WT_Photoreal_Generation_Workflow_Final.pdf",

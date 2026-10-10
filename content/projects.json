@@ -694,10 +694,11 @@
     "sourceUrl": "https://www.youtube.com/watch?v=BfwUjNr5QCs",
     "order": 47,
     "disclosure": "",
-    "status": "source_embed_retained_poster_unavailable",
+    "status": "source_embed_retained_designed_cover",
     "embedUrl": "https://www.youtube.com/embed/BfwUjNr5QCs?si=LBSPA7sFf9HyVjPd",
     "aspect": 1.7777777777777777,
-    "featured": false
+    "featured": false,
+    "poster": "covers/stand-up-events-01.svg"
   },
   {
     "id": "stand-up-events-02",

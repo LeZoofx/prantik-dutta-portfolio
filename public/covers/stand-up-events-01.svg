@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+ <title>Stand-up Events — portfolio cover</title>
+ <rect width="1280" height="720" fill="#121214"/>
+ <path d="M1020 0 510 720H715L1225 0Z" fill="#ded9cc" opacity=".07"/>
+ <path d="M0 632H1280M74 75H1206V645H74Z" fill="none" stroke="#aaa397" opacity=".5"/>
+ <g fill="#eee8dc" font-family="Arial, sans-serif">
+  <text x="91" y="126" font-size="24" letter-spacing="5">LIVE &amp; COMEDY</text>
+  <text x="89" y="297" font-size="110" font-weight="700" letter-spacing="-7">Stand-up</text>
+  <text x="89" y="423" font-size="110" font-weight="700" letter-spacing="-7">Events.</text>
+  <text x="91" y="594" font-size="22" letter-spacing="3">PRANTIK DUTTA</text>
+ </g>
+ <g transform="translate(1015 410) rotate(16)" stroke="#d7524e" stroke-width="5" fill="none">
+  <rect x="-42" y="-127" width="84" height="154" rx="42"/>
+  <path d="M-65-60V-15A65 65 0 0 0 65-15V-60M0 50V117M-52 117H52M-27-82H27M-27-62H27M-27-42H27"/>
+ </g>
+ <text x="1190" y="594" text-anchor="end" fill="#aaa397" font-family="Arial, sans-serif" font-size="16" letter-spacing="2">PORTFOLIO COVER</text>
+</svg>

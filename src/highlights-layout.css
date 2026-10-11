@@ -8,8 +8,9 @@
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.portrait-film:is(.slot-6,.slot-7,.slot-8,.slot-9){width:14%}
 }
 @media(max-width:699px){
- .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film:is(.slot-3,.slot-4){width:32%;max-width:none;bottom:auto;z-index:12;--card-blur:.45px;--frame-light:.88}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film:is(.slot-3,.slot-4){width:32%;max-width:none;bottom:auto;z-index:30;--card-blur:.45px;--frame-light:.88}
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.slot-3{left:2%;right:auto;top:47%;rotate:5deg}
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.slot-4{left:auto;right:2%;top:50%;rotate:-5deg}
- .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.portrait-film:is(.slot-3,.slot-4){width:22%;top:6%}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.portrait-film:is(.slot-3,.slot-4){width:22%}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights:has(.slot-0.portrait-film) .depth-film.portrait-film:is(.slot-3,.slot-4){width:20%;top:3%}
 }

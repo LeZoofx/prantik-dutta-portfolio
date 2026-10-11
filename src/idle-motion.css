@@ -28,6 +28,7 @@
  html.is-scrolling .kinetic-copy,html.is-scrolling .type-word,html.is-scrolling .scene-accents *,html.is-scrolling .depth-film-float,html.is-scrolling .discovery-solid,html.is-scrolling .frame-expand-cue,html.is-scrolling .expand-corners,html.page-hidden *,.depth-journey[data-paused=true] .depth-film-float,.depth-journey[data-moving=true] .kinetic-copy,.depth-journey[data-moving=true] .type-word{animation-play-state:paused!important}
  .zoom-world[inert] .scene-accents *,.zoom-world[inert] .discovery-solid,.zoom-world[inert] .depth-film-float,.zoom-world[inert] .frame-expand-cue,.zoom-world[inert] .expand-corners{animation-play-state:paused!important}
 }
+
 @keyframes idle-prism{0%,100%{transform:rotateX(-20deg) rotateY(30deg)}50%{transform:rotateX(6deg) rotateY(70deg)}}
 @keyframes poster-hover{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 /* Registration/shutter movements retain complete letterforms and never animate layout. */
@@ -90,4 +91,10 @@
 }
 @media(prefers-reduced-motion:reduce){.autoplay-toggle{transition:none}.depth-next-category>i{animation:none}.depth-discovery .discovery-solid{animation:none}}
 
+}
+
+/* One idle navigation cue; independent of frame cycling and page travel. */
+@media(prefers-reduced-motion:no-preference){
+ .depth-journey[data-ready=true]:not([data-moving=true]):not([data-paused=true]) .depth-navigation button[aria-label="Next scene"]{animation:next-page-invite 3.6s ease-in-out infinite}
+ @keyframes next-page-invite{0%,65%,100%{translate:0 0}35%,45%{translate:3px 0}}
 }

@@ -5,5 +5,9 @@
   {"id":"stand-up-events-03","title":"Biswa Kalyan Rath","label":"Prime Video / Comedy"},
   {"id":"brands-15","title":"Mumbai Indians","label":"Campaign"},
   {"id":"social-short-format-06","title":"AI visual / lip-sync","label":"AI / VFX"},
-  {"id":"social-02","title":"Cole Walliser","label":"A*Pop / YouTube"}
+  {"id":"social-02","title":"Cole Walliser","label":"A*Pop / YouTube","highlight":false},
+  {"id":"social-short-format-02","title":"Jaquar Trilogy","label":"Marketing / Short form"},
+  {"id":"social-short-format-11","title":"Realistic AI","label":"AI / Short form"},
+  {"id":"brands-03","title":"TruNativ","label":"Brand direction / Campaign"},
+  {"id":"brands-22","title":"OnePlus with Rahul Subramanian","label":"OnePlus / Campaign"}
 ]

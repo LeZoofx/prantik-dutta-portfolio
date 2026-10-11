@@ -33,7 +33,7 @@ function ProcessNotes({step,initialEvidence,onClose}:{step:Step;initialEvidence:
 
 export default function CreativeProcess({ready,paused=false,reduced=false}:{ready:boolean;paused?:boolean;reduced?:boolean}){
  const viewport=useRef<HTMLDivElement>(null),track=useRef<HTMLDivElement>(null),animation=useRef<Animation|null>(null);
- const manual=useRef(false),touchTimer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
+ const manual=useRef(false),loopHeight=useRef(0),touchTimer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
  const [stopped,setStopped]=useState(false),[notes,setNotes]=useState<OpenNotes|null>(null);
  const controls=useRef({paused,stopped,reduced,notes:!!notes});controls.current={paused,stopped,reduced,notes:!!notes};
  const duration=steps.length*18000;
@@ -41,7 +41,8 @@ export default function CreativeProcess({ready,paused=false,reduced=false}:{read
  function readManually(){
   clearTimeout(touchTimer.current);if(manual.current)return;
   const view=viewport.current,t=track.current,a=animation.current;if(!view||!t)return;
-  const offset=a?(Number(a.currentTime||0)%duration)/duration*(t.offsetHeight/2):view.scrollTop;
+  loopHeight.current=t.offsetHeight/2;
+  const offset=a?(Number(a.currentTime||0)%duration)/duration*loopHeight.current:view.scrollTop;
   manual.current=true;a?.pause();view.dataset.manual='true';view.scrollTop=offset;
  }
  function resume(){
@@ -60,13 +61,14 @@ export default function CreativeProcess({ready,paused=false,reduced=false}:{read
  },[ready,reduced,duration]);
  useEffect(sync,[paused,stopped,notes]);
  return <><aside className="process-rail" aria-label="Creative strategy and production process" data-stopped={stopped}
+  onWheelCapture={e=>{e.stopPropagation();readManually()}} onPointerMoveCapture={e=>e.stopPropagation()}
   onPointerEnter={e=>{if(e.pointerType==='mouse')readManually()}} onPointerLeave={e=>{if(e.pointerType==='mouse'&&!notes)resume()}}>
   <header className="process-rail-head"><div><span className="process-kicker">From the first question</span><h2>Strategy <i>&</i><br/>the making.</h2></div><button className="process-pause" aria-label={stopped?'Resume process animation':'Pause process animation'} aria-pressed={stopped} onClick={()=>setStopped(!stopped)}>{stopped?'▶':'Ⅱ'}</button></header>
   <div ref={viewport} className="process-scroller" tabIndex={0} aria-label="Process notes. Hover or touch to pause, scroll to read, select a card to open." data-manual="false"
    onFocusCapture={e=>{if(e.target.matches(':focus-visible'))readManually()}} onBlurCapture={blur}
    onPointerDown={e=>{if(e.pointerType==='touch')readManually()}} onPointerUp={e=>{if(e.pointerType==='touch')touchTimer.current=setTimeout(()=>{if(!controls.current.notes)resume()},8000)}}
    onPointerCancel={e=>{if(e.pointerType==='touch')touchTimer.current=setTimeout(()=>{if(!controls.current.notes)resume()},8000)}}
-   onScroll={()=>{const view=viewport.current,t=track.current;if(!reduced&&animation.current&&manual.current&&view&&t&&view.scrollTop>=t.offsetHeight/2)view.scrollTop-=t.offsetHeight/2}}>
+   onScroll={e=>{e.stopPropagation();const view=viewport.current,height=loopHeight.current;if(!reduced&&animation.current&&manual.current&&view&&height&&view.scrollTop>=height)view.scrollTop%=height}}>
    <div ref={track} className="process-track">{[0,1].map(copy=><div className="process-run" key={copy} aria-hidden={copy===1?true:undefined}>{steps.map((step,i)=>{const excerpt=excerptFor(step);return <article className={'process-card process-tone-'+step.tone} key={step.id}>
     <div className="process-card-index"><span>{String(i+1).padStart(2,'0')}</span><span>{step.label}</span><span aria-hidden="true">↗</span></div>
     <h3>{step.title}</h3><div className="process-card-lines">{step.lines.map(line=><span key={line}>{line}</span>)}</div>

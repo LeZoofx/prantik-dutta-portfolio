@@ -12,14 +12,14 @@ function load(file){
 }
 const {buildSections}=load(path.resolve('src/portfolioSections.ts'));
 const projects=load(path.resolve('content/projects.json'));
-const added=['social-short-format-02','social-short-format-11','brands-03','brands-22'];
-test('Highlights keeps the original opening and includes exactly two more shorts and two more campaigns',()=>{
+const added=['social-short-format-02','brands-04','brands-03','brands-07'];
+test('Highlights keeps its frame hierarchy with the three requested video swaps',()=>{
  const sections=buildSections(projects).filter(s=>s.category==='selected');
  assert.equal(sections.length,1,'The added videos must not create another desktop page');
  const items=sections[0].items;
- assert.deepEqual(items.slice(0,6).map(p=>p.id),['videos-03','social-01','videos-04','stand-up-events-03','brands-15','social-short-format-06']);
+ assert.deepEqual(items.slice(0,6).map(p=>p.id),['videos-03','social-01','videos-04','stand-up-events-03','brands-01','social-short-format-06']);
  assert.deepEqual(items.slice(6).map(p=>p.id),added);
- assert.deepEqual(items.slice(6).map(p=>p.category),['short-form','short-form','brands','brands']);
+ assert.deepEqual(items.slice(6).map(p=>p.category),['short-form','brands','brands','brands']);
 });
 test('desktop and mobile add frames on the original Highlights pages and keep every archive project',()=>{
  for(const size of [3,6]){
@@ -34,8 +34,8 @@ test('desktop and mobile add frames on the original Highlights pages and keep ev
  }
 });
 test('brand filtering includes added Highlights without leaking other brands',()=>{
- const sections=buildSections(projects,'curated','OnePlus');
- assert.deepEqual(sections.filter(s=>s.category==='selected').flatMap(s=>s.items).map(p=>p.id),['brands-22']);
+ const sections=buildSections(projects,'curated','Lollapalooza');
+ assert.deepEqual(sections.filter(s=>s.category==='selected').flatMap(s=>s.items).map(p=>p.id),['brands-07']);
 });
 test('all existing and added videos remain mounted throughout the same-page rotation',()=>{
  for(const size of [3,6])for(const section of buildSections(projects,'curated','all',size).filter(s=>s.category==='selected')){

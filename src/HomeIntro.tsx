@@ -1,6 +1,6 @@
 import {Suspense,lazy,useEffect,useRef,useState} from 'react';
 import {asset,previewAsset,previewSrcSet,projects,type Project} from './content';
-import showcase from '../content/showcase.json';
+import showcase from '../content/overview-showcase.json';
 import KineticName from './KineticName';
 import ClientMarquee from './ClientMarquee';
 import PosterType,{KineticCopy} from './PosterType';

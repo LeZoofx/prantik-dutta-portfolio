@@ -16,9 +16,9 @@ import showcase from '../content/showcase.json';
 import positioning from '../content/positioning.json';
 import {usePerformance,listenMedia} from './Performance';
 import useFrameOrbit from './useFrameOrbit';
-import {orbitPeriod,queuedFrames} from './frameQueue';
 import './journey.css';
 import './depth-journey.css';
+import './highlights-layout.css';
 import Scene from './JourneyScene';
 import {ScenePager,swipePages} from './scenePaging';
 import {NativeSceneScroll} from './NativeSceneScroll';
@@ -37,16 +37,13 @@ function Discovery({project,onReveal,theme,motion}:{project:Project;onReveal:(p:
 }
 function DepthWorld({section,active,autoplay,compact,paused,playing,muted,onProject,onDiscover,onProcess,motion,rotate,mobile}:{mobile:boolean;motion:JourneyMotion;rotate:boolean;section:PortfolioSection;active:boolean;autoplay:boolean;compact:boolean;paused:boolean;playing:boolean;muted:boolean;onProject:(p:Project)=>void;onDiscover:(p:Project)=>void;onProcess:()=>void}){
  const {maxPlayers,ready,quality}=usePerformance();
- const pool=section.orbitItems||section.items,slots=section.items.length;
- const {gallery,turn,settledTurn:playTurn}=useFrameOrbit(orbitPeriod(slots,pool.length),active&&rotate&&!paused&&ready,motion,playing);
- const frames=queuedFrames(section.items,pool,playTurn),focus=playTurn%slots;
- useLayoutEffect(()=>{if(!section.orbitItems)return;const world=gallery.current?.closest<HTMLElement>('.zoom-world');if(world){world.dataset.layoutVersion=turn+':'+playTurn;world.dispatchEvent(new Event('portfolio-layout',{bubbles:true}))}},[playTurn,section.orbitItems]);
+ const {gallery,turn,settledTurn:playTurn}=useFrameOrbit(section.items.length,active&&rotate&&!paused&&ready,motion,playing);
  // Keep outgoing players alive until their movement finishes; retained frames never restart.
- const ordered=[...frames.slice(focus),...frames.slice(0,focus)];
+ const ordered=[...section.items.slice(playTurn),...section.items.slice(0,playTurn)];
  const playable=ordered.filter(p=>p.provider==='youtube'||p.provider==='instagram').slice(0,Math.min(compact?2:3,maxPlayers)).map(p=>p.id);
  return <>{(!mobile||active)&&<SceneAccents theme={section.theme} art={section.art}/>}<div className="depth-heading">{section.category==='selected'&&section.offset===0?<><p className="depth-specialty"><KineticCopy text={positioning.eyebrow}/></p><h1><KineticName/></h1><PosterType lines={posterCopy.selected} art={section.art} className="depth-poster-copy"/><button className="process-link" onClick={onProcess}>How I lead a project ↗</button></>:<><p className="depth-specialty"><KineticCopy text={section.focus}/></p><h2><KineticType text={section.title} variant={section.theme}/></h2><PosterType lines={posterCopy[section.category]} art={section.art} className="depth-poster-copy"/></>}</div>
  <div className="depth-type-field" aria-hidden="true"><KineticType text={section.category==='selected'?'CREATE':section.title.toUpperCase()} variant={section.theme}/></div>
- <div className="depth-gallery" ref={gallery}>{frames.map((p,i)=><article data-film={p.id} className={'depth-film slot-'+modulo(i-turn,slots)+((p.aspect||16/9)<1?' portrait-film':'')} key={section.items[i].id} style={{'--film-ratio':p.aspect||16/9,'--tile':i} as CSSProperties}>
+ <div className={'depth-gallery'+(section.category==='selected'&&section.items.length>(mobile?3:6)?' expanded-highlights':'')} ref={gallery}>{section.items.map((p,i)=><article data-film={p.id} className={'depth-film slot-'+modulo(i-turn,section.items.length)+((p.aspect||16/9)<1?' portrait-film':'')} key={p.id} style={{'--film-ratio':p.aspect||16/9,'--tile':i} as CSSProperties}>
   <div className="depth-film-body"><div className="depth-film-float"><div className="depth-film-label"><span><KineticCopy text={brandFor(p)||section.title}/></span><span className="depth-platform">{platformLabel(p)} <i aria-hidden="true">{section.theme===3?'_ □':'↗'}</i></span></div>
   <div className="depth-film-frame"><div className="depth-media-surface" inert={mobile?undefined:true}>{active&&ready&&playing&&!paused&&(p.provider==='instagram'||p.provider==='youtube')?<JourneyPlayer project={p} enabled={autoplay&&playable.includes(p.id)} muted={muted||p.id!==playable[0]} playing={playing&&(quality==='full'||p.id===playable[0])} onOpen={()=>onProject(p)}/>:<a className="depth-poster" href={projectPath(p.id)} onClick={e=>{if(!e.metaKey&&!e.ctrlKey){e.preventDefault();onProject(p)}}} aria-label={'Watch '+title(p)}>{p.poster?<img src={previewAsset(p.poster)} srcSet={previewSrcSet(p.poster)} sizes="(max-width:699px) 75vw, 42vw" alt={title(p)} loading={active?'eager':'lazy'} fetchPriority={active&&i===0?'high':'low'} decoding="async"/>:<span>{title(p)}</span>}<span className="depth-play" aria-hidden="true">▶</span></a>}</div>{mobile?<ExpandCue title={title(p)} onOpen={()=>onProject(p)}/>:<a className="depth-video-hitarea" href={projectPath(p.id)} aria-label={'Expand video: '+title(p)} onClick={e=>{if(!e.metaKey&&!e.ctrlKey&&!e.shiftKey&&!e.altKey){e.preventDefault();onProject(p)}}}><span className="frame-expand-cue" aria-hidden="true"><span className="expand-corners">⤢</span><span>Expand</span></span></a>}</div>
   <a className="depth-caption" href={projectPath(p.id)} onClick={e=>{if(!e.metaKey&&!e.ctrlKey){e.preventDefault();onProject(p)}}}><KineticCopy text={title(p)}/><span aria-hidden="true">↗</span></a>

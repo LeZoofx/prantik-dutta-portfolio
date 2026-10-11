@@ -11,24 +11,23 @@ function load(file){
  return module.exports;
 }
 const {buildSections}=load(path.resolve('src/portfolioSections.ts'));
-const {orbitPeriod,queuedFrames}=load(path.resolve('src/frameQueue.ts'));
 const projects=load(path.resolve('content/projects.json'));
 const added=['social-short-format-02','social-short-format-11','brands-03','brands-22'];
 test('Highlights keeps the original opening and includes exactly two more shorts and two more campaigns',()=>{
  const sections=buildSections(projects).filter(s=>s.category==='selected');
  assert.equal(sections.length,1,'The added videos must not create another desktop page');
- const items=sections[0].orbitItems;
- assert.deepEqual(sections[0].items.map(p=>p.id),['videos-03','social-01','videos-04','stand-up-events-03','brands-15','social-short-format-06']);
+ const items=sections[0].items;
+ assert.deepEqual(items.slice(0,6).map(p=>p.id),['videos-03','social-01','videos-04','stand-up-events-03','brands-15','social-short-format-06']);
  assert.deepEqual(items.slice(6).map(p=>p.id),added);
  assert.deepEqual(items.slice(6).map(p=>p.category),['short-form','short-form','brands','brands']);
 });
-test('desktop and mobile retain the original Highlights pages, frame limits and every archive project',()=>{
+test('desktop and mobile add frames on the original Highlights pages and keep every archive project',()=>{
  for(const size of [3,6]){
   const sections=buildSections(projects,'curated','all',size);
-  assert.ok(sections.every(s=>s.items.length<=size));
+  assert.ok(sections.filter(s=>s.category!=='selected').every(s=>s.items.length<=size));
   const highlights=sections.filter(s=>s.category==='selected');
   assert.equal(highlights.length,6/size);
-  assert.deepEqual(new Set(highlights.flatMap(s=>s.orbitItems.slice(s.items.length)).map(p=>p.id)),new Set(added));
+  assert.deepEqual(new Set(highlights.flatMap(s=>s.items.slice(size)).map(p=>p.id)),new Set(added));
   const archive=sections.filter(s=>s.category!=='selected').flatMap(s=>s.items);
   assert.equal(archive.length,projects.length);
   assert.deepEqual(new Set(archive.map(p=>p.id)),new Set(projects.map(p=>p.id)));
@@ -38,23 +37,16 @@ test('brand filtering includes added Highlights without leaking other brands',()
  const sections=buildSections(projects,'curated','OnePlus');
  assert.deepEqual(sections.filter(s=>s.category==='selected').flatMap(s=>s.items).map(p=>p.id),['brands-22']);
 });
-test('each added video reaches the focal frame on the same page without more mounted frames',()=>{
+test('all existing and added videos remain mounted throughout the same-page rotation',()=>{
  for(const size of [3,6])for(const section of buildSections(projects,'curated','all',size).filter(s=>s.category==='selected')){
-  const frames=section.items,pool=section.orbitItems,period=orbitPeriod(frames.length,pool.length),seen=new Set();
-  for(let step=0;step<period;step++){
-   const visible=queuedFrames(frames,pool,step);
-   assert.equal(visible.length,size);
-   assert.equal(new Set(visible.map(p=>p.id)).size,size);
-   assert.equal(visible[step%size].id,pool[step%pool.length].id);
-   seen.add(visible[step%size].id);
+  assert.equal(section.items.length,size===6?10:5);
+  const expected=new Set(section.items.map(p=>p.id)),focal=new Set();
+  for(let turn=0;turn<section.items.length;turn++){
+   const slots=section.items.map((p,i)=>({id:p.id,slot:((i-turn)%section.items.length+section.items.length)%section.items.length}));
+   assert.deepEqual(new Set(slots.map(p=>p.id)),expected);
+   assert.equal(new Set(slots.map(p=>p.slot)).size,section.items.length);
+   focal.add(slots.find(p=>p.slot===0).id);
   }
-  assert.deepEqual(seen,new Set(pool.map(p=>p.id)));
-  assert.deepEqual(queuedFrames(frames,pool,period),queuedFrames(frames,pool,0));
- }
-});
-test('ordinary scenes keep their original frame contents throughout every rotation',()=>{
- for(const section of buildSections(projects).filter(s=>s.category!=='selected'))for(let step=0;step<section.items.length;step++){
-  assert.equal(orbitPeriod(section.items.length,section.items.length),section.items.length);
-  assert.deepEqual(queuedFrames(section.items,undefined,step),section.items);
+  assert.deepEqual(focal,expected);
  }
 });

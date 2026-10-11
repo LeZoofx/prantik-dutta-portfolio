@@ -4,7 +4,7 @@ import brandData from '../content/project-brands.json';
 import positioning from '../content/positioning.json';
 import showcase from '../content/showcase.json';
 export type PortfolioCategory=Category|'selected';
-export type PortfolioSection={id:string;category:PortfolioCategory;title:string;summary:string;focus:string;items:Project[];orbitItems?:Project[];theme:number;layout:number;offset:number;art:ArtStyle};
+export type PortfolioSection={id:string;category:PortfolioCategory;title:string;summary:string;focus:string;items:Project[];theme:number;layout:number;offset:number;art:ArtStyle};
 export type WorkSort='curated'|'brand';
 const metadata=brandData as Record<string,{brand:string;collaborator?:string}>;
 export const brandFor=(p:Project)=>metadata[p.id]?.brand||'';
@@ -25,8 +25,8 @@ export function buildSections(projects:Project[],sort:WorkSort='curated',brand='
   const opening=source.filter(p=>!extras.includes(p));
   const list=sortProjects(opening.length?opening:source,sort),context=contextFor(group.id),pages=Math.ceil(list.length/size);
   for(let start=0;start<list.length;start+=size){
-   const items=list.slice(start,start+size),queued=opening.length?sortProjects(extras,sort).filter((_,i)=>i%pages===Math.floor(start/size)):[];
-   sections.push({id:group.id+'-'+start,category:group.id,title:context.title,summary:context.summary,focus:context.focus,items,...(queued.length?{orbitItems:[...items,...queued]}:{}),theme:group.id==='brands'?[2,1,2,5,2][Math.floor(start/size)%5]:group.id==='short-form'?[3,4,3,2,3,4][Math.floor(start/size)%6]:group.id==='youtube'?[5,0,5,1,5][Math.floor(start/size)%5]:group.theme,layout:(sections.length+group.theme)%6,offset:start,art:artSequence[group.id][Math.floor(start/size)%artSequence[group.id].length]});
+   const items=[...list.slice(start,start+size),...(opening.length?sortProjects(extras,sort).filter((_,i)=>i%pages===Math.floor(start/size)):[])];
+   sections.push({id:group.id+'-'+start,category:group.id,title:context.title,summary:context.summary,focus:context.focus,items,theme:group.id==='brands'?[2,1,2,5,2][Math.floor(start/size)%5]:group.id==='short-form'?[3,4,3,2,3,4][Math.floor(start/size)%6]:group.id==='youtube'?[5,0,5,1,5][Math.floor(start/size)%5]:group.theme,layout:(sections.length+group.theme)%6,offset:start,art:artSequence[group.id][Math.floor(start/size)%artSequence[group.id].length]});
   }
  }
  return sections;

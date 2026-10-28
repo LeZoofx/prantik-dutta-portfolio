@@ -1,5 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import {secureDocument} from './security-policy.mjs';
+import {writeDependencyNotices} from './dependency-notices.mjs';
 import {render} from '../.server/entry-server.js';
 const data=JSON.parse(await fs.readFile('content/projects.json','utf8'));
 const site=JSON.parse(await fs.readFile('content/site.json','utf8'));
@@ -20,10 +22,12 @@ async function page(route,filename){
  const poster=p?.poster||data.find(x=>x.featured&&x.poster)?.poster;
  const image=origin&&poster?'<meta property="og:image" content="'+escape(/^https:/.test(poster)?poster:origin+'/'+poster)+'"/><meta name="twitter:card" content="summary_large_image"/>':'';
  html=html.replace('<!--seo-->',meta+image);
- await fs.mkdir(path.dirname(filename),{recursive:true});await fs.writeFile(filename,html);
+ await fs.mkdir(path.dirname(filename),{recursive:true});await fs.writeFile(filename,secureDocument(html));
 }
 for(const route of routes)await page(route,path.join('dist',route,'index.html'));
 await page('/404','dist/404.html');
+await fs.writeFile('dist/privacy.html',secureDocument(await fs.readFile('dist/privacy.html','utf8')));
+await writeDependencyNotices();
 if(origin)await fs.writeFile('dist/sitemap.xml','<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+routes.map(p=>'<url><loc>'+escape(origin+p)+'</loc></url>').join('')+'</urlset>');
 await fs.writeFile('dist/robots.txt','User-agent: *\nAllow: /\n'+(origin?'Sitemap: '+origin+'/sitemap.xml\n':''));
 console.log('Prerendered '+routes.length+' pages and a 404 page.');

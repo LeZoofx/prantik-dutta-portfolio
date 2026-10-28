@@ -6,4 +6,6 @@ Barlow Condensed and IBM Plex Mono are self-hosted under the SIL Open Font Licen
 
 React, React DOM, Three.js, React Three Fiber, Vite and other dependencies retain the licenses distributed with their npm packages. Dependency versions are fixed by `package-lock.json`.
 
+The production build publishes complete installed production-dependency licence texts at `software-notices.txt`. React Three Fiber's upstream MIT licence is retained in `docs/licenses/react-three-fiber-LICENSE` because its npm package omits the root licence file. The proprietary portfolio notice does not replace any dependency or font licence.
+
 Bodoni Moda, Press Start 2P, Yatra One and UnifrakturCook are self-hosted as subset WOFF fonts under the SIL Open Font License. Original authors, reserved names and full license terms are preserved in `public/fonts/ornate-OFL.txt`, `pixel-OFL.txt`, `paint-OFL.txt`, and `gothic-OFL.txt`. Font source: the corresponding `ofl/` directories in https://github.com/google/fonts . No third-party font requests are made by visitors.

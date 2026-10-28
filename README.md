@@ -26,8 +26,12 @@ npm test
 npm run build
 ```
 
-GitHub Actions sets the correct base path for either `username.github.io` or a project repository. No backend, paid service or API key is needed by the site.
+GitHub Actions sets the correct base path for either `username.github.io` or a project repository. The site needs no backend or API key. Publishing a public GitHub Pages site from a private personal repository requires GitHub Pro.
 
 Source content and media come from https://prantikdutta.myportfolio.com/ . Third-party artwork, films, logos and platform content retain their respective ownership. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+Original code and design are proprietary, all rights reserved. See [LICENSE](LICENSE).
+Repository privacy does not hide the files a browser needs to display the public site.
+See [SECURITY.md](SECURITY.md) for the privacy model and safe deployment settings.
 
 The revised creative and technical brief is in [docs/CREATIVE-DIRECTION-v2.md](docs/CREATIVE-DIRECTION-v2.md).

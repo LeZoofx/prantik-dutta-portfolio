@@ -4,19 +4,19 @@ This folder contains the actual website, all recovered project posters, and the 
 
 ## Your website and editing links
 
-**Website: [lezoofx.github.io/portfolio](https://lezoofx.github.io/portfolio/)**
+**Website: [lezoofx.github.io/prantik-dutta-portfolio](https://lezoofx.github.io/prantik-dutta-portfolio/)**
 
-Your complete project is at **[github.com/LeZoofx/portfolio](https://github.com/LeZoofx/portfolio)**. The source, fonts and all 78 recovered project posters are uploaded. The opening selection starts with Darlings and shuffles through Netflix, Prime Video, Mumbai Indians, Lollapalooza and A*Pop work. GitHub Pages is enabled and the first live deployment succeeded on 27 September 2026 (India time). There is no remaining setup step.
+Your complete project is at **[github.com/LeZoofx/prantik-dutta-portfolio](https://github.com/LeZoofx/prantik-dutta-portfolio)**. The source, fonts and all 78 recovered project posters are uploaded. The opening selection starts with Darlings and shuffles through Netflix, Prime Video, Mumbai Indians, Lollapalooza and A*Pop work. GitHub Pages is enabled and the first live deployment succeeded on 27 September 2026 (India time). There is no remaining setup step.
 
-Committing an edit publishes the website automatically. For a manual rebuild, open **[Publish portfolio](https://github.com/LeZoofx/portfolio/actions/workflows/deploy.yml)**, select **Run workflow**, keep **main**, and press the green **Run workflow** button. Wait for its green check before checking the updated site.
+Committing an edit publishes the website automatically. For a manual rebuild, open **[Publish portfolio](https://github.com/LeZoofx/prantik-dutta-portfolio/actions/workflows/deploy.yml)**, select **Run workflow**, keep **main**, and press the green **Run workflow** button. Wait for its green check before checking the updated site.
 
-The repository is public so GitHub Pages can host it on the free plan. Other people can view the site and source; they cannot edit your repository unless you grant them access. Keep repository collaborators empty. Publishing, project editing and image recovery also check that the person running them is the repository owner.
+Keep the source repository private on a qualifying GitHub plan, and the portfolio website public. A private personal repository requires GitHub Pro for Pages; on GitHub Free, making the source private unpublishes its Pages site. Verify the plan before changing visibility. Browser-delivered HTML, CSS, JavaScript and media remain readable even with a private repository. Keep repository collaborators empty unless you explicitly trust them. Publishing, project editing and image recovery also check that the person running them is the repository owner.
 
 The site has no public admin page and no password or publishing token in its browser code. Editing happens inside your authenticated GitHub account.
 
 ## Add or update your work
 
-1. Open **[Add or update a project](https://github.com/LeZoofx/portfolio/actions/workflows/update-project.yml)** in your repository.
+1. Open **[Add or update a project](https://github.com/LeZoofx/prantik-dutta-portfolio/actions/workflows/update-project.yml)** in your repository.
 2. Select **Run workflow**.
 3. Enter a title, project URL and category. Add your role, description and AI disclosure where applicable.
 4. Select **Feature on the home page** if desired. A new featured project moves to the front; featured work leads the opening selection.
@@ -41,7 +41,7 @@ Unzip the project. Open a terminal in the `prantik-portfolio` folder and run:
 node scripts/publish.mjs portfolio-copy
 ```
 
-The script opens GitHub's secure web sign-in when needed, creates a new repository with the supplied name, uploads this folder, enables GitHub Pages and starts publishing. It never replaces an existing repository. No npm installation is needed for this publishing step; GitHub installs build dependencies itself. Run it from a fresh unzipped copy.
+The script opens GitHub's secure web sign-in when needed, checks that your personal account has GitHub Pro, creates a new private repository with the supplied name, uploads this folder, enables GitHub Pages and starts publishing. It never replaces an existing repository. No npm installation is needed for this publishing step; GitHub installs build dependencies itself. Run it from a fresh unzipped copy.
 
 If GitHub asks for its one-time Pages setting, open **Settings → Pages → Build and deployment → Source → GitHub Actions**, then **Actions → Publish portfolio → Run workflow**. The deployment output supplies the final website URL.
 
@@ -63,7 +63,7 @@ Open the local address printed by Vite. To build the production files, run `npm 
 - Some source links and videos can require a provider login or can stop working later. Each project keeps an original-source link as a fallback. Two original brand TinyURLs could not be resolved during migration and are preserved as supplied.
 - Generic source titles remain where the old site did not supply a specific title. Per-project credits have not been invented. Replace these through the editing workflow when convenient.
 - WebGL uses the full 3D renderer. If a browser cannot create WebGL, Explore retains all work and its varied layouts when WebGL is unavailable. Reduced-motion and data-saving settings turn off automatic playback; visitors can still press Play. The category controls and project links also work with a keyboard.
-- **[Restore missing portfolio images](https://github.com/LeZoofx/portfolio/actions/workflows/recover-media.yml)** can recover missing original posters. It also attempts genuine higher-resolution YouTube posters. Existing images remain available if a larger original cannot be fetched; it never enlarges a small image to pretend it is high resolution.
+- **[Restore missing portfolio images](https://github.com/LeZoofx/prantik-dutta-portfolio/actions/workflows/recover-media.yml)** can recover missing original posters. It also attempts genuine higher-resolution YouTube posters. Existing images remain available if a larger original cannot be fetched; it never enlarges a small image to pretend it is high resolution.
 
 ## Official references
 

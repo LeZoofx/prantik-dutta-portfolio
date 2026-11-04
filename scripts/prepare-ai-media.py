@@ -23,18 +23,20 @@ for item in sources:
         continue
     source = work / (item['id'] + '.mp4')
     if not source.exists():
+        print('Downloading public source: ' + item['name'], flush=True)
         if not gdown.download(id=item['id'], output=str(source), quiet=True, use_cookies=False):
             raise RuntimeError('Public video unavailable: ' + item['name'])
     if not target.exists():
+        print('Encoding web copy: ' + item['name'], flush=True)
         temporary = target.with_name(target.stem + '-encoding.mp4')
         subprocess.run([
             'ffmpeg', '-hide_banner', '-loglevel', 'error', '-i', str(source),
             '-map', '0:v:0', '-map', '0:a:0?', '-vf', 'fps=30',
-            '-c:v', 'libx264', '-preset', 'medium', '-crf', '25',
+            '-c:v', 'libx264', '-preset', 'fast', '-crf', '25',
             '-maxrate', '1800k', '-bufsize', '3600k', '-pix_fmt', 'yuv420p',
             '-g', '60', '-keyint_min', '30', '-sc_threshold', '0',
             '-c:a', 'aac', '-b:a', '112k', '-map_metadata', '-1',
-            '-movflags', '+faststart', '-threads', '2', '-y', str(temporary)
+            '-movflags', '+faststart', '-threads', '4', '-y', str(temporary)
         ], check=True)
         temporary.replace(target)
     if item.get('posterAt') is not None and not poster.exists():

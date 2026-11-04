@@ -10,12 +10,12 @@ permissions:
   contents: read
 concurrency:
   group: portfolio-pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   build:
     if: github.actor == github.repository_owner
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
@@ -40,6 +40,14 @@ jobs:
         run: |
           command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
           python3 scripts/prepare-ai-media.py
+      - name: Save prepared film cache
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: |
+            public/video
+            public/media/ai-eric-schiffer.webp
+            public/media/ai-product-report.webp
+          key: ai-web-media-v1-${{ hashFiles('content/ai-media.json', 'scripts/prepare-ai-media.py') }}
       - run: npm ci
       - run: npm test
       - run: npm run refresh:metrics

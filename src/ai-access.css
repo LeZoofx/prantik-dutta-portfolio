@@ -1,17 +1,21 @@
-.ai-access,.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;flex-shrink:0;min-height:42px;padding:8px 16px;border:1px solid #ebffb8;border-radius:24px;background:linear-gradient(120deg,#e0ff8c,#b9ed68);color:#142410;font:700 12px/1.2 Mono,monospace;letter-spacing:.015em;white-space:nowrap;overflow:hidden;box-shadow:0 0 0 3px #d0f98924,0 0 18px #b8ed6826}
-.ai-access::before{content:'';position:absolute;inset:3px;z-index:-1;border:1px solid #fff;border-radius:inherit;animation:ai-access-signal 2.4s ease-out infinite;pointer-events:none}
-.ai-access::after{content:'';position:absolute;inset:-30% -50%;z-index:-1;background:linear-gradient(105deg,transparent 38%,#fffc 50%,transparent 62%);transform:translateX(-50%);animation:ai-access-glint 2.4s ease-in-out infinite;pointer-events:none}
-.ai-access-orbit{display:inline-block;font:21px/1 Georgia,serif;animation:ai-access-turn 3s linear infinite}
-.ai-access>span:last-child{display:inline-block;animation:ai-access-arrow 1.6s ease-in-out infinite}
-.ai-access:focus-visible{outline:2px solid #edf8d5;outline-offset:4px}.ai-access:hover{color:#0b221f;background:#e6ffb5}.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access{animation:none!important}
+.ai-access,.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:12px;flex-shrink:0;min-height:56px;padding:8px 18px;border:2px solid #efffc7;border-radius:32px;background:linear-gradient(120deg,#e7ff91,#b5ee58);color:#142410;font:700 clamp(23px,1.9vw,28px)/1 Display,Impact,sans-serif;letter-spacing:.035em;white-space:nowrap;overflow:hidden;box-shadow:0 0 0 3px #d0f98936,0 0 20px #b8ed6833;transform-origin:center;animation:ai-access-attention 3.4s ease-in-out infinite}
+.ai-access::before{content:'';position:absolute;inset:3px;z-index:-1;border:2px solid #fff;border-radius:inherit;animation:ai-access-signal 1.8s ease-out infinite;pointer-events:none}
+.ai-access::after{content:'';position:absolute;inset:-30% -50%;z-index:-1;background:linear-gradient(105deg,transparent 38%,#fffc 50%,transparent 62%);transform:translateX(-50%);animation:ai-access-glint 2.2s ease-in-out infinite;pointer-events:none}
+.ai-access-orbit{display:inline-block;flex:none;font:28px/1 Georgia,serif;animation:ai-access-turn 1.8s linear infinite}
+.ai-access-label{display:inline-flex;align-items:center;white-space:pre;text-transform:uppercase;perspective:450px;line-height:1.1;padding-block:.12em}
+.ai-access-letter{display:inline-block;white-space:pre;transform-origin:50% 70%;animation:ai-access-letter-flip 3.1s cubic-bezier(.2,.65,.3,1) infinite;animation-delay:calc(var(--ai-letter)*45ms)}
+.ai-access-arrow{display:inline-block;flex:none;font:25px/1 Arial,sans-serif;animation:ai-access-arrow 1.2s ease-in-out infinite}
+.ai-access:focus-visible{outline:2px solid #edf8d5;outline-offset:4px}.ai-access:hover{color:#0b221f;background:#e6ffb5;animation-play-state:paused}.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access{animation:ai-access-attention 3.4s ease-in-out infinite!important}
 @keyframes ai-access-glint{0%,20%{transform:translateX(-65%);opacity:0}38%{opacity:.7}65%,100%{transform:translateX(65%);opacity:0}}
 @keyframes ai-access-turn{to{transform:rotate(360deg)}}
 @keyframes ai-access-signal{0%{transform:scale(.93);opacity:1}75%,100%{transform:scale(1.04);opacity:0}}
-@keyframes ai-access-arrow{0%,100%{transform:translate(0,0)}50%{transform:translate(2px,-2px)}}
+@keyframes ai-access-arrow{0%,100%{transform:translate(-2px,2px)}50%{transform:translate(4px,-4px)}}
+@keyframes ai-access-attention{0%,26%,52%,100%{transform:translateY(0) rotate(0) scale(1)}32%{transform:translateY(-2px) rotate(-1deg) scale(1.025)}39%{transform:translateY(0) rotate(1deg) scale(1.025)}46%{transform:translateY(-1px) rotate(-.5deg) scale(1.01)}}
+@keyframes ai-access-letter-flip{0%,5%{transform:translateY(0) rotateX(0)}10%{transform:translateY(-.14em) rotateX(-22deg)}19%{transform:translateY(.04em) rotateX(360deg)}27%,100%{transform:translateY(0) rotateX(360deg)}}
 .home-intro .ai-access{margin:12px 12px 0 0}.depth-journey[data-category=ai] .depth-gallery .ai-secondary{opacity:.65;z-index:8!important}
 @media(min-width:700px){.depth-journey .depth-gallery.expanded-ai .depth-film.slot-6{width:14%;left:0;right:auto;top:2%;bottom:auto;rotate:5deg;z-index:12}.depth-journey .depth-gallery.expanded-ai .depth-film.slot-7{width:12%;left:4%;right:auto;top:34%;bottom:auto;rotate:-6deg;z-index:10}}
-@media(max-width:699px){.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access{font-size:9px;min-height:32px;padding:5px 10px;gap:5px;margin-right:5px}.ai-access-orbit{font-size:15px}.depth-journey .depth-topbar nav button.ai-access>span:last-child{display:none}.home-intro .ai-access{font-size:11px}}
-@media(prefers-reduced-motion:reduce){.ai-access::before,.ai-access::after,.ai-access-orbit,.ai-access>span:last-child{animation:none!important}}
+@media(max-width:699px){.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access{font-size:19px;min-height:44px;padding:4px 12px;gap:7px;margin-right:5px}.ai-access-orbit{font-size:21px}.ai-access-arrow{font-size:19px}.home-intro .ai-access{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.ai-access,.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access,.ai-access *,.ai-access::before,.ai-access::after{animation:none!important}}
 @media(min-width:700px){.depth-journey .depth-gallery.expanded-short-form .depth-film.slot-6{width:14%;left:0;right:auto;top:2%;bottom:auto;rotate:5deg;z-index:12}}
 @media(max-width:699px){
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form{--added-gallery-width:calc(100vw - 36px - var(--process-width) - 10px)}
@@ -21,4 +25,4 @@
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film.slot-2{right:1%;top:4%;rotate:-3deg}
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film.slot-3{left:2%;bottom:2%;rotate:-3deg;z-index:18}
 }
-html[data-motion-paused=true] .ai-access::before,html[data-motion-paused=true] .ai-access::after,html[data-motion-paused=true] .ai-access-orbit,html[data-motion-paused=true] .ai-access>span:last-child{animation-play-state:paused!important}
+html[data-motion-paused=true] .ai-access,html[data-motion-paused=true] .depth-journey .depth-topbar nav button.ai-access,html[data-motion-paused=true] .portfolio-controls nav button.ai-access,html[data-motion-paused=true] .ai-access *,html[data-motion-paused=true] .ai-access::before,html[data-motion-paused=true] .ai-access::after{animation-play-state:paused!important}

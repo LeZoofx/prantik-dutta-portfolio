@@ -1,0 +1,6 @@
+.depth-navigation button.orbit-step{min-width:34px;padding:0 7px;font:23px/1 Arial,sans-serif;color:#cce3bd}
+.depth-navigation button.orbit-step-next{border-right:1px solid #bcd4cb33}
+.depth-navigation button.orbit-step:hover,.depth-navigation button.orbit-step:focus-visible{background:#d9ebd61c;color:#f0f9e8}
+.depth-navigation button.orbit-step:disabled{opacity:.35}
+@media(max-width:699px){.depth-navigation button.orbit-step{min-width:24px;padding:0 4px;font-size:19px}}
+@media(max-width:379px){.depth-navigation button.orbit-step{display:none}}

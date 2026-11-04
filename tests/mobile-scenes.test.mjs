@@ -24,6 +24,7 @@ const showcase=[{id:'p0',title:'Project 0'}],positioning={eyebrow:'Creative prod
 const portfolioCategories=[{id:'selected',label:'Highlights'},{id:'trailers',label:'Film'}];
 const buildSections=()=>f().sections,usePerformance=()=>f().performance,listenMedia=()=>()=>{};
 const NativeSceneScroll=class{constructor(){throw new Error('Desktop scroll controller used on mobile')}};
+const FrameWheelInput=class{destroy(){}};
 const NativeSceneAnimator={supported:()=>false};
 `;
 const source=compile('../src/Universe.tsx').replace(/^import .*;\n/gm,'');
@@ -37,7 +38,7 @@ function fixture(t){
  const names=['mobileFixture','window','document','navigator','performance','matchMedia','requestAnimationFrame','cancelAnimationFrame','innerWidth','innerHeight','setInterval','clearInterval'];
  const saved=Object.fromEntries(names.map(n=>[n,Object.getOwnPropertyDescriptor(globalThis,n)]));
  const doc=new Node(),win=new Node(),frames=new Map();doc.hidden=false;doc.fonts=new Node();let clock=100,id=0;
- const h={index:0,hooks:[],layout:[],effects:[],dirty:false,tree:null,refs:new Map(),nodes:new Map(),performance:{ready:true,quality:'balanced',autoplay:false,maxPlayers:1,mediaReady:true,reportFrame:()=>{},toggleAutoplay:()=>{}},sections:Array.from({length:9},(_,i)=>({id:'scene-'+i,title:'Scene '+i,category:i?'trailers':'selected',offset:i,theme:0,art:'liquid',layout:0,items:[{id:'p0',title:'Project 0',provider:'youtube'}]}))};
+ const h={index:0,hooks:[],layout:[],effects:[],dirty:false,tree:null,refs:new Map(),nodes:new Map(),orbitSteps:[],performance:{ready:true,quality:'balanced',autoplay:false,maxPlayers:1,mediaReady:true,reportFrame:()=>{},toggleAutoplay:()=>{}},sections:Array.from({length:9},(_,i)=>({id:'scene-'+i,title:'Scene '+i,category:i?'trailers':'selected',offset:i,theme:0,art:'liquid',layout:0,items:[{id:'p0',title:'Project 0',provider:'youtube'}]}))};
  const globals={mobileFixture:h,window:win,document:doc,navigator:{connection:{}},performance:{now:()=>clock},matchMedia:()=>({matches:true}),requestAnimationFrame:fn=>{frames.set(++id,fn);return id},cancelAnimationFrame:n=>frames.delete(n),innerWidth:390,innerHeight:844,setInterval:()=>0,clearInterval:()=>{}};
  win.performance=globals.performance;
  Object.entries(globals).forEach(([n,v])=>Object.defineProperty(globalThis,n,{value:v,writable:true,configurable:true}));
@@ -45,7 +46,7 @@ function fixture(t){
   h.index=0;h.dirty=false;h.layout=[];h.effects=[];h.tree=Universe({header:null,projects:h.sections[0].items,onProject:()=>{},onIndex:()=>{},onProcess:()=>{},paused:false,reduced:false,mobile:true});
   const refs=new Map(),worlds=[];
   function visit(node){if(!node||typeof node!=='object')return;if(Array.isArray(node)){node.forEach(visit);return}const p=node.props||{};
-   if(p.ref){const key=(p.className||'')+':'+(node.key??'');let el=h.nodes.get(key);if(!el){el=new Node(p.className);h.nodes.set(key,el)}refs.set(key,{ref:p.ref,el});if(p.className?.startsWith('zoom-world '))worlds.push({el,p});}
+   if(p.ref){const key=(p.className||'')+':'+(node.key??'');let el=h.nodes.get(key);if(!el){el=new Node(p.className);h.nodes.set(key,el)}refs.set(key,{ref:p.ref,el});if(p.className?.startsWith('zoom-world ')){worlds.push({el,p});if(!el.parts){const gallery=new Node('gallery');gallery.addEventListener('portfolio-orbit-step',e=>h.orbitSteps.push({page:p['data-depth-index'],step:e.detail}));el.parts={'.depth-gallery':gallery}}}}
    visit(p.children);
   }visit(h.tree);
   for(const [key,old] of h.refs)if(!refs.has(key)&&typeof old.ref==='function')old.ref(null);
@@ -58,16 +59,20 @@ function fixture(t){
  const flush=()=>{let guard=0;while(h.dirty){assert.ok(++guard<20,'Render loop did not settle');render()}};
  render();flush();
  function tick(ms){const end=clock+ms;while(clock<end){clock+=16;const batch=[...frames.values()];frames.clear();batch.forEach(fn=>fn(clock));flush()}}
- function pointer(type,y,time){const e=new Event(type);Object.defineProperties(e,{pointerType:{value:'touch'},isPrimary:{value:true},pointerId:{value:1},clientX:{value:195},clientY:{value:y},timeStamp:{value:time}});h.scroller.dispatchEvent(e);flush()}
+ function pointer(type,y,time,x=195){const e=new Event(type);Object.defineProperties(e,{pointerType:{value:'touch'},isPrimary:{value:true},pointerId:{value:1},clientX:{value:x},clientY:{value:y},timeStamp:{value:time}});h.scroller.dispatchEvent(e);flush()}
  function swipe(distance=90,duration=220){pointer('pointerdown',650,clock);pointer('pointermove',650-distance,clock+duration*.7);pointer('pointerup',650-distance,clock+duration);tick(1600)}
+ function horizontal(distance=90,duration=220,drift=0){pointer('pointerdown',450,clock,310);pointer('pointermove',450-drift,clock+duration*.7,310-distance);pointer('pointerup',450-drift,clock+duration,310-distance);tick(1600)}
  tick(32);
  t.after(()=>{h.hooks.forEach(v=>v?.cleanup?.());for(const [name,desc] of Object.entries(saved))desc?Object.defineProperty(globalThis,name,desc):delete globalThis[name]});
- return {h,tick,swipe};
+ return {h,tick,swipe,horizontal,pointer,get clock(){return clock}};
 }
-function visible(h,page){assert.equal(Number(h.root.dataset.position),page);assert.equal(h.root.dataset.moving,'false');const selected=h.worlds.find(w=>w.p['data-active']);assert.ok(selected,'No active mobile scene was mounted');assert.equal(selected.p['data-depth-index'],((page%9)+9)%9);assert.equal(selected.el.style.opacity,'1.000');assert.equal(selected.el.style.visibility,'visible')}
+function visible(h,page){assert.equal(Number(h.root.dataset.position),page);assert.equal(h.root.dataset.moving??'false','false');const selected=h.worlds.find(w=>w.p['data-active']);assert.ok(selected,'No active mobile scene was mounted');assert.equal(selected.p['data-depth-index'],((page%9)+9)%9);assert.equal(selected.el.style.opacity,'1.000');assert.equal(selected.el.style.visibility,'visible')}
 test('mobile remains visible after eight consecutive swipes',t=>{const {h,swipe}=fixture(t);for(let i=1;i<=8;i++){swipe();visible(h,i)}});
 test('fast mobile swipes retain their intermediate scenes and finish visible',t=>{const {h,swipe}=fixture(t);swipe(650,180);visible(h,2);swipe(650,180);visible(h,4)});
 test('mobile survives reverse swipes and wraparound',t=>{const {h,swipe}=fixture(t);swipe(-90);visible(h,-1);swipe();visible(h,0);swipe();visible(h,1);swipe(-90);visible(h,0)});
+test('left/right mobile swipes browse the current videos without changing pages',t=>{const {h,horizontal,swipe}=fixture(t);horizontal();visible(h,0);horizontal(-90);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1},{page:0,step:-1}]);swipe();visible(h,1);horizontal();assert.deepEqual(h.orbitSteps.at(-1),{page:1,step:1});visible(h,1)});
+test('a horizontal diagonal stays horizontal and suppresses the following video click',t=>{const f=fixture(t),{h,pointer,tick}=f;const start=f.clock;pointer('pointerdown',450,start,310);pointer('pointermove',420,start+90,210);pointer('pointerup',420,start+150,210);const click=new Event('click',{cancelable:true});Object.defineProperty(click,'timeStamp',{value:start+170});h.scroller.dispatchEvent(click);assert.equal(click.defaultPrevented,true);tick(1600);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1}])});
+test('a vertical diagonal cannot turn into horizontal browsing halfway through',t=>{const f=fixture(t),{h,pointer,tick}=f;const start=f.clock;pointer('pointerdown',600,start,250);pointer('pointermove',550,start+60,245);pointer('pointermove',540,start+100,160);pointer('pointerup',540,start+200,160);tick(1600);visible(h,1);assert.deepEqual(h.orbitSteps,[])});
 test('locked mobile stylesheet retains the approved source blocks',()=>{
  const css=readFileSync(new URL('../src/mobile-locked.css',import.meta.url),'utf8');
  const baselines={"mobile-focus.css": "f689a421a5ee6fed6cfafbc961b3a6299aae955351409f5b76b709b8c04a2135", "creative-refinements.css": "eb959ef12300c7289e428007964db323c652a9ccf65c425b0b51e1f6a198cbfb", "adaptive-performance.css": "28d6ace22cbf028d25cf5cc180560037614e58b931ef16a7aacd0af2819d778d"};

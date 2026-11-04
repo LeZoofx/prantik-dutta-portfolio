@@ -1,0 +1,20 @@
+.ai-access,.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;flex-shrink:0;min-height:42px;padding:8px 16px;border:1px solid #e4f2cda8;border-radius:24px;background:linear-gradient(120deg,#dfecd0,#aecdc8);color:#152b28;font:500 12px/1.2 Mono,monospace;letter-spacing:-.025em;white-space:nowrap;overflow:hidden;box-shadow:0 0 0 3px #d9edc512}
+.ai-access::after{content:'';position:absolute;inset:-30% -50%;z-index:-1;background:linear-gradient(105deg,transparent 43%,#fff9 50%,transparent 57%);transform:translateX(-50%);animation:ai-access-glint 3.5s ease-in-out infinite;pointer-events:none}
+.ai-access-orbit{display:inline-block;font:21px/1 Georgia,serif;animation:ai-access-turn 7s linear infinite}
+.ai-access:focus-visible{outline:2px solid #edf8d5;outline-offset:4px}.ai-access:hover{color:#0b221f;background:#e6f2d9}.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access{animation:none!important}
+@keyframes ai-access-glint{0%,20%{transform:translateX(-65%);opacity:0}38%{opacity:.7}65%,100%{transform:translateX(65%);opacity:0}}
+@keyframes ai-access-turn{to{transform:rotate(360deg)}}
+.home-intro .ai-access{margin:12px 12px 0 0}.depth-journey[data-category=ai] .depth-gallery .ai-secondary{opacity:.65;z-index:8!important}
+@media(min-width:700px){.depth-journey .depth-gallery.expanded-ai .depth-film.slot-6{width:14%;left:0;right:auto;top:2%;bottom:auto;rotate:5deg;z-index:12}.depth-journey .depth-gallery.expanded-ai .depth-film.slot-7{width:12%;left:4%;right:auto;top:34%;bottom:auto;rotate:-6deg;z-index:10}}
+@media(max-width:699px){.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access{font-size:9px;min-height:32px;padding:5px 10px;gap:5px;margin-right:5px}.ai-access-orbit{font-size:15px}.depth-journey .depth-topbar nav button.ai-access>span:last-child{display:none}.home-intro .ai-access{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.ai-access::after,.ai-access-orbit{animation:none!important}}
+@media(min-width:700px){.depth-journey .depth-gallery.expanded-short-form .depth-film.slot-6{width:14%;left:0;right:auto;top:2%;bottom:auto;rotate:5deg;z-index:12}}
+@media(max-width:699px){
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form{--added-gallery-width:calc(100vw - 36px - var(--process-width) - 10px)}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film[class]{width:min(31%,calc((var(--media-height)*.42 - 28px)*var(--film-ratio)));max-width:none;left:auto;right:auto;top:auto;bottom:auto;z-index:20}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film.slot-0{--added-focus:min(calc(var(--added-gallery-width)*.86),calc((var(--media-height)*.62 - 28px)*var(--film-ratio)));width:var(--added-focus);left:calc(50% - var(--added-focus)/2);top:calc(50% - (var(--added-focus)/var(--film-ratio) + 28px)/2);rotate:-2deg;z-index:40}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film.slot-1{left:1%;top:2%;rotate:3deg}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film.slot-2{right:1%;top:4%;rotate:-3deg}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film.slot-3{left:2%;bottom:2%;rotate:-3deg;z-index:18}
+}
+html[data-motion-paused=true] .ai-access::after,html[data-motion-paused=true] .ai-access-orbit{animation-play-state:paused!important}

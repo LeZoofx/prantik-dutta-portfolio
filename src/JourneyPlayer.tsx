@@ -1,14 +1,16 @@
-import {useEffect,useRef,useState} from 'react';
+import {lazy,Suspense,useEffect,useRef,useState} from 'react';
 import {asset,previewAsset,previewSrcSet,type Project} from './content';
 import {filmId} from './journeyData';
 import InstagramPlayer from './InstagramPlayer';
 import {usePerformance,useVideoPermit} from './Performance';
 import {requestVideoConsent} from './videoConsent';
+import {isAIWork} from './aiWork';
+const AnnotatedPlayer=lazy(()=>import('./AIPlayer'));
 import './journey.css';
-type Player={mute:()=>void;unMute:()=>void;playVideo:()=>void;pauseVideo:()=>void;destroy:()=>void;loadVideoById:(id:string)=>void;cueVideoById:(id:string)=>void;seekTo:(n:number,allow:boolean)=>void;getVideoData:()=>{video_id?:string}};
+type Player={mute:()=>void;unMute:()=>void;playVideo:()=>void;pauseVideo:()=>void;destroy:()=>void;loadVideoById:(id:string)=>void;cueVideoById:(id:string)=>void;seekTo:(n:number,allow:boolean)=>void;getVideoData:()=>{video_id?:string};getDuration:()=>number};
 declare global {interface Window {YT?:{Player:new(el:HTMLElement,opts:Record<string,unknown>)=>Player};onYouTubeIframeAPIReady?:()=>void}}
 let apiPromise:Promise<void>|undefined;
-function playerAPI(){
+export function playerAPI(){
  if(window.YT?.Player)return Promise.resolve();
  if(!apiPromise)apiPromise=new Promise<void>((resolve,reject)=>{
   const previous=window.onYouTubeIframeAPIReady;window.onYouTubeIframeAPIReady=()=>{previous?.();resolve()};
@@ -55,4 +57,4 @@ function YouTubePlayer({project,enabled,muted,playing,onOpen}:{project:Project;e
  </div>;
 }
 
-export default function JourneyPlayer(props:{project:Project;enabled:boolean;muted:boolean;playing:boolean;onOpen:()=>void}){return props.project.provider==='instagram'?<InstagramPlayer {...props}/>:<YouTubePlayer {...props}/>;}
+export default function JourneyPlayer(props:{project:Project;enabled:boolean;muted:boolean;playing:boolean;onOpen:()=>void}){if(isAIWork(props.project.id))return <Suspense fallback={<img src={previewAsset(props.project.poster)} alt={props.project.title}/>}><AnnotatedPlayer {...props} preview/></Suspense>;return props.project.provider==='instagram'?<InstagramPlayer {...props}/>:<YouTubePlayer {...props}/>;}

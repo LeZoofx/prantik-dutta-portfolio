@@ -9,7 +9,7 @@ const fontFiles=(await fs.readdir('dist/assets')).filter(file=>/^(display|mono)-
 const base=(process.env.BASE_PATH||'/').replace(/\/?$/,'/');
 const fontPreloads=fontFiles.map(file=>'<link rel="preload" href="'+base+'assets/'+file+'" as="font" type="font/woff2" crossorigin/>').join('');
 const template=(await fs.readFile('dist/index.html','utf8')).replace('</head>',fontPreloads+'</head>');
-const routes=['/','/work/','/about/','/contact/','/social/','/videos/','/social-short-format/','/stand-up-events/','/brands/','/showreel/',...data.map(p=>'/work/'+p.id+'/')];
+const routes=['/','/work/','/about/','/contact/','/social/','/videos/','/social-short-format/','/stand-up-events/','/brands/','/ai/','/showreel/',...data.map(p=>'/work/'+p.id+'/')];
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const origin=(process.env.SITE_URL||'').replace(/\/$/,'');
 async function page(route,filename){

@@ -27,8 +27,19 @@ jobs:
           cache: npm
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
         id: pages
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: |
+            public/video
+            public/media/ai-eric-schiffer.webp
+            public/media/ai-product-report.webp
+          key: ai-web-media-v1-${{ hashFiles('content/ai-media.json', 'scripts/prepare-ai-media.py') }}
       - name: Install preview image builder
-        run: python3 -m pip install Pillow==12.3.0
+        run: python3 -m pip install Pillow==12.3.0 gdown==5.2.0
+      - name: Prepare cached AI films
+        run: |
+          command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+          python3 scripts/prepare-ai-media.py
       - run: npm ci
       - run: npm test
       - run: npm run refresh:metrics

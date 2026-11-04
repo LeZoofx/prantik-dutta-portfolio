@@ -1,0 +1,330 @@
+{
+  "ai-eric-schiffer": {
+    "label": "AI / motion / VFX",
+    "description": "Shot generation. Character work. Compositing. Motion and VFX. Use the markers to see each contribution.",
+    "cues": [
+      {
+        "start": 37,
+        "kind": "ai",
+        "title": "Generated shot & compositing",
+        "detail": "AI shot generation and compositing.",
+        "point": true
+      },
+      {
+        "start": 57,
+        "kind": "graphics",
+        "title": "Motion graphics",
+        "detail": "Motion graphics.",
+        "point": true
+      },
+      {
+        "start": 67,
+        "kind": "ai",
+        "title": "AI shots, characters & VFX",
+        "detail": "AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 90
+      },
+      {
+        "start": 108,
+        "kind": "ai",
+        "title": "AI shots, characters & VFX",
+        "detail": "AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 115
+      },
+      {
+        "start": 124,
+        "kind": "ai",
+        "title": "Generated shots & characters",
+        "detail": "AI shot generation, character generation and compositing.",
+        "end": 135
+      },
+      {
+        "start": 159,
+        "kind": "ai",
+        "title": "Generated shots & characters",
+        "detail": "AI shot generation, character generation and compositing.",
+        "end": 166
+      },
+      {
+        "start": 172,
+        "kind": "ai",
+        "title": "AI shots, characters & VFX",
+        "detail": "AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 183
+      },
+      {
+        "start": 204,
+        "kind": "ai",
+        "title": "AI shots, characters & VFX",
+        "detail": "AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 216
+      },
+      {
+        "start": 223,
+        "kind": "ai",
+        "title": "AI shots, characters & VFX",
+        "detail": "AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 232
+      },
+      {
+        "start": 233,
+        "kind": "ai",
+        "title": "AI shots, characters & VFX",
+        "detail": "AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 247
+      },
+      {
+        "start": 256,
+        "kind": "ai",
+        "title": "AI shots, characters & VFX",
+        "detail": "AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 272
+      },
+      {
+        "start": 266,
+        "kind": "ai",
+        "title": "Generated shots & characters",
+        "detail": "AI shot generation, character generation and compositing.",
+        "end": 276
+      },
+      {
+        "start": 283,
+        "kind": "ai",
+        "title": "Generated shots & characters",
+        "detail": "AI shot generation, character generation and compositing.",
+        "end": 290
+      },
+      {
+        "start": 296,
+        "kind": "ai",
+        "title": "Photorealism highlight",
+        "detail": "Photorealistic AI character generation.",
+        "end": 304
+      },
+      {
+        "start": 303,
+        "kind": "ai",
+        "title": "AI shots, characters & VFX",
+        "detail": "AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 315
+      },
+      {
+        "start": 317,
+        "kind": "ai",
+        "title": "AI shots, characters & VFX",
+        "detail": "AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 328
+      }
+    ]
+  },
+  "social-short-format-02": {
+    "label": "Generated shots / lip-sync",
+    "description": "AI shot and character generation, compositing, motion graphics, VFX and photorealistic AI character lip-sync. The 0:14–0:43 passage is excluded.",
+    "cues": [
+      {
+        "start": 0,
+        "kind": "ai",
+        "title": "AI character & photorealistic lip-sync",
+        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 14
+      },
+      {
+        "start": 14,
+        "kind": "reference",
+        "title": "Reference passage",
+        "detail": "This 0:14–0:43 passage is excluded from the AI-generation and lip-sync labels.",
+        "end": 43
+      },
+      {
+        "start": 43,
+        "kind": "ai",
+        "title": "AI character & photorealistic lip-sync",
+        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX."
+      }
+    ]
+  },
+  "social-short-format-06": {
+    "label": "Netflix / AI motion graphics",
+    "description": "AI motion graphics.",
+    "cues": [
+      {
+        "start": 0,
+        "kind": "graphics",
+        "title": "AI motion graphics",
+        "detail": "AI motion graphics for the Netflix Instagram Reel."
+      }
+    ]
+  },
+  "social-short-format-01": {
+    "label": "AI-generated historical film",
+    "description": "AI-generated shots, concepts and characters in a dramatic reinterpretation of historical events.",
+    "cues": [
+      {
+        "start": 0,
+        "kind": "ai",
+        "title": "AI shots & characters",
+        "detail": "AI-generated shots, concepts and characters. A dramatic reinterpretation, rather than archival footage."
+      }
+    ]
+  },
+  "social-short-format-11": {
+    "label": "AI character / lip-sync",
+    "description": "AI lip-sync made to replicate a real person.",
+    "cues": [
+      {
+        "start": 0,
+        "kind": "ai",
+        "title": "AI character & lip-sync",
+        "detail": "AI character work and lip-sync made to replicate a real person."
+      }
+    ]
+  },
+  "ai-sheldon": {
+    "label": "AI ↔ camera",
+    "description": "Major sections of this video use a completely photorealistic AI avatar. The marked camera passages are real footage.",
+    "cues": [
+      {
+        "start": 0,
+        "kind": "ai",
+        "title": "Photorealistic AI avatar",
+        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 16
+      },
+      {
+        "start": 30,
+        "kind": "ai",
+        "title": "Photorealistic AI avatar",
+        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 45
+      },
+      {
+        "start": 55,
+        "kind": "real",
+        "title": "Real person + AI graphics",
+        "detail": "Real person on camera, with AI motion graphics, VFX, motion graphics and compositing.",
+        "end": 65
+      },
+      {
+        "start": 66,
+        "kind": "ai",
+        "title": "Photorealistic AI avatar",
+        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 88
+      },
+      {
+        "start": 88,
+        "kind": "ai",
+        "title": "AI avatar + compositing",
+        "detail": "AI character generation, AI motion graphics and compositing.",
+        "end": 98
+      },
+      {
+        "start": 98,
+        "kind": "graphics",
+        "title": "AI motion graphics",
+        "detail": "AI motion graphics.",
+        "end": 103
+      },
+      {
+        "start": 106,
+        "kind": "ai",
+        "title": "Generated character & shot",
+        "detail": "AI shot generation, character generation and compositing.",
+        "end": 108
+      },
+      {
+        "start": 108,
+        "kind": "graphics",
+        "title": "AI motion graphics",
+        "detail": "AI motion graphics.",
+        "end": 111
+      },
+      {
+        "start": 115,
+        "kind": "ai",
+        "title": "Generated character & shot",
+        "detail": "AI shot generation, character generation and compositing.",
+        "end": 125
+      },
+      {
+        "start": 127,
+        "kind": "real",
+        "title": "Real person",
+        "detail": "Real person on camera.",
+        "end": 129
+      },
+      {
+        "start": 129,
+        "kind": "ai",
+        "title": "Photorealistic AI avatar",
+        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 153
+      },
+      {
+        "start": 153,
+        "kind": "real",
+        "title": "Real person",
+        "detail": "Real person on camera.",
+        "end": 167
+      },
+      {
+        "start": 167,
+        "kind": "ai",
+        "title": "Photorealistic AI avatar",
+        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 182
+      },
+      {
+        "start": 182,
+        "kind": "real",
+        "title": "Real footage",
+        "detail": "Real footage.",
+        "end": 199
+      },
+      {
+        "start": 200,
+        "kind": "ai",
+        "title": "Photorealistic AI avatar",
+        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "end": 262
+      },
+      {
+        "start": 262,
+        "kind": "real",
+        "title": "Back to real footage",
+        "detail": "Real footage from 4:22 to the end."
+      },
+      {
+        "start": 262,
+        "kind": "transition",
+        "title": "AI → real / the cut",
+        "detail": "The cut at 4:22 moves from the generated character and shot to real footage.",
+        "end": 267
+      }
+    ]
+  },
+  "ai-character-motion": {
+    "label": "AI character / motion graphics",
+    "description": "AI character generation and motion graphics.",
+    "cues": [
+      {
+        "start": 0,
+        "kind": "ai",
+        "title": "AI character & motion graphics",
+        "detail": "AI character generation and motion graphics."
+      }
+    ]
+  },
+  "social-short-format-03": {
+    "label": "AI character / lip-sync",
+    "description": "AI-generated shots of a real person, with AI-generated lip-sync.",
+    "cues": [
+      {
+        "start": 0,
+        "kind": "ai",
+        "title": "Generated shots & lip-sync",
+        "detail": "AI-generated shots of a real person. Lip-sync is AI-generated."
+      }
+    ]
+  }
+}

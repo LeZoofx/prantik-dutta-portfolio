@@ -1,4 +1,5 @@
 node_modules/
+node_modules
 dist/
 .server/
 .env*
@@ -10,3 +11,7 @@ __pycache__/
 tmp/
 public/scenery/
 public/previews/
+.ai-source/
+public/video/
+public/media/ai-eric-schiffer.webp
+public/media/ai-product-report.webp

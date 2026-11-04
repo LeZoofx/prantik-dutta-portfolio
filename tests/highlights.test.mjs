@@ -24,11 +24,11 @@ test('Highlights keeps its frame hierarchy with the three requested video swaps'
 test('desktop and mobile add frames on the original Highlights pages and keep every archive project',()=>{
  for(const size of [3,6]){
   const sections=buildSections(projects,'curated','all',size);
-  assert.ok(sections.filter(s=>s.category!=='selected').every(s=>s.items.length<=size));
+  assert.ok(sections.filter(s=>s.category!=='selected'&&s.category!=='ai').every(s=>s.items.length<=size+Number(s.category==='short-form'&&s.items.some(p=>p.id==='ai-character-motion'))));
   const highlights=sections.filter(s=>s.category==='selected');
   assert.equal(highlights.length,6/size);
   assert.deepEqual(new Set(highlights.flatMap(s=>s.items.slice(size)).map(p=>p.id)),new Set(added));
-  const archive=sections.filter(s=>s.category!=='selected').flatMap(s=>s.items);
+  const archive=sections.filter(s=>s.category!=='selected').flatMap(s=>s.category==='ai'?s.items.filter(p=>p.category==='ai'):s.items);
   assert.equal(archive.length,projects.length);
   assert.deepEqual(new Set(archive.map(p=>p.id)),new Set(projects.map(p=>p.id)));
  }

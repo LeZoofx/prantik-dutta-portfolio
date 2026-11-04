@@ -14,6 +14,7 @@ import './idle-motion.css';
 import './mobile-locked.css';
 import './creative-process.css';
 import './privacy.css';
+import './ai-access.css';
 const node=document.getElementById('root')!;
 const state=JSON.parse(document.getElementById('page-state')?.textContent || '{}');
 const app=<PerformanceProvider><App initialPath={state.path || '/'} /></PerformanceProvider>;

@@ -1,11 +1,11 @@
 import site from '../content/site.json';
 import projectData from '../content/projects.json';
-export type Category = 'youtube' | 'trailers' | 'short-form' | 'events' | 'brands';
+export type Category = 'youtube' | 'trailers' | 'short-form' | 'events' | 'brands' | 'ai';
 export type Project = {
   id: string; title: string; category: Category; provider: 'youtube'|'instagram'|'drive'|'image'|'external';
   sourceUrl: string; embedUrl?: string; poster?: string; image?: string;
   description?: string; disclosure?: string; role?: string; featured?: boolean;
-  aspect?: number; order: number; status?: string;
+  aspect?: number; order: number; status?: string; videoSource?: string; duration?: number;
 };
 export const projects = projectData as Project[];
 export {site};
@@ -15,6 +15,7 @@ export const categories: {id:Category;label:string;short:string;route:string}[] 
  {id:'short-form',label:'Short form',short:'SHORT FORM',route:'social-short-format'},
  {id:'events',label:'Live & comedy',short:'LIVE',route:'stand-up-events'},
  {id:'brands',label:'Campaigns',short:'CAMPAIGNS',route:'brands'},
+ {id:'ai',label:'AI',short:'AI',route:'ai'},
 ];
 export const asset = (path: string|undefined) => path ? (/^https?:/.test(path) ? path : import.meta.env.BASE_URL + path.replace(/^\//,'')) : '';
 export const previewAsset=(path:string|undefined,width=640)=>path?.startsWith('media/')?asset('previews/'+path.slice(path.lastIndexOf('/')+1).replace(/\.[^.]+$/,'')+'-'+width+'.webp'):asset(path);
@@ -31,7 +32,7 @@ export function platformLabel(project:Project):string {
 }
 
 export function selectEmbeds(items:Project[],limit:number){
- const eligible=items.filter(p=>p.provider==='youtube'||p.provider==='instagram'),chosen=eligible.slice(0,limit),instagram=eligible.find(p=>p.provider==='instagram');
+ const eligible=items.filter(p=>p.videoSource||p.provider==='youtube'||p.provider==='instagram'),chosen=eligible.slice(0,limit),instagram=eligible.find(p=>p.provider==='instagram');
  if(instagram&&!chosen.some(p=>p.provider==='instagram')&&chosen.length)chosen[chosen.length-1]=instagram;
  return chosen.map(p=>p.id);
 }

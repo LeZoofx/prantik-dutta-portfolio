@@ -558,7 +558,9 @@
     "embedUrl": "https://drive.google.com/file/d/1i2dfTXXnnl4A3znHL9vLGmnNIf49tfF3/preview",
     "aspect": 0.5625,
     "poster": "media/final-social-short-format-02.webp",
-    "featured": false
+    "featured": false,
+    "videoSource": "video/ai-jaquar.mp4",
+    "duration": 82.233333
   },
   {
     "id": "social-short-format-03",
@@ -1111,5 +1113,50 @@
     "aspect": 1.7777777777777777,
     "poster": "media/final-brands-28.webp",
     "featured": false
+  },
+  {
+    "id": "ai-eric-schiffer",
+    "title": "Eric Schiffer — AI, motion & VFX",
+    "category": "ai",
+    "provider": "drive",
+    "sourceUrl": "https://drive.google.com/file/d/1PM2jUOaZITxdf8PIkXncNLIQAPyQvhMX/view",
+    "embedUrl": "https://drive.google.com/file/d/1PM2jUOaZITxdf8PIkXncNLIQAPyQvhMX/preview",
+    "videoSource": "video/ai-eric-schiffer.mp4",
+    "poster": "media/ai-eric-schiffer.webp",
+    "aspect": 1.7777777777777777,
+    "order": 80,
+    "description": "Shot and character generation brought into the edit through compositing, motion graphics and VFX. The timeline marks the individual contributions.",
+    "role": "AI shot generation, character generation, compositing, motion graphics and VFX.",
+    "disclosure": "Contains AI-generated shots and characters. Markers identify the AI work using the creator’s supplied production notes.",
+    "duration": 333.482667
+  },
+  {
+    "id": "ai-sheldon",
+    "title": "Sheldon — photorealistic AI & real footage",
+    "category": "ai",
+    "provider": "drive",
+    "sourceUrl": "https://drive.google.com/file/d/14rbDcssKpywbm_Cw9EFz5KQ3npVbGm6s/view",
+    "embedUrl": "https://drive.google.com/file/d/14rbDcssKpywbm_Cw9EFz5KQ3npVbGm6s/preview",
+    "videoSource": "video/ai-product-report.mp4",
+    "poster": "media/ai-product-report.webp",
+    "aspect": 1.7777777777777777,
+    "order": 81,
+    "description": "Photorealistic AI avatars, generated shots and motion graphics cut together with real footage. Jump to 4:22 to see the AI-to-camera cut.",
+    "role": "AI shot and character generation, photorealistic lip-sync, compositing, motion graphics and VFX.",
+    "disclosure": "Major sections use a completely photorealistic AI avatar. Other sections show the real person or real footage; the timeline distinguishes them using the creator’s supplied notes.",
+    "duration": 294.208
+  },
+  {
+    "id": "ai-character-motion",
+    "title": "AI character & motion graphics",
+    "category": "short-form",
+    "provider": "instagram",
+    "sourceUrl": "https://www.instagram.com/reel/DSY_C4Ukr5M/",
+    "embedUrl": "https://www.instagram.com/p/DSY_C4Ukr5M/embed/",
+    "aspect": 0.5625,
+    "order": 82,
+    "poster": "media/ai-character-motion.webp",
+    "disclosure": "AI character generation and motion graphics.",
+    "role": "AI character generation and motion graphics."
   }
 ]

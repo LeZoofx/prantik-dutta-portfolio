@@ -28,6 +28,7 @@ jobs:
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
         id: pages
       - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        id: ai_media_cache
         with:
           path: |
             public/video
@@ -38,7 +39,9 @@ jobs:
         run: python3 -m pip install Pillow==12.3.0 gdown==5.2.0
       - name: Prepare cached AI films
         run: |
-          command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+          if [ "${{ steps.ai_media_cache.outputs.cache-hit }}" != 'true' ]; then
+            command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+          fi
           python3 scripts/prepare-ai-media.py
       - name: Save prepared film cache
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4

@@ -15,7 +15,7 @@ import positioning from '../content/positioning.json';
 import {brandFor,collaboratorFor,matchesBrand,sortProjects,contextFor,type WorkSort} from './portfolioSections';
 import Universe from './Universe';
 import {initialExperience} from './capabilities';
-import {isAIWork} from './aiWork';
+import {isAIWork,aiCollection} from './aiWork';
 const AIPlayer=lazy(()=>import('./AIPlayer'));
 const experienceFor=(p:string,query?:string|null)=>p==='/ai'&&query!=='overview'?'fun':initialExperience(p,query);
 import {requestVideoConsent,useVideoConsent,withdrawVideoConsent} from './videoConsent';
@@ -38,7 +38,8 @@ function Card({p,i,onOpen,featured=false}:{p:Project;i:number;onOpen:(p:Project)
 }
 function Index({onOpen,filter,setFilter}:{onOpen:(p:Project)=>void;filter:string;setFilter:(v:string)=>void}){
  const [query,setQuery]=useState(''),[brand,setBrand]=useState('all'),[sort,setSort]=useState<WorkSort>('curated');
- const list=sortProjects(projects.filter(p=>(filter==='all'||(filter==='selected'?showcase.some(s=>s.id===p.id):filter==='ai'?isAIWork(p.id):p.category===filter))&&matchesBrand(p,brand)&&(!query||[p.title,p.description,p.disclosure,brandFor(p),collaboratorFor(p)].join(' ').toLowerCase().includes(query.toLowerCase()))),sort);
+ const indexSource=filter==='ai'?aiCollection.map(id=>projects.find(p=>p.id===id)).filter((p):p is Project=>!!p):projects;
+ const list=sortProjects(indexSource.filter(p=>(filter==='all'||(filter==='selected'?showcase.some(s=>s.id===p.id):filter==='ai'?isAIWork(p.id):p.category===filter))&&matchesBrand(p,brand)&&(!query||[p.title,p.description,p.disclosure,brandFor(p),collaboratorFor(p)].join(' ').toLowerCase().includes(query.toLowerCase()))),sort);
  return <section className="work-index" id="work" aria-labelledby="work-title"><div className="section-top"><h2 id="work-title"><KineticType text="All work" variant={2}/></h2><span className="mono">STRATEGY / PRODUCTION / POST / PERFORMANCE</span></div>
  <div className="index-tools"><div className="filter-list" role="group" aria-label="Filter work"><button aria-pressed={filter==='all'} onClick={()=>setFilter('all')}>All work</button><button aria-pressed={filter==='selected'} onClick={()=>setFilter('selected')}>Highlights</button>{categories.map(c=><button key={c.id} aria-pressed={filter===c.id} onClick={()=>setFilter(c.id)}>{c.label}</button>)}</div><BrandControls projects={projects} brand={brand} onBrand={setBrand} sort={sort} onSort={setSort}/><label className="search-label"><span className="sr-only">Search projects</span><input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Find a project or brand"/></label></div>
  {list.length?<div className="work-grid">{list.map((p,i)=><Card key={p.id} p={p} i={i} onOpen={onOpen}/>)}</div>:<p className="empty-message">No work matches that search. <button onClick={()=>{setQuery('');setFilter('all');setBrand('all')}}>Clear filters</button></p>}</section>;

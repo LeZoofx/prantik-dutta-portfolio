@@ -29,8 +29,10 @@ test('desktop and mobile add frames on the original Highlights pages and keep ev
   assert.equal(highlights.length,6/size);
   assert.deepEqual(new Set(highlights.flatMap(s=>s.items.slice(size)).map(p=>p.id)),new Set(added));
   const archive=sections.filter(s=>s.category!=='selected').flatMap(s=>s.category==='ai'?s.items.filter(p=>p.category==='ai'):s.items);
-  assert.equal(archive.length,projects.length);
-  assert.deepEqual(new Set(archive.map(p=>p.id)),new Set(projects.map(p=>p.id)));
+  const {campaignFor,campaignItems}=load(path.resolve('src/campaigns.ts'));
+  const primaryIds=new Set(projects.map(p=>p.id));
+  const nested=archive.flatMap(p=>campaignFor(p.id)?campaignItems(campaignFor(p.id)):[p]);
+  assert.deepEqual(new Set(nested.map(p=>p.id).filter(id=>primaryIds.has(id))),primaryIds);
  }
 });
 test('brand filtering includes added Highlights without leaking other brands',()=>{

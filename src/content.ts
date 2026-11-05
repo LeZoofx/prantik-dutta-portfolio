@@ -18,8 +18,8 @@ export const categories: {id:Category;label:string;short:string;route:string}[] 
  {id:'ai',label:'AI',short:'AI',route:'ai'},
 ];
 export const asset = (path: string|undefined) => path ? (/^https?:/.test(path) ? path : import.meta.env.BASE_URL + path.replace(/^\//,'')) : '';
-export const previewAsset=(path:string|undefined,width=640)=>path?.startsWith('media/')?asset('previews/'+path.slice(path.lastIndexOf('/')+1).replace(/\.[^.]+$/,'')+'-'+width+'.webp'):asset(path);
-export const previewSrcSet=(path:string|undefined)=>path?.startsWith('media/')?[320,640,960].map(width=>previewAsset(path,width)+' '+width+'w').join(', '):undefined;
+export const previewAsset=(path:string|undefined,width=640)=>path?.startsWith('media/')&&!path.endsWith('.svg')?asset('previews/'+path.slice(path.lastIndexOf('/')+1).replace(/\.[^.]+$/,'')+'-'+width+'.webp'):asset(path);
+export const previewSrcSet=(path:string|undefined)=>path?.startsWith('media/')&&!path.endsWith('.svg')?[320,640,960].map(width=>previewAsset(path,width)+' '+width+'w').join(', '):undefined;
 export const href = (path='') => import.meta.env.BASE_URL + path.replace(/^\//,'');
 export const projectPath = (id:string) => href('work/'+id+'/');
 

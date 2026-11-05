@@ -1132,7 +1132,7 @@
   },
   {
     "id": "ai-sheldon",
-    "title": "Sheldon — photorealistic AI & real footage",
+    "title": "The Product Report — photorealistic AI & real footage",
     "category": "ai",
     "provider": "drive",
     "sourceUrl": "https://drive.google.com/file/d/14rbDcssKpywbm_Cw9EFz5KQ3npVbGm6s/view",
@@ -1142,7 +1142,7 @@
     "aspect": 1.7777777777777777,
     "order": 81,
     "description": "Photorealistic AI avatars, generated shots and motion graphics cut together with real footage. Jump to 4:22 to see the AI-to-camera cut.",
-    "role": "AI shot and character generation, photorealistic lip-sync, compositing, motion graphics and VFX.",
+    "role": "Channel brand language, research, retention strategy, post-production budgeting and resource allocation; AI shot and character generation, photorealistic lip-sync, compositing, motion graphics and VFX.",
     "disclosure": "Major sections use a completely photorealistic AI avatar. Other sections show the real person or real footage; the timeline distinguishes them using the creator’s supplied notes.",
     "duration": 294.208
   },

@@ -70,6 +70,11 @@ function visible(h,page){assert.equal(Number(h.root.dataset.position),page);asse
 test('mobile remains visible after eight consecutive swipes',t=>{const {h,swipe}=fixture(t);for(let i=1;i<=8;i++){swipe();visible(h,i)}});
 test('fast mobile swipes retain their intermediate scenes and finish visible',t=>{const {h,swipe}=fixture(t);swipe(650,180);visible(h,2);swipe(650,180);visible(h,4)});
 test('mobile survives reverse swipes and wraparound',t=>{const {h,swipe}=fixture(t);swipe(-90);visible(h,-1);swipe();visible(h,0);swipe();visible(h,1);swipe(-90);visible(h,0)});
+test('filtering from a later mobile chapter to one collection never renders a missing scene',t=>{
+ const {h,swipe,tick}=fixture(t);for(let i=0;i<5;i++)swipe();visible(h,5);
+ h.sections=[{...h.sections[0],items:[...h.sections[0].items]}];h.dirty=true;tick(64);visible(h,0);
+ assert.ok(h.worlds.every(w=>w.p['data-depth-index']===0));
+});
 test('left/right mobile swipes browse the current videos without changing pages',t=>{const {h,horizontal,swipe}=fixture(t);horizontal();visible(h,0);horizontal(-90);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1},{page:0,step:-1}]);swipe();visible(h,1);horizontal();assert.deepEqual(h.orbitSteps.at(-1),{page:1,step:1});visible(h,1)});
 test('a horizontal diagonal stays horizontal and suppresses the following video click',t=>{const f=fixture(t),{h,pointer,tick}=f;const start=f.clock;pointer('pointerdown',450,start,310);pointer('pointermove',420,start+90,210);pointer('pointerup',420,start+150,210);const click=new Event('click',{cancelable:true});Object.defineProperty(click,'timeStamp',{value:start+170});h.scroller.dispatchEvent(click);assert.equal(click.defaultPrevented,true);tick(1600);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1}])});
 test('a vertical diagonal cannot turn into horizontal browsing halfway through',t=>{const f=fixture(t),{h,pointer,tick}=f;const start=f.clock;pointer('pointerdown',600,start,250);pointer('pointermove',550,start+60,245);pointer('pointermove',540,start+100,160);pointer('pointerup',540,start+200,160);tick(1600);visible(h,1);assert.deepEqual(h.orbitSteps,[])});

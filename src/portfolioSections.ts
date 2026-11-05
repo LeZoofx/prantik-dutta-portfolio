@@ -4,12 +4,13 @@ import brandData from '../content/project-brands.json';
 import positioning from '../content/positioning.json';
 import showcase from '../content/showcase.json';
 import {aiCollection} from './aiWork';
+import {campaignFor,campaignProjects,filterCampaigns} from './campaigns';
 export type PortfolioCategory=Category|'selected';
 export type PortfolioSection={id:string;category:PortfolioCategory;title:string;summary:string;focus:string;items:Project[];theme:number;layout:number;offset:number;art:ArtStyle};
 export type WorkSort='curated'|'brand';
 const metadata=brandData as Record<string,{brand:string;collaborator?:string}>;
-export const brandFor=(p:Project)=>metadata[p.id]?.brand||'';
-export const collaboratorFor=(p:Project)=>metadata[p.id]?.collaborator||'';
+export const brandFor=(p:Project)=>campaignFor(p.id)?.brand||metadata[p.id]?.brand||'';
+export const collaboratorFor=(p:Project)=>campaignFor(p.id)?.collaborators.join(' / ')||metadata[p.id]?.collaborator||'';
 export const brandOptions=(projects:Project[])=>[...new Set(projects.flatMap(p=>[brandFor(p),collaboratorFor(p)]).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
 export const matchesBrand=(p:Project,brand:string)=>brand==='all'||brandFor(p)===brand||collaboratorFor(p)===brand;
 export const sortProjects=(projects:Project[],sort:WorkSort)=>sort==='brand'?[...projects].sort((a,b)=>(brandFor(a)||'zzz').localeCompare(brandFor(b)||'zzz')||a.order-b.order):projects;
@@ -30,5 +31,13 @@ export function buildSections(projects:Project[],sort:WorkSort='curated',brand='
    sections.push({id:group.id+'-'+start,category:group.id,title:context.title,summary:context.summary,focus:context.focus,items,theme:group.id==='brands'?[2,1,2,5,2][Math.floor(start/size)%5]:group.id==='short-form'?[3,4,3,2,3,4][Math.floor(start/size)%6]:group.id==='youtube'?[5,0,5,1,5][Math.floor(start/size)%5]:group.theme,layout:(sections.length+group.theme)%6,offset:start,art:artSequence[group.id][Math.floor(start/size)%artSequence[group.id].length]});
   }
  }
- return sections;
+ // Replace only Campaigns after the original scene layouts have been assigned.
+ // Other chapters keep their existing items, layout, art and animation indices.
+ const collections=filterCampaigns(brand,'',sort).map(c=>campaignProjects.find(p=>p.id===c.id)!);
+ const context=contextFor('brands'),grouped:PortfolioSection[]=[];
+ for(let start=0;start<collections.length;start+=size)grouped.push({id:'brands-'+start,category:'brands',title:context.title,summary:context.summary,focus:context.focus,items:collections.slice(start,start+size),theme:[2,1,2,5,2][Math.floor(start/size)%5],layout:sections.find(s=>s.category==='brands')?.layout??2,offset:start,art:artSequence.brands[Math.floor(start/size)%artSequence.brands.length]});
+ const result=sections.filter(s=>s.category!=='brands');
+ const insert=result.findIndex(s=>s.category==='ai');
+ result.splice(insert<0?result.length:insert,0,...grouped);
+ return result;
 }

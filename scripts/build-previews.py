@@ -6,9 +6,9 @@ from PIL import Image, ImageOps
 root = Path(__file__).resolve().parent.parent
 output = root / 'public' / 'previews'
 output.mkdir(parents=True, exist_ok=True)
-posters = {p.get('poster') for p in json.loads((root / 'content/projects.json').read_text())}
+posters = {p.get('poster') for name in ('projects', 'campaign-assets') for p in json.loads((root / ('content/' + name + '.json')).read_text())}
 count = 0
-for poster in sorted(p for p in posters if p and p.startswith('media/')):
+for poster in sorted(p for p in posters if p and p.startswith('media/') and not p.endswith('.svg')):
     source = root / 'public' / poster
     with Image.open(source) as original:
         image = ImageOps.exif_transpose(original).convert('RGB')

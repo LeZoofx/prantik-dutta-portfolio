@@ -1,0 +1,894 @@
+[
+  {
+    "id": "campaign-product-report",
+    "title": "The Product Report",
+    "brand": "The Product Report",
+    "kind": "Channel building",
+    "summary": "I built the channel’s brand language and research-led storytelling, then connected retention, production planning and post to a repeatable show.",
+    "scope": [
+      "Brand language & research",
+      "Retention & scripting",
+      "Production & post budgets",
+      "Resource allocation",
+      "AI, motion & VFX"
+    ],
+    "sections": [
+      {
+        "title": "The show",
+        "projectIds": [
+          "ai-sheldon"
+        ]
+      },
+      {
+        "title": "Identity, statics & evidence graphics",
+        "projectIds": [
+          "campaign-art-product-report-identity",
+          "campaign-art-product-report-package",
+          "campaign-art-product-report-graphics"
+        ],
+        "note": "Supplied identity reference and labelled production studies. The graphics separate price, method, evidence and interpretation."
+      }
+    ],
+    "collaborators": [
+      "Creator Engine"
+    ],
+    "evidence": [
+      "oil-research",
+      "graphic-system",
+      "evidence-edit",
+      "oil-schedule"
+    ]
+  },
+  {
+    "id": "campaign-trunativ",
+    "title": "TruNativ — brand & product campaigns",
+    "brand": "Trunativ",
+    "kind": "Brand building",
+    "summary": "Brand positioning, audience and buying-objection research, creator casting, scripting, shooting and post across the Everyday range and Marine Collagen.",
+    "scope": [
+      "Brand & account direction",
+      "Research & scripts",
+      "Creator & shoot planning",
+      "Packaging & motion",
+      "Performance review"
+    ],
+    "sections": [
+      {
+        "title": "Marine Collagen",
+        "projectIds": [
+          "brands-03",
+          "campaign-art-trunativ-collagen"
+        ]
+      },
+      {
+        "title": "Everyday Fiber",
+        "projectIds": [
+          "brands-04"
+        ]
+      },
+      {
+        "title": "Everyday Sweet",
+        "projectIds": [
+          "brands-06",
+          "campaign-film-everyday-sweet",
+          "campaign-art-trunativ-sweet-board"
+        ]
+      },
+      {
+        "title": "Brand & range",
+        "projectIds": [
+          "brands-05",
+          "campaign-art-trunativ-range"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": [
+      "everyday-strategy",
+      "collagen-strategy",
+      "operating-plan",
+      "collagen-packaging"
+    ]
+  },
+  {
+    "id": "campaign-pero-like",
+    "title": "Pero Like",
+    "brand": "Pero Like",
+    "kind": "Channel building",
+    "summary": "Channel-specific editorial direction for identity and family humour: research, brand voice, complete contributor stories, retention and the team’s production and post workflow.",
+    "scope": [
+      "Channel brand language",
+      "Audience & format research",
+      "Retention & edit strategy",
+      "Post budgets & resources",
+      "Team & graphics direction"
+    ],
+    "sections": [
+      {
+        "title": "Identity & cultural recognition",
+        "projectIds": [
+          "social-01"
+        ]
+      },
+      {
+        "title": "Family comedy",
+        "projectIds": [
+          "social-03"
+        ]
+      }
+    ],
+    "collaborators": [
+      "BuzzFeed"
+    ],
+    "evidence": [
+      "buzzfeed-playbook",
+      "edit-strategy"
+    ]
+  },
+  {
+    "id": "campaign-cocoa-butter",
+    "title": "Cocoa Butter",
+    "brand": "Cocoa Butter",
+    "kind": "Channel building",
+    "summary": "Audience research and channel language across food, culture, personality interviews and games, supported by retention-led edits, graphics, budgets and resource allocation.",
+    "scope": [
+      "Channel brand language",
+      "Audience & format research",
+      "Retention & edit strategy",
+      "Post budgets & resources",
+      "Team & graphics direction"
+    ],
+    "sections": [
+      {
+        "title": "Food exchanges",
+        "projectIds": [
+          "social-05",
+          "social-06"
+        ]
+      },
+      {
+        "title": "Duplicity — Co-Star Test",
+        "projectIds": [
+          "social-08"
+        ],
+        "note": "Cast chemistry, question–answer structure, reveal and the actual reaction."
+      },
+      {
+        "title": "Lateasha’s Superlatives",
+        "projectIds": [
+          "social-18",
+          "social-17"
+        ],
+        "note": "Lateasha Lunceford “Sweet Tea”; both parts stay together."
+      },
+      {
+        "title": "Tamar Braxton & Ms. E",
+        "projectIds": [
+          "social-07"
+        ]
+      },
+      {
+        "title": "How Churchy Are You? — Jekalyn Carr",
+        "projectIds": [
+          "social-10",
+          "social-11"
+        ]
+      }
+    ],
+    "collaborators": [
+      "BuzzFeed"
+    ],
+    "evidence": [
+      "buzzfeed-playbook",
+      "edit-strategy"
+    ]
+  },
+  {
+    "id": "campaign-tasty",
+    "title": "Tasty",
+    "brand": "Tasty",
+    "kind": "Channel & series building",
+    "summary": "Distinct series structures for cooking challenges, translated recipes and recipe collections, with clear actions, reveals and chapter logic. Channel research, retention, production resources and post supervision sit behind the finished films.",
+    "scope": [
+      "Channel brand language",
+      "Audience & format research",
+      "Retention & edit strategy",
+      "Post budgets & resources",
+      "Team & graphics direction"
+    ],
+    "sections": [
+      {
+        "title": "Lost In Translation",
+        "projectIds": [
+          "social-13",
+          "social-21"
+        ]
+      },
+      {
+        "title": "I Draw You Cook",
+        "projectIds": [
+          "social-04",
+          "social-09"
+        ]
+      },
+      {
+        "title": "Recipe collections",
+        "projectIds": [
+          "social-19",
+          "social-20"
+        ]
+      }
+    ],
+    "collaborators": [
+      "BuzzFeed"
+    ],
+    "evidence": [
+      "buzzfeed-playbook",
+      "edit-strategy"
+    ]
+  },
+  {
+    "id": "campaign-a-pop",
+    "title": "A*Pop — Rajen Chats",
+    "brand": "A*Pop",
+    "kind": "Channel building",
+    "summary": "Channel voice and audience research translated into an interview-led format: useful questions, demonstrations and payoffs, backed by retention, post budgeting and resource planning.",
+    "scope": [
+      "Channel brand language",
+      "Audience & format research",
+      "Retention & edit strategy",
+      "Post budgets & resources",
+      "Team & graphics direction"
+    ],
+    "sections": [
+      {
+        "title": "Rajen Chats / Cole Walliser",
+        "projectIds": [
+          "social-02"
+        ]
+      }
+    ],
+    "collaborators": [
+      "BuzzFeed"
+    ],
+    "evidence": [
+      "buzzfeed-playbook",
+      "edit-strategy"
+    ]
+  },
+  {
+    "id": "campaign-sorted-girl",
+    "title": "The Sorted Girl — Aarti Samant",
+    "brand": "The Sorted Girl",
+    "kind": "Creator & channel building",
+    "summary": "I connected Aarti’s expertise to a recognisable voice, recurring formats and a visual identity, with audience research, scripts, shoot planning, motion and retention-led post.",
+    "scope": [
+      "Personal brand & accounts",
+      "Audience & format research",
+      "Writing & cinematography",
+      "Team direction",
+      "AI, graphics & retention"
+    ],
+    "sections": [
+      {
+        "title": "Marketing & cultural breakdowns",
+        "projectIds": [
+          "social-short-format-02",
+          "social-short-format-06",
+          "social-short-format-09"
+        ]
+      },
+      {
+        "title": "Creator commentary",
+        "projectIds": [
+          "social-short-format-04",
+          "social-short-format-05",
+          "social-short-format-10"
+        ]
+      },
+      {
+        "title": "Partner campaigns",
+        "projectIds": [
+          "social-short-format-07",
+          "social-short-format-08"
+        ]
+      },
+      {
+        "title": "Identity & caption system",
+        "projectIds": [
+          "campaign-art-sorted-caption"
+        ]
+      }
+    ],
+    "collaborators": [
+      "Sorted"
+    ],
+    "evidence": [
+      "creator-promise",
+      "creator-format",
+      "creator-identity",
+      "format-review"
+    ]
+  },
+  {
+    "id": "campaign-sorted-consultancy",
+    "title": "Sorted — Sort Your Marketing",
+    "brand": "Sorted",
+    "kind": "Brand & content building",
+    "summary": "Consultancy positioning and account direction made tangible through useful marketing education, recurring content and resource-led calls to action.",
+    "scope": [
+      "Consultancy positioning",
+      "Content & audience research",
+      "Recurring formats",
+      "Creative direction",
+      "Performance review"
+    ],
+    "sections": [
+      {
+        "title": "3 Things / content planning",
+        "projectIds": [
+          "social-short-format-03"
+        ]
+      },
+      {
+        "title": "Partner work & production",
+        "projectIds": [
+          "social-short-format-08"
+        ]
+      }
+    ],
+    "collaborators": [
+      "The Sorted Girl"
+    ],
+    "evidence": [
+      "consultancy-strategy",
+      "sorted-playbook"
+    ]
+  },
+  {
+    "id": "campaign-mumbai-indians",
+    "title": "Mumbai Indians — IPL formats",
+    "brand": "Mumbai Indians",
+    "kind": "Campaign & recurring formats",
+    "summary": "Player-led entertainment grouped as one IPL body of work, with its trivia, cricket-language, sponsor and challenge formats kept recognisable.",
+    "scope": [
+      "Sports entertainment",
+      "Recurring formats",
+      "Editing & motion",
+      "Social delivery"
+    ],
+    "sections": [
+      {
+        "title": "Player games & trivia",
+        "projectIds": [
+          "brands-15",
+          "brands-19"
+        ]
+      },
+      {
+        "title": "Cricket & sponsor formats",
+        "projectIds": [
+          "brands-16",
+          "brands-17",
+          "brands-18"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": []
+  },
+  {
+    "id": "campaign-bumble",
+    "title": "Bumble India",
+    "brand": "Bumble",
+    "kind": "Brand campaign",
+    "summary": "Creator-led films built around personality, music and connection. I shaped the stories, pacing and final social edits for Bumble India.",
+    "scope": [
+      "Brand storytelling",
+      "Creator-led social",
+      "Editing & finishing"
+    ],
+    "sections": [
+      {
+        "title": "Spreading love with Bumble India",
+        "projectIds": [
+          "brands-20",
+          "brands-21"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": []
+  },
+  {
+    "id": "campaign-groww",
+    "title": "Groww — year-end campaign",
+    "brand": "Groww",
+    "kind": "Brand campaign",
+    "summary": "Year-end brand films for Groww, with campaign editing, motion and finishing across the different deliverables.",
+    "scope": [
+      "Campaign editing",
+      "Motion & finishing",
+      "Multiple deliverables"
+    ],
+    "sections": [
+      {
+        "title": "Year-end campaign films",
+        "projectIds": [
+          "brands-01",
+          "brands-02"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": []
+  },
+  {
+    "id": "campaign-lollapalooza",
+    "title": "Lollapalooza 2024",
+    "brand": "Lollapalooza",
+    "kind": "Festival campaign",
+    "summary": "Festival promotion for Lollapalooza 2024: energetic edits, motion and social versions built around the event.",
+    "scope": [
+      "Festival promotion",
+      "Editing & motion",
+      "Social versions"
+    ],
+    "sections": [
+      {
+        "title": "Festival films & social cuts",
+        "projectIds": [
+          "brands-07",
+          "brands-08",
+          "brands-09",
+          "brands-10"
+        ]
+      }
+    ],
+    "collaborators": [
+      "BookMyShow"
+    ],
+    "evidence": []
+  },
+  {
+    "id": "campaign-bookmyshow",
+    "title": "BookMyShow — theatrical releases",
+    "brand": "BookMyShow",
+    "kind": "Film-release campaigns",
+    "summary": "Theatrical-release promotions for BookMyShow across Gran Turismo, Killers of the Flower Moon, Asteroid City and Salaar.",
+    "scope": [
+      "Theatrical promotion",
+      "Campaign editing",
+      "Motion & delivery"
+    ],
+    "sections": [
+      {
+        "title": "Gran Turismo",
+        "projectIds": [
+          "brands-11"
+        ]
+      },
+      {
+        "title": "Killers of the Flower Moon",
+        "projectIds": [
+          "brands-12"
+        ]
+      },
+      {
+        "title": "Asteroid City",
+        "projectIds": [
+          "brands-13"
+        ]
+      },
+      {
+        "title": "Salaar",
+        "projectIds": [
+          "brands-14"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": []
+  },
+  {
+    "id": "campaign-film-releases",
+    "title": "Film trailers & release campaigns",
+    "brand": "Film & OTT",
+    "kind": "Entertainment campaigns",
+    "summary": "Trailers and social promotions built around each film’s dramatic hook, with structure, pacing, sound and motion carried into the release formats.",
+    "scope": [
+      "Trailer storytelling",
+      "Release strategy",
+      "Social cutdowns",
+      "Sound, motion & finishing"
+    ],
+    "sections": [
+      {
+        "title": "Kuttey",
+        "projectIds": [
+          "videos-01"
+        ]
+      },
+      {
+        "title": "Rana Naidu",
+        "projectIds": [
+          "videos-02"
+        ]
+      },
+      {
+        "title": "Darlings",
+        "projectIds": [
+          "videos-03"
+        ]
+      },
+      {
+        "title": "Khufiya",
+        "projectIds": [
+          "videos-04",
+          "social-27"
+        ]
+      },
+      {
+        "title": "Bhakshak",
+        "projectIds": [
+          "videos-05",
+          "social-25"
+        ]
+      },
+      {
+        "title": "Mrs. Chatterjee vs Norway",
+        "projectIds": [
+          "videos-06",
+          "social-26"
+        ]
+      },
+      {
+        "title": "Streaming & entertainment social",
+        "projectIds": [
+          "social-24",
+          "social-28",
+          "social-29"
+        ]
+      }
+    ],
+    "collaborators": [
+      "Netflix",
+      "T-Series"
+    ],
+    "evidence": []
+  },
+  {
+    "id": "campaign-bombay-sapphire",
+    "title": "Bombay Sapphire",
+    "brand": "Bombay Sapphire",
+    "kind": "Brand film",
+    "summary": "A Bombay Sapphire brand film, shaped through editing and finishing around the brand’s atmosphere and product presentation.",
+    "scope": [
+      "Brand film",
+      "Editing & finishing"
+    ],
+    "sections": [
+      {
+        "title": "Bombay Sapphire — brand film",
+        "projectIds": [
+          "social-23"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": []
+  },
+  {
+    "id": "campaign-sanam",
+    "title": "SANAM — band formats",
+    "brand": "SANAM",
+    "kind": "Artist & format collection",
+    "summary": "Interview and game formats with SANAM: Most Likely To and Never Have I Ever, edited around the prompts, personalities and band chemistry.",
+    "scope": [
+      "Artist storytelling",
+      "Interview & game formats",
+      "Editing & delivery"
+    ],
+    "sections": [
+      {
+        "title": "Most Likely To / Never Have I Ever",
+        "projectIds": [
+          "social-15",
+          "social-16"
+        ]
+      }
+    ],
+    "collaborators": [
+      "TribeVibe Live"
+    ],
+    "evidence": []
+  },
+  {
+    "id": "campaign-janice",
+    "title": "Janice Sequeira — creator formats",
+    "brand": "Janice Sequeira",
+    "kind": "Creator & interview collection",
+    "summary": "Guest-led Hangout and a driving AMA with Janice Sequeira, with conversational editing that preserves the setup and payoff of each exchange.",
+    "scope": [
+      "Creator formats",
+      "Conversation editing",
+      "Packaging & delivery"
+    ],
+    "sections": [
+      {
+        "title": "Hangout — Minus One cast",
+        "projectIds": [
+          "social-14"
+        ]
+      },
+      {
+        "title": "Driving AMA",
+        "projectIds": [
+          "social-22"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": []
+  },
+  {
+    "id": "campaign-nh7",
+    "title": "Bacardi NH7 Weekender",
+    "brand": "Bacardi NH7 Weekender",
+    "kind": "Festival film",
+    "summary": "Festival atmosphere and live performance brought together in the Pune aftermovie.",
+    "scope": [
+      "Live performance",
+      "Festival storytelling",
+      "Edit & finishing"
+    ],
+    "sections": [
+      {
+        "title": "Pune 2017 aftermovie",
+        "projectIds": [
+          "social-12"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": []
+  },
+  {
+    "id": "campaign-oneplus",
+    "title": "OnePlus × Rahul Subramanian",
+    "brand": "OnePlus",
+    "kind": "Creator brand campaign",
+    "summary": "The product unboxing and Rahul’s comic delivery stay together as a creator-led brand campaign.",
+    "scope": [
+      "Product storytelling",
+      "Comedy-led edit",
+      "Brand delivery"
+    ],
+    "sections": [
+      {
+        "title": "Unboxing the new OnePlus",
+        "projectIds": [
+          "brands-22"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": []
+  },
+  {
+    "id": "campaign-medimix",
+    "title": "Medimix — skincare campaign",
+    "brand": "Medimix",
+    "kind": "Brand campaign",
+    "summary": "Product and creator-led skincare films for Medimix, combining benefit storytelling, motion graphics and campaign edits.",
+    "scope": [
+      "Product storytelling",
+      "Motion graphics",
+      "Creator-led edit",
+      "Campaign versions"
+    ],
+    "sections": [
+      {
+        "title": "Product & benefits",
+        "projectIds": [
+          "brands-24",
+          "brands-26"
+        ]
+      },
+      {
+        "title": "Creator-led storytelling",
+        "projectIds": [
+          "brands-25"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": []
+  },
+  {
+    "id": "campaign-venusia",
+    "title": "Venusia Max",
+    "brand": "Venusia",
+    "kind": "Product campaign",
+    "summary": "Product films for Venusia Max, using benefit hierarchy, beauty framing, motion and finishing to keep the product presentation clear.",
+    "scope": [
+      "Product film",
+      "Motion design",
+      "Post-production"
+    ],
+    "sections": [
+      {
+        "title": "Moisturiser product film",
+        "projectIds": [
+          "brands-23",
+          "brands-27"
+        ]
+      }
+    ],
+    "collaborators": [
+      "Dr. Reddy’s"
+    ],
+    "evidence": []
+  },
+  {
+    "id": "campaign-swiggy",
+    "title": "Swiggy × Cirkus",
+    "brand": "Swiggy",
+    "kind": "Entertainment brand campaign",
+    "summary": "The Swiggy brand collaboration with Cirkus, retained as a complete campaign film.",
+    "scope": [
+      "Entertainment campaign",
+      "Editing & motion",
+      "Brand integration"
+    ],
+    "sections": [
+      {
+        "title": "Cirkus collaboration",
+        "projectIds": [
+          "brands-28"
+        ]
+      }
+    ],
+    "collaborators": [
+      "Cirkus"
+    ],
+    "evidence": []
+  },
+  {
+    "id": "campaign-prime-comedy",
+    "title": "Prime Video — stand-up campaigns",
+    "brand": "Prime Video",
+    "kind": "Entertainment campaigns",
+    "summary": "Trailers and promotional edits for Prime Video’s stand-up specials, shaped around each performer’s comic timing, setup and payoff.",
+    "scope": [
+      "Comedy storytelling",
+      "Trailers & promos",
+      "Editing & sound"
+    ],
+    "sections": [
+      {
+        "title": "Biswa — Mood Kharaab",
+        "projectIds": [
+          "stand-up-events-03",
+          "stand-up-events-05"
+        ]
+      },
+      {
+        "title": "Rahul Subramanian",
+        "projectIds": [
+          "stand-up-events-02",
+          "stand-up-events-04"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": []
+  },
+  {
+    "id": "campaign-live-comedy",
+    "title": "Live & comedy — event work",
+    "brand": "Live & comedy",
+    "kind": "Live events",
+    "summary": "Live stand-up and event work, brought together through performance-led post-production.",
+    "scope": [
+      "Live event",
+      "Post-production"
+    ],
+    "sections": [
+      {
+        "title": "Stand-up events",
+        "projectIds": [
+          "stand-up-events-01"
+        ]
+      }
+    ],
+    "collaborators": [],
+    "evidence": []
+  },
+  {
+    "id": "campaign-hizzouse",
+    "title": "Hizzouse — Jay & Silent Bob",
+    "brand": "Hizzouse",
+    "kind": "Show & channel building",
+    "summary": "Show direction, episode packaging and a repeatable conversation-edit system across the Jay & Silent Bob programme.",
+    "scope": [
+      "Show & brand direction",
+      "Writing & research",
+      "Production & team briefs",
+      "Multicam & retention",
+      "Recurring graphics"
+    ],
+    "sections": [
+      {
+        "title": "Episode collection",
+        "projectIds": [
+          "campaign-hizzouse-ep1",
+          "campaign-hizzouse-ep2",
+          "campaign-hizzouse-ep3",
+          "campaign-hizzouse-ep4",
+          "campaign-hizzouse-ep5",
+          "campaign-hizzouse-ep6",
+          "campaign-hizzouse-ep7",
+          "campaign-hizzouse-ep8"
+        ]
+      },
+      {
+        "title": "Graphic language & planning",
+        "projectIds": [
+          "campaign-art-hizzouse-graphics"
+        ]
+      }
+    ],
+    "collaborators": [
+      "Creator Engine",
+      "Jay & Silent Bob"
+    ],
+    "evidence": [
+      "hizzouse-bible",
+      "show-packaging",
+      "camera-sound",
+      "conversation-edit"
+    ]
+  },
+  {
+    "id": "campaign-win-theory",
+    "title": "Win Theory — Eric Schiffer",
+    "brand": "Eric Schiffer",
+    "kind": "Show development",
+    "summary": "Research, scripts, shot planning and a photorealistic AI / VFX workflow developed alongside the show’s identity, motion and production system.",
+    "scope": [
+      "Show development",
+      "Research & writing",
+      "AI / VFX direction",
+      "Budgets & resource planning",
+      "Post supervision"
+    ],
+    "sections": [
+      {
+        "title": "AI, motion & VFX",
+        "projectIds": [
+          "ai-eric-schiffer"
+        ]
+      },
+      {
+        "title": "Identity & motion studies",
+        "projectIds": [
+          "campaign-art-win-theory-title",
+          "campaign-art-win-theory-tier",
+          "campaign-art-win-theory-banner"
+        ],
+        "note": "Show development materials; these are not published audience results."
+      }
+    ],
+    "collaborators": [
+      "Win Theory",
+      "Creator Engine"
+    ],
+    "evidence": [
+      "claim-ledger",
+      "vfx-shot-brief",
+      "motion-handoff",
+      "ai-qc"
+    ]
+  }
+]

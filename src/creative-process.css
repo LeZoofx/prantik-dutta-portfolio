@@ -156,7 +156,12 @@
  .depth-journey .zoom-world[data-art] .depth-film.slot-1{left:0;right:auto}
  .depth-journey .zoom-world[data-art] .depth-film.slot-2{left:auto;right:0}
  .depth-journey .zoom-world[data-art] .depth-film.portrait-film.slot-0{left:32%;top:0;width:min(40%,calc((var(--media-height) - 26px)*var(--film-ratio)))}
- .depth-journey .zoom-world[data-art] .depth-film.portrait-film.slot-1,.depth-journey .zoom-world[data-art] .depth-film.portrait-film.slot-2{top:42%;bottom:auto;width:min(23%,calc((var(--media-height)*.58 - 26px)*var(--film-ratio)));max-width:none}
+ .depth-journey .zoom-world[data-art] .depth-film.portrait-film:is(.slot-1,.slot-2){
+  top:39%;
+  bottom:auto;
+  width:min(26%,calc((var(--media-height)*.61 - 26px)*var(--film-ratio)));
+  max-width:none;
+ }
  .depth-journey .zoom-world[data-art] .depth-film.slot-1,.depth-journey .zoom-world[data-art] .depth-film.slot-2{--card-blur:.15px;--frame-light:.96}
  .depth-journey .depth-film-label{font-size:6.5px;line-height:1.25;padding:0 2px 4px;gap:4px}
  .depth-journey .depth-caption{font-size:6.5px;line-height:1.35;min-height:14px;max-height:14px;padding:3px 2px 0;gap:4px}

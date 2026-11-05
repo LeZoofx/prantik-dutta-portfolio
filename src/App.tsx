@@ -92,13 +92,21 @@ export default function App({initialPath}:{initialPath:string}){
  function setExperience(v:'normal'|'fun'){setMode(v);setPanel(null);const u=new URL(location.href);if(v==='normal')u.searchParams.set('mode','overview');else if(path==='/')u.searchParams.delete('mode');else u.searchParams.set('mode','fun');history.replaceState({},'',u)}
  function openProject(p:Project){campaignReturn.current=selected&&campaignFor(selected.id)?selected:undefined;initialFocus.current=document.activeElement as HTMLElement;previousPath.current=path;setSelected(p);history.pushState({portfolio:true},'',projectPath(p.id)+(experience==='fun'?'?mode=fun':''))}
  function closeProject(){if(campaignReturn.current){const collection=campaignReturn.current;campaignReturn.current=undefined;setSelected(collection);history.replaceState({portfolio:true},'',projectPath(collection.id)+(experience==='fun'?'?mode=fun':''));return}setSelected(undefined);setPath(previousPath.current);if(previousPath.current==='/brands')setFilter('brands');history.replaceState({},'',href(previousPath.current.replace(/^\//,''))+(experience==='fun'?'?mode=fun':''));initialFocus.current?.focus({preventScroll:true})}
- function navigate(e:MouseEvent,pathName:string){if(e.metaKey||e.ctrlKey)return;e.preventDefault();if(experience==='fun'){setPanel(pathName==='about'?'about':pathName==='contact'?'contact':'index');return}setPath('/'+pathName);setSelected(undefined);setFilter(categoryFor('/'+pathName));history.pushState({},'',href(pathName+'/'));window.scrollTo({top:0})}
+ function openOverviewPage(page:string){
+  const nextPath='/'+page;
+  setPath(nextPath);
+  setSelected(undefined);
+  setFilter(categoryFor(nextPath));
+  history.pushState({},'',href(page+'/'));
+  window.scrollTo({top:0});
+ }
+ function navigate(e:MouseEvent,pathName:string){if(e.metaKey||e.ctrlKey)return;e.preventDefault();if(experience==='fun'){setPanel(pathName==='about'?'about':pathName==='contact'?'contact':'index');return}openOverviewPage(pathName)}
  function skipAI(){setSelected(undefined);setPanel(null);setPath('/ai');setMode('fun');history.pushState({},'',href('ai/'));}
  const isHome=path==='/';
  const header=<header className="site-header"><a className="brand" href={href()} aria-label="Prantik Dutta home" onClick={e=>{e.preventDefault();setPath('/');setSelected(undefined);setPanel(null);setMode('fun');history.pushState({},'',href());window.scrollTo(0,0);if(experience==='fun')window.dispatchEvent(new Event('portfolio-home'))}}><span className="brand-monogram">P<span>/</span>D</span><span className="brand-name"><KineticName compact/></span></a><nav aria-label="Main navigation"><a href={href('work/')} onClick={e=>navigate(e,'work')}>Work</a><a href={href('about/')} onClick={e=>navigate(e,'about')}>About</a><a href={href('contact/')} onClick={e=>navigate(e,'contact')}>Contact ↗</a></nav><div className="mode-switch" role="group" aria-label="Website experience"><button aria-pressed={experience==='normal'} onClick={()=>setExperience('normal')}>Overview</button><button aria-pressed={experience==='fun'} onClick={()=>setExperience('fun')}>Explore <span aria-hidden="true">✳</span></button></div></header>;
  return <div data-app="portfolio" data-mobile={mobile} data-light={light}><a className="skip-link" href="#main">Skip to content</a>{(experience==='normal'||mobile)&&header}
  {experience==='normal'?<main id="main">
- {isHome&&<><HomeIntro onAI={skipAI} onProcess={()=>setPanel('process')} onOpen={openProject} onFun={()=>setExperience('fun')} reduced={reduced} simple={simple}/>
+ {isHome&&<><HomeIntro onAI={skipAI} onCampaigns={()=>openOverviewPage('brands')} onProcess={()=>setPanel('process')} onOpen={openProject} onFun={()=>setExperience('fun')} reduced={reduced} simple={simple}/>
  {!simple&&<WorkContext/>}<PortfolioScroll simple={simple} projects={projects} onProject={openProject} onIndex={()=>setPanel('index')} reduced={reduced} paused={!!selected||!!panel||privacy.prompt} onDiscover={openProject}/>{simple&&<WorkContext/>}<section className="process-teaser"><span className="mono">RESEARCH / DIRECTION / PRODUCTION / POST</span><h2><KineticType text="How I lead a project." variant={1}/></h2><p><KineticCopy text="A working development sample: the research, treatment, shot plan, team brief and edit decisions."/></p><button onClick={()=>setPanel('process')}>Open the development sample ↗</button></section></>}
  {(path==='/work'||categories.some(c=>'/'+c.route===path)||(selected&&!isHome))&&<Index onOpen={openProject} filter={filter} setFilter={setFilter}/>}
  {(isHome||path==='/about')&&<About/>}{(isHome||path==='/contact')&&<Contact motionPaused={manualReduced} onMotionChange={()=>setManualReduced(v=>!v)}/>}

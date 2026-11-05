@@ -14,12 +14,31 @@
 @keyframes ai-access-letter-flip{0%,5%{transform:translateY(0) rotateX(0)}10%{transform:translateY(-.14em) rotateX(-22deg)}19%{transform:translateY(.04em) rotateX(360deg)}27%,100%{transform:translateY(0) rotateX(360deg)}}
 .home-intro .ai-access{margin:12px 12px 0 0}.depth-journey[data-category=ai] .depth-gallery .ai-secondary{opacity:.65;z-index:8!important}
 @media(min-width:700px){.depth-journey .depth-gallery.expanded-ai .depth-film.slot-6{width:14%;left:0;right:auto;top:2%;bottom:auto;rotate:5deg;z-index:12}.depth-journey .depth-gallery.expanded-ai .depth-film.slot-7{width:12%;left:4%;right:auto;top:34%;bottom:auto;rotate:-6deg;z-index:10}}
-@media(max-width:699px){.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access{font-size:19px;min-height:44px;padding:4px 12px;gap:7px;margin-right:5px}.ai-access-orbit{font-size:21px}.ai-access-arrow{font-size:19px}.home-intro .ai-access{font-size:23px}}
+@media(max-width:699px),(max-width:1024px) and (pointer:coarse){
+ .home-intro .ai-access,
+ .depth-journey .depth-topbar nav button.ai-access,
+ .portfolio-controls nav button.ai-access{
+  font-size:12px;
+  min-height:44px;
+  padding:4px 6px;
+  gap:3px;
+  margin-right:4px;
+  border-block-width:5px;
+  border-color:transparent;
+  background-clip:padding-box;
+  box-shadow:none;
+ }
+ .ai-access-orbit{font-size:14px}
+ .ai-access-arrow{font-size:12px}
+}
 @media(prefers-reduced-motion:reduce){.ai-access,.depth-journey .depth-topbar nav button.ai-access,.portfolio-controls nav button.ai-access,.ai-access *,.ai-access::before,.ai-access::after{animation:none!important}}
 @media(min-width:700px){.depth-journey .depth-gallery.expanded-short-form .depth-film.slot-6{width:14%;left:0;right:auto;top:2%;bottom:auto;rotate:5deg;z-index:12}}
 @media(max-width:699px){
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form{--added-gallery-width:calc(100vw - 36px - var(--process-width) - 10px)}
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film[class]{width:min(31%,calc((var(--media-height)*.42 - 28px)*var(--film-ratio)));max-width:none;left:auto;right:auto;top:auto;bottom:auto;z-index:20}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film.portrait-film:not(.slot-0){
+  width:min(35%,calc((var(--media-height)*.46 - 28px)*var(--film-ratio)));
+ }
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film.slot-0{--added-focus:min(calc(var(--added-gallery-width)*.86),calc((var(--media-height)*.62 - 28px)*var(--film-ratio)));width:var(--added-focus);left:calc(50% - var(--added-focus)/2);top:calc(50% - (var(--added-focus)/var(--film-ratio) + 28px)/2);rotate:-2deg;z-index:40}
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film.slot-1{left:1%;top:2%;rotate:3deg}
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-short-form .depth-film.slot-2{right:1%;top:4%;rotate:-3deg}

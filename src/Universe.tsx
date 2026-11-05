@@ -64,7 +64,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
  const [rotate,setRotate]=useState(true);
  const [brand,setBrand]=useState('all'),[sort,setSort]=useState<WorkSort>('curated'),[compact,setCompact]=useState(false),[saveData,setSaveData]=useState(false);
  const sections=useMemo(()=>buildSections(projects,sort,brand,compact?3:6),[projects,sort,brand,compact]);
- const pendingAI=useRef(initialAI),initialAISeen=useRef(false);
+ const pendingShortcut=useRef<'ai'|'brands'|null>(initialAI?'ai':null),initialAISeen=useRef(false);
  const total=sections.length,root=useRef<HTMLDivElement>(null),scroll=useRef<HTMLDivElement>(null),worldRefs=useRef(new Map<number,HTMLDivElement>()),backdropRefs=useRef(new Map<number,HTMLDivElement>());
  const [chapter,setChapter]=useState(0),[playChapter,setPlayChapter]=useState(0),[base,setBase]=useState(0),[flight,setFlight]=useState<number[]>([]),[secret,setSecret]=useState<Project|null>(null),[muted,setMuted]=useState(true),[shuffle,setShuffle]=useState(0),[held,setHeld]=useState(false);
  const motion=useMemo<JourneyMotion>(()=>({position:0,target:0,pointerX:0,pointerY:0,velocity:0,time:0,active:true,low:false,reduced:false,invalidate:()=>{}}),[]);
@@ -223,8 +223,27 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   outer.addEventListener('pointermove',pointer,{passive:true});outer.addEventListener('portfolio-layout',start);outer.addEventListener('pointerleave',leave);document.addEventListener('visibilitychange',visibility);window.addEventListener('portfolio-home',home);start();
   return()=>{bindPlanes.current=()=>{};frameInput.destroy();nativeController?.destroy();animator?.destroy();observer?.disconnect();window.removeEventListener('resize',resize);document.fonts?.removeEventListener('loadingdone',fontLayout);cancelAnimationFrame(raf);markMoving(false);scroller.removeEventListener('pointerdown',down);scroller.removeEventListener('pointermove',moveTouch);scroller.removeEventListener('pointerup',up);scroller.removeEventListener('pointercancel',cancelTouch);scroller.removeEventListener('click',click,true);outer.removeEventListener('pointermove',pointer);outer.removeEventListener('portfolio-layout',start);outer.removeEventListener('pointerleave',leave);document.removeEventListener('visibilitychange',visibility);window.removeEventListener('portfolio-home',home)};
  },[motion,sections,total,performance.reportFrame,mobile]);
- useEffect(()=>{if(initialAI&&!initialAISeen.current)pendingAI.current=true;initialAISeen.current=initialAI;if(pendingAI.current&&performance.ready){const index=sections.findIndex(s=>s.category==='ai');if(index>=0){navigate.current(index);pendingAI.current=false}}},[sections,performance.ready,initialAI]);
- function skipAI(){const index=sections.findIndex(s=>s.category==='ai');if(index>=0)navigate.current(index);else{pendingAI.current=true;setBrand('all')}}
+ useEffect(()=>{
+  if(initialAI&&!initialAISeen.current)pendingShortcut.current='ai';
+  initialAISeen.current=initialAI;
+  const category=pendingShortcut.current;
+  if(!category||!performance.ready)return;
+  const index=sections.findIndex(section=>section.category===category);
+  if(index>=0){
+   pendingShortcut.current=null;
+   navigate.current(index);
+  }
+ },[sections,performance.ready,initialAI]);
+ function skipTo(category:'ai'|'brands'){
+  const index=sections.findIndex(section=>section.category===category);
+  if(index>=0){
+   pendingShortcut.current=null;
+   navigate.current(index);
+  }else{
+   pendingShortcut.current=category;
+   setBrand('all');
+  }
+ }
  useLayoutEffect(()=>{bindPlanes.current();wake.current()},[base,chapter,flight,paused,reduced,secret,performance.ready,performance.quality]);
  const visible=[...new Set([modulo(base-1,total),modulo(base,total),modulo(base+1,total),...flight.map(index=>modulo(index,total))])];
  return <div ref={root} className={'journey depth-journey'+(reduced?' reduced-depth':'')} data-paused={paused||!!secret} data-ready={performance.ready} data-playing={playing&&!paused&&!secret} data-quality={performance.quality} data-theme={themes[section.theme]} data-category={section.category} data-art={section.art}>
@@ -235,7 +254,11 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
     <div className="depth-landscape" aria-hidden="true"><div className="depth-floor"/><div className="depth-horizon"/>{Array.from({length:8},(_,i)=><div className={'lowpoly-pillar pillar-'+i} key={i} style={{'--pillar':i} as CSSProperties}><i/><i/><i/></div>)}</div>
 
     <div className="depth-worlds">{visible.map(index=><div ref={el=>{if(el)worldRefs.current.set(index,el);else worldRefs.current.delete(index)}} key={sections[index].id} className={'zoom-world zoom-tone-'+themes[sections[index].theme]+' zoom-layout-'+sections[index].layout} inert={index!==chapter} data-active={index===chapter} data-depth-index={index} data-section={sections[index].id} data-art={sections[index].art} aria-label={sections[index].title} style={{opacity:index===0?1:0}}><div className="depth-portal" aria-hidden="true"/><MemoDepthWorld mobile={mobile} motion={motion} rotate={rotate&&!reduced} section={sections[index]} active={index===playChapter} autoplay={playing&&performance.mediaReady} compact={compact} paused={paused||!!secret} muted={muted} playing={playing} onProject={onProject} onDiscover={setSecret} onProcess={onProcess}/></div>)}</div>
-  <div className="depth-topbar"><nav aria-label="Portfolio categories"><AIAccess onClick={skipAI}/>{portfolioCategories.map(c=>{const index=sections.findIndex(s=>s.category===c.id);return <button key={c.id} aria-current={section.category===c.id?'location':undefined} disabled={index<0} onClick={()=>navigate.current(index)}>{c.label}</button>})}</nav><a className="depth-index" href={href('work/')} onClick={e=>{if(!e.metaKey&&!e.ctrlKey){e.preventDefault();onIndex()}}}>All work ↗</a></div>
+  <div className="depth-topbar"><nav aria-label="Portfolio categories">
+   <AIAccess onClick={()=>skipTo('ai')}/>
+   <AIAccess destination="campaigns" onClick={()=>skipTo('brands')}/>
+   {portfolioCategories.map(c=>{const index=sections.findIndex(s=>s.category===c.id);return <button key={c.id} aria-current={section.category===c.id?'location':undefined} disabled={index<0} onClick={()=>navigate.current(index)}>{c.label}</button>})}
+  </nav><a className="depth-index" href={href('work/')} onClick={e=>{if(!e.metaKey&&!e.ctrlKey){e.preventDefault();onIndex()}}}>All work ↗</a></div>
   {!performance.ready&&<div className="depth-loading" role="status">Loading previews<span aria-hidden="true"/></div>}
   <div className="depth-toolbar">{section.category==='brands'?<CampaignControls brand={brand} onBrand={setBrand} sort={sort} onSort={setSort}/>:<BrandControls projects={projects} brand={brand} onBrand={setBrand} sort={sort} onSort={setSort}/>}{!mobile&&<PlaybackToggle/>}{section.category==='selected'&&<button className="depth-shuffle" onMouseEnter={()=>setHeld(true)} onMouseLeave={()=>setHeld(false)} onFocus={()=>setHeld(true)} onBlur={()=>setHeld(false)} onClick={()=>onProject(shuffleProject)} aria-label={'Open '+title(shuffleProject)}><img key={shuffleProject.id} src={previewAsset(shuffleProject.poster,320)} alt=""/><span>{showcase[shuffle%showcase.length].title}</span><i aria-hidden="true">⇄</i></button>}</div>
   <div className="depth-bottom"><ClientMarquee compact/><ResultsRibbon compact/><div className="depth-navigation"><div><button aria-label="Previous scene" title="Previous page" onClick={()=>navigate.current(current.current-1)}>↑</button><span>{section.title}</span><button aria-label="Next scene" title="Next page" onClick={()=>navigate.current(current.current+1)}>↓</button></div>{mobile?<span className="depth-scroll-hint">Scroll to explore <i aria-hidden="true">↓</i></span>:<button className="depth-next-category depth-scroll-hint" onClick={()=>navigate.current(sections.findIndex(s=>s.category===nextCategory.id))} aria-label={'Explore '+nextCategory.label}><span>Next up</span><strong>{nextCategory.label}</strong><i aria-hidden="true">↗</i></button>}<div><button className="orbit-step" aria-label="Previous video on this page" title="Previous video · swipe left/right" disabled={!performance.ready||cycleCount<2} onClick={()=>cycleVideos(-1)}>‹</button><button className="orbit-step orbit-step-next" aria-label="Next video on this page" title="Next video · swipe left/right" disabled={!performance.ready||cycleCount<2} onClick={()=>cycleVideos(1)}>›</button><button onClick={()=>setRotate(!rotate)} aria-pressed={rotate}>{rotate?'Rotation on':'Rotation off'}</button><button onClick={()=>setMuted(!muted)} aria-pressed={!muted}>{muted?'Sound off':'Sound on'}</button>{mobile&&<button onClick={performance.toggleAutoplay} aria-pressed={!playing}>{playing?'Pause films':'Play films'}</button>}</div></div></div>

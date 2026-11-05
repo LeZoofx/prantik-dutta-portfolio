@@ -40,12 +40,33 @@ export default function PortfolioScroll({projects,onProject,onIndex,paused=false
  useEffect(()=>{setSettled(-1);if(!mediaReady||active<0)return;const timer=setTimeout(()=>setSettled(active),650);return()=>clearTimeout(timer)},[active,mediaReady]);
  const playable=useMemo(()=>{if(!playing||paused||!mediaReady||settled!==active)return [];return selectEmbeds(visible.map(id=>projects.find(p=>p.id===id)!).filter(Boolean).sort((a,b)=>{const near=sections[active]?.items.map(p=>p.id)||[];return Number(near.includes(b.id))-Number(near.includes(a.id))}),Math.min(compact?2:3,maxPlayers))},[visible,active,paused,playing,compact,projects,sections,mediaReady,maxPlayers,settled]);
  function jump(index:number){elements.current[index]?.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'})}
- const pendingAI=useRef(false);
- useEffect(()=>{if(pendingAI.current){const index=sections.findIndex(s=>s.category==='ai');if(index>=0){pendingAI.current=false;jump(index)}}},[sections]);
- function skipAI(){const index=sections.findIndex(s=>s.category==='ai');if(index>=0)jump(index);else{pendingAI.current=true;setBrand('all')}}
+ const pendingShortcut=useRef<'ai'|'brands'|null>(null);
+ useEffect(()=>{
+  const category=pendingShortcut.current;
+  if(!category)return;
+  const index=sections.findIndex(section=>section.category===category);
+  if(index>=0){
+   pendingShortcut.current=null;
+   jump(index);
+  }
+ },[sections]);
+ function skipTo(category:'ai'|'brands'){
+  const index=sections.findIndex(section=>section.category===category);
+  if(index>=0){
+   pendingShortcut.current=null;
+   jump(index);
+  }else{
+   pendingShortcut.current=category;
+   setBrand('all');
+  }
+ }
  const nav=sections.filter((s,i)=>sections.findIndex(x=>x.category===s.category)===i);
  return <div className={'portfolio-scroll'+(immersive?' is-immersive':'')+(simple?' is-simple':'')} ref={root}>
-  <div className="portfolio-controls"><nav aria-label="Portfolio categories"><AIAccess onClick={skipAI}/>{nav.map(s=><button key={s.id} aria-current={sections[active]?.category===s.category?'location':undefined} onClick={()=>jump(sections.indexOf(s))}>{s.category==='selected'?'Highlights':s.category==='youtube'?'YouTube':s.category==='short-form'?'Short form':s.category==='events'?'Live & comedy':s.category==='brands'?'Campaigns':s.category==='ai'?'AI':'Film'}</button>)}</nav><BrandControls projects={projects} brand={brand} onBrand={setBrand} sort={sort} onSort={setSort}/><PlaybackToggle/><button className="portfolio-index" onClick={onIndex}>All work ↗</button></div>
+  <div className="portfolio-controls"><nav aria-label="Portfolio categories">
+   <AIAccess onClick={()=>skipTo('ai')}/>
+   <AIAccess destination="campaigns" onClick={()=>skipTo('brands')}/>
+   {nav.map(s=><button key={s.id} aria-current={sections[active]?.category===s.category?'location':undefined} onClick={()=>jump(sections.indexOf(s))}>{s.category==='selected'?'Highlights':s.category==='youtube'?'YouTube':s.category==='short-form'?'Short form':s.category==='events'?'Live & comedy':s.category==='brands'?'Campaigns':s.category==='ai'?'AI':'Film'}</button>)}
+  </nav><BrandControls projects={projects} brand={brand} onBrand={setBrand} sort={sort} onSort={setSort}/><PlaybackToggle/><button className="portfolio-index" onClick={onIndex}>All work ↗</button></div>
   {sections.map((section,index)=><section id={'portfolio-'+section.id} key={section.id} ref={el=>{elements.current[index]=el}} className={'portfolio-cluster layout-'+section.layout+' tone-'+themes[section.theme]+(active===index?' is-current':'')} aria-labelledby={'heading-'+section.id} data-art={section.art}>{active===index&&<SceneAccents theme={section.theme} art={section.art}/>}
    <div className="cluster-heading"><div>{index===0&&immersive&&<h1><KineticName/></h1>}<h2 id={'heading-'+section.id}><KineticType text={section.title} variant={section.theme}/></h2>{section.offset===0&&<><PosterType lines={section.copy||posterCopy[section.category]} art={section.art} className="category-poster"/><p className="category-focus"><KineticCopy text={section.focus}/></p></>}</div>{!simple&&<button className="cluster-discovery" aria-label={'Discover '+section.items[0].title} onPointerEnter={e=>{if(e.pointerType==='mouse')e.currentTarget.dataset.hover='true'}} onPointerLeave={e=>{delete e.currentTarget.dataset.hover}} onAnimationEnd={e=>{if(e.currentTarget.dataset.hover)section.category==='brands'?onProject(section.items[0]):onDiscover?.(section.items[0])}} onClick={()=>section.category==='brands'?onProject(section.items[0]):onDiscover?.(section.items[0])}><span aria-hidden="true">✳</span></button>}</div>
    <div className="cluster-grid">{section.items.map((p,i)=><article key={p.id} className={'portfolio-card'+(campaignFor(p.id)?' campaign-card':'')+((p.aspect||16/9)<1?' is-portrait':'')+(playable.includes(p.id)?' is-live':'')} data-project-id={p.id} style={{'--film-ratio':p.aspect||16/9,'--card-order':i,'--card-angle':((i%3)-1)*2.5+'deg'} as CSSProperties}>

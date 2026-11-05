@@ -10,15 +10,27 @@
 @media(max-width:699px){
  /* One composition for every orbit turn; mixed video ratios cannot share a slot. */
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights{--highlight-media-width:calc(100vw - 36px - var(--process-width) - 10px)}
- .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film[class]{width:min(31%,calc((var(--media-height)*.42 - 28px)*var(--film-ratio)));max-width:none;left:auto;right:auto;top:auto;bottom:auto;z-index:20;--card-blur:.35px;--frame-light:.94}
- .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.portrait-film:not(.slot-0){
-  width:min(35%,calc((var(--media-height)*.46 - 28px)*var(--film-ratio)));
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film[class]{max-width:none;left:auto;right:auto;top:auto;bottom:auto;z-index:20;--card-blur:.35px;--frame-light:.94}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film:not(.slot-0){
+  --highlight-side-width:min(calc(var(--highlight-media-width)*.46),calc((var(--media-height)*.58 - 28px)*var(--film-ratio)));
+  /* Bring shorter cards inward on tall screens while reserving room for captions. */
+  --highlight-side-inset:max(3%,calc(42% - var(--highlight-side-width)/var(--film-ratio) - 28px));
+  width:var(--highlight-side-width);
  }
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.slot-0{--highlight-focus-width:min(calc(var(--highlight-media-width)*.86),calc((var(--media-height)*.62 - 28px)*var(--film-ratio)));width:var(--highlight-focus-width);left:calc(50% - var(--highlight-focus-width)/2);top:calc(50% - (var(--highlight-focus-width)/var(--film-ratio) + 28px)/2);rotate:-2deg;z-index:40;--card-blur:0px;--frame-light:1.04}
- .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.slot-1{left:1%;top:2%;rotate:3deg}
- .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.slot-2{right:1%;top:4%;rotate:-3deg}
- .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.slot-3{left:2%;bottom:2%;rotate:-3deg;z-index:18;--card-blur:.5px}
- .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.slot-4{right:2%;bottom:0;rotate:3deg;z-index:18;--card-blur:.5px}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.slot-1{left:3%;top:var(--highlight-side-inset);rotate:3deg}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.slot-2{right:3%;top:calc(var(--highlight-side-inset) + 2%);rotate:-3deg}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.slot-3{left:4%;bottom:calc(var(--highlight-side-inset) + 1%);rotate:-3deg;z-index:18;--card-blur:.5px}
+ .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-film.slot-4{right:4%;bottom:var(--highlight-side-inset);rotate:3deg;z-index:18;--card-blur:.5px}
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-caption{min-height:14px;max-height:14px;overflow:hidden;white-space:nowrap}
  .depth-journey .zoom-world[data-art] .depth-gallery.expanded-highlights .depth-caption .kinetic-copy{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ /* Brand filters can leave a smaller Highlights gallery with only two side slots. */
+ .depth-journey .zoom-world[data-art][data-section^="selected-"] .depth-gallery:not(.expanded-highlights) .depth-film:is(.slot-1,.slot-2):not(.portrait-film){
+  width:47%;
+  bottom:6%;
+ }
+ .depth-journey .zoom-world[data-art][data-section^="selected-"] .depth-gallery:not(.expanded-highlights) .depth-film.portrait-film:is(.slot-1,.slot-2){
+  top:34%;
+  width:min(34%,calc((var(--media-height)*.66 - 26px)*var(--film-ratio)));
+ }
 }

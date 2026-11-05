@@ -90,18 +90,6 @@
     "provenance": "TruNativ/Everyday_Sweet_Film/Assets/Sweet_Planning_Board_A.png"
   },
   {
-    "id": "campaign-film-everyday-sweet",
-    "title": "Everyday Sweet — Sweet Escape",
-    "category": "brands",
-    "provider": "youtube",
-    "sourceUrl": "https://www.youtube.com/watch?v=DGW7fKkak5k",
-    "poster": "media/final-brands-06.webp",
-    "aspect": 1.7777777777777777,
-    "order": 106,
-    "role": "Creative strategy, production and post-production supervision.",
-    "embedUrl": "https://www.youtube.com/embed/DGW7fKkak5k"
-  },
-  {
     "id": "campaign-art-sorted-caption",
     "title": "Aarti — caption & square-format study",
     "category": "brands",
@@ -113,94 +101,6 @@
     "order": 107,
     "status": "planning-study",
     "description": "Planning study for the specified square nostalgia format; this is not the frame for every post."
-  },
-  {
-    "id": "campaign-hizzouse-ep1",
-    "title": "Did Marvel Just Save the MCU? | Jay & Silent Bob on Doomsday",
-    "category": "brands",
-    "provider": "external",
-    "sourceUrl": "https://share.transistor.fm/s/6a98da3d",
-    "poster": "media/campaigns/campaign-hizzouse-ep1.webp",
-    "aspect": 1.7777777777777777,
-    "order": 108,
-    "role": "Creative strategy, production and post-production supervision."
-  },
-  {
-    "id": "campaign-hizzouse-ep2",
-    "title": "Jay & Silent Bob Get Brutally Honest About Hollywood Tantrums",
-    "category": "brands",
-    "provider": "external",
-    "sourceUrl": "https://share.transistor.fm/s/048d64c6",
-    "poster": "media/campaigns/campaign-hizzouse-ep2.webp",
-    "aspect": 1.7777777777777777,
-    "order": 109,
-    "role": "Creative strategy, production and post-production supervision."
-  },
-  {
-    "id": "campaign-hizzouse-ep3",
-    "title": "Hope Assembles in the Hizzouse!",
-    "category": "brands",
-    "provider": "external",
-    "sourceUrl": "https://share.transistor.fm/s/c338ace6",
-    "poster": "",
-    "aspect": 1.7777777777777777,
-    "order": 110,
-    "role": "Creative strategy, production and post-production supervision."
-  },
-  {
-    "id": "campaign-hizzouse-ep4",
-    "title": "Jay & Silent Bob Go Down a Rabbit Hole",
-    "category": "brands",
-    "provider": "external",
-    "sourceUrl": "https://share.transistor.fm/s/642f8d68",
-    "poster": "",
-    "aspect": 1.7777777777777777,
-    "order": 111,
-    "role": "Creative strategy, production and post-production supervision."
-  },
-  {
-    "id": "campaign-hizzouse-ep5",
-    "title": "How Much Money Do The Biggest Commedians Make?",
-    "category": "brands",
-    "provider": "external",
-    "sourceUrl": "https://share.transistor.fm/s/07166b4a",
-    "poster": "",
-    "aspect": 1.7777777777777777,
-    "order": 112,
-    "role": "Creative strategy, production and post-production supervision."
-  },
-  {
-    "id": "campaign-hizzouse-ep6",
-    "title": "Disney's Darkest Secret",
-    "category": "brands",
-    "provider": "external",
-    "sourceUrl": "https://share.transistor.fm/s/ed9ce11d",
-    "poster": "",
-    "aspect": 1.7777777777777777,
-    "order": 113,
-    "role": "Creative strategy, production and post-production supervision."
-  },
-  {
-    "id": "campaign-hizzouse-ep7",
-    "title": "We Almost Made A Horror Movie",
-    "category": "brands",
-    "provider": "external",
-    "sourceUrl": "https://share.transistor.fm/s/dae612f4",
-    "poster": "",
-    "aspect": 1.7777777777777777,
-    "order": 114,
-    "role": "Creative strategy, production and post-production supervision."
-  },
-  {
-    "id": "campaign-hizzouse-ep8",
-    "title": "Jay Versus Spider-Man",
-    "category": "brands",
-    "provider": "external",
-    "sourceUrl": "https://share.transistor.fm/s/481a0475",
-    "poster": "",
-    "aspect": 1.7777777777777777,
-    "order": 115,
-    "role": "Creative strategy, production and post-production supervision."
   },
   {
     "id": "campaign-art-hizzouse-graphics",

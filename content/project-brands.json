@@ -200,5 +200,49 @@
   },
   "ai-sheldon": {
     "brand": "The Product Report"
+  },
+  "campaign-film-everyday-sweet": {
+    "brand": "Trunativ"
+  },
+  "campaign-hizzouse-ep1": {
+    "brand": "Hizzouse",
+    "collaborator": "Creator Engine"
+  },
+  "campaign-hizzouse-ep2": {
+    "brand": "Hizzouse",
+    "collaborator": "Creator Engine"
+  },
+  "campaign-hizzouse-ep3": {
+    "brand": "Hizzouse",
+    "collaborator": "Creator Engine"
+  },
+  "campaign-hizzouse-ep4": {
+    "brand": "Hizzouse",
+    "collaborator": "Creator Engine"
+  },
+  "campaign-hizzouse-ep5": {
+    "brand": "Hizzouse",
+    "collaborator": "Creator Engine"
+  },
+  "campaign-hizzouse-ep6": {
+    "brand": "Hizzouse",
+    "collaborator": "Creator Engine"
+  },
+  "campaign-hizzouse-ep7": {
+    "brand": "Hizzouse",
+    "collaborator": "Creator Engine"
+  },
+  "campaign-hizzouse-ep8": {
+    "brand": "Hizzouse",
+    "collaborator": "Creator Engine"
+  },
+  "nutrition-magnified-bento": {
+    "brand": "Trunativ"
+  },
+  "nutrition-magnified-food-scandals": {
+    "brand": "Trunativ"
+  },
+  "nutrition-magnified-momo": {
+    "brand": "Trunativ"
   }
 }

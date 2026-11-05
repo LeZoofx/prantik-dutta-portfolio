@@ -1,0 +1,133 @@
+[
+  {
+    "id": "trunativ",
+    "title": "TruNativ",
+    "level": "Brand & channel building",
+    "summary": "One brand, distinct product stories. Positioning, creator films, packaging and an original nutrition series.",
+    "copy": [
+      "Brand direction. Audience research.",
+      "Products. Creators. Nutrition Magnified.",
+      "From the brief to the final cut."
+    ],
+    "art": "matchbox",
+    "theme": 2,
+    "collectionIds": [
+      "campaign-trunativ"
+    ]
+  },
+  {
+    "id": "buzzfeed",
+    "title": "BuzzFeed",
+    "level": "Brand & channel building",
+    "summary": "Four channels with their own audiences and editorial promises. Each channel keeps its recurring series, interviews and films together.",
+    "copy": [
+      "Four channels. Four audiences.",
+      "Brand language. Formats. Retention.",
+      "Teams. Budgets. Post-production."
+    ],
+    "art": "brutal",
+    "theme": 5,
+    "collectionIds": [
+      "campaign-pero-like",
+      "campaign-cocoa-butter",
+      "campaign-tasty",
+      "campaign-a-pop"
+    ]
+  },
+  {
+    "id": "sorted",
+    "title": "Sorted / Aarti",
+    "level": "Brand & channel building",
+    "summary": "The Sorted Girl’s creator identity and Sorted’s consultancy content, connected through research, recurring formats and partner campaigns.",
+    "copy": [
+      "A creator. A consultancy.",
+      "Research. Voice. Recurring formats.",
+      "Scripts. Shoots. Social storytelling."
+    ],
+    "art": "calendar",
+    "theme": 3,
+    "collectionIds": [
+      "campaign-sorted-girl",
+      "campaign-sorted-consultancy"
+    ]
+  },
+  {
+    "id": "creator-engine",
+    "title": "Creator Engine",
+    "level": "Show & channel building",
+    "summary": "Show direction, brand language and production systems for Hizzouse, The Product Report and Win Theory.",
+    "copy": [
+      "Shows with their own language.",
+      "Writing. Production. Retention.",
+      "AI. Motion. Multicam. Teams."
+    ],
+    "art": "liquid",
+    "theme": 0,
+    "collectionIds": [
+      "campaign-hizzouse",
+      "campaign-product-report",
+      "campaign-win-theory"
+    ]
+  },
+  {
+    "id": "entertainment",
+    "title": "Entertainment",
+    "level": "Release campaigns & formats",
+    "summary": "Film releases, streaming campaigns, cricket entertainment and artist-led formats. Individual films and recurring series stay together.",
+    "copy": [
+      "Trailers. Release campaigns.",
+      "Players. Performers. Artists.",
+      "The hook. The timing. The payoff."
+    ],
+    "art": "baroque",
+    "theme": 1,
+    "collectionIds": [
+      "campaign-film-releases",
+      "campaign-bookmyshow",
+      "campaign-mumbai-indians",
+      "campaign-prime-comedy",
+      "campaign-sanam",
+      "campaign-janice"
+    ]
+  },
+  {
+    "id": "brands",
+    "title": "Brand campaigns",
+    "level": "Commercial & creator collaborations",
+    "summary": "Client campaigns across finance, technology, lifestyle, personal care and entertainment collaborations.",
+    "copy": [
+      "A brand. A clear idea.",
+      "Products. People. Collaborations.",
+      "Editing. Motion. Finishing."
+    ],
+    "art": "anti",
+    "theme": 2,
+    "collectionIds": [
+      "campaign-bumble",
+      "campaign-groww",
+      "campaign-oneplus",
+      "campaign-swiggy",
+      "campaign-bombay-sapphire",
+      "campaign-medimix",
+      "campaign-venusia"
+    ]
+  },
+  {
+    "id": "live",
+    "title": "Festivals & live",
+    "level": "Events & experiences",
+    "summary": "Festival campaigns, aftermovies and live comedy, shaped around performance and atmosphere.",
+    "copy": [
+      "Festival films. Live energy.",
+      "Anticipation. Atmosphere. Performance.",
+      "Built for the moment."
+    ],
+    "art": "noir",
+    "theme": 4,
+    "collectionIds": [
+      "campaign-lollapalooza",
+      "campaign-nh7",
+      "campaign-live-comedy"
+    ]
+  }
+]

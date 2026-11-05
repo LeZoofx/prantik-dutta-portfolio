@@ -4,9 +4,9 @@ import brandData from '../content/project-brands.json';
 import positioning from '../content/positioning.json';
 import showcase from '../content/showcase.json';
 import {aiCollection} from './aiWork';
-import {campaignFor,campaignProjects,filterCampaigns} from './campaigns';
+import {campaignFor,campaignProjects,filterCampaignFamilies} from './campaigns';
 export type PortfolioCategory=Category|'selected';
-export type PortfolioSection={id:string;category:PortfolioCategory;title:string;summary:string;focus:string;items:Project[];theme:number;layout:number;offset:number;art:ArtStyle};
+export type PortfolioSection={id:string;category:PortfolioCategory;title:string;summary:string;focus:string;items:Project[];theme:number;layout:number;offset:number;art:ArtStyle;copy?:string[];familyId?:string};
 export type WorkSort='curated'|'brand';
 const metadata=brandData as Record<string,{brand:string;collaborator?:string}>;
 export const brandFor=(p:Project)=>campaignFor(p.id)?.brand||metadata[p.id]?.brand||'';
@@ -19,23 +19,28 @@ export const portfolioCategories:{id:PortfolioCategory;label:string;theme:number
 ];
 export const contextFor=(category:PortfolioCategory)=>positioning.categories[category];
 export function buildSections(projects:Project[],sort:WorkSort='curated',brand='all',size=6):PortfolioSection[]{
- const filtered=projects.filter(p=>matchesBrand(p,brand)),sections:PortfolioSection[]=[];
+ const filtered=projects.filter(p=>matchesBrand(p,brand)),sections:PortfolioSection[]=[];let legacyCount=0;
  for(const group of portfolioCategories){
-  let source=group.id==='selected'?showcase.filter(item=>item.highlight!==false).map(item=>filtered.find(p=>p.id===item.id)).filter((p):p is Project=>!!p):group.id==='ai'?aiCollection.map(id=>filtered.find(p=>p.id===id)).filter((p):p is Project=>!!p):filtered.filter(p=>p.category===group.id);
+  let source=group.id==='selected'?showcase.filter(item=>item.highlight!==false).map(item=>filtered.find(p=>p.id===item.id)).filter((p):p is Project=>!!p):group.id==='ai'?aiCollection.map(id=>filtered.find(p=>p.id===id)).filter((p):p is Project=>!!p):filtered.filter(p=>p.category===group.id||p.additionalCategories?.includes(group.id as Category));
   if(group.id==='short-form')source=[...source].sort((a,b)=>{const rank=(p:Project)=>p.id==='social-short-format-02'?-1:p.provider==='youtube'?0:p.id.startsWith('social-short-format')?1:2;return rank(a)-rank(b)});
   const extras=group.id==='selected'?source.filter(p=>showcase.find(item=>item.id===p.id)?.rotation):group.id==='short-form'?source.filter(p=>p.id==='ai-character-motion'):[];
   const opening=source.filter(p=>!extras.includes(p));
   const list=sortProjects(opening.length?opening:source,sort),context=contextFor(group.id),pageSize=group.id==='ai'&&size>=6?Math.max(1,list.length):size,pages=Math.ceil(list.length/pageSize);
   for(let start=0;start<list.length;start+=pageSize){
    const items=[...list.slice(start,start+pageSize),...(opening.length?sortProjects(extras,sort).filter((_,i)=>group.id==='short-form'?start+pageSize>=list.length:i%pages===Math.floor(start/size)):[])];
-   sections.push({id:group.id+'-'+start,category:group.id,title:context.title,summary:context.summary,focus:context.focus,items,theme:group.id==='brands'?[2,1,2,5,2][Math.floor(start/size)%5]:group.id==='short-form'?[3,4,3,2,3,4][Math.floor(start/size)%6]:group.id==='youtube'?[5,0,5,1,5][Math.floor(start/size)%5]:group.theme,layout:(sections.length+group.theme)%6,offset:start,art:artSequence[group.id][Math.floor(start/size)%artSequence[group.id].length]});
+   sections.push({id:group.id+'-'+start,category:group.id,title:context.title,summary:context.summary,focus:context.focus,items,theme:group.id==='brands'?[2,1,2,5,2][Math.floor(start/size)%5]:group.id==='short-form'?[3,4,3,2,3,4][Math.floor(start/size)%6]:group.id==='youtube'?[5,0,5,1,5][Math.floor(start/size)%5]:group.theme,layout:(legacyCount+Math.floor(start/pageSize)+group.theme)%6,offset:start,art:artSequence[group.id][Math.floor(start/size)%artSequence[group.id].length]});
   }
+  const legacy=source.filter(p=>!p.addedToPortfolio&&(group.id==='selected'||group.id==='ai'||p.category===group.id)),legacyOpening=legacy.filter(p=>!extras.includes(p));
+  legacyCount+=Math.ceil((legacyOpening.length||legacy.length)/(group.id==='ai'&&size>=6?Math.max(1,legacy.length):size));
  }
  // Replace only Campaigns after the original scene layouts have been assigned.
  // Other chapters keep their existing items, layout, art and animation indices.
- const collections=filterCampaigns(brand,'',sort).map(c=>campaignProjects.find(p=>p.id===c.id)!);
- const context=contextFor('brands'),grouped:PortfolioSection[]=[];
- for(let start=0;start<collections.length;start+=size)grouped.push({id:'brands-'+start,category:'brands',title:context.title,summary:context.summary,focus:context.focus,items:collections.slice(start,start+size),theme:[2,1,2,5,2][Math.floor(start/size)%5],layout:sections.find(s=>s.category==='brands')?.layout??2,offset:start,art:artSequence.brands[Math.floor(start/size)%artSequence.brands.length]});
+ const grouped:PortfolioSection[]=[];
+ for(const family of filterCampaignFamilies(brand,'',sort)){
+  const collections=family.collections.map(c=>campaignProjects.find(p=>p.id===c.id)!);
+  const capacity=collections.length>size?Math.min(size,Math.ceil(collections.length/Math.ceil(collections.length/size))):size;
+  for(let start=0;start<collections.length;start+=capacity)grouped.push({id:'brands-'+family.id+'-'+start,category:'brands',title:family.title,summary:family.summary,focus:family.level,items:collections.slice(start,start+capacity),theme:family.theme,layout:sections.find(s=>s.category==='brands')?.layout??2,offset:start,art:family.art,copy:family.copy,familyId:family.id});
+ }
  const result=sections.filter(s=>s.category!=='brands');
  const insert=result.findIndex(s=>s.category==='ai');
  result.splice(insert<0?result.length:insert,0,...grouped);

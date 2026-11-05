@@ -5,7 +5,7 @@ export type Project = {
   id: string; title: string; category: Category; provider: 'youtube'|'instagram'|'drive'|'image'|'external';
   sourceUrl: string; embedUrl?: string; poster?: string; image?: string;
   description?: string; disclosure?: string; role?: string; featured?: boolean;
-  aspect?: number; order: number; status?: string; videoSource?: string; duration?: number;
+  aspect?: number; additionalCategories?: Category[]; addedToPortfolio?: boolean; order: number; status?: string; videoSource?: string; duration?: number;
 };
 export const projects = projectData as Project[];
 export {site};

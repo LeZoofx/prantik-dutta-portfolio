@@ -54,6 +54,15 @@
     ],
     "sections": [
       {
+        "title": "Nutrition Magnified — original YouTube series",
+        "projectIds": [
+          "nutrition-magnified-bento",
+          "nutrition-magnified-food-scandals",
+          "nutrition-magnified-momo"
+        ],
+        "note": "Food and nutrition research translated into original long-form episodes."
+      },
+      {
         "title": "Marine Collagen",
         "projectIds": [
           "brands-03",

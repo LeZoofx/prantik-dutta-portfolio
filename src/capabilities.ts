@@ -1,3 +1,4 @@
+export const mobileLayout='(max-width:699px), (max-width:1024px) and (pointer:coarse)';
 export type Quality='full'|'balanced'|'simple';
 export function initialExperience(path:string,requested:string|null=null):'normal'|'fun'{
  if(requested==='normal'||requested==='overview')return 'normal';

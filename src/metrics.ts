@@ -14,3 +14,11 @@ export const marketingStatistics=[
  ...[...videoMetrics].sort((a,b)=>b.views-a.views).slice(0,7).map(v=>({value:compactViews(v.views),label:v.title.split(' | ')[0].replace(/\s*\(Official Trailer\)/i,''),brand:v.channel,detail:'Public YouTube view count checked '+new Date(v.checkedAt).toISOString().slice(0,10),source:v.url})),
  ...positioning.statistics.slice(2).filter(s=>!featuredCareer.includes(s))
 ];
+
+export const overviewCareer=positioning.statistics.filter(({brand,label})=>
+ (brand==='Trunativ'&&label==='Views in one month')||(brand==='Schbang'&&label==='Viewership growth')
+);
+export const overviewStatistics=[
+ marketingStatistics[0],
+ ...overviewCareer.map(metric=>({...metric,brand:metric.brand+' · reported'}))
+];

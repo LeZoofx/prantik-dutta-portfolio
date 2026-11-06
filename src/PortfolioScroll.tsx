@@ -1,81 +1,99 @@
-import {lazy,Suspense,useEffect,useMemo,useRef,useState,type CSSProperties} from 'react';
-import {asset,previewAsset,previewSrcSet,projectPath,platformLabel,selectEmbeds,type Project} from './content';
-import {buildSections,brandFor,type PortfolioSection,type WorkSort} from './portfolioSections';
+import {lazy,Suspense,useEffect,useMemo,useRef,useState,type CSSProperties,type MouseEvent} from 'react';
+import {href,previewAsset,previewSrcSet,projectPath,platformLabel,selectEmbeds,type Project} from './content';
+import {buildSections,brandFor,contextFor,portfolioCategories,type PortfolioCategory,type WorkSort} from './portfolioSections';
 import BrandControls from './BrandControls';
-import KineticName from './KineticName';
-import KineticType from './KineticType';
-import PosterType,{KineticCopy} from './PosterType';
-import SceneAccents from './SceneAccents';
-import ExpandCue from './ExpandCue';
-import {posterCopy} from './artStyles';
-import {usePerformance,listenMedia} from './Performance';
-import './portfolio-scroll.css';
 import PlaybackToggle from './PlaybackToggle';
-import AIAccess from './AIAccess';
-import {campaignFor} from './campaigns';
-import {CampaignTile} from './CampaignCollection';
-const Player=lazy(()=>import('./JourneyPlayer'));
-const themes=['glass','mass','cut','desktop','afterimage','editorial'];
-const shortTitle=(p:Project)=>p.title.split(' | ')[0].replace(/\s*\(Official.*$/i,'').replace(/\s*- Official Trailer$/i,'');
-type Props={projects:Project[];onProject:(p:Project)=>void;onIndex:()=>void;paused?:boolean;reduced:boolean;simple?:boolean;immersive?:boolean;onSection?:(section:PortfolioSection,index:number,progress:number)=>void;onDiscover?:(project:Project)=>void};
-export default function PortfolioScroll({projects,onProject,onIndex,paused=false,reduced,simple=false,immersive=false,onSection,onDiscover}:Props){
- const {mediaReady,maxPlayers,autoplay:playing}=usePerformance();
- const [settled,setSettled]=useState(-1);
- const [brand,setBrand]=useState('all'),[sort,setSort]=useState<WorkSort>('curated');
- const sections=useMemo(()=>buildSections(projects,sort,brand),[projects,sort,brand]);
- const root=useRef<HTMLDivElement>(null),elements=useRef<(HTMLElement|null)[]>([]),sectionCallback=useRef(onSection);sectionCallback.current=onSection;
- const [active,setActive]=useState(-1),[muted,setMuted]=useState(true),[compact,setCompact]=useState(false),[saveData,setSaveData]=useState(false);
- const [visible,setVisible]=useState<string[]>([]);const candidates=useRef(new Map<string,{ratio:number;top:number}>());
- const activeRef=useRef(-1),scrollProgress=useRef(0);
- useEffect(()=>{const m=matchMedia('(max-width: 699px)');const sync=()=>setCompact(m.matches);sync();const stop=listenMedia(m,sync);setSaveData(!!(navigator as Navigator&{connection?:{saveData?:boolean}}).connection?.saveData);return stop},[]);
- useEffect(()=>{
-  const board=root.current;if(!board||!window.IntersectionObserver)return;const scroller=board.closest<HTMLElement>('.portfolio-scroller'),viewport=scroller||null;
-  const sectionObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)candidates.current.set(entry.target.id,{ratio:entry.intersectionRatio,top:entry.boundingClientRect.top});else candidates.current.delete(entry.target.id)});const best=[...candidates.current.entries()].sort((a,b)=>b[1].ratio-a[1].ratio)[0];const next=best?sections.findIndex(s=>'portfolio-'+s.id===best[0]):-1;activeRef.current=next;setActive(next);if(next>=0)sectionCallback.current?.(sections[next],next,scrollProgress.current)}, {root:viewport,threshold:[0,.08,.2,.35,.5,.7,.9]});
-  elements.current.forEach(el=>el&&sectionObserver.observe(el));
+import {CampaignControls,CampaignIndex} from './CampaignCollection';
+import {usePerformance} from './Performance';
 
-  const cardObserver=new IntersectionObserver(entries=>setVisible(old=>{const next=new Set(old);entries.forEach(entry=>entry.isIntersecting?next.add((entry.target as HTMLElement).dataset.projectId!):next.delete((entry.target as HTMLElement).dataset.projectId!));return [...next]}),{root:viewport,threshold:.18});
-  board.querySelectorAll<HTMLElement>('.portfolio-card').forEach(el=>cardObserver.observe(el));
-  let raf=0;const target=scroller||window;const update=()=>{raf=0;const index=activeRef.current;if(index<0)return;const rect=elements.current[index]!.getBoundingClientRect(),height=scroller?.clientHeight||innerHeight;const progress=Math.max(-1,Math.min(1,(height*.35-rect.top)/Math.max(height,rect.height)));scrollProgress.current=progress;board.style.setProperty('--scroll-offset',String(progress));sectionCallback.current?.(sections[index],index,progress)};const onScroll=()=>{if(!raf)raf=requestAnimationFrame(update)};target.addEventListener('scroll',onScroll,{passive:true});return()=>{sectionObserver.disconnect();cardObserver.disconnect();target.removeEventListener('scroll',onScroll);cancelAnimationFrame(raf);candidates.current.clear()};
- },[sections,simple]);
- useEffect(()=>{setSettled(-1);if(!mediaReady||active<0)return;const timer=setTimeout(()=>setSettled(active),650);return()=>clearTimeout(timer)},[active,mediaReady]);
- const playable=useMemo(()=>{if(!playing||paused||!mediaReady||settled!==active)return [];return selectEmbeds(visible.map(id=>projects.find(p=>p.id===id)!).filter(Boolean).sort((a,b)=>{const near=sections[active]?.items.map(p=>p.id)||[];return Number(near.includes(b.id))-Number(near.includes(a.id))}),Math.min(compact?2:3,maxPlayers))},[visible,active,paused,playing,compact,projects,sections,mediaReady,maxPlayers,settled]);
- function jump(index:number){elements.current[index]?.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'})}
- const pendingShortcut=useRef<'ai'|'brands'|null>(null);
+const Player=lazy(()=>import('./JourneyPlayer'));
+const pageSize=9;
+const ratioOf=(project:Project)=>project.aspect||16/9;
+const workName=(project:Project)=>project.title.split(' | ')[0].replace(/\s*\(Official.*$/i,'').replace(/\s*- Official Trailer$/i,'');
+
+export default function PortfolioScroll({projects,onProject,onIndex,paused=false}:{
+ projects:Project[];onProject:(project:Project)=>void;onIndex:()=>void;paused?:boolean;
+}){
+ const {mediaReady,maxPlayers,autoplay:playing}=usePerformance();
+ const [category,setCategory]=useState<PortfolioCategory>('selected');
+ const [brand,setBrand]=useState('all'),[sort,setSort]=useState<WorkSort>('curated');
+ const [limit,setLimit]=useState(pageSize),[visible,setVisible]=useState<string[]>([]),[muted,setMuted]=useState(true);
+ const grid=useRef<HTMLDivElement>(null);
+ const sections=useMemo(()=>buildSections(projects,'curated'),[projects]);
+ const matching=useMemo(()=>buildSections(projects,sort,brand),[projects,sort,brand]);
+ const brandItems=useMemo(()=>sections.filter(section=>section.category===category).flatMap(section=>section.items),[sections,category]);
+ const items=useMemo(()=>[...new Map(matching.filter(section=>section.category===category).flatMap(section=>section.items.map(project=>[project.id,project] as const))).values()],[matching,category]);
+ const shown=items.slice(0,limit),context=contextFor(category);
+ const formats=[
+  {name:'Landscape',portrait:false,items:shown.filter(project=>ratioOf(project)>=1)},
+  {name:'Portrait',portrait:true,items:shown.filter(project=>ratioOf(project)<1)},
+ ].filter(format=>format.items.length);
+
  useEffect(()=>{
-  const category=pendingShortcut.current;
-  if(!category)return;
-  const index=sections.findIndex(section=>section.category===category);
-  if(index>=0){
-   pendingShortcut.current=null;
-   jump(index);
-  }
- },[sections]);
- function skipTo(category:'ai'|'brands'){
-  const index=sections.findIndex(section=>section.category===category);
-  if(index>=0){
-   pendingShortcut.current=null;
-   jump(index);
-  }else{
-   pendingShortcut.current=category;
-   setBrand('all');
-  }
+  const root=grid.current;
+  setVisible([]);
+  if(!playing||paused||!root||!window.IntersectionObserver)return;
+  const observer=new IntersectionObserver(entries=>setVisible(previous=>{
+   const next=new Set(previous);
+   for(const entry of entries){
+    const id=(entry.target as HTMLElement).dataset.projectId!;
+    if(entry.isIntersecting)next.add(id);else next.delete(id);
+   }
+   return [...next];
+  }),{threshold:.25});
+  root.querySelectorAll<HTMLElement>('[data-project-id]').forEach(card=>observer.observe(card));
+  return()=>observer.disconnect();
+ },[playing,paused,items,limit]);
+
+ const playable=playing&&mediaReady&&!paused?selectEmbeds(items.filter(project=>visible.includes(project.id)),maxPlayers):[];
+ function open(event:MouseEvent<HTMLAnchorElement>,project:Project){
+  if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+  event.preventDefault();onProject(project);
  }
- const nav=sections.filter((s,i)=>sections.findIndex(x=>x.category===s.category)===i);
- return <div className={'portfolio-scroll'+(immersive?' is-immersive':'')+(simple?' is-simple':'')} ref={root}>
-  <div className="portfolio-controls"><nav aria-label="Portfolio categories">
-   <AIAccess onClick={()=>skipTo('ai')}/>
-   <AIAccess destination="campaigns" onClick={()=>skipTo('brands')}/>
-   {nav.map(s=><button key={s.id} aria-current={sections[active]?.category===s.category?'location':undefined} onClick={()=>jump(sections.indexOf(s))}>{s.category==='selected'?'Highlights':s.category==='youtube'?'YouTube':s.category==='short-form'?'Short form':s.category==='events'?'Live & comedy':s.category==='brands'?'Campaigns':s.category==='ai'?'AI':'Film'}</button>)}
-  </nav><BrandControls projects={projects} brand={brand} onBrand={setBrand} sort={sort} onSort={setSort}/><PlaybackToggle/><button className="portfolio-index" onClick={onIndex}>All work ↗</button></div>
-  {sections.map((section,index)=><section id={'portfolio-'+section.id} key={section.id} ref={el=>{elements.current[index]=el}} className={'portfolio-cluster layout-'+section.layout+' tone-'+themes[section.theme]+(active===index?' is-current':'')} aria-labelledby={'heading-'+section.id} data-art={section.art}>{active===index&&<SceneAccents theme={section.theme} art={section.art}/>}
-   <div className="cluster-heading"><div>{index===0&&immersive&&<h1><KineticName/></h1>}<h2 id={'heading-'+section.id}><KineticType text={section.title} variant={section.theme}/></h2>{section.offset===0&&<><PosterType lines={section.copy||posterCopy[section.category]} art={section.art} className="category-poster"/><p className="category-focus"><KineticCopy text={section.focus}/></p></>}</div>{!simple&&<button className="cluster-discovery" aria-label={'Discover '+section.items[0].title} onPointerEnter={e=>{if(e.pointerType==='mouse')e.currentTarget.dataset.hover='true'}} onPointerLeave={e=>{delete e.currentTarget.dataset.hover}} onAnimationEnd={e=>{if(e.currentTarget.dataset.hover)section.category==='brands'?onProject(section.items[0]):onDiscover?.(section.items[0])}} onClick={()=>section.category==='brands'?onProject(section.items[0]):onDiscover?.(section.items[0])}><span aria-hidden="true">✳</span></button>}</div>
-   <div className="cluster-grid">{section.items.map((p,i)=><article key={p.id} className={'portfolio-card'+(campaignFor(p.id)?' campaign-card':'')+((p.aspect||16/9)<1?' is-portrait':'')+(playable.includes(p.id)?' is-live':'')} data-project-id={p.id} style={{'--film-ratio':p.aspect||16/9,'--card-order':i,'--card-angle':((i%3)-1)*2.5+'deg'} as CSSProperties}>
-    <p className="portfolio-brand"><span><KineticCopy text={brandFor(p)||section.title}/></span><span className="platform-tag">{platformLabel(p)}</span></p>{section.theme===3&&<div className="portfolio-windowbar"><span><KineticCopy text={shortTitle(p)}/></span><span aria-hidden="true">_ □</span></div>}
-    {campaignFor(p.id)?<div className="portfolio-media campaign-frame"><CampaignTile id={p.id} onProject={onProject}/></div>:<div className="portfolio-media">{(active===index&&playable.includes(p.id))?<Suspense fallback={<img src={previewAsset(p.poster)} srcSet={previewSrcSet(p.poster)} sizes="(max-width:699px) 75vw, 42vw" alt={p.title}/>}><Player project={p} enabled={playable.includes(p.id)} muted={muted||p.id!==playable[0]} playing={playing&&!paused} onOpen={()=>onProject(p)}/></Suspense>:<a href={projectPath(p.id)} className="portfolio-poster" onClick={e=>{if(!e.metaKey&&!e.ctrlKey){e.preventDefault();onProject(p)}}} aria-label={'Open '+p.title}>{p.poster?<img src={previewAsset(p.poster)} srcSet={previewSrcSet(p.poster)} sizes="(max-width:699px) 75vw, 42vw" alt={p.title} loading="lazy" decoding="async"/>:<span className="portfolio-type-poster">{shortTitle(p)}</span>}<span className="portfolio-play" aria-hidden="true">{p.provider==='image'?'↗':'▶'}</span></a>}<ExpandCue title={shortTitle(p)} onOpen={()=>onProject(p)}/></div>}
-    <a href={projectPath(p.id)} className="portfolio-caption" onClick={e=>{if(!e.metaKey&&!e.ctrlKey){e.preventDefault();onProject(p)}}}><span><KineticCopy text={shortTitle(p)}/></span><span aria-hidden="true">↗</span></a>
-   </article>)}</div>
-  </section>)}
-  <div className="portfolio-end"><button onClick={()=>jump(0)}>Back to selected work ↑</button><button onClick={onIndex}>Open work index ↗</button></div>
-  {!simple&&active>=0&&<div className="portfolio-playback"><span>{sections[active]?.title}</span><button onClick={()=>setMuted(!muted)} aria-pressed={!muted}>{muted?'Sound off':'Sound on'}</button><PlaybackToggle/><button className="portfolio-next" onClick={()=>jump((Math.max(0,active)+1)%sections.length)} aria-label="Next portfolio section">↓</button></div>}
- </div>;
+ function choose(category:PortfolioCategory){
+  setCategory(category);setBrand('all');setLimit(pageSize);
+ }
+
+ return <section className="overview-work" id="portfolio-selected-0" aria-labelledby="overview-work-heading">
+  <header className="overview-work-header">
+   <div><p className="mono">THE PORTFOLIO</p><h2 id="overview-work-heading">Selected work.</h2></div>
+   <a href={href('work/')} onClick={event=>{if(!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey){event.preventDefault();onIndex();}}}>Open work index ↗</a>
+  </header>
+  <div className="overview-work-controls">
+   <nav aria-label="Portfolio categories">
+    {portfolioCategories.map(item=><button type="button" key={item.id} aria-pressed={category===item.id} onClick={()=>choose(item.id)}>{item.label}</button>)}
+   </nav>
+   <div className="overview-work-tools">
+    {category==='brands'?<CampaignControls brand={brand} sort={sort} onBrand={setBrand} onSort={setSort}/>:<>
+     <BrandControls projects={brandItems} brand={brand} sort={sort} onBrand={value=>{setBrand(value);setLimit(pageSize);}} onSort={value=>{setSort(value);setLimit(pageSize);}}/>
+     <PlaybackToggle/>
+     {playing&&<button className="overview-sound" type="button" onClick={()=>setMuted(!muted)} aria-pressed={!muted}>{muted?'Sound off':'Sound on'}</button>}
+    </>}
+   </div>
+  </div>
+  <p className="overview-work-focus">{context.focus}</p>
+  {category==='brands'?<CampaignIndex brand={brand} query="" sort={sort} onProject={onProject}/>:<>
+   <div ref={grid}>
+    {formats.map(format=><div key={format.name} className="overview-work-format">
+     {formats.length>1&&<p className="overview-format-label">{format.name}</p>}
+     <div className="overview-work-grid" data-format={format.portrait?'portrait':'landscape'}>
+      {format.items.map(project=>{
+       const name=workName(project),playingHere=playable.includes(project.id),ratio=ratioOf(project);
+       const poster=project.poster?<img src={previewAsset(project.poster)} srcSet={previewSrcSet(project.poster)} sizes={format.portrait?'230px':'(max-width:699px) 94vw, (max-width:1050px) 45vw, 30vw'} alt="" loading="lazy" decoding="async"/>:<span className="overview-work-placeholder">{name}</span>;
+       return <article key={project.id} className="overview-work-card" data-project-id={project.id} style={{'--work-ratio':ratio} as CSSProperties}>
+        <div className="overview-work-media">
+         {playingHere?<Suspense fallback={poster}><Player project={project} enabled muted={muted||playable[0]!==project.id} playing onOpen={()=>onProject(project)}/></Suspense>:
+          <a href={projectPath(project.id)} aria-label={'Watch '+name} onClick={event=>open(event,project)}>{poster}<span className="overview-watch" aria-hidden="true">↗</span></a>}
+        </div>
+        <div className="overview-work-meta"><span>{brandFor(project)||context.title}</span><span>{platformLabel(project)}</span></div>
+        <h3><a href={projectPath(project.id)} onClick={event=>open(event,project)}>{name}</a></h3>
+       </article>;
+      })}
+     </div>
+    </div>)}
+    {!items.length&&<p className="empty-message">No work matches this filter. <button onClick={()=>setBrand('all')}>Clear filter</button></p>}
+   </div>
+   {items.length>limit&&<button className="overview-more" type="button" onClick={()=>setLimit(limit+pageSize)}>Show more {context.title.toLowerCase()} ↓</button>}
+  </>}
+ </section>;
 }

@@ -2,6 +2,7 @@
   {
     "id": "videos-01",
     "title": "Kuttey (Official Trailer) | Arjun Tabu Naseeruddin Konkona Kumud Radhika Shardul Aasmaan | 13th Jan",
+    "caseTitle": "Selling the chaos of a heist gone sideways",
     "category": "trailers",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=76BhvV8ihRM",
@@ -16,6 +17,7 @@
   {
     "id": "videos-02",
     "title": "Rana Naidu | Official Trailer | Rana Daggubati, Venkatesh Daggubati, Surveen Chawla | Netflix India",
+    "caseTitle": "Launching a crime drama through a family feud",
     "category": "trailers",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=wbEWbAKo29Q",
@@ -30,6 +32,7 @@
   {
     "id": "videos-04",
     "title": "Khufiya | Official Trailer | Vishal Bhardwaj, Tabu, Ali Fazal, Wamiqa Gabbi",
+    "caseTitle": "Building suspense without giving the spy story away",
     "category": "trailers",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=ByojhBwG_-E",
@@ -44,6 +47,7 @@
   {
     "id": "stand-up-events-03",
     "title": "Biswa Kalyan Rath: Mood Kharaab - Official Trailer | Prime Video India",
+    "caseTitle": "Selling a comedy special without spending the punchlines",
     "category": "events",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=aigKy_7oBA4",
@@ -58,6 +62,7 @@
   {
     "id": "brands-15",
     "title": "2 Truths & a Lie ft. Rohit Sharma | Mumbai Indians",
+    "caseTitle": "Giving IPL fans a game to play with Rohit Sharma",
     "category": "brands",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=Q1EQXb4Bgxk",
@@ -73,6 +78,7 @@
   {
     "id": "brands-07",
     "title": "Lollapalooza 2024 — campaign cut 01",
+    "caseTitle": "Building anticipation for Lollapalooza India",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C0tFOrxICgZ/?igsh=MWVpYWc0YTYwNXN3eg==",
@@ -87,6 +93,7 @@
   {
     "id": "social-01",
     "title": "What It Means To Be Afro-Latino",
+    "caseTitle": "Making room for Afro-Latino stories in their own words",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=hgYRyIvkqr0",
@@ -101,6 +108,7 @@
   {
     "id": "social-02",
     "title": "Glambot King Cole Walliser Talks Glambot Beginnings, Best Results, and More! | Rajen Chats | A*Pop",
+    "caseTitle": "Building an interview around the stories behind the Glambot",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=-2_PHco2PxU",
@@ -115,6 +123,7 @@
   {
     "id": "social-03",
     "title": "Latina Moms Most Savage Moments",
+    "caseTitle": "Turning familiar family moments into a Pero Like comedy cut",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=kI3yUWXAprw",
@@ -129,6 +138,7 @@
   {
     "id": "social-04",
     "title": "I Draw You Cook Season 2 Marathon",
+    "caseTitle": "Keeping the reveal alive in a cooking-show marathon",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=H4NIl6g3M6E",
@@ -143,6 +153,7 @@
   {
     "id": "social-05",
     "title": "Best of Southerners Try Each Other's Food",
+    "caseTitle": "Using a shared table to tell stories about the American South",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=QT0UYTB5iZg",
@@ -157,6 +168,7 @@
   {
     "id": "social-06",
     "title": "Best of Africans Try Each Other's Food",
+    "caseTitle": "Using a shared table to explore African food cultures",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=R7Rnt4cdZrQ",
@@ -171,6 +183,7 @@
   {
     "id": "social-07",
     "title": "Tamar Braxton and Ms. E Play Sibling Superlatives",
+    "caseTitle": "Finding the family dynamic in a celebrity game",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=k6MNu2JW-Tw",
@@ -185,6 +198,7 @@
   {
     "id": "social-08",
     "title": "How Well Does The Cast of \"Duplicity\" Know Each Other? | Co-Star Test",
+    "caseTitle": "Turning a cast interview into a game fans can play along with",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=pHQOeIKjtXI",
@@ -199,6 +213,7 @@
   {
     "id": "social-09",
     "title": "I Draw You Cook Season 4 Marathon",
+    "caseTitle": "Building a bingeable cut of a recurring cooking format",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=-54l9Ilet54",
@@ -213,6 +228,7 @@
   {
     "id": "social-10",
     "title": "Jekalyn Carr - How Churchy Are You? - Part 1",
+    "caseTitle": "Building a personality-led game around gospel culture",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=TuWZqo_RFgg",
@@ -227,6 +243,7 @@
   {
     "id": "social-11",
     "title": "Jekalyn Carr - How Churchy Are You? - Part 2",
+    "caseTitle": "Building a personality-led game around gospel culture",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=BnF-WVQLWcc",
@@ -241,6 +258,7 @@
   {
     "id": "social-12",
     "title": "Bacardi NH7 Weekender Pune  2017 Aftermovie",
+    "caseTitle": "Bringing the feeling of a live festival into an aftermovie",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=wDAI8UNlE4o",
@@ -255,6 +273,7 @@
   {
     "id": "social-13",
     "title": "Lost In Translation Season 3 Marathon",
+    "caseTitle": "Making mistranslation the hook of a cooking show",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=3ff0qfGPNS8",
@@ -269,6 +288,7 @@
   {
     "id": "social-14",
     "title": "AWKWARD Dating Questions with Aisha Ahmed & Ayush Mehra || Hangout ft. Minus One Cast",
+    "caseTitle": "Making a cast interview feel like an honest conversation",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=f85tPxkkxGA",
@@ -283,6 +303,7 @@
   {
     "id": "social-15",
     "title": "Most Likely To Ft. Sanam Band | Sanam Band Exclusive Interview | Sanam India Tour 2024",
+    "caseTitle": "Letting the band’s chemistry carry the interview",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=JAJXVmxeVo4",
@@ -297,6 +318,7 @@
   {
     "id": "social-16",
     "title": "Never Have I Ever Ft. Sanam Band | Sanam Band Exclusive Interview | Sanam India Tour 2024",
+    "caseTitle": "Turning a band interview into a game of confessions",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=FiVk6tdEEkQ",
@@ -311,6 +333,7 @@
   {
     "id": "social-17",
     "title": "Lateasha Lunceford “Sweet Tea” Superlatives - Part 2",
+    "caseTitle": "A repeatable interview format built around personality",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=ajESUQ2nhgY",
@@ -325,6 +348,7 @@
   {
     "id": "social-18",
     "title": "Lateasha Lunceford “Sweet Tea” Plays Superlatives",
+    "caseTitle": "A repeatable interview format built around personality",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=Ttig3M-wloc",
@@ -339,6 +363,7 @@
   {
     "id": "social-19",
     "title": "3, 4, & 5 Ingredient Lunches",
+    "caseTitle": "Making quick lunches easier to choose and cook",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=Nv48jvDPtx0",
@@ -353,6 +378,7 @@
   {
     "id": "social-20",
     "title": "22 Delectable Cookie Recipes",
+    "caseTitle": "Making a long recipe collection easy to follow",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=CYV_nXef9eg",
@@ -367,6 +393,7 @@
   {
     "id": "social-21",
     "title": "Lost In Translation Season 1 - Marathon",
+    "caseTitle": "Making mistranslation the hook of a cooking show",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=9QLYHlabnt4",
@@ -381,6 +408,7 @@
   {
     "id": "social-22",
     "title": "My First #AskMeAnything❤️ While driving!",
+    "caseTitle": "Keeping a creator’s first AMA conversational",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=jPA2NkRxD_0",
@@ -395,6 +423,7 @@
   {
     "id": "social-23",
     "title": "Bombay Sapphire — brand film",
+    "caseTitle": "Building a premium mood around Bombay Sapphire",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CqDN-9wgkMx/?igsh=MTQxMjQwbTZycHYycg%3D%3D",
@@ -409,6 +438,7 @@
   {
     "id": "social-24",
     "title": "Netflix — all it takes is listening",
+    "caseTitle": "Giving a Netflix social film one idea to land",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CyGOGEHtxIq/?igsh=MWZxNXQ5bGY4Y3lwZw%3D%3D",
@@ -423,6 +453,7 @@
   {
     "id": "social-25",
     "title": "Bhakshak — social promotion",
+    "caseTitle": "Finding a short-form hook for an investigative drama",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C3NKIfTtNEB/?igsh=MThvbDVka2E4MGxsNA%3D%3D",
@@ -437,6 +468,7 @@
   {
     "id": "social-26",
     "title": "Mrs. Chatterjee vs Norway — social promotion",
+    "caseTitle": "Taking a mother’s fight into a short-form release campaign",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C3LHPiRvwHV/?igsh=ZmlqY3lsZ3ZuaXJ4",
@@ -451,6 +483,7 @@
   {
     "id": "social-27",
     "title": "Khufiya — social promotion",
+    "caseTitle": "Keeping the mystery intact in a short social cut",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C3X-tehoHvu/?igsh=MThoemI0NzZuaG1tbA%3D%3D",
@@ -465,6 +498,7 @@
   {
     "id": "social-28",
     "title": "Kolkata / Durga Puja — social promotion",
+    "caseTitle": "Making Durga Puja the centre of a Kolkata-led social film",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CyqM--OLsEW/?igsh=dHoyYmczaHdqNHFl",
@@ -479,6 +513,7 @@
   {
     "id": "social-29",
     "title": "Superfan — social promotion",
+    "caseTitle": "Putting the fan at the centre of the promo",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CzgbYcPNixJ/?igsh=cmExcjh1MzE1enV1",
@@ -493,6 +528,7 @@
   {
     "id": "videos-03",
     "title": "Darlings | Official Trailer | Alia Bhatt, Shefali Shah, Vijay Varma, Roshan Mathew | Netflix India",
+    "caseTitle": "Holding comedy and danger in the same trailer",
     "category": "trailers",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=Dmx5KDOpqeg",
@@ -507,6 +543,7 @@
   {
     "id": "videos-05",
     "title": "Bhakshak | Official Teaser | Bhumi Pednekar, Sanjay Mishra & Sai Tamhankar",
+    "caseTitle": "Building a teaser around one investigation",
     "category": "trailers",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=TlUjhCYvHTk",
@@ -521,6 +558,7 @@
   {
     "id": "videos-06",
     "title": "Mrs. Chatterjee vs Norway | Official Trailer | Rani Mukerji | Netflix India",
+    "caseTitle": "Selling the stakes of one mother’s fight",
     "category": "trailers",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=1Bll53fBa9U",
@@ -535,6 +573,7 @@
   {
     "id": "social-short-format-01",
     "title": "The Morning One Nation was Split (Part 1)",
+    "caseTitle": "Recreating the morning of Partition at human scale",
     "category": "short-form",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=9QN3rmYNg2E",
@@ -550,6 +589,7 @@
   {
     "id": "social-short-format-02",
     "title": "Jaquar Trilogy — AI commercial breakdown",
+    "caseTitle": "Giving three Jaquar films one visual world",
     "category": "short-form",
     "provider": "drive",
     "sourceUrl": "https://drive.google.com/file/d/1i2dfTXXnnl4A3znHL9vLGmnNIf49tfF3/view",
@@ -568,6 +608,7 @@
   {
     "id": "social-short-format-03",
     "title": "Three questions before a content calendar",
+    "caseTitle": "Turning marketing advice into a repeatable series",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DTehIjuDIhl/",
@@ -582,6 +623,7 @@
   {
     "id": "social-short-format-04",
     "title": "Original thinking & plagiarism",
+    "caseTitle": "Making an argument about original work land in a reel",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DVDej4EjASV/",
@@ -596,6 +638,7 @@
   {
     "id": "social-short-format-05",
     "title": "Snapchat — staged-premise opening",
+    "caseTitle": "Opening a Snapchat story with a staged premise",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DTt7WJPggbX/",
@@ -610,6 +653,7 @@
   {
     "id": "social-short-format-06",
     "title": "Netflix & Instagram — AI motion graphics",
+    "caseTitle": "Making viewing habits visible in a short explainer",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DTCRvLigsum/",
@@ -625,6 +669,7 @@
   {
     "id": "social-short-format-07",
     "title": "Google — business tools & Veo 3",
+    "caseTitle": "Making new Google tools tangible for business owners",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DVYwd8HjPEu/",
@@ -639,6 +684,7 @@
   {
     "id": "social-short-format-08",
     "title": "Zoho One — the anti-ad",
+    "caseTitle": "Using an anti-ad to explain an all-in-one product",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DVctsbPgibO/",
@@ -653,6 +699,7 @@
   {
     "id": "social-short-format-09",
     "title": "KBC × Asian Paints — cultural memory",
+    "caseTitle": "Using KBC to unpack Asian Paints’ place in cultural memory",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DT4QqE3gvy5/",
@@ -667,6 +714,7 @@
   {
     "id": "social-short-format-10",
     "title": "Blue Machines — voice AI",
+    "caseTitle": "Putting the voice at the centre of a voice AI demo",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DT_8WjzgvU-/",
@@ -681,6 +729,7 @@
   {
     "id": "social-short-format-11",
     "title": "The Realistic AI trend is crazy!",
+    "caseTitle": "Testing how natural a generated performance can feel",
     "category": "short-form",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=UnyzEppxKlQ",
@@ -695,6 +744,7 @@
   {
     "id": "stand-up-events-01",
     "title": "Stand-up Events — 01",
+    "caseTitle": "Preserving the room in a live comedy edit",
     "category": "events",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=BfwUjNr5QCs",
@@ -709,6 +759,7 @@
   {
     "id": "stand-up-events-02",
     "title": "Rahul Subramanian | Crowd work Special | Deleted Scenes | Amazon Prime Video",
+    "caseTitle": "Cutting crowd work around the exchange that makes it funny",
     "category": "events",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=YvLmugT3SFo",
@@ -723,6 +774,7 @@
   {
     "id": "stand-up-events-04",
     "title": "Rahul Subramanian | Crowd work Special | Deleted Scenes 2 | Amazon Prime Video",
+    "caseTitle": "Cutting crowd work around the exchange that makes it funny",
     "category": "events",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=7dRjFxqCCQk",
@@ -737,6 +789,7 @@
   {
     "id": "stand-up-events-05",
     "title": "The Best of Biswa Kalyan Rath's Stand-up show 😂 | Biswa Kalyan Rath's Mood Kharaab | Prime Video IN",
+    "caseTitle": "Finding a through-line in a stand-up highlights cut",
     "category": "events",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=FN6biQKu-Lo",
@@ -751,6 +804,7 @@
   {
     "id": "brands-01",
     "title": "Groww — year-end campaign / film 1",
+    "caseTitle": "Turning Groww’s year in review into a brand story",
     "category": "brands",
     "provider": "external",
     "sourceUrl": "https://tinyurl.com/ycxhrt9f",
@@ -764,6 +818,7 @@
   {
     "id": "brands-02",
     "title": "Groww — year-end campaign / film 2",
+    "caseTitle": "Turning Groww’s year in review into a brand story",
     "category": "brands",
     "provider": "external",
     "sourceUrl": "https://tinyurl.com/mrxfzvj5",
@@ -777,6 +832,7 @@
   {
     "id": "brands-03",
     "title": "Marine Collagen — animated launch",
+    "caseTitle": "Building a Premium Identity for a Nutrition Brand",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/DAtHoJySqh6/?igsh=NHU0d251cHh4d2N5",
@@ -791,6 +847,7 @@
   {
     "id": "brands-04",
     "title": "Everyday Fiber — gut-health explainer",
+    "caseTitle": "Building a Premium Identity for a Nutrition Brand",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C_8v8Xoo_lh/?igsh=MW9wZDRiY3A2bWNuOA==",
@@ -805,6 +862,7 @@
   {
     "id": "brands-05",
     "title": "Team tasting teaser",
+    "caseTitle": "Building a Premium Identity for a Nutrition Brand",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/DABSFMby8a4/?igsh=OWZ0ZGVoeGwwajFm",
@@ -819,6 +877,7 @@
   {
     "id": "brands-06",
     "title": "Everyday Sweet — Ankita Srivastava",
+    "caseTitle": "Building a Premium Identity for a Nutrition Brand",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/DAaGDdvtJmd/?igsh=dm4waHZkZ3hmMGkx",
@@ -833,6 +892,7 @@
   {
     "id": "brands-08",
     "title": "Lollapalooza 2024 — campaign cut 02",
+    "caseTitle": "Building anticipation for Lollapalooza India",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C1B_GHEoTfK/?igsh=MXc0NGJrNDJ3bTNncg==",
@@ -847,6 +907,7 @@
   {
     "id": "brands-09",
     "title": "Lollapalooza 2024 — campaign cut 03",
+    "caseTitle": "Building anticipation for Lollapalooza India",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C19mORVoiSM/?igsh=MXYxcXRiNG9lbGpsYQ==",
@@ -861,6 +922,7 @@
   {
     "id": "brands-10",
     "title": "Lollapalooza 2024 — campaign cut 04",
+    "caseTitle": "Building anticipation for Lollapalooza India",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C0WeeIYoz2z/?igsh=OWgzMnVmNnYxYzdl",
@@ -875,6 +937,7 @@
   {
     "id": "brands-11",
     "title": "'Gran Turismo' (2023)",
+    "caseTitle": "Taking Gran Turismo into a theatrical release campaign",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CyBNmrFoNxK/?igsh=MXcyZDNwNm15cTRzMg==",
@@ -890,6 +953,7 @@
   {
     "id": "brands-12",
     "title": "'Killers of The Flower Moon' (2023)",
+    "caseTitle": "Taking Killers of the Flower Moon into a theatrical release campaign",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C0eISygI5vc/?igsh=MTE2MWRidnI0cGc5bw==",
@@ -905,6 +969,7 @@
   {
     "id": "brands-13",
     "title": "'Asteroid City' (2023)",
+    "caseTitle": "Taking Asteroid City into a theatrical release campaign",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CyEKISvI5uj/?igsh=MTRlMHJlYXFva2V1bQ==",
@@ -920,6 +985,7 @@
   {
     "id": "brands-14",
     "title": "'Salaar' (2023)",
+    "caseTitle": "Taking Salaar into a theatrical release campaign",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C1JyLUwNke6/?igsh=emF2M2J5MzFlenlv",
@@ -935,6 +1001,7 @@
   {
     "id": "brands-16",
     "title": "Regional Slangs in Cricket | Mumbai Indians",
+    "caseTitle": "Turning cricket slang into a game for IPL fans",
     "category": "brands",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=BS1yu7Hb0Uw",
@@ -950,6 +1017,7 @@
   {
     "id": "brands-17",
     "title": "Know Arshad Khan with Slice | Mumbai Indians",
+    "caseTitle": "Introducing a Mumbai Indians player through a sponsor format",
     "category": "brands",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=z0OCGkif8Fc",
@@ -965,6 +1033,7 @@
   {
     "id": "brands-18",
     "title": "How well do you know Ramandeep with Slice | Mumbai Indians",
+    "caseTitle": "Giving fans a player quiz with Slice and Mumbai Indians",
     "category": "brands",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=006r3SkwbGs",
@@ -980,6 +1049,7 @@
   {
     "id": "brands-19",
     "title": "What's in The Box? - Part 2 | Mumbai Indians",
+    "caseTitle": "Building a Mumbai Indians social cut around a reveal",
     "category": "brands",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=_orr6vu1ejU",
@@ -995,6 +1065,7 @@
   {
     "id": "brands-20",
     "title": "Bumble India — #2024 without filters",
+    "caseTitle": "Making a dating-brand campaign feel unfiltered",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/Cmtl3isBUru/?igsh=czJ4ZDZpbmZlbGQ2",
@@ -1009,6 +1080,7 @@
   {
     "id": "brands-21",
     "title": "Bumble India — music & connection",
+    "caseTitle": "Finding a Bumble story in music and connection",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CnZbGgkh5pW/?igsh=eGdhMHM5aHhzbWRv",
@@ -1023,6 +1095,7 @@
   {
     "id": "brands-22",
     "title": "Unboxing the New OnePlus with Rahul Subramanian",
+    "caseTitle": "Making a phone unboxing work as a comedy format",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CpPqsBnKkoT/?igsh=MTl1dTUwc3l2cXk2eQ==",
@@ -1037,6 +1110,7 @@
   {
     "id": "brands-23",
     "title": "Venusia Max — product film",
+    "caseTitle": "Making the core skincare benefit easy to see",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C1cDOI5oZPK/?igsh=MW1uY3dtZ2xjdm9nOA==",
@@ -1051,6 +1125,7 @@
   {
     "id": "brands-24",
     "title": "Medimix — 6 herbs product film",
+    "caseTitle": "Making six ingredients memorable in one product film",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/Cyao5CcIjr1/?igsh=YzU2cnIwbnZ3ZDJ4",
@@ -1065,6 +1140,7 @@
   {
     "id": "brands-25",
     "title": "Medimix — creator-led skincare film",
+    "caseTitle": "Putting a skincare routine in a creator’s hands",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C7MIeUxBnwB/?igsh=cWpqbWx3Ym85dGkw",
@@ -1079,6 +1155,7 @@
   {
     "id": "brands-26",
     "title": "Medimix — product / skin visual",
+    "caseTitle": "Showing the product through its texture and use",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/Cw7r1XXBEgG/?igsh=MnpnYXQ4c2R3MjQ4",
@@ -1093,6 +1170,7 @@
   {
     "id": "brands-27",
     "title": "Venusia Max — product beauty film",
+    "caseTitle": "Using beauty framing to give the product presence",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C4fmVFeold7/?igsh=MWRiYnYwcGR1NHd5bA==",
@@ -1107,6 +1185,7 @@
   {
     "id": "brands-28",
     "title": "Marketing Swiggy's Campaign in collaboration with Cirkus (2023)",
+    "caseTitle": "Bringing Swiggy and Cirkus into one campaign film",
     "category": "brands",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=BwLlKGFGc1A",
@@ -1121,6 +1200,7 @@
   {
     "id": "ai-eric-schiffer",
     "title": "Eric Schiffer — AI, motion & VFX",
+    "caseTitle": "Building a finance show around stories worth following",
     "category": "ai",
     "provider": "drive",
     "sourceUrl": "https://drive.google.com/file/d/1PM2jUOaZITxdf8PIkXncNLIQAPyQvhMX/view",
@@ -1129,14 +1209,15 @@
     "poster": "media/ai-eric-schiffer.webp",
     "aspect": 1.7777777777777777,
     "order": 80,
-    "description": "A show-development cut for Eric Schiffer. Generated characters and shots are composited into the edit alongside motion graphics and VFX. Jump to 4:56 for the photorealistic character work.",
+    "description": "A development cut for Win Theory with Eric Schiffer. The challenge was to make finance ideas work as character-led stories, with a visual language the show could use again. Jump to 4:56 for the photorealistic character work.",
     "role": "AI shot generation, character generation, compositing, motion graphics and VFX.",
     "disclosure": "The timeline marks generated shots, character work, compositing and motion graphics where each technique appears.",
     "duration": 333.482667
   },
   {
     "id": "ai-sheldon",
-    "title": "The Product Report — photorealistic AI presenter",
+    "title": "The Product Report",
+    "caseTitle": "Building a product-review channel people can trust",
     "category": "ai",
     "provider": "drive",
     "sourceUrl": "https://drive.google.com/file/d/14rbDcssKpywbm_Cw9EFz5KQ3npVbGm6s/view",
@@ -1145,14 +1226,15 @@
     "poster": "media/ai-product-report.webp",
     "aspect": 1.7777777777777777,
     "order": 81,
-    "description": "I built the channel’s brand language and developed a photorealistic AI presenter for the show. Jump to 4:22 to see how the generated performance cuts into the filmed segment.",
-    "role": "Channel identity, research and retention strategy. Post-production budgets and resource allocation. AI shot and character generation, lip-sync, compositing, motion graphics and VFX.",
+    "description": "I developed the channel around a question viewers can follow from the opening to the verdict. The visual identity, research and edit structure give the show a repeatable way to present product claims and evidence. At 4:22, the photorealistic presenter demonstrates how that format can carry a generated performance.",
+    "role": "Channel brand language, research, writing and retention strategy. Show packaging, post-production budgets and resource allocation. AI direction, lip-sync, compositing, motion graphics and VFX.",
     "disclosure": "The chapter markers identify generated performances, AI graphics and the filmed passages used alongside them.",
     "duration": 294.208
   },
   {
     "id": "ai-character-motion",
     "title": "AI character & motion graphics",
+    "caseTitle": "Giving a generated character a performance",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/DSY_C4Ukr5M/",
@@ -1165,6 +1247,7 @@
   {
     "id": "campaign-film-everyday-sweet",
     "title": "Gulab Jamun Uncle’s Sweet Escape! TruNativ Everyday Sweet",
+    "caseTitle": "Selling a sugar alternative through a comic character",
     "category": "brands",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=DGW7fKkak5k",
@@ -1181,6 +1264,7 @@
   {
     "id": "campaign-hizzouse-ep1",
     "title": "Is Avengers Doomsday Overhyped? | Hizzouse #1",
+    "caseTitle": "Turning Marvel hype into a conversation worth clicking",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=LZyD1w_ErzE",
@@ -1195,6 +1279,7 @@
   {
     "id": "campaign-hizzouse-ep2",
     "title": "Who's The Worst Celebrity? | Hizzouse #2",
+    "caseTitle": "Making Hollywood stories carry a full episode",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=80Rf3-VzFdM",
@@ -1209,6 +1294,7 @@
   {
     "id": "campaign-hizzouse-ep3",
     "title": "The Future of Jay & Silent Bob... | Hizzouse #3",
+    "caseTitle": "Giving a legacy comedy duo a format for what comes next",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=6JsE66_0FD4",
@@ -1223,6 +1309,7 @@
   {
     "id": "campaign-hizzouse-ep4",
     "title": "We Answer The World's Biggest Questions | Hizzouse #4",
+    "caseTitle": "Keeping a rabbit-hole conversation easy to follow",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=dp4-MIFpH0k",
@@ -1237,6 +1324,7 @@
   {
     "id": "campaign-hizzouse-ep5",
     "title": "Why Comedians Don't Make Money | Hizzouse #5",
+    "caseTitle": "Using a question about money to open up the comedy business",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=HT73CR3Dxoc",
@@ -1251,6 +1339,7 @@
   {
     "id": "campaign-hizzouse-ep6",
     "title": "Disney's Darkest Secret | Hizzouse #6",
+    "caseTitle": "Building a conversation around a Disney mystery",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=0ldSXiGGzhU",
@@ -1265,6 +1354,7 @@
   {
     "id": "campaign-hizzouse-ep7",
     "title": "The Truth About Our Cancelled Horror Movie | Hizzouse #7",
+    "caseTitle": "Turning an unmade horror film into an episode hook",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=QJ8yNlMbsk8",
@@ -1279,6 +1369,7 @@
   {
     "id": "campaign-hizzouse-ep8",
     "title": "I Almost Fought Spider-Man In Real Life | Hizzouse #8",
+    "caseTitle": "Making a Spider-Man story the way into a conversation",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=c9BkDxY5KUI",
@@ -1293,6 +1384,7 @@
   {
     "id": "nutrition-magnified-bento",
     "title": "Bento Box Explained: How Japan Cracked Immortality",
+    "caseTitle": "Using the bento box to tell a story about how Japan eats",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=obhGCtSIAM8",
@@ -1307,6 +1399,7 @@
   {
     "id": "nutrition-magnified-food-scandals",
     "title": "Toxic Masalas to Sugar-Filled Baby Foods: India's Food Scandals",
+    "caseTitle": "Turning food safety research into an explainer people can follow",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=O7m-XXr7HPc",
@@ -1321,6 +1414,7 @@
   {
     "id": "nutrition-magnified-momo",
     "title": "The Story Of The 'Momo'",
+    "caseTitle": "Using one street food to tell a bigger story",
     "category": "youtube",
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=5uC0aSBCrxo",
@@ -1335,6 +1429,7 @@
   {
     "id": "ai-original-ad",
     "title": "Prantik Dutta’s Advertising Services",
+    "caseTitle": "Turning my own advertising pitch into a short comedy",
     "category": "ai",
     "provider": "drive",
     "sourceUrl": "https://drive.google.com/file/d/1HeD5WP1JcD7tYTQMinUyHEyaFJOndQmd/view?usp=sharing",

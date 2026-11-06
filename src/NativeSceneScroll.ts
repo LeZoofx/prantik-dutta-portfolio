@@ -3,7 +3,7 @@ import {WheelSceneIntent} from './WheelSceneIntent';
 import {nativeSnapPage,recenterPage} from './scenePaging';
 import {SceneTransition} from './SceneTransition';
 
-type Options={scroller:HTMLElement;root:HTMLElement;total:number;reduced:()=>boolean;paused:()=>boolean;moving:(value:boolean)=>void;invalidate:()=>void;prepare?:(from:number,to:number)=>void};
+type Options={scroller:HTMLElement;root:HTMLElement;total:number;initialPosition?:number;reduced:()=>boolean;paused:()=>boolean;moving:(value:boolean)=>void;invalidate:()=>void;prepare?:(from:number,to:number)=>void};
 
 // One destination owner. The same continuous position drives the existing
 // compositor scene timelines. New input retains speed instead of restarting easing.
@@ -86,7 +86,7 @@ export class NativeSceneScroll {
  resize(){
   const height=Math.max(1,this.o.scroller.clientHeight);
   if(this.initialized&&height===this.height)return;
-  const page=this.initialized?Math.round(this.page):this.o.total;
+  const page=this.initialized?Math.round(this.page):this.o.total+(this.o.initialPosition??0);
   this.clear();cancelAnimationFrame(this.frame);this.frame=0;this.transition.reset(page);this.height=height;this.initialized=true;this.destination=page;this.travelling=false;
   this.o.root.style.setProperty('--page-height',height+'px');
   this.cancelDecision();this.write(page);this.o.moving(false);this.o.invalidate();

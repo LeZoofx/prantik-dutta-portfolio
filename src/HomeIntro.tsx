@@ -1,36 +1,55 @@
-import {Suspense,lazy,useEffect,useRef,useState} from 'react';
-import {asset,previewAsset,previewSrcSet,projects,type Project} from './content';
+import {useState,type CSSProperties} from 'react';
+import {previewAsset,previewSrcSet,projectPath,projects,type Project} from './content';
 import showcase from '../content/overview-showcase.json';
+import overview from '../content/overview.json';
 import KineticName from './KineticName';
 import ClientMarquee from './ClientMarquee';
-import PosterType,{KineticCopy} from './PosterType';
 import {ResultsRibbon} from './Results';
-import positioning from '../content/positioning.json';
 import AIAccess from './AIAccess';
-const SecretPlayer=lazy(()=>import('./SecretPlayer'));
-const curated=showcase.filter(item=>projects.some(p=>p.id===item.id));
-if(!curated.length)curated.push(...projects.slice(0,7).map(p=>({id:p.id,title:p.title.split(' | ')[0],label:p.category})));
 
+const curated=showcase.flatMap(item=>{
+ const project=projects.find(p=>p.id===item.id);
+ return project?[{...item,project}]:[];
+});
+if(!curated.length)curated.push(...projects.slice(0,7).map(project=>({id:project.id,title:project.title.split(' | ')[0],label:project.category,project})));
 
-export default function HomeIntro({onOpen,onFun,onProcess,onAI,onCampaigns,reduced,simple=false}:{onOpen:(p:Project)=>void;onFun:()=>void;onProcess:()=>void;onAI:()=>void;onCampaigns:()=>void;reduced:boolean;simple?:boolean}){
- const [secret,setSecret]=useState<Project|null>(null),secretTimer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
- const [index,setIndex]=useState(0),[changing,setChanging]=useState(false),[held,setHeld]=useState(false),[inView,setInView]=useState(true);
- const timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),deck=useRef<HTMLDivElement>(null);
- const previous=useRef(-1);
- function shuffle(){if(changing)return;setChanging(true);timer.current=setTimeout(()=>{setIndex(current=>{let choices=curated.map((_,i)=>i).filter(i=>i!==current&&i!==previous.current);if(!choices.length)choices=curated.map((_,i)=>i).filter(i=>i!==current);previous.current=current;return choices.length?choices[Math.floor(Math.random()*choices.length)]:current});setChanging(false)},reduced?0:220)}
- useEffect(()=>{if(reduced||held||!inView||(navigator as Navigator&{connection?:{saveData?:boolean}}).connection?.saveData)return;const tick=setInterval(()=>{if(!document.hidden)shuffle()},simple?4200:1700);return()=>clearInterval(tick)},[reduced,held,changing,simple,inView]);
- useEffect(()=>{const el=deck.current;if(!el||!window.IntersectionObserver)return;const observer=new IntersectionObserver(([entry])=>setInView(entry.isIntersecting));observer.observe(el);return()=>observer.disconnect()},[]);
- useEffect(()=>()=>{clearTimeout(timer.current);clearTimeout(secretTimer.current)},[]);
- const item=curated[index],p=projects.find(x=>x.id===item.id)!;
- const next=projects.find(x=>x.id===curated[(index+1)%curated.length].id)!;
- return <><ClientMarquee compact/><section className="home-intro" data-art="liquid" aria-label="Selected portfolio" onPointerMove={e=>{if(reduced||simple||e.pointerType==='touch')return;const r=e.currentTarget.getBoundingClientRect();e.currentTarget.style.setProperty('--home-x',String((e.clientX-r.left)/r.width*2-1));e.currentTarget.style.setProperty('--home-y',String((e.clientY-r.top)/r.height*2-1))}}>
-  {<div className="home-floaters" aria-label="Hidden films">{['social-02','videos-04','brands-15'].map((id,i)=><button key={id} className={'floating-art floating-art-'+i} aria-label={'Discover '+projects.find(p=>p.id===id)?.title} onPointerEnter={e=>{if(e.pointerType==='mouse')secretTimer.current=setTimeout(()=>setSecret(projects.find(p=>p.id===id)!),650)}} onPointerLeave={()=>clearTimeout(secretTimer.current)} onClick={()=>setSecret(projects.find(p=>p.id===id)!)}><span className="float-solid">{Array.from({length:6},(_,j)=><i key={j}/>)}</span><span className="float-signal" aria-hidden="true">↗</span></button>)}</div>}
-  <div className="intro-identity"><p className="intro-kicker"><KineticCopy text={positioning.eyebrow}/></p><h1><KineticName/></h1><PosterType lines={positioning.openingLines} art="liquid" className="intro-manifesto"/><PosterType lines={positioning.scopeLines} art="liquid" className="intro-skills"/><p className="intro-location"><KineticCopy text="Mumbai. Working everywhere."/></p><button className="journey-entry" onClick={onFun}><span className="entry-prism" aria-hidden="true"><i/><i/><i/></span><span>See the work<small>Film, YouTube & campaigns</small></span><span aria-hidden="true">↗</span></button><AIAccess onClick={onAI}/><AIAccess destination="campaigns" onClick={onCampaigns}/><button className="process-link" onClick={onProcess}>How I lead a project ↗</button>{simple&&<button className="mobile-discovery" aria-label="Discover a hidden film" onClick={()=>setSecret(projects.find(p=>p.id==='social-02')||projects[0])}><span className="float-solid" aria-hidden="true">{Array.from({length:6},(_,i)=><i key={i}/>)}</span><small>Find a film</small></button>}</div>
-  <div className={'showcase-deck'+(changing?' is-shuffling':'')} ref={deck} onPointerEnter={()=>setHeld(true)} onPointerLeave={()=>{setHeld(false);deck.current?.style.setProperty('--deck-x','0deg');deck.current?.style.setProperty('--deck-y','0deg')}} onFocusCapture={()=>setHeld(true)} onBlurCapture={()=>setHeld(false)} onPointerMove={e=>{if(reduced||simple||e.pointerType==='touch')return;const r=e.currentTarget.getBoundingClientRect();deck.current?.style.setProperty('--deck-x',`${-(e.clientY-r.top-r.height/2)/r.height*6}deg`);deck.current?.style.setProperty('--deck-y',`${(e.clientX-r.left-r.width/2)/r.width*8}deg`)}}>
-   {!simple&&<div className="deck-under" aria-hidden="true"><img src={previewAsset(next.poster)} srcSet={previewSrcSet(next.poster)} sizes="(max-width:699px) 75vw, 42vw" alt="" loading="lazy" decoding="async"/></div>}
-   <button className={'deck-front'+((p.aspect||16/9)<1?' portrait-feature':'')} onClick={()=>onOpen(p)} aria-label={'Watch '+item.title}><img key={p.id} src={previewAsset(p.poster)} srcSet={previewSrcSet(p.poster)} sizes="(max-width:699px) 75vw, 42vw" alt={item.title} fetchPriority={index===0?"high":"low"} decoding="async"/><span className="deck-play" aria-hidden="true">↗</span></button>
-   <div className="deck-caption"><div><span>{item.label}</span><h2><KineticCopy text={item.title}/></h2></div><button className="shuffle-button" onClick={shuffle} aria-label="Shuffle selected work" disabled={curated.length<2}><span aria-hidden="true">⇄</span> Shuffle</button></div>
-  </div>
-  <ResultsRibbon/>
- </section>{!simple&&<div className="opening-contact-strip" aria-label="All portfolio projects"><div className="contact-strip-title"><span>Films / Campaigns / Digital</span><a href="#portfolio-selected-0">Explore all work ↓</a></div><div className="contact-strip-viewport"><div className="contact-strip-track">{[0,1].map(copy=><div className="contact-strip-run" key={copy} aria-hidden={copy===1?true:undefined}>{projects.map(p=><button key={p.id} onClick={()=>onOpen(p)} tabIndex={copy===1?-1:0} aria-label={p.title}>{p.poster?<img src={previewAsset(p.poster)} srcSet={previewSrcSet(p.poster)} sizes="(max-width:699px) 75vw, 42vw" alt="" loading="lazy"/>:<span>{p.title}</span>}<span className="contact-strip-caption">{p.title.split(' | ')[0]}</span></button>)}</div>)}</div></div></div>}{secret&&<Suspense fallback={null}><SecretPlayer project={secret} kind="aperture" onClose={()=>setSecret(null)} onOpen={()=>onOpen(secret)}/></Suspense>}</>;
+export default function HomeIntro({onOpen,onFun,onAI,onCampaigns}:{
+ onOpen:(project:Project)=>void;onFun:()=>void;onAI:()=>void;onCampaigns:()=>void;
+}){
+ const [index,setIndex]=useState(0);
+ const {project,title,label}=curated[index];
+ const ratio=project.aspect||16/9;
+ return <>
+  <section className="home-intro overview-hero" data-art="liquid" aria-label="Prantik Dutta introduction">
+   <div className="intro-identity">
+    <p className="intro-kicker">{overview.eyebrow}</p>
+    <h1><KineticName/></h1>
+    <p className="overview-hero-lead">I build the story. I make it worth watching.</p>
+    <p className="overview-intro">{overview.intro}</p>
+    <div className="overview-hero-tags"><a href="#overview-expertise">Retention specialist</a><a href="#overview-expertise">Photorealistic AI direction</a></div>
+    <div className="overview-hero-actions">
+     <a className="overview-primary" href="#portfolio-selected-0">Browse work ↓</a>
+     <button type="button" onClick={onFun}>Explore in 3D ↗</button>
+    </div>
+    <div className="overview-hero-shortcuts"><AIAccess onClick={onAI}/><AIAccess destination="campaigns" onClick={onCampaigns}/></div>
+   </div>
+   <div className="showcase-deck overview-feature" aria-label="Featured films">
+    <div className="overview-feature-label"><span>SELECTED FILM</span><span>{String(index+1).padStart(2,'0')} / {curated.length}</span></div>
+    <div className="deck-stage" style={{'--feature-ratio':ratio} as CSSProperties}>
+     <a className="deck-front" href={projectPath(project.id)} aria-label={'Watch '+title} onClick={event=>{
+      if(!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey){event.preventDefault();onOpen(project);}
+     }}>
+      <img src={previewAsset(project.poster)} srcSet={previewSrcSet(project.poster)} sizes={ratio<1?'235px':'(max-width:699px) 94vw, 47vw'} alt="" decoding="async" fetchPriority={index===0?'high':'auto'}/>
+      <span className="deck-play" aria-hidden="true">↗</span>
+     </a>
+    </div>
+    <div className="deck-caption">
+     <div><span>{label}</span><h2>{title}</h2></div>
+     <button type="button" className="overview-next-film" onClick={()=>setIndex((index+1)%curated.length)} disabled={curated.length<2}>Next film →</button>
+    </div>
+   </div>
+   <ResultsRibbon overview compact/>
+  </section>
+  <ClientMarquee compact/>
+ </>;
 }

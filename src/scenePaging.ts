@@ -6,7 +6,8 @@ export function recenterPage(page:number,total:number){return total+((page%total
 
 // Page transactions never depend on the duration of a wheel stream or on an easing epsilon.
 export class ScenePager {
- position=0;target=0;
+ position:number;target:number;
+ constructor(initialPosition=0){this.position=initialPosition;this.target=initialPosition}
  private from=0;private to=0;private started=0;private duration=380;private active=false;
  get moving(){return this.active}
  private begin(time:number){

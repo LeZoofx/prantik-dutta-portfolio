@@ -9,7 +9,7 @@ function fixture(t,ready=true,playing=true){
  t.mock.timers.enable({apis:['setTimeout','Date'],now:100});
  const saved={document:globalThis.document,window:globalThis.window,performance:globalThis.performance,orbitFixture:globalThis.orbitFixture};
  const doc=new EventTarget();doc.hidden=false;doc.documentElement={dataset:{previews:'ready'}};
- const win=new EventTarget(),gallery=new EventTarget();gallery.ready=ready;gallery.querySelector=selector=>selector===':focus-visible'?null:gallery.ready?{}:null;gallery.querySelectorAll=()=>[];
+ const win=new EventTarget(),gallery=new EventTarget();gallery.dataset={};gallery.ready=ready;gallery.querySelector=selector=>selector===':focus-visible'?null:gallery.ready?{}:null;gallery.querySelectorAll=()=>[];
  Object.assign(globalThis,{document:doc,window:win,performance:{now:()=>Date.now()},orbitFixture:{gallery,turns:[],cleanups:[]}});
  useFrameOrbit(4,true,{scrolling:false,velocity:0,target:0,position:0},playing);
  const result=globalThis.orbitFixture;

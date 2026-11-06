@@ -1,0 +1,37 @@
+.depth-journey .zoom-world .depth-film-body {
+ transition: filter 250ms ease-out;
+}
+.depth-journey .zoom-world .depth-gallery[data-orbiting] .depth-film .depth-film-body {
+ filter: blur(var(--card-blur, 0px)) brightness(var(--frame-light, 1));
+ transition: none;
+}
+.depth-film[data-orbit-seam] :is(.depth-media-surface, .campaign-tile) {
+ mask-image: linear-gradient(90deg, transparent, #000 13px, #000 calc(100% - 13px), transparent);
+ mask-size: calc(100% + 32px) 100%;
+ mask-position: center;
+ mask-repeat: no-repeat;
+}
+.depth-film-seam {
+ position: absolute;
+ z-index: 8;
+ inset: 0;
+ pointer-events: none;
+ opacity: 0;
+ background: linear-gradient(90deg, #c2d9e99c, transparent 10px, transparent calc(100% - 10px), #c2d9e974);
+}
+.zoom-world[data-art=liquid] .depth-film-seam,
+.zoom-world[data-art=aero] .depth-film-seam,
+.depth-film-frame:has(.campaign-tile[data-art=aero]) .depth-film-seam {
+ background:
+  radial-gradient(ellipse 18px 75% at 0% 44%, #c4f6ead9, transparent),
+  radial-gradient(ellipse 22px 90% at 100% 56%, #a2d8f8ab, transparent);
+}
+.zoom-world:is([data-art=baroque], [data-art=noir], [data-art=sigil], [data-art=matchbox], [data-art=calendar]) .depth-film-seam {
+ background: linear-gradient(90deg, #e9cb97bb, transparent 16px, transparent calc(100% - 16px), #d3a3789e);
+}
+.zoom-world:is([data-art=pixel], [data-art=retro], [data-art=anti], [data-art=curse], [data-art=brutal]) .depth-film-seam {
+ background: linear-gradient(90deg, #e0eddaae 1px, #acc9b447 2px, transparent 8px, transparent calc(100% - 8px), #b6cfb960);
+}
+@media (prefers-reduced-motion: reduce) {
+ .depth-journey .zoom-world .depth-film-body {transition: none;}
+}

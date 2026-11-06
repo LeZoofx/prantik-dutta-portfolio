@@ -1,6 +1,6 @@
 import {lazy,Suspense,useState,type MouseEvent} from 'react';
 import {previewAsset,previewSrcSet,projectPath,type Project} from './content';
-import {campaignFor,campaignItems,campaignMedia,campaignPreviews,campaignProjects,campaignBrands,filterCampaignFamilies,type Campaign} from './campaigns';
+import {campaignFor,campaignFamilyFor,campaignItems,campaignMedia,campaignPreviews,campaignProjects,campaignBrands,filterCampaignGroups,type Campaign} from './campaigns';
 import KineticType from './KineticType';
 import {KineticCopy} from './PosterType';
 import './campaigns.css';
@@ -19,7 +19,7 @@ function Thumb({project,onOpen}:{project:Project;onOpen:(p:Project)=>void}){
 export function CampaignTile({id,onProject}:{id:string;onProject:(p:Project)=>void}){
  const c=campaignFor(id);if(!c)return null;
  const project=campaignProjects.find(p=>p.id===id)!,previews=campaignPreviews(c),cover=previews[0],items=campaignItems(c),films=items.filter(p=>p.provider!=='image').length;
- return <div className="campaign-tile" data-campaign={id}>
+ return <div className="campaign-tile" data-campaign={id} data-art={campaignFamilyFor(id)?.art}>
   <div className="campaign-contact-sheet">
    <a className={'campaign-cover'+((cover?.aspect||16/9)<1?' portrait-cover':'')} href={projectPath(id)} aria-label={'Explore '+c.title} onClick={e=>activate(e,()=>onProject(project))}>{cover?.poster&&<img src={previewAsset(cover.poster)} srcSet={previewSrcSet(cover.poster)} sizes="(max-width:699px) 65vw, 40vw" alt="" loading="lazy" decoding="async"/>}<span className="campaign-cover-cue" aria-hidden="true">↗</span></a>
    <a className="campaign-stamp" href={projectPath(id)} onClick={e=>activate(e,()=>onProject(project))}>{films?films+(films===1?' film':' films'):items.length+' studies'}<span aria-hidden="true"> ↗</span></a>
@@ -29,7 +29,7 @@ export function CampaignTile({id,onProject}:{id:string;onProject:(p:Project)=>vo
  </div>;
 }
 export function CampaignIndex({brand,query,sort,onProject}:{brand:string;query:string;sort:string;onProject:(p:Project)=>void}){
- const families=filterCampaignFamilies(brand,query,sort);
+ const families=filterCampaignGroups(brand,query,sort);
  return families.length?<div className="campaign-index">{families.map((family,i)=><section className={'campaign-family'+(family.collections.length===1?' single-collection':'')} key={family.id} data-art={family.art} aria-labelledby={'campaign-family-'+family.id}>
   <header className="campaign-family-heading"><p className="campaign-family-number">{String(i+1).padStart(2,'0')} / {family.level}</p><h3 id={'campaign-family-'+family.id}><KineticType text={family.title} variant={family.theme}/></h3><p>{family.summary}</p><span className="campaign-family-line" aria-hidden="true">↘</span></header>
   <div className="campaign-family-grid">{family.collections.map(c=><article className="campaign-index-card" key={c.id}><CampaignTile id={c.id} onProject={onProject}/><p className="campaign-index-intro">{c.summary}</p><p className="campaign-index-series">{c.sections.map(s=>s.title).join(' / ')}</p></article>)}</div>

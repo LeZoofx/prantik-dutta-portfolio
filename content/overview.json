@@ -1,0 +1,97 @@
+{
+  "eyebrow": "SENIOR CREATIVE STRATEGIST / CREATIVE POST-PRODUCER / VIDEO EDITOR",
+  "openingLines": [
+    "I build the story.",
+    "I make it worth watching."
+  ],
+  "scopeLines": [
+    "Audience retention.",
+    "Photorealistic AI direction."
+  ],
+  "intro": "I develop shows, campaigns and the visual identities that hold them together. I write, shoot and edit, and lead the team from the first brief through delivery.",
+  "specialties": [
+    {
+      "label": "01 / RETENTION SPECIALIST",
+      "title": "Give viewers a reason to keep watching.",
+      "description": "I build the edit around the promise in the title and thumbnail. The opening earns the click, the structure gives viewers a reason to stay, and the payoff delivers on the promise. I use YouTube Studio retention curves and audience research to find where the story loses people and turn that into notes an editor can act on.",
+      "scope": "Channel strategy, packaging, scripts, repeatable formats, edit reviews and retention analysis.",
+      "links": [
+        {"id": "campaign-hizzouse", "label": "How I built the Hizzouse format"},
+        {"id": "campaign-tasty", "label": "How I worked across Tasty’s formats"}
+      ]
+    },
+    {
+      "label": "02 / PHOTOREALISTIC AI",
+      "title": "Call me when the AI shot has to hold up in close-up.",
+      "description": "I direct generated performances, product shots and full films. I work the way I would on a shoot, directing the actor’s eyeline and timing, choosing the lens and light, and matching movement, lip-sync and grade from shot to shot. I use the same approach for character replacement and for shots that have to cut into footage from set.",
+      "scope": "Photorealistic characters, full AI commercials, performance and lip-sync, compositing and VFX.",
+      "links": [
+        {"id": "ai-original-ad", "label": "Watch Koi Nahi Aaya"},
+        {"id": "ai-sheldon", "label": "See The Product Report’s presenter"},
+        {"id": "ai-eric-schiffer", "label": "See the character work in Win Theory"}
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "campaign-trunativ",
+      "brand": "TruNativ",
+      "title": "Building a Premium Identity for a Nutrition Brand",
+      "description": "I researched what people needed to understand before buying, then built the brand’s voice across product education, creator films and a long-form nutrition series. I cast creators, wrote scripts, shot, rendered and edited the work."
+    },
+    {
+      "id": "campaign-pero-like",
+      "brand": "BuzzFeed",
+      "title": "Building a distinct editorial voice for each channel",
+      "description": "I worked across Pero Like, A*Pop, Tasty and Cocoa Butter. Audience research and channel playbooks gave each team a way to choose stories, open episodes and review the edit against the promise of the format."
+    },
+    {
+      "id": "campaign-product-report",
+      "brand": "Creator Engine",
+      "title": "Building a product-review channel people can trust",
+      "description": "I developed The Product Report’s brand language and episode structure, then connected product research, graphics, retention, AI direction and the post budget in a repeatable production plan."
+    }
+  ],
+  "about": [
+    "I’m a Mumbai-based creative strategist, post-producer and video editor. I take work from research and scripts to camera, edit and delivery. I lead teams of editors, designers and production crew, and I work directly in the footage, motion graphics and VFX.",
+    "My work spans YouTube shows, Instagram and short-form campaigns, brand films, theatrical releases and live comedy. I build channel identities and original formats, manage creator and brand accounts, and plan the people, budget and schedule needed to make each idea work."
+  ],
+  "experience": [
+    {
+      "company": "Creator Engine",
+      "period": "Apr 2026–present",
+      "role": "YouTube Creative Strategist & Senior Production Artist (Lead)",
+      "detail": "Lead a five-person team across Hizzouse with Jay & Silent Bob, Eric Schiffer’s Win Theory and The Product Report. Develop shows, packaging and retention-led edits, plan shoots and post budgets, and direct photorealistic AI and VFX."
+    },
+    {
+      "company": "Sorted",
+      "period": "Jan–Mar 2026",
+      "role": "Head of Video Strategy & Social Media (Consultant)",
+      "detail": "Led six people across the consultancy and its creator accounts. Built The Sorted Girl’s personal brand and formats with Aarti Samant, developed Sort Your Marketing, and handled audience research, production, post and account performance."
+    },
+    {
+      "company": "BuzzFeed",
+      "period": "Nov 2024–Nov 2025",
+      "role": "Consulting Creative Strategy Team Lead & Senior Post-Production Specialist",
+      "detail": "Led a four-person team on creative strategy, original formats, channel language and post for Pero Like, A*Pop, Tasty and Cocoa Butter. Worked across scripting, footage and animation, retention reviews and resource planning."
+    },
+    {
+      "company": "TruNativ",
+      "period": "Feb–Nov 2024",
+      "role": "Senior Brand Strategist, Social Media Lead & Video Editor",
+      "detail": "Led brand and account direction across YouTube and Instagram. Researched the nutrition category, cast creators and took the Everyday range, Marine Collagen and Nutrition Magnified through scripts, shoots, edits and 3D."
+    },
+    {
+      "company": "Schbang",
+      "period": "Aug 2023–Feb 2024",
+      "role": "Creative Strategy & Campaign Lead (Video and Design)",
+      "detail": "Led four teammates across brand, event and theatrical-release work. Trained editors to script and cut for audience behaviour, while delivering shoots, motion graphics, VFX and social assets."
+    },
+    {
+      "company": "Only Much Louder",
+      "period": "Jan 2022–Aug 2023",
+      "role": "Senior Video Editor & Creative Post Producer",
+      "detail": "Edited and led post-production across brand, entertainment and live-event work. Coordinated with clients and production teams, planned resources and budgets, and delivered edits, motion design and finishing."
+    }
+  ]
+}

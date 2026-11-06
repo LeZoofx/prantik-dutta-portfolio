@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {secureDocument} from './security-policy.mjs';
 import {writeDependencyNotices} from './dependency-notices.mjs';
-import {render} from '../.server/entry-server.js';
+import {render,scenePages} from '../.server/entry-server.js';
 const projects=JSON.parse(await fs.readFile('content/projects.json','utf8'));
 const assets=JSON.parse(await fs.readFile('content/campaign-assets.json','utf8'));
 const collections=JSON.parse(await fs.readFile('content/campaigns.json','utf8'));
@@ -12,13 +12,14 @@ const fontFiles=(await fs.readdir('dist/assets')).filter(file=>/^(display|mono)-
 const base=(process.env.BASE_PATH||'/').replace(/\/?$/,'/');
 const fontPreloads=fontFiles.map(file=>'<link rel="preload" href="'+base+'assets/'+file+'" as="font" type="font/woff2" crossorigin/>').join('');
 const template=(await fs.readFile('dist/index.html','utf8')).replace('</head>',fontPreloads+'</head>');
-const routes=['/','/work/','/about/','/contact/','/social/','/videos/','/social-short-format/','/stand-up-events/','/brands/','/ai/','/showreel/',...data.map(p=>'/work/'+p.id+'/')];
+const routes=['/','/work/','/about/','/contact/','/social/','/videos/','/social-short-format/','/stand-up-events/','/brands/','/ai/','/showreel/',...data.map(p=>'/work/'+p.id+'/'),...scenePages.map(page=>page.path)];
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const origin=(process.env.SITE_URL||'').replace(/\/$/,'');
 async function page(route,filename){
- const p=data.find(p=>route==='/work/'+p.id+'/');
- let html=template.replace('<html lang="en">','<html lang="en" data-mode="'+(route==='/'?'fun':'normal')+'">').replace('<!--app-html-->',render(route)).replace('{"path":"/"}',JSON.stringify({path:route}));
- const title=p?p.title+' — '+site.title:site.title;
+ const scene=scenePages.find(page=>page.path===route);
+ const p=scene||data.find(p=>route==='/work/'+p.id+'/');
+ let html=template.replace('<html lang="en">','<html lang="en" data-mode="'+(route==='/'||route==='/ai/'||scene?'fun':'normal')+'">').replace('<!--app-html-->',render(route)).replace('{"path":"/"}',JSON.stringify({path:route}));
+ const title=p?(p.caseTitle??p.title)+' — '+site.title:site.title;
  html=html.replace(/<title>.*?<\/title>/,'<title>'+escape(title)+'</title>');
  const url=origin?origin+route:'';
  const meta='<meta property="og:title" content="'+escape(title)+'"/><meta property="og:type" content="website"/><meta property="og:description" content="'+escape(p?.description||site.intro)+'"/>'+(url?'<link rel="canonical" href="'+escape(url)+'"/><meta property="og:url" content="'+escape(url)+'"/>':'');

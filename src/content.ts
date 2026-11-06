@@ -2,7 +2,7 @@ import site from '../content/site.json';
 import projectData from '../content/projects.json';
 export type Category = 'youtube' | 'trailers' | 'short-form' | 'events' | 'brands' | 'ai';
 export type Project = {
-  id: string; title: string; category: Category; provider: 'youtube'|'instagram'|'drive'|'image'|'external';
+  id: string; title: string; caseTitle?: string; category: Category; provider: 'youtube'|'instagram'|'drive'|'image'|'external';
   sourceUrl: string; embedUrl?: string; poster?: string; image?: string;
   description?: string; disclosure?: string; role?: string; featured?: boolean;
   aspect?: number; additionalCategories?: Category[]; addedToPortfolio?: boolean; order: number; status?: string; videoSource?: string; duration?: number;

@@ -11,22 +11,27 @@ function load(file){
  new Function('require','module','exports',code)(id=>{const v=load(path.resolve(path.dirname(file),id)+(id.endsWith('.json')?'':'.ts'));return id.endsWith('.json')?{default:v}:v},m,m.exports);
  return m.exports;
 }
-const {campaigns,campaignFamilies,campaignItems,campaignPreviews,filterCampaigns,filterCampaignFamilies}=load(path.resolve('src/campaigns.ts'));
+const {campaigns,campaignFamilies,campaignItems,campaignPreviews,filterCampaigns,filterCampaignGroups,campaignFamilyFor}=load(path.resolve('src/campaigns.ts'));
 const {buildSections}=load(path.resolve('src/portfolioSections.ts'));
 const projects=JSON.parse(readFileSync('content/projects.json','utf8'));
 test('the complete campaign catalogue resolves every asset and source',()=>{assert.equal(validateCampaignFiles().collections,26)});
-test('channel portfolios precede entertainment, brand collaborations and live work',()=>{
- assert.deepEqual(campaignFamilies.map(f=>f.id),['trunativ','buzzfeed','sorted','creator-engine','entertainment','brands','live']);
- const families=filterCampaignFamilies();
- assert.deepEqual(families.find(f=>f.id==='buzzfeed').collections.map(c=>c.id),['campaign-pero-like','campaign-cocoa-butter','campaign-tasty','campaign-a-pop']);
- assert.deepEqual(families.find(f=>f.id==='creator-engine').collections.map(c=>c.id),['campaign-hizzouse','campaign-product-report','campaign-win-theory']);
+test('campaign pages group collections without losing their individual art and families',()=>{
+ const groups=filterCampaignGroups();
+ assert.deepEqual(groups.map(group=>group.title),['Brand campaigns','Shows & channels','Entertainment','Festivals & live']);
  for(const size of [3,6]){
   const scenes=buildSections(projects,'curated','all',size).filter(s=>s.category==='brands');
-  assert.equal(new Set(scenes.flatMap(s=>s.items.map(p=>p.id))).size,26);
-  for(const scene of scenes){const family=campaignFamilies.find(f=>f.id===scene.familyId);assert.ok(family);assert.ok(scene.items.every(p=>family.collectionIds.includes(p.id)));assert.equal(scene.art,family.art)}
+  const ids=scenes.flatMap(scene=>scene.items.map(project=>project.id));
+  assert.equal(ids.length,26);
+  assert.equal(new Set(ids).size,26);
+  assert.ok(scenes.every(scene=>scene.items.length>=2&&scene.items.length<=size));
+  assert.deepEqual(scenes[0].items.slice(0,3).map(project=>project.id),['campaign-trunativ','campaign-sorted-girl','campaign-sorted-consultancy']);
+  assert.equal(scenes[0].title,'Brand campaigns');
+  if(size===6)assert.deepEqual(scenes.filter(scene=>scene.groupId==='brands').map(scene=>scene.items.length),[5,5]);
  }
- assert.deepEqual(filterCampaignFamilies('all','Lateasha').map(f=>[f.id,f.collections.map(c=>c.id)]),[['buzzfeed',['campaign-cocoa-butter']]]);
- assert.deepEqual(filterCampaignFamilies('Bumble').map(f=>[f.id,f.collections.map(c=>c.id)]),[['brands',['campaign-bumble']]]);
+ assert.equal(campaignFamilyFor('campaign-trunativ').art,'matchbox');
+ assert.equal(campaignFamilyFor('campaign-sorted-girl').art,'calendar');
+ assert.deepEqual(filterCampaignGroups('all','Lateasha').map(group=>[group.id,group.collections.map(c=>c.id)]),[['shows',['campaign-cocoa-butter']]]);
+ assert.deepEqual(filterCampaignGroups('Bumble').map(group=>[group.id,group.collections.map(c=>c.id)]),[['brands',['campaign-bumble']]]);
 });
 test('every newly recovered film appears in YouTube and its campaign without duplicate records',()=>{
  const ids=[...Array.from({length:8},(_,i)=>'campaign-hizzouse-ep'+(i+1)),'nutrition-magnified-bento','nutrition-magnified-food-scandals','nutrition-magnified-momo','campaign-film-everyday-sweet'];

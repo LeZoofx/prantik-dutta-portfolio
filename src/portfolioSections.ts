@@ -4,9 +4,9 @@ import brandData from '../content/project-brands.json';
 import positioning from '../content/positioning.json';
 import showcase from '../content/showcase.json';
 import {aiCollection} from './aiWork';
-import {campaignFor,campaignProjects,filterCampaignFamilies} from './campaigns';
+import {campaignFor,campaignProjects,filterCampaignGroups} from './campaigns';
 export type PortfolioCategory=Category|'selected';
-export type PortfolioSection={id:string;category:PortfolioCategory;title:string;summary:string;focus:string;items:Project[];theme:number;layout:number;offset:number;art:ArtStyle;copy?:string[];familyId?:string};
+export type PortfolioSection={id:string;category:PortfolioCategory;title:string;summary:string;focus:string;items:Project[];theme:number;layout:number;offset:number;art:ArtStyle;copy?:string[];groupId?:string};
 export type WorkSort='curated'|'brand';
 const metadata=brandData as Record<string,{brand:string;collaborator?:string}>;
 export const brandFor=(p:Project)=>campaignFor(p.id)?.brand||metadata[p.id]?.brand||'';
@@ -36,10 +36,16 @@ export function buildSections(projects:Project[],sort:WorkSort='curated',brand='
  // Replace only Campaigns after the original scene layouts have been assigned.
  // Other chapters keep their existing items, layout, art and animation indices.
  const grouped:PortfolioSection[]=[];
- for(const family of filterCampaignFamilies(brand,'',sort)){
-  const collections=family.collections.map(c=>campaignProjects.find(p=>p.id===c.id)!);
-  const capacity=collections.length>size?Math.min(size,Math.ceil(collections.length/Math.ceil(collections.length/size))):size;
-  for(let start=0;start<collections.length;start+=capacity)grouped.push({id:'brands-'+family.id+'-'+start,category:'brands',title:family.title,summary:family.summary,focus:family.level,items:collections.slice(start,start+capacity),theme:family.theme,layout:sections.find(s=>s.category==='brands')?.layout??2,offset:start,art:family.art,copy:family.copy,familyId:family.id});
+ for(const group of filterCampaignGroups(brand,'',sort)){
+  const collections=group.collections.map(c=>campaignProjects.find(p=>p.id===c.id)!);
+  const pages=Math.ceil(collections.length/size);
+  const count=Math.floor(collections.length/pages),extra=collections.length%pages;
+  let start=0;
+  for(let page=0;page<pages;page++){
+   const end=start+count+Number(page<extra);
+   grouped.push({id:'brands-'+group.id+'-'+start,category:'brands',title:group.title,summary:group.summary,focus:group.level,items:collections.slice(start,end),theme:group.theme,layout:sections.find(s=>s.category==='brands')?.layout??2,offset:start,art:group.art,copy:group.copy,groupId:group.id});
+   start=end;
+  }
  }
  const result=sections.filter(s=>s.category!=='brands');
  const insert=result.findIndex(s=>s.category==='ai');

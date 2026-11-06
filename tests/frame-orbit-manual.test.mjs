@@ -20,9 +20,9 @@ function fixture(t,{automatic=false,reduced=false}={}){
   constructor(frames,options){this.frames=frames;this.options=options;this.effect={getTiming:()=>options};this.finished=new Promise(resolve=>this.finish=()=>{this.playState='finished';resolve()});h.animations.push(this)}
   pause(){this.playState='paused'}play(){this.playState='running'}cancel(){this.cancelled=true;this.playState='idle'}updatePlaybackRate(value){this.rates.push(value);this.playbackRate=value}
  }
- const cards=Array.from({length:4},(_,i)=>{const body={filter:'none',animate:(frames,options)=>new Motion(frames,options),querySelectorAll:()=>[]};return {dataset:{film:'p'+i},slot:i,offsetLeft:i*100,offsetTop:0,offsetWidth:i?100:300,rotate:'0deg',querySelector:()=>body,classList:{contains:name=>name==='slot-0'&&cards[i].slot===0}}});
+ const cards=Array.from({length:4},(_,i)=>{const body={filter:'none',querySelector:()=>null,animate:(frames,options)=>new Motion(frames,options),querySelectorAll:()=>[]};return {dataset:{film:'p'+i},slot:i,offsetLeft:i*100,offsetTop:0,offsetWidth:i?100:300,offsetHeight:100,rotate:'0deg',animate:(frames,options)=>new Motion(frames,options),querySelector:()=>body,classList:{contains:name=>name==='slot-0'&&cards[i].slot===0}}});
  const world={dataset:{},dispatchEvent(){}};gallery.closest=()=>world;gallery.querySelector=selector=>selector===':focus-visible'?null:{};gallery.querySelectorAll=()=>cards;
- Object.assign(globalThis,{window:win,document:doc,performance:{now:()=>Date.now()},getComputedStyle:e=>({rotate:e.rotate||'0deg',filter:e.filter||'none'}),orbitLiveFixture:h});
+ Object.assign(globalThis,{window:win,document:doc,performance:{now:()=>Date.now()},getComputedStyle:e=>({rotate:e.rotate||'0deg',filter:e.filter||'none',zIndex:String(e.slot===0?40:15)}),orbitLiveFixture:h});
  function render(){h.index=0;h.dirty=false;h.layout=[];h.effects=[];h.api=useFrameOrbit(4,h.enabled,h.motion,false,h.automatic);cards.forEach((c,i)=>{c.slot=((i-h.api.turn)%4+4)%4;c.offsetLeft=c.slot*100;c.offsetWidth=c.slot?100:300});h.layout.forEach(fn=>fn());h.effects.forEach(fn=>fn())}
  const flush=()=>{let guard=0;while(h.dirty){assert.ok(++guard<20);render()}};
  render();flush();
@@ -50,6 +50,18 @@ test('successive horizontal requests queue without restarting or cancelling acti
 test('up/down motion pauses the same orbit and resumes it without another animation owner',async t=>{
  const {h,win,request,finish}=fixture(t);request(1);const group=h.animations.slice();h.motion.scrolling=true;const moving=new Event('portfolio-motion');moving.detail=true;win.dispatchEvent(moving);assert.ok(group.every(a=>a.playState==='paused'));
  h.motion.scrolling=false;const rest=new Event('portfolio-motion');rest.detail=false;win.dispatchEvent(rest);assert.ok(group.every(a=>a.playState==='running'&&!a.cancelled));await finish();assert.equal(h.api.settledTurn,1);
+});
+test('overlapping frames keep their old stack until the media handoff',async t=>{
+ const {h,request,finish}=fixture(t);
+ request(1);
+ const swaps=h.animations.filter(animation=>animation.frames[0].zIndex);
+ const outgoing=h.animations.find(animation=>animation.frames.some(frame=>frame.opacity===.62));
+ assert.equal(swaps.length,2);
+ assert.ok(swaps.every(({frames})=>frames[0].easing==='steps(1,end)'&&frames[1].offset===.56));
+ assert.equal(outgoing.frames.find(frame=>frame.opacity===.62).offset,.56);
+ assert.ok(outgoing.frames.every(frame=>frame.transform.includes('rotateY(')));
+ await finish();
+ assert.equal(h.gallery.dataset.orbiting,undefined);
 });
 test('manual reverse browsing wraps safely',async t=>{const {h,request,finish}=fixture(t);request(-1);assert.equal(h.api.turn,3);await finish();assert.equal(h.api.settledTurn,3)});
 test('reduced-motion browsing changes the video without starting motion effects',async t=>{const {h,request,microtasks}=fixture(t,{reduced:true});request(1);await microtasks();assert.equal(h.animations.length,0);assert.equal(h.api.settledTurn,1)});

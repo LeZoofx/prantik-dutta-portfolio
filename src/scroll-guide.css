@@ -1,0 +1,88 @@
+.depth-journey .depth-navigation .scroll-guide-toggle {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 5px;
+ min-width: 32px;
+ padding-inline: 9px;
+ border-left: 1px solid #bed8e238;
+ color: #d6ecea;
+}
+.scroll-guide-toggle > span:first-child {font: 600 15px/1 Arial, sans-serif;}
+.depth-journey .depth-navigation .scroll-guide-toggle[aria-expanded=true] {
+ background: #bdded5;
+ color: #132825;
+}
+.scroll-guide {
+ position: absolute;
+ z-index: 165;
+ translate: -50% -50%;
+ padding: 10px 13px;
+ border: 1px solid #aedcd3a1;
+ border-radius: 11px;
+ background: #11252ff5;
+ color: #edf8f6;
+ box-shadow: 0 12px 42px #08171f99;
+ pointer-events: none;
+ font: 13px/1.25 Arial, sans-serif;
+ animation: guide-enter 240ms ease-out both;
+}
+.scroll-guide[data-preview=true] {animation: guide-peek 5400ms linear both;}
+.scroll-guide > p {margin: 0 0 6px; font: 10px/1.35 Mono, monospace; color: #c2d9da;}
+.scroll-guide-cue {
+ display: grid;
+ grid-template-columns: 19px 36px 1fr;
+ align-items: center;
+ gap: 6px;
+ min-height: 30px;
+ padding: 3px 0;
+}
+.scroll-guide-cue + .scroll-guide-cue {border-top: 1px solid #a3cfce26;}
+.scroll-guide-cue b {display: inline-block; margin-right: 5px;}
+.scroll-guide-cue small, .scroll-guide-wheel {font: 11px/1.25 Arial, sans-serif; color: #c7dcdd;}
+.scroll-guide-wheel {display: block; padding-top: 4px;}
+.scroll-guide-arrow {color: #c7eea8; font: 700 20px/1 Arial, sans-serif;}
+.scroll-guide-reel {
+ display: block;
+ height: 21px;
+ border-radius: 3px;
+ overflow: hidden;
+ background: #071c27;
+ border: 1px solid #abd3d555;
+}
+.scroll-guide-reel > span {
+ display: flex;
+ align-items: center;
+ height: 100%;
+ gap: 2px;
+ padding: 3px 2px;
+ animation: guide-video-shift 4200ms ease-in-out both;
+}
+.scroll-guide-reel i {flex: 0 0 9px; height: 9px; border-radius: 2px; background: #688e9b;}
+.scroll-guide-reel i:nth-child(2n) {height: 12px; background: #c8e5d4;}
+.scroll-guide-cue[data-axis=vertical] .scroll-guide-reel > span {
+ flex-direction: column;
+ padding: 2px 4px;
+ gap: 4px;
+ animation-name: guide-page-shift;
+}
+.scroll-guide-cue[data-axis=vertical] .scroll-guide-reel i {flex: 0 0 15px; width: 100%; background: #8ba6b5;}
+.scroll-guide-cue[data-axis=vertical] .scroll-guide-reel i + i {background: #d5bea1;}
+@keyframes guide-enter {from {opacity: 0; transform: translateY(8px);} to {opacity: 1; transform: none;}}
+@keyframes guide-peek {
+ 0% {opacity: 0; transform: translateY(8px);}
+ 5%, 91% {opacity: 1; transform: none;}
+ 100% {opacity: 0; transform: translateY(-4px);}
+}
+@keyframes guide-video-shift {0%, 15% {transform: none;} 39%, 100% {transform: translateX(-11px);}}
+@keyframes guide-page-shift {0%, 49% {transform: none;} 78%, 100% {transform: translateY(-19px);}}
+.scroll-guide[data-reduced=true], .scroll-guide[data-reduced=true] * {animation: none;}
+@media (max-width:699px), (max-width:1024px) and (pointer:coarse) {
+ .depth-journey .depth-navigation .scroll-guide-toggle {min-width: 30px; padding-inline: 6px;}
+}
+@media (max-width:379px) {
+ .scroll-guide-toggle-label {display: none;}
+}
+@media (prefers-reduced-motion: reduce) {
+ .scroll-guide, .scroll-guide * {animation: none;}
+}

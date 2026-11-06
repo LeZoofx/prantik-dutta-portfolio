@@ -64,7 +64,7 @@
     "order": 66,
     "disclosure": "",
     "status": "recovered",
-    "description": "IPL Promotions:",
+    "description": "Part of the Mumbai Indians IPL social campaign.",
     "embedUrl": "https://www.youtube.com/embed/Q1EQXb4Bgxk?si=qeEanybpxuHF04Me",
     "aspect": 1.7777777777777777,
     "poster": "media/final-brands-15.webp",
@@ -72,7 +72,7 @@
   },
   {
     "id": "brands-07",
-    "title": "LOLLAPALOOZA 2024:",
+    "title": "Lollapalooza 2024 — campaign cut 01",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C0tFOrxICgZ/?igsh=MWVpYWc0YTYwNXN3eg==",
@@ -394,7 +394,7 @@
   },
   {
     "id": "social-23",
-    "title": "Social Promotions",
+    "title": "Bombay Sapphire — brand film",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CqDN-9wgkMx/?igsh=MTQxMjQwbTZycHYycg%3D%3D",
@@ -408,7 +408,7 @@
   },
   {
     "id": "social-24",
-    "title": "Social Promotions",
+    "title": "Netflix — all it takes is listening",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CyGOGEHtxIq/?igsh=MWZxNXQ5bGY4Y3lwZw%3D%3D",
@@ -422,7 +422,7 @@
   },
   {
     "id": "social-25",
-    "title": "Social Promotions",
+    "title": "Bhakshak — social promotion",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C3NKIfTtNEB/?igsh=MThvbDVka2E4MGxsNA%3D%3D",
@@ -436,7 +436,7 @@
   },
   {
     "id": "social-26",
-    "title": "Social Promotions",
+    "title": "Mrs. Chatterjee vs Norway — social promotion",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C3LHPiRvwHV/?igsh=ZmlqY3lsZ3ZuaXJ4",
@@ -450,7 +450,7 @@
   },
   {
     "id": "social-27",
-    "title": "Social Promotions",
+    "title": "Khufiya — social promotion",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C3X-tehoHvu/?igsh=MThoemI0NzZuaG1tbA%3D%3D",
@@ -464,7 +464,7 @@
   },
   {
     "id": "social-28",
-    "title": "Social Promotions",
+    "title": "Kolkata / Durga Puja — social promotion",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CyqM--OLsEW/?igsh=dHoyYmczaHdqNHFl",
@@ -478,7 +478,7 @@
   },
   {
     "id": "social-29",
-    "title": "Social Promotions",
+    "title": "Superfan — social promotion",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CzgbYcPNixJ/?igsh=cmExcjh1MzE1enV1",
@@ -539,37 +539,40 @@
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=9QN3rmYNg2E",
     "order": 36,
-    "disclosure": "This is a fully AI-generated video. All shots, concepts and characters are fully AI-generated. Any resemblance to any character, real or fictional is completely coincidental. This series focuses on the dramatic reinterpretation of historical events in photorealstic styles.",
+    "disclosure": "All shots and characters are AI-generated.",
     "status": "recovered",
     "embedUrl": "https://www.youtube.com/embed/9QN3rmYNg2E",
     "aspect": 0.5625,
     "poster": "media/final-social-short-format-01.webp",
-    "featured": false
+    "featured": false,
+    "description": "A photorealistic dramatization of the Partition of India."
   },
   {
     "id": "social-short-format-02",
-    "title": "Jaquar Trilogy — marketing breakdown",
+    "title": "Jaquar Trilogy — AI commercial breakdown",
     "category": "short-form",
     "provider": "drive",
     "sourceUrl": "https://drive.google.com/file/d/1i2dfTXXnnl4A3znHL9vLGmnNIf49tfF3/view",
     "order": 37,
-    "disclosure": "This video contains AI Generated shots of a real person. All shots (such as bathtub, hand-shower, TV shot) and lip-sync are AI generated.",
+    "disclosure": "AI shot and character generation, lip-sync and VFX appear at 0:00–0:14 and from 0:43 onward. The 0:14–0:43 passage is included for context.",
     "status": "recovered",
     "embedUrl": "https://drive.google.com/file/d/1i2dfTXXnnl4A3znHL9vLGmnNIf49tfF3/preview",
     "aspect": 0.5625,
     "poster": "media/final-social-short-format-02.webp",
     "featured": false,
     "videoSource": "video/ai-jaquar.mp4",
-    "duration": 82.233333
+    "duration": 82.233333,
+    "description": "A short-form breakdown of the Jaquar trilogy. Generated product scenarios and a photorealistic character carry the visual treatment across the pieces.",
+    "role": "Creative treatment, scripting, AI visual production, compositing and editing."
   },
   {
     "id": "social-short-format-03",
-    "title": "AI visual / lip-sync — 03",
+    "title": "Three questions before a content calendar",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DTehIjuDIhl/",
     "order": 38,
-    "disclosure": "This video contains AI Generated shots of a real person. Lip-sync is AI generated.",
+    "disclosure": "AI-generated shots recreate a person’s likeness and animate their lip-sync.",
     "status": "recovered",
     "embedUrl": "https://www.instagram.com/p/DTehIjuDIhl/embed/",
     "aspect": 0.5625,
@@ -578,12 +581,12 @@
   },
   {
     "id": "social-short-format-04",
-    "title": "AI visual / lip-sync — 04",
+    "title": "Original thinking & plagiarism",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DVDej4EjASV/",
     "order": 39,
-    "disclosure": "This video contains AI Generated shots of a real person. Insert shots have been generated using AI, and lip-sync uses AI in certain places.",
+    "disclosure": "AI-generated inserts and shots of a person’s likeness, with AI lip-sync in selected moments.",
     "status": "recovered",
     "embedUrl": "https://www.instagram.com/p/DVDej4EjASV/embed/",
     "aspect": 0.5625,
@@ -592,12 +595,12 @@
   },
   {
     "id": "social-short-format-05",
-    "title": "AI visual / lip-sync — 05",
+    "title": "Snapchat — staged-premise opening",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DTt7WJPggbX/",
     "order": 40,
-    "disclosure": "This video contains AI Generated lip-sync shots of a real person.",
+    "disclosure": "Selected shots use AI lip-sync to animate a person’s likeness.",
     "status": "recovered",
     "embedUrl": "https://www.instagram.com/p/DTt7WJPggbX/embed/",
     "aspect": 0.5625,
@@ -606,26 +609,27 @@
   },
   {
     "id": "social-short-format-06",
-    "title": "AI visual / lip-sync — 06",
+    "title": "Netflix & Instagram — AI motion graphics",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DTCRvLigsum/",
     "order": 41,
-    "disclosure": "This video contains AI Generated lip-sync shots of a real person.",
     "status": "recovered",
     "embedUrl": "https://www.instagram.com/p/DTCRvLigsum/embed/",
     "aspect": 0.5625,
     "poster": "media/social-short-format-06.webp",
-    "featured": false
+    "featured": false,
+    "description": "A short-form explainer about how Netflix and Instagram shape viewing habits, illustrated with AI motion graphics.",
+    "role": "AI motion graphics."
   },
   {
     "id": "social-short-format-07",
-    "title": "AI visual / lip-sync — 07",
+    "title": "Google — business tools & Veo 3",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DVYwd8HjPEu/",
     "order": 42,
-    "disclosure": "This video contains AI Generated lip-sync shots of a real person.",
+    "disclosure": "Selected shots use AI lip-sync to animate a person’s likeness.",
     "status": "recovered",
     "embedUrl": "https://www.instagram.com/p/DVYwd8HjPEu/embed/",
     "aspect": 0.5625,
@@ -634,12 +638,12 @@
   },
   {
     "id": "social-short-format-08",
-    "title": "AI visual / lip-sync — 08",
+    "title": "Zoho One — the anti-ad",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DVctsbPgibO/",
     "order": 43,
-    "disclosure": "This video contains AI Generated lip-sync shots of a real person.",
+    "disclosure": "Selected shots use AI lip-sync to animate a person’s likeness.",
     "status": "recovered",
     "embedUrl": "https://www.instagram.com/p/DVctsbPgibO/embed/",
     "aspect": 0.5625,
@@ -648,12 +652,12 @@
   },
   {
     "id": "social-short-format-09",
-    "title": "AI visual / lip-sync — 09",
+    "title": "KBC × Asian Paints — cultural memory",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DT4QqE3gvy5/",
     "order": 44,
-    "disclosure": "This video contains AI Generated lip-sync shots of a real person.",
+    "disclosure": "Selected shots use AI lip-sync to animate a person’s likeness.",
     "status": "recovered",
     "embedUrl": "https://www.instagram.com/p/DT4QqE3gvy5/embed/",
     "aspect": 0.5625,
@@ -662,12 +666,12 @@
   },
   {
     "id": "social-short-format-10",
-    "title": "AI visual / lip-sync — 10",
+    "title": "Blue Machines — voice AI",
     "category": "short-form",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reels/DT_8WjzgvU-/",
     "order": 45,
-    "disclosure": "This video contains AI Generated shots of a real person. AI generated voices have been used in this video.",
+    "disclosure": "AI-generated shots recreate a person’s likeness. The video also uses AI-generated voices.",
     "status": "recovered",
     "embedUrl": "https://www.instagram.com/p/DT_8WjzgvU-/embed/",
     "aspect": 0.5625,
@@ -681,7 +685,7 @@
     "provider": "youtube",
     "sourceUrl": "https://www.youtube.com/watch?v=UnyzEppxKlQ",
     "order": 46,
-    "disclosure": "This video is a lip-sync made to replicate a real person.",
+    "disclosure": "AI lip-sync recreates a person’s performance.",
     "status": "recovered",
     "embedUrl": "https://www.youtube.com/embed/UnyzEppxKlQ",
     "aspect": 0.5625,
@@ -746,7 +750,7 @@
   },
   {
     "id": "brands-01",
-    "title": "Wrapping up a great year with GROWW app!",
+    "title": "Groww — year-end campaign / film 1",
     "category": "brands",
     "provider": "external",
     "sourceUrl": "https://tinyurl.com/ycxhrt9f",
@@ -759,7 +763,7 @@
   },
   {
     "id": "brands-02",
-    "title": "Wrapping up a great year with GROWW app!",
+    "title": "Groww — year-end campaign / film 2",
     "category": "brands",
     "provider": "external",
     "sourceUrl": "https://tinyurl.com/mrxfzvj5",
@@ -772,7 +776,7 @@
   },
   {
     "id": "brands-03",
-    "title": "Building a Premium Identity for a Nutrition Brand",
+    "title": "Marine Collagen — animated launch",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/DAtHoJySqh6/?igsh=NHU0d251cHh4d2N5",
@@ -786,7 +790,7 @@
   },
   {
     "id": "brands-04",
-    "title": "Building a Premium Identity for a Nutrition Brand",
+    "title": "Everyday Fiber — gut-health explainer",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C_8v8Xoo_lh/?igsh=MW9wZDRiY3A2bWNuOA==",
@@ -800,7 +804,7 @@
   },
   {
     "id": "brands-05",
-    "title": "Building a Premium Identity for a Nutrition Brand",
+    "title": "Team tasting teaser",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/DABSFMby8a4/?igsh=OWZ0ZGVoeGwwajFm",
@@ -814,7 +818,7 @@
   },
   {
     "id": "brands-06",
-    "title": "Building a Premium Identity for a Nutrition Brand",
+    "title": "Everyday Sweet — Ankita Srivastava",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/DAaGDdvtJmd/?igsh=dm4waHZkZ3hmMGkx",
@@ -828,7 +832,7 @@
   },
   {
     "id": "brands-08",
-    "title": "LOLLAPALOOZA 2024:",
+    "title": "Lollapalooza 2024 — campaign cut 02",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C1B_GHEoTfK/?igsh=MXc0NGJrNDJ3bTNncg==",
@@ -842,7 +846,7 @@
   },
   {
     "id": "brands-09",
-    "title": "LOLLAPALOOZA 2024:",
+    "title": "Lollapalooza 2024 — campaign cut 03",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C19mORVoiSM/?igsh=MXYxcXRiNG9lbGpsYQ==",
@@ -856,7 +860,7 @@
   },
   {
     "id": "brands-10",
-    "title": "LOLLAPALOOZA 2024:",
+    "title": "Lollapalooza 2024 — campaign cut 04",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C0WeeIYoz2z/?igsh=OWgzMnVmNnYxYzdl",
@@ -937,7 +941,7 @@
     "order": 67,
     "disclosure": "",
     "status": "recovered",
-    "description": "IPL Promotions:",
+    "description": "Part of the Mumbai Indians IPL social campaign.",
     "embedUrl": "https://www.youtube.com/embed/BS1yu7Hb0Uw?si=xDYjMwibN2uv_aHL",
     "aspect": 1.7777777777777777,
     "poster": "media/final-brands-16.webp",
@@ -952,7 +956,7 @@
     "order": 68,
     "disclosure": "",
     "status": "recovered",
-    "description": "IPL Promotions:",
+    "description": "Part of the Mumbai Indians IPL social campaign.",
     "embedUrl": "https://www.youtube.com/embed/z0OCGkif8Fc?si=Z1g_oyTbQTqtX6jl",
     "aspect": 1.7777777777777777,
     "poster": "media/final-brands-17.webp",
@@ -967,7 +971,7 @@
     "order": 69,
     "disclosure": "",
     "status": "recovered",
-    "description": "IPL Promotions:",
+    "description": "Part of the Mumbai Indians IPL social campaign.",
     "embedUrl": "https://www.youtube.com/embed/006r3SkwbGs?si=8t40F82PDPSn1jMf",
     "aspect": 1.7777777777777777,
     "poster": "media/final-brands-18.webp",
@@ -982,7 +986,7 @@
     "order": 70,
     "disclosure": "",
     "status": "recovered",
-    "description": "IPL Promotions:",
+    "description": "Part of the Mumbai Indians IPL social campaign.",
     "embedUrl": "https://www.youtube.com/embed/_orr6vu1ejU?si=bNfnLHBQEbIVC-tH",
     "aspect": 1.7777777777777777,
     "poster": "media/final-brands-19.webp",
@@ -990,7 +994,7 @@
   },
   {
     "id": "brands-20",
-    "title": "Spreading love with Bumble India!",
+    "title": "Bumble India — #2024 without filters",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/Cmtl3isBUru/?igsh=czJ4ZDZpbmZlbGQ2",
@@ -1004,7 +1008,7 @@
   },
   {
     "id": "brands-21",
-    "title": "Spreading love with Bumble India!",
+    "title": "Bumble India — music & connection",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/CnZbGgkh5pW/?igsh=eGdhMHM5aHhzbWRv",
@@ -1032,7 +1036,7 @@
   },
   {
     "id": "brands-23",
-    "title": "Lifestyle brands:",
+    "title": "Venusia Max — product film",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C1cDOI5oZPK/?igsh=MW1uY3dtZ2xjdm9nOA==",
@@ -1046,7 +1050,7 @@
   },
   {
     "id": "brands-24",
-    "title": "Lifestyle brands:",
+    "title": "Medimix — 6 herbs product film",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/Cyao5CcIjr1/?igsh=YzU2cnIwbnZ3ZDJ4",
@@ -1060,7 +1064,7 @@
   },
   {
     "id": "brands-25",
-    "title": "Lifestyle brands:",
+    "title": "Medimix — creator-led skincare film",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C7MIeUxBnwB/?igsh=cWpqbWx3Ym85dGkw",
@@ -1074,7 +1078,7 @@
   },
   {
     "id": "brands-26",
-    "title": "Lifestyle brands:",
+    "title": "Medimix — product / skin visual",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/Cw7r1XXBEgG/?igsh=MnpnYXQ4c2R3MjQ4",
@@ -1088,7 +1092,7 @@
   },
   {
     "id": "brands-27",
-    "title": "Lifestyle brands:",
+    "title": "Venusia Max — product beauty film",
     "category": "brands",
     "provider": "instagram",
     "sourceUrl": "https://www.instagram.com/reel/C4fmVFeold7/?igsh=MWRiYnYwcGR1NHd5bA==",
@@ -1125,14 +1129,14 @@
     "poster": "media/ai-eric-schiffer.webp",
     "aspect": 1.7777777777777777,
     "order": 80,
-    "description": "Shot and character generation brought into the edit through compositing, motion graphics and VFX. The timeline marks the individual contributions.",
+    "description": "A show-development cut for Eric Schiffer. Generated characters and shots are composited into the edit alongside motion graphics and VFX. Jump to 4:56 for the photorealistic character work.",
     "role": "AI shot generation, character generation, compositing, motion graphics and VFX.",
-    "disclosure": "Contains AI-generated shots and characters. Markers identify the AI work using the creator’s supplied production notes.",
+    "disclosure": "The timeline marks generated shots, character work, compositing and motion graphics where each technique appears.",
     "duration": 333.482667
   },
   {
     "id": "ai-sheldon",
-    "title": "The Product Report — photorealistic AI & real footage",
+    "title": "The Product Report — photorealistic AI presenter",
     "category": "ai",
     "provider": "drive",
     "sourceUrl": "https://drive.google.com/file/d/14rbDcssKpywbm_Cw9EFz5KQ3npVbGm6s/view",
@@ -1141,9 +1145,9 @@
     "poster": "media/ai-product-report.webp",
     "aspect": 1.7777777777777777,
     "order": 81,
-    "description": "Photorealistic AI avatars, generated shots and motion graphics cut together with real footage. Jump to 4:22 to see the AI-to-camera cut.",
-    "role": "Channel brand language, research, retention strategy, post-production budgeting and resource allocation; AI shot and character generation, photorealistic lip-sync, compositing, motion graphics and VFX.",
-    "disclosure": "Major sections use a completely photorealistic AI avatar. Other sections show the real person or real footage; the timeline distinguishes them using the creator’s supplied notes.",
+    "description": "I built the channel’s brand language and developed a photorealistic AI presenter for the show. Jump to 4:22 to see how the generated performance cuts into the filmed segment.",
+    "role": "Channel identity, research and retention strategy. Post-production budgets and resource allocation. AI shot and character generation, lip-sync, compositing, motion graphics and VFX.",
+    "disclosure": "The chapter markers identify generated performances, AI graphics and the filmed passages used alongside them.",
     "duration": 294.208
   },
   {
@@ -1156,7 +1160,6 @@
     "aspect": 0.5625,
     "order": 82,
     "poster": "media/ai-character-motion.webp",
-    "disclosure": "AI character generation and motion graphics.",
     "role": "AI character generation and motion graphics."
   },
   {
@@ -1187,7 +1190,7 @@
     "role": "Show and channel direction, episode research and packaging, team and production briefs, multicamera post-production and recurring graphics.",
     "embedUrl": "https://www.youtube.com/embed/LZyD1w_ErzE",
     "addedToPortfolio": true,
-    "description": "Hizzouse / Jay & Silent Bob. Episode 1. Original feed title: Did Marvel Just Save the MCU? | Jay & Silent Bob on Doomsday."
+    "description": "Episode 1 of Hizzouse with Jay & Silent Bob."
   },
   {
     "id": "campaign-hizzouse-ep2",
@@ -1201,7 +1204,7 @@
     "role": "Show and channel direction, episode research and packaging, team and production briefs, multicamera post-production and recurring graphics.",
     "embedUrl": "https://www.youtube.com/embed/80Rf3-VzFdM",
     "addedToPortfolio": true,
-    "description": "Hizzouse / Jay & Silent Bob. Episode 2. Original feed title: Jay & Silent Bob Get Brutally Honest About Hollywood Tantrums."
+    "description": "Episode 2 of Hizzouse with Jay & Silent Bob."
   },
   {
     "id": "campaign-hizzouse-ep3",
@@ -1215,7 +1218,7 @@
     "role": "Show and channel direction, episode research and packaging, team and production briefs, multicamera post-production and recurring graphics.",
     "embedUrl": "https://www.youtube.com/embed/6JsE66_0FD4",
     "addedToPortfolio": true,
-    "description": "Hizzouse / Jay & Silent Bob. Episode 3. Original feed title: Hope Assembles in the Hizzouse!."
+    "description": "Episode 3 of Hizzouse with Jay & Silent Bob."
   },
   {
     "id": "campaign-hizzouse-ep4",
@@ -1229,7 +1232,7 @@
     "role": "Show and channel direction, episode research and packaging, team and production briefs, multicamera post-production and recurring graphics.",
     "embedUrl": "https://www.youtube.com/embed/dp4-MIFpH0k",
     "addedToPortfolio": true,
-    "description": "Hizzouse / Jay & Silent Bob. Episode 4. Original feed title: Jay & Silent Bob Go Down a Rabbit Hole."
+    "description": "Episode 4 of Hizzouse with Jay & Silent Bob."
   },
   {
     "id": "campaign-hizzouse-ep5",
@@ -1243,7 +1246,7 @@
     "role": "Show and channel direction, episode research and packaging, team and production briefs, multicamera post-production and recurring graphics.",
     "embedUrl": "https://www.youtube.com/embed/HT73CR3Dxoc",
     "addedToPortfolio": true,
-    "description": "Hizzouse / Jay & Silent Bob. Episode 5. Original feed title: How Much Money Do The Biggest Commedians Make?."
+    "description": "Episode 5 of Hizzouse with Jay & Silent Bob."
   },
   {
     "id": "campaign-hizzouse-ep6",
@@ -1257,7 +1260,7 @@
     "role": "Show and channel direction, episode research and packaging, team and production briefs, multicamera post-production and recurring graphics.",
     "embedUrl": "https://www.youtube.com/embed/0ldSXiGGzhU",
     "addedToPortfolio": true,
-    "description": "Hizzouse / Jay & Silent Bob. Episode 6. Original feed title: Disney's Darkest Secret."
+    "description": "Episode 6 of Hizzouse with Jay & Silent Bob."
   },
   {
     "id": "campaign-hizzouse-ep7",
@@ -1271,7 +1274,7 @@
     "role": "Show and channel direction, episode research and packaging, team and production briefs, multicamera post-production and recurring graphics.",
     "embedUrl": "https://www.youtube.com/embed/QJ8yNlMbsk8",
     "addedToPortfolio": true,
-    "description": "Hizzouse / Jay & Silent Bob. Episode 7. Original feed title: We Almost Made A Horror Movie."
+    "description": "Episode 7 of Hizzouse with Jay & Silent Bob."
   },
   {
     "id": "campaign-hizzouse-ep8",
@@ -1285,7 +1288,7 @@
     "role": "Show and channel direction, episode research and packaging, team and production briefs, multicamera post-production and recurring graphics.",
     "embedUrl": "https://www.youtube.com/embed/c9BkDxY5KUI",
     "addedToPortfolio": true,
-    "description": "Hizzouse / Jay & Silent Bob. Episode 8. Original feed title: Jay Versus Spider-Man."
+    "description": "Episode 8 of Hizzouse with Jay & Silent Bob."
   },
   {
     "id": "nutrition-magnified-bento",
@@ -1328,5 +1331,19 @@
     "description": "Nutrition Magnified — TruNativ’s original food and nutrition explainer series.",
     "role": "YouTube and brand-account direction, subject and audience research, scripting, visual storytelling and post-production.",
     "poster": "media/campaigns/youtube-nutrition-magnified-momo.webp"
+  },
+  {
+    "id": "ai-original-ad",
+    "title": "Prantik Dutta’s Advertising Services",
+    "category": "ai",
+    "provider": "drive",
+    "sourceUrl": "https://drive.google.com/file/d/1HeD5WP1JcD7tYTQMinUyHEyaFJOndQmd/view?usp=sharing",
+    "videoSource": "video/ai-original-ad.mp4",
+    "poster": "media/ai-original-ad.webp",
+    "aspect": 1.7777777777777777,
+    "order": 116,
+    "description": "My original AI ad for my advertising services, told through a comic story set around the Leaning Tower of Pisa.",
+    "duration": 131.2,
+    "addedToPortfolio": true
   }
 ]

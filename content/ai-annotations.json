@@ -118,8 +118,8 @@
     ]
   },
   "social-short-format-02": {
-    "label": "Generated shots / lip-sync",
-    "description": "AI shot and character generation, compositing, motion graphics, VFX and photorealistic AI character lip-sync. The 0:14–0:43 passage is excluded.",
+    "label": "AI product shots & lip-sync",
+    "description": "Photorealistic AI product shots and characters, lip-sync, compositing, motion graphics and VFX.",
     "cues": [
       {
         "start": 0,
@@ -132,7 +132,7 @@
         "start": 14,
         "kind": "reference",
         "title": "Reference passage",
-        "detail": "This 0:14–0:43 passage is excluded from the AI-generation and lip-sync labels.",
+        "detail": "Context for the marketing breakdown between the marked AI sequences.",
         "end": 43
       },
       {
@@ -144,14 +144,14 @@
     ]
   },
   "social-short-format-06": {
-    "label": "Netflix / AI motion graphics",
-    "description": "AI motion graphics.",
+    "label": "AI motion graphics",
+    "description": "AI motion graphics for the Netflix and Instagram explainer.",
     "cues": [
       {
         "start": 0,
         "kind": "graphics",
         "title": "AI motion graphics",
-        "detail": "AI motion graphics for the Netflix Instagram Reel."
+        "detail": "AI motion graphics for the Netflix and Instagram explainer."
       }
     ]
   },
@@ -163,52 +163,52 @@
         "start": 0,
         "kind": "ai",
         "title": "AI shots & characters",
-        "detail": "AI-generated shots, concepts and characters. A dramatic reinterpretation, rather than archival footage."
+        "detail": "AI-generated shots, concepts and characters used to dramatize a historical event."
       }
     ]
   },
   "social-short-format-11": {
     "label": "AI character / lip-sync",
-    "description": "AI lip-sync made to replicate a real person.",
+    "description": "AI lip-sync recreates a person’s performance.",
     "cues": [
       {
         "start": 0,
         "kind": "ai",
         "title": "AI character & lip-sync",
-        "detail": "AI character work and lip-sync made to replicate a real person."
+        "detail": "AI lip-sync recreates a person’s performance."
       }
     ]
   },
   "ai-sheldon": {
-    "label": "AI ↔ camera",
-    "description": "Major sections of this video use a completely photorealistic AI avatar. The marked camera passages are real footage.",
+    "label": "Photorealistic AI presenter",
+    "description": "A photorealistic avatar, generated shots and lip-sync integrated through compositing, motion graphics and VFX. Jump to 4:22 for the cut from the generated presenter to the filmed segment.",
     "cues": [
       {
         "start": 0,
         "kind": "ai",
         "title": "Photorealistic AI avatar",
-        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "detail": "Generated presenter and shots, with photorealistic lip-sync, compositing, motion graphics and VFX.",
         "end": 16
       },
       {
         "start": 30,
         "kind": "ai",
         "title": "Photorealistic AI avatar",
-        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "detail": "Generated presenter and shots, with photorealistic lip-sync, compositing, motion graphics and VFX.",
         "end": 45
       },
       {
         "start": 55,
         "kind": "real",
-        "title": "Real person + AI graphics",
-        "detail": "Real person on camera, with AI motion graphics, VFX, motion graphics and compositing.",
+        "title": "AI graphics over filmed performance",
+        "detail": "AI motion graphics and VFX composited over the on-camera presenter.",
         "end": 65
       },
       {
         "start": 66,
         "kind": "ai",
         "title": "Photorealistic AI avatar",
-        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "detail": "Generated presenter and shots, with photorealistic lip-sync, compositing, motion graphics and VFX.",
         "end": 88
       },
       {
@@ -249,56 +249,56 @@
       {
         "start": 127,
         "kind": "real",
-        "title": "Real person",
-        "detail": "Real person on camera.",
+        "title": "Filmed reference",
+        "detail": "A filmed passage for comparison with the generated presenter.",
         "end": 129
       },
       {
         "start": 129,
         "kind": "ai",
         "title": "Photorealistic AI avatar",
-        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "detail": "Generated presenter and shots, with photorealistic lip-sync, compositing, motion graphics and VFX.",
         "end": 153
       },
       {
         "start": 153,
         "kind": "real",
-        "title": "Real person",
-        "detail": "Real person on camera.",
+        "title": "Filmed reference",
+        "detail": "A filmed passage for comparison with the generated presenter.",
         "end": 167
       },
       {
         "start": 167,
         "kind": "ai",
         "title": "Photorealistic AI avatar",
-        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "detail": "Generated presenter and shots, with photorealistic lip-sync, compositing, motion graphics and VFX.",
         "end": 182
       },
       {
         "start": 182,
         "kind": "real",
-        "title": "Real footage",
-        "detail": "Real footage.",
+        "title": "Filmed reference",
+        "detail": "A filmed passage for comparison with the generated presenter.",
         "end": 199
       },
       {
         "start": 200,
         "kind": "ai",
         "title": "Photorealistic AI avatar",
-        "detail": "Photorealistic AI character generation and lip-sync. AI shot generation, character generation, compositing, motion graphics and VFX.",
+        "detail": "Generated presenter and shots, with photorealistic lip-sync, compositing, motion graphics and VFX.",
         "end": 262
       },
       {
         "start": 262,
         "kind": "real",
-        "title": "Back to real footage",
-        "detail": "Real footage from 4:22 to the end."
+        "title": "Filmed reference",
+        "detail": "A filmed passage for comparison with the generated presenter."
       },
       {
         "start": 262,
         "kind": "transition",
-        "title": "AI → real / the cut",
-        "detail": "The cut at 4:22 moves from the generated character and shot to real footage.",
+        "title": "AI-to-camera cut",
+        "detail": "Watch how the photorealistic AI presenter cuts into the filmed segment at 4:22.",
         "end": 267
       }
     ]
@@ -317,13 +317,25 @@
   },
   "social-short-format-03": {
     "label": "AI character / lip-sync",
-    "description": "AI-generated shots of a real person, with AI-generated lip-sync.",
+    "description": "AI-generated shots recreate a person’s likeness and animate their lip-sync.",
     "cues": [
       {
         "start": 0,
         "kind": "ai",
         "title": "Generated shots & lip-sync",
-        "detail": "AI-generated shots of a real person. Lip-sync is AI-generated."
+        "detail": "AI-generated shots recreate a person’s likeness and animate their lip-sync."
+      }
+    ]
+  },
+  "ai-original-ad": {
+    "label": "Original AI ad",
+    "description": "My original AI ad for my advertising services, told through a comic story set around the Leaning Tower of Pisa.",
+    "cues": [
+      {
+        "start": 0,
+        "kind": "ai",
+        "title": "Original AI ad",
+        "detail": "An independent AI advertising film for Prantik Dutta’s advertising services."
       }
     ]
   }

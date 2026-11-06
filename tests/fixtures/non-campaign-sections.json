@@ -6,7 +6,7 @@
       "art": "liquid",
       "theme": 0,
       "items": [
-        "videos-03",
+        "ai-original-ad",
         "social-01",
         "videos-04",
         "social-short-format-02",
@@ -22,7 +22,7 @@
         "stand-up-events-03",
         "brands-01",
         "social-short-format-06",
-        "brands-04",
+        "videos-03",
         "brands-07"
       ]
     },
@@ -228,9 +228,9 @@
       "art": "sigil",
       "theme": 5,
       "items": [
+        "ai-original-ad",
         "ai-sheldon",
-        "ai-eric-schiffer",
-        "social-short-format-02"
+        "ai-eric-schiffer"
       ]
     },
     {
@@ -239,9 +239,9 @@
       "art": "liquid",
       "theme": 5,
       "items": [
+        "social-short-format-02",
         "social-short-format-01",
-        "social-short-format-06",
-        "ai-character-motion"
+        "social-short-format-06"
       ]
     },
     {
@@ -250,6 +250,7 @@
       "art": "sigil",
       "theme": 5,
       "items": [
+        "ai-character-motion",
         "social-short-format-03",
         "social-short-format-11"
       ]
@@ -262,14 +263,14 @@
       "art": "liquid",
       "theme": 0,
       "items": [
-        "videos-03",
+        "ai-original-ad",
         "social-01",
         "videos-04",
         "stand-up-events-03",
         "brands-01",
         "social-short-format-06",
         "social-short-format-02",
-        "brands-04",
+        "videos-03",
         "brands-03",
         "brands-07"
       ]
@@ -404,6 +405,7 @@
       "art": "sigil",
       "theme": 5,
       "items": [
+        "ai-original-ad",
         "ai-sheldon",
         "ai-eric-schiffer",
         "social-short-format-02",

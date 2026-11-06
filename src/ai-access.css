@@ -13,7 +13,8 @@
 @keyframes ai-access-attention{0%,26%,52%,100%{transform:translateY(0) rotate(0) scale(1)}32%{transform:translateY(-2px) rotate(-1deg) scale(1.025)}39%{transform:translateY(0) rotate(1deg) scale(1.025)}46%{transform:translateY(-1px) rotate(-.5deg) scale(1.01)}}
 @keyframes ai-access-letter-flip{0%,5%{transform:translateY(0) rotateX(0)}10%{transform:translateY(-.14em) rotateX(-22deg)}19%{transform:translateY(.04em) rotateX(360deg)}27%,100%{transform:translateY(0) rotateX(360deg)}}
 .home-intro .ai-access{margin:12px 12px 0 0}.depth-journey[data-category=ai] .depth-gallery .ai-secondary{opacity:.65;z-index:8!important}
-@media(min-width:700px){.depth-journey .depth-gallery.expanded-ai .depth-film.slot-6{width:14%;left:0;right:auto;top:2%;bottom:auto;rotate:5deg;z-index:12}.depth-journey .depth-gallery.expanded-ai .depth-film.slot-7{width:12%;left:4%;right:auto;top:34%;bottom:auto;rotate:-6deg;z-index:10}}
+@media(min-width:700px){.depth-journey .depth-gallery.expanded-ai .depth-film.slot-6{width:14%;left:0;right:auto;top:2%;bottom:auto;rotate:5deg;z-index:12}.depth-journey .depth-gallery.expanded-ai .depth-film.slot-7{width:12%;left:4%;right:auto;top:34%;bottom:auto;rotate:-6deg;z-index:10}
+ .depth-journey .depth-gallery.expanded-ai .depth-film.slot-8{width:min(9%,calc(18svh*var(--film-ratio)));left:auto;right:1%;top:40%;bottom:auto;rotate:4deg}}
 @media(max-width:699px),(max-width:1024px) and (pointer:coarse){
  .home-intro .ai-access,
  .depth-journey .depth-topbar nav button.ai-access,

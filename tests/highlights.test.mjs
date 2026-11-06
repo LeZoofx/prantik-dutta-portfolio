@@ -12,14 +12,14 @@ function load(file){
 }
 const {buildSections}=load(path.resolve('src/portfolioSections.ts'));
 const projects=load(path.resolve('content/projects.json'));
-const added=['social-short-format-02','brands-04','brands-03','brands-07'];
-test('Highlights keeps its frame hierarchy with the three requested video swaps',()=>{
+const added=['social-short-format-02','videos-03','brands-03','brands-07'];
+test('Highlights leads with the original ad and moves Darlings to the Everyday Fiber rotation slot',()=>{
  const sections=buildSections(projects).filter(s=>s.category==='selected');
  assert.equal(sections.length,1,'The added videos must not create another desktop page');
  const items=sections[0].items;
- assert.deepEqual(items.slice(0,6).map(p=>p.id),['videos-03','social-01','videos-04','stand-up-events-03','brands-01','social-short-format-06']);
+ assert.deepEqual(items.slice(0,6).map(p=>p.id),['ai-original-ad','social-01','videos-04','stand-up-events-03','brands-01','social-short-format-06']);
  assert.deepEqual(items.slice(6).map(p=>p.id),added);
- assert.deepEqual(items.slice(6).map(p=>p.category),['short-form','brands','brands','brands']);
+ assert.deepEqual(items.slice(6).map(p=>p.category),['short-form','trailers','brands','brands']);
 });
 test('desktop and mobile add frames on the original Highlights pages and keep every archive project',()=>{
  for(const size of [3,6]){

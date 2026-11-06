@@ -19,18 +19,18 @@ function load(file){
 const {buildSections}=load(path.resolve('src/portfolioSections.ts'));
 test('AI adds one desktop scene; existing scenes retain their order, layouts and content',()=>{
  for(const size of [3,6]){
-  const original=buildSections(projects.filter(p=>!p.id.startsWith('ai-')),'curated','all',size).filter(s=>s.category!=='ai');
+  const original=buildSections(projects.filter(p=>!p.id.startsWith('ai-')||p.id==='ai-original-ad'),'curated','all',size).filter(s=>s.category!=='ai');
   const next=buildSections(projects,'curated','all',size),existing=next.filter(s=>s.category!=='ai');
   assert.deepEqual(existing.map(s=>[s.id,s.layout,s.art,s.theme]),original.map(s=>[s.id,s.layout,s.art,s.theme]));
-  for(let i=0;i<original.length;i++)assert.deepEqual(existing[i].items.filter(p=>!p.id.startsWith('ai-')).map(p=>p.id),original[i].items.map(p=>p.id));
+  for(let i=0;i<original.length;i++)assert.deepEqual(existing[i].items.filter(p=>!p.id.startsWith('ai-')||p.id==='ai-original-ad').map(p=>p.id),original[i].items.map(p=>p.id));
   const ai=next.filter(s=>s.category==='ai');
   assert.deepEqual(ai.flatMap(s=>s.items).map(p=>p.id),collection);
   if(size===6)assert.equal(ai.length,1);
   else assert.deepEqual(ai[0].items.map(p=>p.id),collection.slice(0,3));
  }
 });
-test('AI hierarchy preserves the requested first four and final three, without duplicating archive records',()=>{
- assert.deepEqual(collection.slice(0,4),['ai-sheldon','ai-eric-schiffer','social-short-format-02','social-short-format-01']);
+test('AI hierarchy features the original ad first and preserves the requested ordering, without duplicating archive records',()=>{
+ assert.deepEqual(collection.slice(0,5),['ai-original-ad','ai-sheldon','ai-eric-schiffer','social-short-format-02','social-short-format-01']);
  assert.deepEqual(collection.slice(-3),['ai-character-motion','social-short-format-03','social-short-format-11']);
  assert.equal(new Set(collection).size,collection.length);
  for(const id of collection){assert.equal(projects.filter(p=>p.id===id).length,1);assert.ok(annotations[id])}
@@ -42,7 +42,7 @@ test('Jaquar AI labels exclude the entire 0:14–0:43 reference passage',()=>{
  for(const time of [14,28,42.999])assert.equal(activeCues(cues,time,82.233)[0].kind,'reference');
  assert.equal(activeCues(cues,43,82.233)[0].kind,'ai');
 });
-test('Sheldon labels distinguish camera footage and the 4:22 AI-to-real cut',()=>{
+test('The Product Report labels distinguish filmed reference and the 4:22 AI-to-camera cut',()=>{
  const cues=annotations['ai-sheldon'].cues;
  for(const time of [8,35,70,90,107,120,145,175,230,261.99])assert.ok(activeCues(cues,time,294.208).some(c=>c.kind==='ai'));
  for(const time of [58,128,160,190,270,290]){const active=activeCues(cues,time,294.208);assert.ok(active.some(c=>c.kind==='real'));assert.ok(!active.some(c=>c.kind==='ai'))}

@@ -11,5 +11,5 @@ export const posterCopy:Record<string,string[]>={
  'short-form':['Audience insight. Scripts. Format tests.','Hook immediately. Hold attention.','Production & shot briefs.','AI / compositing / lip-sync.','Distinctive images. Controlled pacing.'],
  youtube:['Topic research. Format strategy.','Titles. Thumbnails. Production briefs.','The opening hook. The payoff.','Structure. Pacing. Visual identity.','Entertainment / interviews / food.','Retention review.'],
  events:['Audience. Rollout. Production briefs.','Comedy / festivals / live.','Keep the timing. Carry the energy.','Performance. Anticipation. Impact.','Shoot coverage. Editing. Review.'],
- ai:['Plan the shot. Build the character.','Generate. Composite. Finish.','Real footage. Generated worlds.','Motion / VFX / photorealism.','Open a film. Follow the AI markers.']
+ ai:['Plan the shot. Build the character.','Generate. Composite. Finish.','Photoreal AI presenters.','Lip-sync. Motion. VFX.','Open a film for the breakdown.']
 };

@@ -66,9 +66,9 @@ test('visible previews represent separate subgroups and retain original video so
  assert.deepEqual(campaignPreviews(cocoa).map(p=>p.id),['social-05','social-08','social-18','social-07']);
  for(const c of campaigns)for(const p of campaignItems(c)){const original=projects.find(x=>x.id===p.id);if(original)assert.equal(p.sourceUrl,original.sourceUrl)}
 });
-test('all non-campaign chapters preserve the previous items, layouts, art and themes',()=>{
+test('non-campaign chapters preserve layouts, art and themes with the requested video placements',()=>{
  const baseline=JSON.parse(readFileSync('tests/fixtures/non-campaign-sections.json','utf8'));
- const legacy=new Set(projects.filter(p=>!p.addedToPortfolio).map(p=>p.id));
+ const legacy=new Set(projects.filter(p=>!p.addedToPortfolio||p.id==='ai-original-ad').map(p=>p.id));
  for(const size of [3,6])assert.deepEqual(buildSections(projects,'curated','all',size).filter(s=>s.category!=='brands').map(s=>({...s,items:s.items.filter(p=>legacy.has(p.id))})).filter(s=>s.items.length).map(s=>({id:s.id,layout:s.layout,art:s.art,theme:s.theme,items:s.items.map(p=>p.id)})),baseline[size]);
 });
 test('broken references cannot pass publication validation',()=>{

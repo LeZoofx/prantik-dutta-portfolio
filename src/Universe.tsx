@@ -21,9 +21,9 @@ import './journey.css';
 import './depth-journey.css';
 import './highlights-layout.css';
 import Scene from './JourneyScene';
-import {ScenePager,swipePages} from './scenePaging';
+import {gestureAxis,ScenePager,swipePages,type GestureAxis} from './scenePaging';
 import {NativeSceneScroll} from './NativeSceneScroll';
-import {FrameWheelInput} from './FrameWheelInput';
+import {FrameWheelInput,isScrollControl} from './FrameWheelInput';
 import './frame-orbit-controls.css';
 import {NativeSceneAnimator,type SceneExit} from './NativeSceneAnimator';
 import PlaybackToggle from './PlaybackToggle';
@@ -72,14 +72,14 @@ function CampaignBackdrop({section,focus,scenery}:{section:PortfolioSection;focu
  const current=focus&&section.items.some(project=>project.id===focus)?campaignFamilyFor(focus)?.art??section.art:arts[0];
  return <>{arts.map(art=><div className={'campaign-backdrop-layer backdrop-'+art} data-current={art===current} key={art}>{scenery&&<Scene art={art}/>}</div>)}</>;
 }
-export default function Universe({header,projects,onProject,onIndex,onProcess,paused,reduced,mobile=false,initialScene,onSceneSettled,opening}:{opening?:{current:boolean};initialScene?:string;onSceneSettled:(id:string)=>void;mobile?:boolean;header:ReactNode;projects:Project[];onProject:(p:Project)=>void;onIndex:()=>void;onProcess:()=>void;paused:boolean;reduced:boolean}){
+export default function Universe({header,projects,onProject,onIndex,onProcess,paused,reduced,mobile=false,initialScene,onSceneSettled,opening,guideEntry}:{opening?:{current:boolean};guideEntry?:{current:boolean};initialScene?:string;onSceneSettled:(id:string)=>void;mobile?:boolean;header:ReactNode;projects:Project[];onProject:(p:Project)=>void;onIndex:()=>void;onProcess:()=>void;paused:boolean;reduced:boolean}){
  const performance=usePerformance(),playing=performance.autoplay;
  const [rotate,setRotate]=useState(true);
  const [campaignFocus,setCampaignFocus]=useState<Record<string,string>>({});
  const onCampaignFocus=useCallback((scene:string,collection:string)=>{
   setCampaignFocus(current=>current[scene]===collection?current:{...current,[scene]:collection});
  },[]);
- const [scrollGuideOpen,setScrollGuideOpen]=useState(false);
+ const [scrollGuideOpen,setScrollGuideOpen]=useState(false),[openingVisible,setOpeningVisible]=useState(false),[guiding,setGuiding]=useState(false);
  const topbar=useRef<HTMLDivElement>(null);
  const closeGuide=useCallback(()=>setScrollGuideOpen(false),[]);
  const [brand,setBrand]=useState('all'),[sort,setSort]=useState<WorkSort>('curated'),[compact,setCompact]=useState(false),[saveData,setSaveData]=useState(false);
@@ -95,12 +95,14 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
  const motion=useMemo<JourneyMotion>(()=>({position:0,target:0,pointerX:0,pointerY:0,velocity:0,time:0,active:true,low:false,reduced:false,invalidate:()=>{}}),[]);
  const settings=useRef({paused,reduced,secret:!!secret,quality:performance.quality,ready:performance.ready});settings.current={paused,reduced,secret:!!secret,quality:performance.quality,ready:performance.ready};motion.active=!paused&&!secret;motion.reduced=reduced;motion.low=performance.quality!=='full';
  const wake=useRef(()=>{}),bindPlanes=useRef(()=>{}),navigate=useRef<(index:number)=>void>(()=>{}),current=useRef(0),pendingOrbit=useRef(0);
+ const guideOffset=useRef(0),orbitChapter=useRef(playChapter);
+ orbitChapter.current=playChapter;
+ const showPagePreview=useCallback((amount:number)=>{guideOffset.current=amount;wake.current()},[]);
  function cycleVideos(step:number){
-  if(!step||!Number.isFinite(step)||!settings.current.ready||settings.current.paused||settings.current.secret)return;
-  if(motion.scrolling){pendingOrbit.current=Math.max(-3,Math.min(3,pendingOrbit.current+step));return}
-  worldRefs.current.get(current.current)?.querySelector('.depth-gallery')?.dispatchEvent(new CustomEvent('portfolio-orbit-step',{detail:step}));
+  if(!step||!Number.isFinite(step)||settings.current.paused||settings.current.secret)return;
+  pendingOrbit.current=Math.max(-3,Math.min(3,pendingOrbit.current+step));
+  wake.current();
  }
- useEffect(()=>{if(paused){pendingOrbit.current=0;return}if(!motion.scrolling&&pendingOrbit.current){const step=pendingOrbit.current;pendingOrbit.current=0;cycleVideos(step)}},[chapter,playChapter,paused]);
  const section=sections[modulo(chapter,total)]||sections[0];
  const cycleCount=section.items.filter(p=>section.category!=='ai'||p.id!==leastFeaturedAI).length;
  const availableCategories=portfolioCategories.filter(category=>sections.some(s=>s.category===category.id));
@@ -120,7 +122,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   let width=scroller.clientWidth,height=stage.clientHeight,pageHeight=scroller.clientHeight;
   const native=!mobile;
   outer.dataset.native=String(native);
-  const frameInput=new FrameWheelInput({scroller,step:cycleVideos,paused:()=>settings.current.paused||settings.current.secret||!settings.current.ready});
+  const frameInput=new FrameWheelInput({scroller,step:cycleVideos,page:advance,paused:()=>settings.current.paused||settings.current.secret});
   const pager=new ScenePager(initial),landscape=outer.querySelector<HTMLElement>('.depth-landscape');
   const nativeController=native?new NativeSceneScroll({scroller,root:outer,total,initialPosition:initial,reduced:()=>settings.current.reduced,paused:()=>settings.current.paused||settings.current.secret,moving:markMoving,invalidate:start,prepare:(from,to)=>{
    const first=Math.round(from),direction=Math.sign(to-first),count=Math.min(total,Math.abs(to-first)+1);
@@ -151,14 +153,14 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   // lightweight mode and browsers without ScrollTimeline. No resting-pose flash.
   bindPlanes.current=()=>paintPlanes(nativeController?.position??motion.position);
   function markMoving(value:boolean){motion.scrolling=value;if(value===scrolling)return;scrolling=value;outer!.dataset.moving=String(value);window.dispatchEvent(new CustomEvent('portfolio-motion',{detail:value}))}
-  function paintPlanes(position:number){
+  function paintPlanes(position:number,preview=false){
    const p=modulo(position,total),nextBase=Math.floor(p),nextChapter=modulo(Math.round(p),total);
    // All layout reads happen before writes, only when a scene/layout actually changes.
    const planes=Array.from(worldRefs.current,([index,layer])=>({index,layer,exits:prepare(layer)}));
    if(!scrolling&&Number.isInteger(position))planeQuality=settings.current.quality;
    const light=planeQuality==='simple',low=planeQuality!=='full';
    const deltaFor=(index:number)=>{const delta=index-p;return delta-Math.round(delta/total)*total;};
-   const useTimeline=!!animator&&!settings.current.reduced;
+   const useTimeline=!!animator&&!settings.current.reduced&&!preview;
    if(accelerated&&!useTimeline){animator?.destroy();written=new WeakMap()}
    accelerated=useTimeline;outer!.dataset.motionEngine=accelerated?'scroll-timeline':'raf';
    const centerFor=(index:number)=>index+Math.round((position+total-index)/total)*total;
@@ -201,7 +203,10 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   function draw(t:number){
    raf=0;if(document.hidden){markMoving(false);return}
    const elapsed=last?t-last:16,dt=Math.min(.05,Math.max(elapsed/1000,.001));last=t;
-   if(native&&(settings.current.paused||settings.current.secret))nativeController?.freeze();
+   if(settings.current.paused||settings.current.secret){
+    pendingOrbit.current=0;frameInput.cancelPending();
+    if(nativeController?.moving)nativeController.freeze();
+   }
    const prior=motion.position,travelling=native?scrolling:pager.moving;
    if(travelling&&elapsed<250)performance.reportFrame(elapsed);
    if(nativeController){const raw=nativeController.position;motion.position=Math.abs(raw-Math.round(raw))<.001?Math.round(raw):raw;motion.target=nativeController.target}
@@ -216,10 +221,18 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
     // waits for rest because its compositor already owns the mounted flight path.
     setBase(nextBase);setChapter(nextChapter);
    }
-   paintPlanes(motion.position);
+   const preview=travelling||settings.current.paused||settings.current.secret?0:guideOffset.current;
+   paintPlanes(motion.position+preview,preview!==0);
    const moving=native?scrolling:pager.moving;markMoving(moving);
    if(!moving){
     setPlayChapter(nextChapter);setFlight(value=>value.length?[]:value);
+    if(pendingOrbit.current&&settings.current.ready&&orbitChapter.current===nextChapter){
+     const gallery=worldRefs.current.get(nextChapter)?.querySelector('.depth-gallery');
+     if(gallery){
+      const step=pendingOrbit.current;pendingOrbit.current=0;
+      gallery.dispatchEvent(new CustomEvent('portfolio-orbit-step',{detail:step}));
+     }
+    }
     const settled=sections[nextChapter];
     if(nextChapter!==publishedIndex&&settings.current.ready&&!settings.current.paused&&!settings.current.secret&&matchingLayout){
      const opening=publishedIndex<0&&nextChapter===initial;
@@ -237,7 +250,11 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
    else motion.velocity=0;
   }
   function start(){if(!raf&&!document.hidden)raf=requestAnimationFrame(draw)}wake.current=start;
-  function advance(step:number){if(!step||settings.current.paused||settings.current.secret)return;pager.advance(step,window.performance.now());motion.target=pager.target;markMoving(true);start()}
+  function advance(step:number){
+   if(!step||settings.current.paused||settings.current.secret)return;
+   if(nativeController){nativeController.advance(step);return}
+   pager.advance(step,window.performance.now());motion.target=pager.target;markMoving(true);start();
+  }
   function resize(){
    nativeController?.resize();
    width=scroller!.clientWidth;pageHeight=scroller!.clientHeight;height=stage.clientHeight;
@@ -246,17 +263,38 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   }
   const fontLayout=()=>{layouts=new WeakMap();worldRefs.current.forEach(layer=>{layer.dataset.layoutVersion=String(window.performance.now())});start()};
   document.fonts?.addEventListener('loadingdone',fontLayout);
-  let touch:{x:number;y:number;time:number;committed:number;id:number;axis:'x'|'y'|null}|null=null,suppressClickUntil=0;
-  function down(event:PointerEvent){if(!event.isPrimary){touch=null;return}if(event.pointerType!=='touch'||settings.current.paused||settings.current.secret||(event.target as Element|null)?.closest?.('.depth-topbar,.depth-toolbar,.depth-bottom,.ai-note,.ai-controls,input,select,textarea,[contenteditable=true]'))return;touch={x:event.clientX,y:event.clientY,time:event.timeStamp,committed:0,id:event.pointerId,axis:null}}
-  function moveTouch(event:PointerEvent){
-   if(!touch||event.pointerId!==touch.id)return;const x=touch.x-event.clientX,y=touch.y-event.clientY;
-   if(!touch.axis){if(Math.max(Math.abs(x),Math.abs(y))<28)return;touch.axis=Math.abs(x)>Math.abs(y)*1.15?'x':'y'}
-   if(touch.axis==='x'){if(!touch.committed){touch.committed=Math.sign(x);cycleVideos(touch.committed)}suppressClickUntil=event.timeStamp+400;return}
-   if(native||Math.abs(y)<28||Math.abs(y)<Math.abs(x))return;if(!touch.committed){touch.committed=Math.sign(y);advance(touch.committed)}suppressClickUntil=event.timeStamp+400;
+  let touch:{x:number;y:number;time:number;committed:number;id:number;axis?:GestureAxis}|null=null,suppressClick=false;
+  function down(event:PointerEvent){
+   suppressClick=false;
+   if(!event.isPrimary){touch=null;return}
+   if(event.pointerType!=='touch'||settings.current.paused||settings.current.secret||isScrollControl(event.target))return;
+   touch={x:event.clientX,y:event.clientY,time:event.timeStamp,committed:0,id:event.pointerId};
   }
-  function up(event:PointerEvent){if(!touch||touch.id!==event.pointerId)return;if(touch.axis==='x'){const steps=swipePages(touch.x-event.clientX,event.timeStamp-touch.time,width);if(steps)cycleVideos(steps-touch.committed);suppressClickUntil=event.timeStamp+400}else if(!native){const pages=swipePages(touch.y-event.clientY,event.timeStamp-touch.time,height);if(pages&&Math.sign(pages)===touch.committed)advance(pages-touch.committed);else if(!touch.committed)advance(pages)}touch=null}
-  const cancelTouch=()=>{touch=null},click=(event:MouseEvent)=>{if(event.timeStamp<suppressClickUntil){event.preventDefault();event.stopPropagation()}};
+  function moveTouch(event:PointerEvent){
+   if(!touch||event.pointerId!==touch.id||touch.committed)return;
+   const x=touch.x-event.clientX,y=touch.y-event.clientY;
+   touch.axis??=gestureAxis(x,y,28);
+   if(!touch.axis)return;
+   touch.committed=Math.sign(touch.axis==='x'?x:y);
+   suppressClick=true;
+   scroller!.setPointerCapture?.(touch.id);
+   (touch.axis==='x'?cycleVideos:advance)(touch.committed);
+  }
+  function up(event:PointerEvent){
+   if(!touch||touch.id!==event.pointerId)return;
+   const x=touch.x-event.clientX,y=touch.y-event.clientY;
+   const axis=touch.axis??gestureAxis(x,y,28,true);
+   if(axis){
+    const steps=swipePages(axis==='x'?x:y,event.timeStamp-touch.time,axis==='x'?width:height);
+    if(steps&&(!touch.committed||Math.sign(steps)===touch.committed)){
+     suppressClick=true;(axis==='x'?cycleVideos:advance)(steps-touch.committed);
+    }
+   }
+   touch=null;
+  }
+  const cancelTouch=()=>{touch=null},click=(event:MouseEvent)=>{if(suppressClick&&event.detail!==0){event.preventDefault();event.stopPropagation()}};
   navigate.current=(index:number)=>{
+   frameInput.cancelPending();
    const position=nativeController?nativeController.position:motion.position,dest=modulo(index,total),origin=modulo(position,total);
    let distance=dest-origin;if(distance>total/2)distance-=total;if(distance< -total/2)distance+=total;
    const target=Math.round(position+distance);
@@ -296,7 +334,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   window.addEventListener('keydown',dismiss);
   return()=>window.removeEventListener('keydown',dismiss);
  },[scrollGuideOpen,paused,secret]);
- useLayoutEffect(()=>{bindPlanes.current();wake.current()},[base,chapter,flight,paused,reduced,secret,performance.ready,performance.quality]);
+ useLayoutEffect(()=>{bindPlanes.current();wake.current()},[base,chapter,playChapter,flight,paused,reduced,secret,performance.ready,performance.quality]);
  const visible=[...new Set([modulo(base-1,total),modulo(base,total),modulo(base+1,total),...flight.map(index=>modulo(index,total))])];
  return <div ref={root} className={'journey depth-journey'+(reduced?' reduced-depth':'')} data-paused={paused||!!secret} data-ready={performance.ready} data-playing={playing&&!paused&&!secret} data-quality={performance.quality} data-theme={themes[section.theme]} data-category={section.category} data-art={section.art}>
   <div ref={scroll} className="depth-scroll" tabIndex={0} aria-label="Scroll through the portfolio in 3D" aria-describedby="orbit-navigation-help" onKeyDown={e=>{if(e.target!==e.currentTarget)return;if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();cycleVideos(e.key==='ArrowRight'?1:-1);return}if(['PageDown','ArrowDown',' '].includes(e.key)){e.preventDefault();navigate.current(current.current+1)}if(['PageUp','ArrowUp'].includes(e.key)){e.preventDefault();navigate.current(current.current-1)}if(e.key==='Home'){e.preventDefault();navigate.current(0)}}}>
@@ -305,7 +343,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
     <div className="depth-atmosphere" aria-hidden="true">{visible.map(index=><div key={sections[index].id} ref={el=>{if(el)backdropRefs.current.set(index,el);else backdropRefs.current.delete(index)}} className={'depth-backdrop backdrop-'+sections[index].art} style={{opacity:index===startIndex?1:0}}>{sections[index].category==='brands'?<CampaignBackdrop section={sections[index]} focus={campaignFocus[sections[index].id]} scenery={!mobile||performance.quality!=='simple'}/>:(!mobile||performance.quality!=='simple')&&<Scene art={sections[index].art}/>}</div>)}</div>
     <div className="depth-landscape" aria-hidden="true"><div className="depth-floor"/><div className="depth-horizon"/>{Array.from({length:8},(_,i)=><div className={'lowpoly-pillar pillar-'+i} key={i} style={{'--pillar':i} as CSSProperties}><i/><i/><i/></div>)}</div>
 
-    <div className="depth-worlds">{visible.map(index=><div ref={el=>{if(el)worldRefs.current.set(index,el);else worldRefs.current.delete(index)}} key={sections[index].id} className={'zoom-world zoom-tone-'+themes[sections[index].theme]+' zoom-layout-'+sections[index].layout} inert={index!==chapter} data-active={index===chapter} data-depth-index={index} data-section={sections[index].id} data-art={sections[index].art} aria-label={sections[index].title} style={{opacity:index===startIndex?1:0}}><div className="depth-portal" aria-hidden="true"/><MemoDepthWorld onCampaignFocus={onCampaignFocus} mobile={mobile} motion={motion} rotate={rotate&&!reduced} section={sections[index]} active={index===playChapter} autoplay={playing&&performance.mediaReady} compact={compact} paused={paused||!!secret} muted={muted} playing={playing} onProject={onProject} onDiscover={setSecret} onProcess={onProcess}/></div>)}</div>
+    <div className="depth-worlds">{visible.map(index=><div ref={el=>{if(el)worldRefs.current.set(index,el);else worldRefs.current.delete(index)}} key={sections[index].id} className={'zoom-world zoom-tone-'+themes[sections[index].theme]+' zoom-layout-'+sections[index].layout} inert={index!==chapter} data-active={index===chapter} data-depth-index={index} data-section={sections[index].id} data-art={sections[index].art} aria-label={sections[index].title} style={{opacity:index===startIndex?1:0}}><div className="depth-portal" aria-hidden="true"/><MemoDepthWorld onCampaignFocus={onCampaignFocus} mobile={mobile} motion={motion} rotate={rotate&&!reduced&&!guiding} section={sections[index]} active={index===playChapter} autoplay={playing&&performance.mediaReady} compact={compact} paused={paused||!!secret} muted={muted} playing={playing} onProject={onProject} onDiscover={setSecret} onProcess={onProcess}/></div>)}</div>
   <div className="depth-topbar" ref={topbar}><nav aria-label="Portfolio categories">
    <AIAccess onClick={()=>skipTo('ai')}/>
    <AIAccess destination="campaigns" onClick={()=>skipTo('brands')}/>
@@ -319,9 +357,9 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
    </button></div>{mobile?<span className="depth-scroll-hint">Scroll to explore <i aria-hidden="true">↓</i></span>:<button className="depth-next-category depth-scroll-hint" onClick={()=>navigate.current(sections.findIndex(s=>s.category===nextCategory.id))} aria-label={'Explore '+nextCategory.label}><span>Next up</span><strong>{nextCategory.label}</strong><i aria-hidden="true">↗</i></button>}<div><button className="orbit-step" aria-label="Previous video on this page" title="Previous video · swipe left/right" disabled={!performance.ready||cycleCount<2} onClick={()=>cycleVideos(-1)}>‹</button><button className="orbit-step orbit-step-next" aria-label="Next video on this page" title="Next video · swipe left/right" disabled={!performance.ready||cycleCount<2} onClick={()=>cycleVideos(1)}>›</button><button onClick={()=>setRotate(!rotate)} aria-pressed={rotate}>{rotate?'Rotation on':'Rotation off'}</button><button onClick={()=>setMuted(!muted)} aria-pressed={!muted}>{muted?'Sound off':'Sound on'}</button>{mobile&&<button onClick={performance.toggleAutoplay} aria-pressed={!playing}>{playing?'Pause films':'Play films'}</button>}</div></div></div>
    </div></div></div>
   </div>
-  <ExploreOpening bar={topbar} available={opening} mobile={mobile} enabled={!paused&&!reduced}/>
+  <ExploreOpening bar={topbar} available={opening} mobile={mobile} enabled={!paused&&!reduced} onActiveChange={setOpeningVisible}/>
   <CreativeProcess ready={performance.ready} paused={paused||!!secret} reduced={reduced}/>
-  <ScrollGuide root={root} mobile={mobile} open={scrollGuideOpen&&!paused&&!secret} onClose={closeGuide} reduced={reduced} automatic={performance.ready&&section.id==='selected-0'&&!paused&&!secret&&!playing&&!reduced&&!scrollGuideOpen}/>
+  <ScrollGuide root={root} mobile={mobile} onPagePreview={showPagePreview} onActiveChange={setGuiding} open={scrollGuideOpen&&!paused&&!secret} onClose={closeGuide} reduced={reduced} entry={guideEntry} automatic={performance.ready&&!openingVisible&&!paused&&!secret&&!playing}/>
   {secret&&!paused&&<Suspense fallback={null}><SecretPlayer project={secret} kind={['aperture','film','ticket','window','frame','aperture'][section.theme]} onClose={()=>setSecret(null)} onOpen={()=>{setSecret(null);onProject(secret)}}/></Suspense>}
  </div>;
 }

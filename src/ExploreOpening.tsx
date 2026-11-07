@@ -7,11 +7,12 @@ const frameOptions:KeyframeAnimationOptions={duration,fill:'both'};
 const closeEase='cubic-bezier(.42,.06,.25,1)';
 const fold=.34,settle=.88;
 
-export default function ExploreOpening({bar,available,enabled,mobile}:{
+export default function ExploreOpening({bar,available,enabled,mobile,onActiveChange}:{
  bar:RefObject<HTMLDivElement|null>;
  available?:{current:boolean};
  enabled:boolean;
  mobile:boolean;
+ onActiveChange:(active:boolean)=>void;
 }){
  useEffect(()=>{
   if(!enabled||!available?.current||mobile!==matchMedia(mobileLayout).matches||typeof Element.prototype.animate!=='function')return;
@@ -28,7 +29,11 @@ export default function ExploreOpening({bar,available,enabled,mobile}:{
   function dismiss(){
    events.abort();
    cancelAnimationFrame(frame);
-   layer?.remove();
+   if(layer){
+    layer.remove();
+    layer=undefined;
+    onActiveChange(false);
+   }
    for(const animation of animations)animation.cancel();
   }
   function interrupt(){
@@ -80,6 +85,7 @@ export default function ExploreOpening({bar,available,enabled,mobile}:{
    });
    layer.append(surface,grid);
    document.body.append(layer);
+   onActiveChange(true);
    const {width,height}=layer.getBoundingClientRect();
    const origins=tiles.map(tile=>tile.getBoundingClientRect());
 
@@ -119,7 +125,7 @@ export default function ExploreOpening({bar,available,enabled,mobile}:{
    collapse.onfinish=dismiss;
   });
   return dismiss;
- },[available,bar,enabled,mobile]);
+ },[available,bar,enabled,mobile,onActiveChange]);
 
  return null;
 }

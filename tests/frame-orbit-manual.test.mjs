@@ -22,7 +22,11 @@ function fixture(t,{automatic=false,reduced=false}={}){
  }
  const cards=Array.from({length:4},(_,i)=>{const body={filter:'none',querySelector:()=>null,animate:(frames,options)=>new Motion(frames,options),querySelectorAll:()=>[]};return {dataset:{film:'p'+i},slot:i,offsetLeft:i*100,offsetTop:0,offsetWidth:i?100:300,offsetHeight:100,rotate:'0deg',animate:(frames,options)=>new Motion(frames,options),querySelector:()=>body,classList:{contains:name=>name==='slot-0'&&cards[i].slot===0}}});
  const world={dataset:{},dispatchEvent(){}};gallery.closest=()=>world;gallery.querySelector=selector=>selector===':focus-visible'?null:{};gallery.querySelectorAll=()=>cards;
- Object.assign(globalThis,{window:win,document:doc,performance:{now:()=>Date.now()},getComputedStyle:e=>({rotate:e.rotate||'0deg',filter:e.filter||'none',zIndex:String(e.slot===0?40:15)}),orbitLiveFixture:h});
+ Object.assign(globalThis,{window:win,document:doc,performance:{now:()=>Date.now()},getComputedStyle:e=>({
+  left:e.slot===0?'0.25px':'auto',top:'0.5px',width:e.slot===0?'300.75px':'100.125px',
+  transformOrigin:e.slot===0?'150.375px 120px':'50.0625px 68px',rotate:e.slot===0?'-2deg':'3deg',
+  filter:e.slot===0?'blur(0px)':'blur(1px)',zIndex:String(e.slot===0?40:15),
+ }),orbitLiveFixture:h});
  function render(){h.index=0;h.dirty=false;h.layout=[];h.effects=[];h.api=useFrameOrbit(4,h.enabled,h.motion,false,h.automatic);cards.forEach((c,i)=>{c.slot=((i-h.api.turn)%4+4)%4;c.offsetLeft=c.slot*100;c.offsetWidth=c.slot?100:300});h.layout.forEach(fn=>fn());h.effects.forEach(fn=>fn())}
  const flush=()=>{let guard=0;while(h.dirty){assert.ok(++guard<20);render()}};
  render();flush();
@@ -31,7 +35,7 @@ function fixture(t,{automatic=false,reduced=false}={}){
  const request=step=>{h.api.advance(step);flush()};
  const tick=ms=>{t.mock.timers.tick(ms);flush()};
  t.after(()=>{h.hooks.forEach(v=>v?.cleanup?.());for(const [name,descriptor] of Object.entries(saved))descriptor?Object.defineProperty(globalThis,name,descriptor):delete globalThis[name]});
- return {h,doc,win,request,tick,finish,flush,microtasks,render};
+ return {h,doc,win,world,request,tick,finish,flush,microtasks,render};
 }
 test('manual browsing works with idle rotation off and hands media over only at rest',async t=>{
  const {h,request,finish,tick}=fixture(t);request(1);assert.equal(h.api.turn,1);assert.equal(h.api.settledTurn,0);assert.ok(h.animations.every(a=>a.options.duration===700));
@@ -62,6 +66,24 @@ test('overlapping frames keep their old stack until the media handoff',async t=>
  assert.ok(outgoing.frames.every(frame=>frame.transform.includes('rotateY(')));
  await finish();
  assert.equal(h.gallery.dataset.orbiting,undefined);
+});
+test('the orbit interpolates rendered frame widths while preserving their unscaled edges',async t=>{
+ const {h,request,finish,world}=fixture(t);
+ request(1);
+ const outgoing=h.animations.find(animation=>animation.frames[0].width==='300.75px');
+ const incoming=h.animations.find(animation=>animation.frames[1]?.width==='300.75px');
+ assert.deepEqual(outgoing.frames.map(({left,top,width,rotate})=>({left,top,width,rotate})),[
+  {left:'0.25px',top:'0.5px',width:'300.75px',rotate:'-2deg'},
+  {left:'300px',top:'0.5px',width:'100.125px',rotate:'3deg'},
+ ]);
+ assert.deepEqual(incoming.frames.map(({width,maxWidth,bottom})=>({width,maxWidth,bottom})),[
+  {width:'100.125px',maxWidth:'300.75px',bottom:'auto'},
+  {width:'300.75px',maxWidth:'300.75px',bottom:'auto'},
+ ]);
+ assert.ok(h.animations.flatMap(a=>a.frames).every(frame=>!frame.transform?.includes('scale(')));
+ assert.equal(world.dataset.layoutVersion,undefined,'The scene keeps its cached geometry during the orbit');
+ await finish();
+ assert.equal(world.dataset.layoutVersion,'1');
 });
 test('manual reverse browsing wraps safely',async t=>{const {h,request,finish}=fixture(t);request(-1);assert.equal(h.api.turn,3);await finish();assert.equal(h.api.settledTurn,3)});
 test('reduced-motion browsing changes the video without starting motion effects',async t=>{const {h,request,microtasks}=fixture(t,{reduced:true});request(1);await microtasks();assert.equal(h.animations.length,0);assert.equal(h.api.settledTurn,1)});

@@ -7,7 +7,7 @@ const compile=file=>ts.transpileModule(readFileSync(new URL(file,import.meta.url
 const data=source=>'data:text/javascript;base64,'+Buffer.from(source).toString('base64');
 const paging=data(compile('../src/scenePaging.ts'));
 const stub=`
-import {ScenePager,swipePages} from '${paging}';
+import {gestureAxis,ScenePager,swipePages} from '${paging}';
 import {sceneIndex} from '${data(compile('../src/sceneLinks.ts'))}';
 const f=()=>globalThis.mobileFixture;
 const depsSame=(a,b)=>a&&b&&a.length===b.length&&a.every((v,i)=>Object.is(v,b[i]));
@@ -17,7 +17,7 @@ const useMemo=(fn,deps)=>{const h=f(),i=h.index++,old=h.hooks[i];if(!old||!depsS
 const effect=(fn,deps,layout)=>{const h=f(),i=h.index++,old=h.hooks[i];if(!old||!depsSame(old.deps,deps)){h.hooks[i]={deps,cleanup:old?.cleanup};h[layout?'layout':'effects'].push(()=>{h.hooks[i].cleanup?.();h.hooks[i].cleanup=fn()})}};
 const useEffect=(fn,deps)=>effect(fn,deps,false),useLayoutEffect=(fn,deps)=>effect(fn,deps,true);
 const _jsx=(type,props,key)=>({type,props,key}),_jsxs=_jsx;
-const memo=x=>x,useCallback=x=>x,lazy=()=>()=>null,Suspense=()=>null;
+const useId=()=>':glove:',memo=x=>x,useCallback=(fn,deps)=>useMemo(()=>fn,deps),lazy=()=>()=>null,Suspense=()=>null;
 const empty=()=>null;
 const BrandControls=empty,ResultsRibbon=empty,JourneyPlayer=empty,ExpandCue=empty,KineticName=empty,KineticType=empty,SceneAccents=empty,ClientMarquee=empty,PosterType=empty,KineticCopy=empty,Scene=empty,PlaybackToggle=empty,CreativeProcess=empty,AIAccess=empty;
 const asset=x=>x,previewAsset=x=>x,previewSrcSet=()=>'',href=()=>'/work/',projectPath=x=>'/work/'+x,platformLabel=()=> 'YouTube',brandFor=()=> 'Brand';
@@ -25,7 +25,8 @@ const showcase=[{id:'p0',title:'Project 0'}],positioning={eyebrow:'Creative prod
 const portfolioCategories=[{id:'selected',label:'Highlights'},{id:'trailers',label:'Film'}];
 const buildSections=()=>f().sections,usePerformance=()=>f().performance,listenMedia=()=>()=>{};
 const NativeSceneScroll=class{constructor(){throw new Error('Desktop scroll controller used on mobile')}};
-const FrameWheelInput=class{destroy(){}};
+const FrameWheelInput=class{cancelPending(){} destroy(){}};
+const isScrollControl=()=>false;
 const NativeSceneAnimator={supported:()=>false};
 const isAIWork=()=>false,leastFeaturedAI='',campaignFor=()=>undefined,CampaignTile=empty,CampaignControls=empty,ScrollGuide=empty,ExploreOpening=empty;
 `;
@@ -94,6 +95,43 @@ test('filtering from a later mobile chapter to one collection never renders a mi
 test('left/right mobile swipes browse the current videos without changing pages',t=>{const {h,horizontal,swipe}=fixture(t);horizontal();visible(h,0);horizontal(-90);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1},{page:0,step:-1}]);swipe();visible(h,1);horizontal();assert.deepEqual(h.orbitSteps.at(-1),{page:1,step:1});visible(h,1)});
 test('a horizontal diagonal stays horizontal and suppresses the following video click',t=>{const f=fixture(t),{h,pointer,tick}=f;const start=f.clock;pointer('pointerdown',450,start,310);pointer('pointermove',420,start+90,210);pointer('pointerup',420,start+150,210);const click=new Event('click',{cancelable:true});Object.defineProperty(click,'timeStamp',{value:start+170});h.scroller.dispatchEvent(click);assert.equal(click.defaultPrevented,true);tick(1600);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1}])});
 test('a vertical diagonal cannot turn into horizontal browsing halfway through',t=>{const f=fixture(t),{h,pointer,tick}=f;const start=f.clock;pointer('pointerdown',600,start,250);pointer('pointermove',550,start+60,245);pointer('pointermove',540,start+100,160);pointer('pointerup',540,start+200,160);tick(1600);visible(h,1);assert.deepEqual(h.orbitSteps,[])});
+test('a short near-diagonal resolves on release and the following tap stays available',t=>{
+ const f=fixture(t),{h,pointer,tick}=f,start=f.clock;
+ pointer('pointerdown',500,start,240);
+ pointer('pointermove',471,start+60,209);
+ pointer('pointerup',471,start+100,209);
+ pointer('pointerdown',471,start+135,209);
+ pointer('pointerup',471,start+165,209);
+ const click=new Event('click',{cancelable:true});h.scroller.dispatchEvent(click);
+ assert.equal(click.defaultPrevented,false);
+ tick(900);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1}]);
+});
+test('a video swipe queued during a page reversal is delivered when the original page settles',t=>{
+ const f=fixture(t),{h,pointer,tick}=f;
+ function gesture(dx,dy){
+  const now=f.clock;
+  pointer('pointerdown',500,now,250);
+  pointer('pointermove',500-dy,now+16,250-dx);
+  pointer('pointerup',500-dy,now+22,250-dx);
+ }
+ gesture(0,90);tick(64);gesture(0,-90);tick(32);gesture(90,0);
+ assert.deepEqual(h.orbitSteps,[]);
+ tick(900);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1}]);
+});
+test('a guide page preview moves the actual canvas without committing a route',t=>{
+ const {h,tick}=fixture(t,'scene-3');
+ function preview(node){
+  if(Array.isArray(node))return node.map(preview).find(Boolean);
+  if(node?.props)return node.props.onPagePreview||preview(node.props.children);
+ }
+ const nudge=preview(h.tree),active=h.worlds.find(w=>w.p['data-active']).el;
+ const initial=active.style.transform;
+ nudge(.38);tick(32);
+ assert.notEqual(active.style.transform,initial);
+ assert.equal(Number(h.root.dataset.position),3);
+ assert.deepEqual(h.published,['scene-3']);
+ nudge(0);tick(32);assert.equal(active.style.transform,initial);visible(h,3);
+});
 test('locked mobile stylesheet retains the approved source blocks',()=>{
  const css=readFileSync(new URL('../src/mobile-locked.css',import.meta.url),'utf8');
  const baselines={"mobile-focus.css": "f689a421a5ee6fed6cfafbc961b3a6299aae955351409f5b76b709b8c04a2135", "creative-refinements.css": "eb959ef12300c7289e428007964db323c652a9ccf65c425b0b51e1f6a198cbfb", "adaptive-performance.css": "28d6ace22cbf028d25cf5cc180560037614e58b931ef16a7aacd0af2819d778d"};
@@ -109,44 +147,117 @@ test('mobile opens a linked scene and publishes only the settled vertical destin
 });
 
 
-test('the animated scroll guide survives a tap and yields to real navigation input',async t=>{
+test('the glove leads two partial moves, yields to input and replays on a new linked scene',async t=>{
  const component=compile('../src/ScrollGuide.tsx').replace(/^import .*;\n/gm,'');
  const {default:Guide}=await import(data(stub.replace(',ScrollGuide=empty','')+component));
- const names=['mobileFixture','window','document','sessionStorage','setTimeout','clearTimeout'];
- const saved=Object.fromEntries(names.map(name=>[name,Object.getOwnPropertyDescriptor(globalThis,name)]));
- const h={index:0,hooks:[],effects:[],layout:[]},timers=new Map(),storage=new Map();
- const box={left:0,right:390,top:0,bottom:700,width:390,height:700};
- const root=Object.assign(new EventTarget(),{
-  querySelector:selector=>['.depth-stage','.depth-bottom'].includes(selector)?{getBoundingClientRect:()=>box}:null,
-  getBoundingClientRect:()=>box,
- });
+ const h={index:0,hooks:[],effects:[],layout:[],dirty:false},frames=new Map(),pages=[],effects=[],active=[];
+ const box={left:0,top:0,width:390,height:740};
+ const cue=new Node(),focus={
+  getBoundingClientRect:()=>({left:75,top:210,width:240,height:140}),
+  animate:(keyframes)=>{const effect={keyframes,pause(){},cancel(){this.cancelled=true}};effects.push(effect);return effect},
+ };
+ const gallery={querySelector:selector=>selector.startsWith('.slot-0')?focus:null};
+ const root=Object.assign(new EventTarget(),{getBoundingClientRect:()=>box,querySelector:()=>gallery});
  const doc=Object.assign(new EventTarget(),{hidden:false});
- let timer=0;
- const globals={mobileFixture:h,window:new EventTarget(),document:doc,sessionStorage:{getItem:key=>storage.get(key),setItem:(key,value)=>storage.set(key,value)},setTimeout:callback=>{timers.set(++timer,callback);return timer},clearTimeout:id=>timers.delete(id)};
+ let id=0;
+ const globals={mobileFixture:h,window:new EventTarget(),document:doc,sessionStorage:{getItem:()=> '1'},
+  requestAnimationFrame:callback=>{frames.set(++id,callback);return id},cancelAnimationFrame:n=>frames.delete(n),
+ };
+ const saved=Object.fromEntries(Object.keys(globals).map(name=>[name,Object.getOwnPropertyDescriptor(globalThis,name)]));
  Object.entries(globals).forEach(([name,value])=>Object.defineProperty(globalThis,name,{value,writable:true,configurable:true}));
  t.after(()=>{h.hooks.forEach(value=>value?.cleanup?.());for(const [name,desc] of Object.entries(saved))desc?Object.defineProperty(globalThis,name,desc):delete globalThis[name]});
- const props={root:{current:root},mobile:false,automatic:true,open:false,reduced:false,onClose:()=>{}};
+ const props={root:{current:root},mobile:true,entry:{current:true},automatic:false,open:false,reduced:false,onClose:()=>{},onActiveChange:value=>active.push(value),onPagePreview:amount=>pages.push(amount)};
  function render(){
-  h.index=0;h.layout=[];h.effects=[];
-  const view=Guide(props);
-  h.layout.forEach(effect=>effect());h.effects.forEach(effect=>effect());
+  let view;
+  do{
+   Object.assign(h,{index:0,layout:[],effects:[],dirty:false});
+   view=Guide(props);
+   if(view)view.props.ref.current=cue;
+   h.layout.forEach(effect=>effect());h.effects.forEach(effect=>effect());
+  }while(h.dirty);
   return view;
  }
+ function sample(time){const callbacks=[...frames.values()];frames.clear();callbacks.forEach(fn=>fn(time));}
  assert.equal(render(),null);
- assert.equal(timers.size,1);
- root.dispatchEvent(new Event('pointerdown'));
- assert.equal(timers.size,1,'An incidental tap left the preview scheduled');
- const [id,begin]=[...timers.entries()][0];
- timers.delete(id);begin();
- render();
+ assert.equal(props.entry.current,true,'The guide waits for the opening');
+ props.automatic=true;
  assert.equal(render().props['data-preview'],true);
+ sample(0);sample(1030);
+ assert.equal(cue.dataset.axis,'exhibit');
+ assert.equal(effects[0].currentTime,1000);
+ assert.equal(cue.style['--guide-contact'],'1');
+ sample(3030);
+ assert.equal(cue.dataset.axis,'page');
+ assert.equal(effects[0].currentTime,0);
+ assert.equal(pages.at(-1),.38);
  const wheel=new Event('wheel',{cancelable:true});
  Object.defineProperty(wheel,'deltaY',{value:100});
  root.dispatchEvent(wheel);
  assert.equal(wheel.defaultPrevented,false);
+ assert.equal(pages.at(-1),0);
+ assert.equal(effects[0].cancelled,true);
+ assert.deepEqual(active,[true,false]);
  assert.equal(render(),null);
- assert.equal(timers.size,0);
- props.automatic=false;
+ assert.equal(frames.size,0);
+ assert.equal(render(),null,'Changing the scene in the same visit does not replay the guide');
  props.open=true;
  assert.equal(render().props['data-preview'],false,'Manual replay remains available');
+ h.hooks.forEach(value=>value?.cleanup?.());
+ h.hooks=[];props.open=false;props.entry={current:true};doc.hidden=true;
+ assert.equal(render(),null,'A newly linked scene waits while its tab is hidden');
+ doc.hidden=false;doc.dispatchEvent(new Event('visibilitychange'));
+ assert.equal(render().props['data-preview'],true,'A fresh scene shows the guide despite the old session flag');
+});
+
+test('mobile shared videos close into Explore and in-site videos use their return history',async t=>{
+ const source=compile('../src/App.tsx').replace(/^import .*;\n/gm,'').replaceAll('import.meta.env.BASE_URL',"'/'");
+ const appStub=stub.replace('import {sceneIndex}', 'import {sceneIndex,scenePath,sceneId}')
+  .replace("href=()=>'/work/'", "href=(path='')=>'/'+path.replace(/^\\//,'')")+ `
+ const _Fragment=Symbol(),Universe=empty,OverviewTop=empty,ProjectReach=empty;
+ const projects=[{id:'clip',title:'Clip',category:'ai',provider:'youtube'}],categories=[],campaignAssets=[],campaignProjects=[];
+ const site={title:'Portfolio'},artSequence={ai:['liquid']},campaignFamilyFor=empty,collaboratorFor=empty;
+ const initialExperience=path=>path==='/'?'fun':'normal',mobileLayout='phone';
+ const useVideoConsent=()=>({prompt:false});
+ class Component{}
+ `;
+ const {default:App}=await import(data(appStub+source));
+ const h={index:0,hooks:[],layout:[],effects:[],dirty:false,performance:{ready:true,quality:'balanced'}};
+ const document={documentElement:{dataset:{}},querySelector:()=>null};
+ const history={state:null,backs:0,replaceState(state,_,path){this.state=state;globalThis.location=new URL(path,location)},pushState(state,_,path){this.replaceState(state,_,path)},back(){this.backs++}};
+ const globals={mobileFixture:h,document,history,window:new EventTarget(),location:new URL('https://example.test/work/clip/'),matchMedia:query=>({matches:query==='phone'})};
+ const saved=Object.fromEntries(Object.keys(globals).map(name=>[name,Object.getOwnPropertyDescriptor(globalThis,name)]));
+ for(const [name,value] of Object.entries(globals))Object.defineProperty(globalThis,name,{value,writable:true,configurable:true});
+ const reset=()=>{h.hooks.forEach(value=>value?.cleanup?.());h.hooks=[];};
+ t.after(()=>{reset();for(const [name,desc] of Object.entries(saved))desc?Object.defineProperty(globalThis,name,desc):delete globalThis[name]});
+ function render(initialPath){
+  let tree,renders=0;
+  do{
+   assert.ok(++renders<10);
+   Object.assign(h,{index:0,layout:[],effects:[],dirty:false});
+   tree=App({initialPath});
+   h.effects.forEach(effect=>effect());
+  }while(h.dirty);
+  return tree;
+ }
+ function find(node,predicate){
+  if(!node||typeof node!=='object')return;
+  if(Array.isArray(node))return node.map(child=>find(child,predicate)).find(Boolean);
+  return predicate(node.props)?node:find(node.props.children,predicate);
+ }
+ const overlay=tree=>find(tree,p=>p?.className?.includes('project-overlay'));
+ overlay(render('/work/clip/')).props.onClose();
+ const explore=render('/work/clip/');
+ assert.equal(location.pathname,'/');
+ assert.equal(document.documentElement.dataset.mode,'fun');
+ assert.equal(overlay(explore),undefined);
+ assert.equal(history.backs,0);
+ find(explore,p=>p?.guideEntry).props.onProject({id:'clip',title:'Clip',category:'ai',provider:'youtube'});
+ overlay(render('/work/clip/')).props.onClose();
+ assert.equal(history.backs,1,'An in-site overlay still returns to its previous entry');
+
+ reset();
+ history.replaceState({},'','/explore/ai-0/');
+ const direct=find(render('/explore/ai-0/'),p=>p?.guideEntry).props;
+ assert.equal(direct.initialScene,'ai-0');
+ assert.equal(direct.guideEntry.current,true,'A fresh deep link has a pending guide');
 });

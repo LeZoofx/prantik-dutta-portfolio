@@ -70,13 +70,16 @@ export default function App({initialPath}:{initialPath:string}){
  const experience=mode;
  const campaignReturn=useRef<Project|undefined>(undefined);
  const opening=useRef(experienceFor(route(initialPath))==='fun');
+ const guideEntry=useRef(false);
  const settledScene=useRef(sceneId(route(initialPath)));
  const previousPath=useRef(campaignFor(projectFor(initialPath)?.id||'')?'/brands':'/work');
  
  useEffect(()=>{
   const phone=matchMedia(mobileLayout);const syncPhone=()=>setMobile(phone.matches);syncPhone();const stopPhone=listenMedia(phone,syncPhone);
   const mq=matchMedia('(prefers-reduced-motion: reduce)');const sync=()=>setReduced(mq.matches);sync();const stopMotion=listenMedia(mq,sync);
-  setMode(experienceFor(route(initialPath),new URLSearchParams(location.search).get('mode')));
+  const entryMode=experienceFor(route(initialPath),new URLSearchParams(location.search).get('mode'));
+  guideEntry.current=entryMode==='fun'&&!projectFor(initialPath);
+  setMode(entryMode);
   const pop=()=>{
    const p=route(location.pathname),project=projectFor(p),context=project?history.state?.contextPath:undefined;
    const from=project&&history.state?.from?projectFor(history.state.from):undefined;
@@ -101,6 +104,7 @@ export default function App({initialPath}:{initialPath:string}){
  useEffect(()=>{document.title=selected?(selected.caseTitle??selected.title)+' — '+site.title:site.title},[selected]);
  function setExperience(v:'normal'|'fun'){
   opening.current=false;
+  guideEntry.current=false;
   setMode(v);setPanel(null);
   const u=new URL(location.href);
   if(v==='normal'){
@@ -126,6 +130,12 @@ export default function App({initialPath}:{initialPath:string}){
  }
  function closeProject(){
   if(history.state?.portfolio&&history.state.from){history.back();return}
+  const video=selected&&(selected.videoSource||['youtube','instagram','drive'].includes(selected.provider));
+  if(mobile&&video){
+   setSelected(undefined);setPath('/');setFilter('all');setMode('fun');
+   history.replaceState({},'',href());
+   return;
+  }
   const destination=previousPath.current;
   setSelected(undefined);setPath(destination);setFilter(categoryFor(destination));
   history.replaceState({},'',href(destination+'/')+(experience==='fun'?'?mode=fun':''));
@@ -150,7 +160,7 @@ export default function App({initialPath}:{initialPath:string}){
  {(isHome||path==='/about')&&<About/>}{(isHome||path==='/contact')&&<Contact motionPaused={manualReduced} onMotionChange={()=>setManualReduced(v=>!v)}/>}
  {path==='/showreel'&&<section className="simple-page"><p className="mono">SHOWREEL</p><h1>A new cut<br/>is on its way.</h1><p>Explore the individual projects in the meantime.</p><a className="solid-button" href={href('work/')} onClick={e=>navigate(e,'work')}>See the work ↗</a></section>}
  {path==='/404'&&<section className="simple-page"><p className="mono">404 / FRAME NOT FOUND</p><h1>Back to<br/>the work.</h1><a href={href('work/')} className="solid-button">Work index ↗</a></section>}
- </main>:<main id="main" className="fun-main"><SceneBoundary fallback={<div className="scene-loading"><p>Prantik Dutta’s portfolio</p><button onClick={()=>setExperience('normal')}>Explore the work ↗</button></div>}><Universe key={path} opening={opening} initialScene={sceneId(path)} onSceneSettled={publishScene} mobile={mobile} header={mobile?null:header} onProcess={()=>setPanel('process')} projects={projects} onProject={openProject} onIndex={()=>setPanel('index')} paused={!!selected||!!panel||privacy.prompt} reduced={reduced}/></SceneBoundary></main>}
+ </main>:<main id="main" className="fun-main"><SceneBoundary fallback={<div className="scene-loading"><p>Prantik Dutta’s portfolio</p><button onClick={()=>setExperience('normal')}>Explore the work ↗</button></div>}><Universe key={path} opening={opening} guideEntry={guideEntry} initialScene={sceneId(path)} onSceneSettled={publishScene} mobile={mobile} header={mobile?null:header} onProcess={()=>setPanel('process')} projects={projects} onProject={openProject} onIndex={()=>setPanel('index')} paused={!!selected||!!panel||privacy.prompt} reduced={reduced}/></SceneBoundary></main>}
  {experience==='normal'&&<><footer className="footer"><span>© {new Date().getFullYear()} PRANTIK DUTTA</span><span>CREATIVE DIRECTION / PRODUCTION / POST</span></footer><OverviewTop/></>}
  {selected&&<Overlay key={campaignReturn.current||campaignFor(selected.id)?selected.id:undefined} closeLabel={campaignReturn.current?'Back to collection':'Close'} title={(brandFor(selected)||label(selected.category))} onClose={closeProject} className={'project-overlay'+(campaignFor(selected.id)?' campaign-overlay':'')}><article data-art={campaignFamilyFor(selected.id)?.art||artSequence[selected.category][0]}><h1 className="project-title"><KineticType text={selected.caseTitle??selected.title} variant={2}/></h1>{selected.caseTitle&&<p className="project-source-title">{selected.title}</p>}{campaignFor(selected.id)?<CampaignDetail campaign={campaignFor(selected.id)!} onProject={openProject}/>:<><Media p={selected}/><ProjectReach id={selected.id}/>{(selected.description||selected.role||selected.disclosure||collaboratorFor(selected))&&<div className="project-notes">
  {selected.description&&<div><p className="mono">ABOUT THE PROJECT</p><p><KineticCopy text={selected.description}/></p></div>}

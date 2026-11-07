@@ -4,6 +4,15 @@ export function nativeSnapPage(position:number,count:number){
 }
 export function recenterPage(page:number,total:number){return total+((page%total)+total)%total}
 
+export type GestureAxis='x'|'y';
+export function gestureAxis(x:number,y:number,threshold:number,finish=false):GestureAxis|undefined{
+ const ax=Math.abs(x),ay=Math.abs(y),major=Math.max(ax,ay);
+ if(major<threshold)return;
+ // Let an ambiguous start develop, then choose one axis even at 45 degrees.
+ if(!finish&&major<threshold*1.5&&major<Math.min(ax,ay)*1.15)return;
+ return ax>ay?'x':'y';
+}
+
 // Page transactions never depend on the duration of a wheel stream or on an easing epsilon.
 export class ScenePager {
  position:number;target:number;

@@ -1,125 +1,155 @@
-import {useEffect,useLayoutEffect,useRef,useState,type RefObject} from 'react';
+import {useCallback,useEffect,useId,useLayoutEffect,useRef,useState,type RefObject} from 'react';
 import './scroll-guide.css';
 
-const previewSeen='portfolio-gesture-guide-v3-seen';
-const previewDuration=5400;
+const beatLength=2000;
 const navigationKeys=new Set(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','PageUp','PageDown','Home',' ']);
+const ease=(from:number,to:number,time:number)=>{
+ const t=Math.max(0,Math.min(1,(time-from)/(to-from)));
+ return t*t*(3-2*t);
+};
 
-function rememberPreview(){
- try{sessionStorage.setItem(previewSeen,'1')}catch{}
+function Glove(){
+ const shade=useId();
+ return <svg className="guide-glove" viewBox="0 0 54 61" aria-hidden="true">
+  <defs><linearGradient id={shade} x1="0" y1="0" x2="1" y2="1">
+   <stop stopColor="#fffef1"/><stop offset=".52" stopColor="#ececdf"/><stop offset="1" stopColor="#9aaea8"/>
+  </linearGradient></defs>
+  <path d="M17 52c-2-3-3-8-5-12L5 29c-3-5 2-9 6-6l7 7V9c0-7 10-8 10-1v15c3-5 9-4 10 0 4-4 9-2 9 3 4-1 6 2 5 7l-3 12c-1 4-3 6-7 9Z"
+   fill={`url(#${shade})`} stroke="#354945" strokeWidth="1.8" strokeLinejoin="round"/>
+  <path d="m17 49 26 2 1 7-27 1Z" fill="#abc8bc" stroke="#354945" strokeWidth="1.8" strokeLinejoin="round"/>
+  <path d="M21 12v12m8 6-1 9m8-11-2 10m8-9-2 8M15 32c5 2 7 6 8 10" fill="none" stroke="#7f938a" strokeWidth="1.45" strokeLinecap="round"/>
+ </svg>;
 }
 
-export default function ScrollGuide({root,mobile,automatic,open,reduced,onClose}:{
+export default function ScrollGuide({root,mobile,automatic,entry,open,reduced,onClose,onPagePreview,onActiveChange}:{
  root:RefObject<HTMLDivElement|null>;
  mobile:boolean;
  automatic:boolean;
+ entry?:{current:boolean};
  open:boolean;
  reduced:boolean;
  onClose:()=>void;
+ onPagePreview:(amount:number)=>void;
+ onActiveChange:(active:boolean)=>void;
 }){
  const [preview,setPreview]=useState(false);
- const [position,setPosition]=useState<{left:number;top:number;width:number}|null>(null);
- const used=useRef(false);
- const timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
+ const layer=useRef<HTMLElement>(null);
+ const stopDemo=useRef(()=>{});
  const visible=open||(automatic&&preview);
+ const close=useCallback(()=>{
+  stopDemo.current();
+  if(entry)entry.current=false;
+  setPreview(false);
+  if(open)onClose();
+ },[entry,onClose,open]);
 
  useEffect(()=>{
-  if(open){used.current=true;rememberPreview();}
-  if(!automatic){setPreview(false);return;}
-  if(used.current)return;
-  try{if(sessionStorage.getItem(previewSeen)){used.current=true;return;}}catch{}
-  function prepare(){
-   if(used.current)return;
-   clearTimeout(timer.current);
-   if(document.hidden)return;
-   timer.current=setTimeout(()=>{
-    if(used.current||document.hidden)return;
-    used.current=true;
-    rememberPreview();
-    setPreview(true);
-    timer.current=setTimeout(()=>setPreview(false),previewDuration);
-   },1600);
+  if(open||!automatic){
+   if(open&&entry)entry.current=false;
+   setPreview(false);
+   return;
   }
-  prepare();
-  document.addEventListener('visibilitychange',prepare);
-  return()=>{
-   clearTimeout(timer.current);
-   document.removeEventListener('visibilitychange',prepare);
-  };
- },[automatic,open]);
+  if(!entry?.current)return;
+  function show(){
+   if(!entry?.current||document.hidden)return;
+   entry.current=false;
+   setPreview(true);
+  }
+  show();
+  document.addEventListener('visibilitychange',show);
+  return()=>document.removeEventListener('visibilitychange',show);
+ },[automatic,entry,open]);
 
  useEffect(()=>{
   const container=root.current;
-  if(!container||(!open&&(!automatic||(used.current&&!preview))))return;
+  if(!container||(!visible&&!entry?.current))return;
   const abort=new AbortController();
   const options={capture:true,passive:true,signal:abort.signal};
-  let start:{id:number;x:number;y:number}|undefined;
-  function dismiss(){
-   clearTimeout(timer.current);
-   used.current=true;
-   rememberPreview();
-   setPreview(false);
-   if(open)onClose();
-   abort.abort();
-  }
+  const interrupt=()=>{close();abort.abort()};
   container.addEventListener('wheel',event=>{
-   if(!event.ctrlKey&&!event.metaKey&&(event.deltaX||event.deltaY))dismiss();
+   if(!event.ctrlKey&&!event.metaKey&&(event.deltaX||event.deltaY))interrupt();
   },options);
   container.addEventListener('pointerdown',event=>{
-   start=event.isPrimary&&event.pointerType==='touch'?{id:event.pointerId,x:event.clientX,y:event.clientY}:undefined;
-  },options);
-  container.addEventListener('pointermove',event=>{
-   if(start?.id===event.pointerId&&Math.max(Math.abs(event.clientX-start.x),Math.abs(event.clientY-start.y))>=24)dismiss();
-  },options);
-  container.addEventListener('pointerup',()=>{start=undefined;},options);
-  container.addEventListener('pointercancel',()=>{start=undefined;},options);
-  container.addEventListener('keydown',event=>{
-   if(navigationKeys.has(event.key)&&event.target===container.querySelector('.depth-scroll'))dismiss();
+   if(!(event.target as Element|null)?.closest?.('.scroll-guide-toggle'))interrupt();
   },options);
   container.addEventListener('click',event=>{
-   const control=(event.target as Element|null)?.closest?.('.depth-topbar button, .depth-index, .depth-navigation button');
-   if(control&&!control.classList.contains('scroll-guide-toggle'))dismiss();
+   const control=(event.target as Element|null)?.closest?.('.depth-topbar button,.depth-index,.depth-navigation button');
+   if(control&&!control.classList.contains('scroll-guide-toggle'))interrupt();
   },options);
+  window.addEventListener('keydown',event=>{
+   if(event.key==='Escape'||navigationKeys.has(event.key)&&event.target===container.querySelector('.depth-scroll'))interrupt();
+  },options);
+  window.addEventListener('resize',interrupt,options);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden&&visible)interrupt()},options);
   return()=>abort.abort();
- },[automatic,onClose,open,preview,root]);
+ },[close,entry,root,visible]);
 
  useLayoutEffect(()=>{
-  if(!visible)return;
-  const container=root.current;
-  const stage=container?.querySelector('.depth-stage');
-  if(!container||!stage)return;
-  const gallery=container.querySelector('.zoom-world[data-active=true] .depth-gallery');
-  const footer=container.querySelector('.depth-bottom');
-  function measure(){
-   const bounds=container!.getBoundingClientRect(),area=(gallery||stage)!.getBoundingClientRect();
-   const width=Math.max(0,Math.min(286,bounds.width-24));
-   const left=Math.max(width/2+12,Math.min(bounds.width-width/2-12,area.left-bounds.left+area.width/2));
-   const y=area.top-bounds.top+area.height*.58;
-   const bottom=(footer?.getBoundingClientRect().top??bounds.bottom)-bounds.top;
-   const top=Math.min(Math.max(y,90),Math.max(90,bottom-50));
-   setPosition({left,top,width});
+  const container=root.current,cue=layer.current;
+  const gallery=container?.querySelector<HTMLElement>('.zoom-world[data-active=true] .depth-gallery');
+  const focal=gallery?.querySelector<HTMLElement>('.slot-0 .depth-film-frame');
+  if(!visible||!container||!cue)return;
+  const bounds=container.getBoundingClientRect(),frame=focal?.getBoundingClientRect()??bounds;
+  const x=Math.max(110,Math.min(bounds.width-76,frame.left-bounds.left+frame.width*.59));
+  const y=Math.max(54,Math.min(bounds.height-120,frame.top-bounds.top+frame.height*.68));
+  const dragX=Math.min(96,bounds.width*.18,x-76),dragY=Math.min(94,bounds.height*.15);
+  const next=gallery?.querySelector<HTMLElement>('.slot-1');
+  const focus=gallery?.querySelector<HTMLElement>('.slot-0');
+  const cardEffects:Animation[]=[];
+  if(!reduced&&focus?.animate){
+   const options:KeyframeAnimationOptions={duration:1000,fill:'both'};
+   cardEffects.push(focus.animate([{translate:'0px 0px'},{translate:`-${dragX}px 0px`}],options));
+   if(next){
+    const side=next.getBoundingClientRect();
+    const approach=Math.max(-dragX,Math.min(dragX,(frame.left+frame.width/2-side.left-side.width/2)*.32));
+    cardEffects.push(next.animate([{translate:'0px 0px',scale:'1'},{translate:`${approach}px 0px`,scale:'1.08'}],options));
+   }
+   for(const effect of cardEffects){effect.pause();effect.currentTime=0}
   }
-  measure();
-  const observer=typeof ResizeObserver==='function'?new ResizeObserver(measure):undefined;
-  for(const element of [container,stage,gallery,footer])if(element)observer?.observe(element);
-  window.addEventListener('resize',measure);
-  return()=>{observer?.disconnect();window.removeEventListener('resize',measure);};
- },[root,mobile,visible]);
 
- if(!visible||!position)return null;
- return <aside id="explore-scroll-guide" className="scroll-guide" data-preview={!open}
-  data-reduced={reduced} key={open?'manual':'preview'} style={position} aria-label="Explore scroll guide">
-  <p>{mobile?'Swipe over the videos':'Scroll over the videos'}</p>
-  <div className="scroll-guide-cue" data-axis="horizontal">
-   <span className="scroll-guide-arrow" aria-hidden="true">↔</span>
-   <span className="scroll-guide-reel" aria-hidden="true"><span><i/><i/><i/><i/></span></span>
-   <span><b>{mobile?'Swipe sideways':'Scroll sideways'}</b><small>Browse videos</small></span>
+  let animation=0,start:number|undefined,playing=true,lastPage=0;
+  onActiveChange(true);
+  function stop(){
+   if(!playing)return;
+   playing=false;
+   cancelAnimationFrame(animation);
+   cardEffects.forEach(effect=>effect.cancel());
+   if(lastPage)onPagePreview(0);
+   onActiveChange(false);
+  }
+  stopDemo.current=stop;
+  function draw(now:number){
+   start??=now;
+   const elapsed=now-start;
+   if(elapsed>=beatLength*2){close();return}
+   const page=elapsed>=beatLength,time=elapsed%beatLength;
+   const drag=reduced?0:ease(430,1030,time)-ease(1220,1650,time);
+   const enter=reduced?1:ease(0,380,time),leave=reduced?0:ease(1670,1980,time);
+   const contact=reduced?1:ease(320,460,time)-ease(1280,1550,time);
+   const handX=x+(page?0:-dragX*drag)+(1-enter)*(page?28:bounds.width-x+60);
+   const handY=y-(page?dragY*drag:0)+(1-enter)*(page?bounds.height-y+60:24)+18*leave;
+   cue!.dataset.axis=page?'page':'exhibit';
+   cue!.style.setProperty('--guide-tip-x',handX+'px');
+   cue!.style.setProperty('--guide-tip-y',handY+'px');
+   cue!.style.setProperty('--guide-visible',String(enter*(1-leave)));
+   cue!.style.setProperty('--guide-contact',String(contact*(1-leave)));
+   for(const effect of cardEffects)effect.currentTime=page?0:drag*1000;
+   const amount=page?drag*.38:0;
+   if(amount!==lastPage){lastPage=amount;onPagePreview(amount)}
+   animation=requestAnimationFrame(draw);
+  }
+  animation=requestAnimationFrame(draw);
+  return stop;
+ },[close,onActiveChange,onPagePreview,reduced,root,visible]);
+
+ if(!visible)return null;
+ return <aside ref={layer} id="explore-scroll-guide" className="scroll-guide" data-preview={!open} data-axis="exhibit" aria-label="Explore scroll guide">
+  <div className="guide-contact" aria-hidden="true"/>
+  <div className="guide-pointer" aria-hidden="true"><Glove/></div>
+  <div className="guide-label" aria-hidden="true">
+   <span className="guide-exhibit"><b>↔</b> Next exhibit</span>
+   <span className="guide-page"><b>↕</b> Next page</span>
   </div>
-  <div className="scroll-guide-cue" data-axis="vertical">
-   <span className="scroll-guide-arrow" aria-hidden="true">↕</span>
-   <span className="scroll-guide-reel" aria-hidden="true"><span><i/><i/></span></span>
-   <span><b>{mobile?'Swipe up or down':'Scroll up or down'}</b><small>Change pages</small></span>
-  </div>
-  {!mobile&&<small className="scroll-guide-wheel">Shift + wheel also browses videos</small>}
+  <p className="sr-only">{mobile?'Swipe':'Scroll'} left or right over the videos for the next exhibit. {mobile?'Swipe':'Scroll'} up or down for the next page.</p>
  </aside>;
 }

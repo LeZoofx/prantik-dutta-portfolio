@@ -1,26 +1,16 @@
 import {useEffect,useLayoutEffect,useRef,useState} from 'react';
 import type {JourneyMotion} from './journeyData';
-type Box={x:number;y:number;width:number;height:number;frameTop:number;angle:number;filter:string;stack:string;front:boolean};
+type Box={x:number;y:number;width:number;angle:string;origin:string;filter:string;stack:string;front:boolean};
 
 function measureCard(card:HTMLElement,body:HTMLElement):Box{
  const style=getComputedStyle(card);
- let frameTop=0;
- for(let node=body.querySelector<HTMLElement>('.depth-film-frame');node&&node!==body;node=node.offsetParent as HTMLElement|null){
-  frameTop+=node.offsetTop;
- }
- return {x:card.offsetLeft,y:card.offsetTop,width:card.offsetWidth,height:card.offsetHeight,frameTop,
-  angle:parseFloat(style.rotate)||0,filter:getComputedStyle(body).filter,stack:style.zIndex==='auto'?'0':style.zIndex,front:card.classList.contains('slot-0')};
-}
-
-function rotatePoint(x:number,y:number,angle:number){
- const radians=angle*Math.PI/180,c=Math.cos(radians),s=Math.sin(radians);
- return {x:x*c-y*s,y:x*s+y*c};
-}
-
-function mediaOrigin(box:Box){
- const cx=box.width/2,cy=box.height/2;
- const rotated=rotatePoint(-cx,box.frameTop-cy,box.angle);
- return {x:box.x+cx+rotated.x,y:box.y+cy+rotated.y};
+ return {
+  x:style.left.endsWith('px')?parseFloat(style.left):card.offsetLeft,
+  y:style.top.endsWith('px')?parseFloat(style.top):card.offsetTop,
+  width:parseFloat(style.width)||card.offsetWidth,
+  angle:style.rotate==='none'?'0deg':style.rotate,origin:style.transformOrigin,
+  filter:getComputedStyle(body).filter,stack:style.zIndex==='auto'?'0':style.zIndex,front:card.classList.contains('slot-0')
+ };
 }
 export default function useFrameOrbit(count:number,enabled:boolean,motion:JourneyMotion,playing=false,automatic=true){
  const gallery=useRef<HTMLDivElement>(null),[turn,setTurn]=useState(0),[settledTurn,setSettledTurn]=useState(0),before=useRef(new Map<string,Box>()),animations=useRef<Animation[]>([]),duration=useRef(2200),request=useRef<(step:number)=>void>(()=>{});
@@ -85,20 +75,21 @@ export default function useFrameOrbit(count:number,enabled:boolean,motion:Journe
   animations.current=[];
   for(const {card,body,old,next} of targets){
    if(!old||!body?.animate||!old.width||!next.width||motion.reduced)continue;
-   const scale=old.width/next.width,rotation=old.angle-next.angle;
-   const from=mediaOrigin(old),to=mediaOrigin(next);
-   const shift=rotatePoint(from.x-to.x,from.y-to.y,-next.angle);
-   const rotatedTop=rotatePoint(0,next.frameTop*scale,rotation);
-   const dx=shift.x-rotatedTop.x,dy=shift.y+next.frameTop-rotatedTop.y;
    const handoff=old.front!==next.front;
    const direction=Math.sign(next.x-old.x)||1;
 
-   // Align the rotated media edge on frame one, then carry it through the depth arc.
+   // Resize the actual frame at its native aspect ratio. Scaling a finished
+   // frame would also scale its fixed insets, corners and screen crop.
+   const maxWidth=Math.max(old.width,next.width)+'px';
+   animations.current.push(card.animate([old,next].map(box=>({
+    left:box.x+'px',top:box.y+'px',width:box.width+'px',maxWidth,right:'auto',bottom:'auto',
+    rotate:box.angle,transformOrigin:box.origin,
+   })),options));
    const poses=[0,.23,crossing,.79,1].map(progress=>{
-    const arc=progress===1?0:Math.sin(Math.PI*progress),rest=1-progress;
-    const x=dx*rest+direction*14*arc,y=dy*rest-24*arc;
+    const arc=progress===1?0:Math.sin(Math.PI*progress);
+    const x=direction*14*arc,y=-24*arc;
     const z=(next.front?36:old.front?-38:-20)*arc,tilt=(next.front?-7:7)*direction*arc;
-    return {offset:progress,transform:`translate3d(${x}px,${y}px,${z}px) rotateY(${tilt}deg) rotateZ(${rotation*rest}deg) scale(${1+(scale-1)*rest})`};
+    return {offset:progress,transform:`translate3d(${x}px,${y}px,${z}px) rotateY(${tilt}deg)`};
    });
    animations.current.push(body.animate(poses.map((pose,index)=>({
     ...pose,
@@ -126,14 +117,18 @@ export default function useFrameOrbit(count:number,enabled:boolean,motion:Journe
      {opacity:0,transform:`translateX(${direction*5}px)`},
     ],options));
    }
-   body.querySelectorAll<HTMLElement>('.depth-film-label,.depth-caption,.frame-expand-cue').forEach(label=>{
-    animations.current.push(label.animate([{transform:`scale(${1/scale})`},{transform:'scale(1)'}],options));
-   });
   }
-  const world=el.closest<HTMLElement>('.zoom-world');if(world){world.dataset.layoutVersion=String(turn);world.dispatchEvent(new Event('portfolio-layout',{bubbles:true}))}
   el.dataset.orbitTurn=String(turn);const group=animations.current;
   // Media changes follow actual animation completion, including any tab/scroll pause.
-  Promise.all(group.map(a=>a.finished)).then(()=>{if(animations.current!==group)return;setSettledTurn(turn);el.dataset.orbitSettled=String(turn);group.forEach(a=>a.cancel());seamCards.forEach(card=>delete card.dataset.orbitSeam);delete el.dataset.orbiting;animations.current=[];el.dispatchEvent(new Event('portfolio-orbit-rest'))}).catch(()=>{});
+  Promise.all(group.map(a=>a.finished)).then(()=>{
+   if(animations.current!==group)return;
+   setSettledTurn(turn);el.dataset.orbitSettled=String(turn);
+   group.forEach(a=>a.cancel());seamCards.forEach(card=>delete card.dataset.orbitSeam);
+   delete el.dataset.orbiting;animations.current=[];
+   const world=el.closest<HTMLElement>('.zoom-world');
+   if(world){world.dataset.layoutVersion=String(turn);world.dispatchEvent(new Event('portfolio-layout',{bubbles:true}))}
+   el.dispatchEvent(new Event('portfolio-orbit-rest'));
+  }).catch(()=>{});
   if(document.hidden||motion.scrolling||!enabled)group.forEach(a=>a.pause());
   before.current.clear();
  },[turn]);

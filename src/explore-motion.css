@@ -1,8 +1,8 @@
+.depth-journey[data-native=true] .depth-scroll {touch-action: pinch-zoom;}
 .depth-journey .zoom-world .depth-film-body {
  transition: filter 250ms ease-out;
 }
 .depth-journey .zoom-world .depth-gallery[data-orbiting] .depth-film .depth-film-body {
- filter: blur(var(--card-blur, 0px)) brightness(var(--frame-light, 1));
  transition: none;
 }
 .depth-film[data-orbit-seam] :is(.depth-media-surface, .campaign-tile) {

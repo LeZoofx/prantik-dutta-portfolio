@@ -5,7 +5,8 @@ import ts from 'typescript';
 const moduleURL=(file,replace=s=>s)=>'data:text/javascript;base64,'+Buffer.from(replace(ts.transpileModule(readFileSync(new URL(file,import.meta.url),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2020,module:ts.ModuleKind.ES2022}}).outputText)).toString('base64');
 const paging=moduleURL('../src/scenePaging.ts'),intent=moduleURL('../src/WheelSceneIntent.ts'),transition=moduleURL('../src/SceneTransition.ts');
 const wheel=new URL('../node_modules/wheel-gestures/dist/wheel-gestures.esm.js',import.meta.url).href;
-const {NativeSceneScroll}=await import(moduleURL('../src/NativeSceneScroll.ts',s=>s.replace("'./scenePaging'",JSON.stringify(paging)).replace("'./WheelSceneIntent'",JSON.stringify(intent)).replace("'./SceneTransition'",JSON.stringify(transition)).replace("'wheel-gestures'",JSON.stringify(wheel))));
+const {NativeSceneScroll}=await import(moduleURL('../src/NativeSceneScroll.ts',s=>s.replace("'./scenePaging'",JSON.stringify(paging)).replace("'./SceneTransition'",JSON.stringify(transition))));
+const {FrameWheelInput}=await import(moduleURL('../src/FrameWheelInput.ts',s=>s.replace("'./scenePaging'",JSON.stringify(paging)).replace("'./WheelSceneIntent'",JSON.stringify(intent)).replace("'wheel-gestures'",JSON.stringify(wheel))));
 const {SceneTransition}=await import(transition);
 const recorded=name=>JSON.parse(readFileSync(new URL('../node_modules/wheel-gestures/src/test/fixtures/'+name+'.json',import.meta.url))).wheelEvents;
 function fixture(t){
@@ -23,12 +24,13 @@ function fixture(t){
  }
  const scroller=new Scroller(),motion=[],destinations=[];
  const controller=new NativeSceneScroll({scroller,root:{dataset:{},style:{setProperty(){}}},total:15,reduced:()=>false,paused:()=>false,moving:v=>motion.push(v),invalidate(){},prepare:(from,to)=>destinations.push(to)});
+ const input=new FrameWheelInput({scroller,step:()=>{},page:n=>controller.advance(n),paused:()=>false});
  controller.resize();scroller.calls=[];
- t.after(()=>{controller.destroy();Object.assign(globalThis,saved)});
+ t.after(()=>{input.destroy();controller.destroy();Object.assign(globalThis,saved)});
  const tick=ms=>{for(let left=ms;left>0;left-=Math.min(16,left))t.mock.timers.tick(Math.min(16,left))};
  const tail=()=>{for(const deltaY of [120,100,82,65,50,38,30,23,17,12,8,6,4,3]){tick(16);scroller.wheel({deltaY})}};
  const replay=events=>{let previous=events[0].timeStamp;for(const event of events){tick(Math.max(0,Math.round(event.timeStamp-previous)));previous=event.timeStamp;scroller.wheel({...event,timeStamp:Date.now()})}tick(1000)};
- return {scroller,controller,motion,destinations,tick,tail,replay,doc};
+ return {scroller,controller,input,motion,destinations,tick,tail,replay,doc};
 }
 test('recorded normal trackpad gestures and momentum tails land on exactly one page',t=>{
  const {scroller,controller,destinations,replay}=fixture(t);const events=recorded('swipe-down-trackpad'),direction=Math.sign(events.find(e=>e.deltaY).deltaY);replay(events);
@@ -87,7 +89,7 @@ test('explicit native momentum cannot turn into navigation',t=>{
  assert.equal(controller.position,1);assert.deepEqual(destinations,[1]);
 });
 test('a freeze cancels deferred intent and motion',t=>{
- const {scroller,controller,tick,destinations}=fixture(t);scroller.wheel({deltaY:120});controller.freeze();tick(1000);
+ const {scroller,controller,input,tick,destinations}=fixture(t);scroller.wheel({deltaY:120});input.cancelPending();controller.freeze();tick(1000);
  assert.equal(controller.position,0);assert.equal(controller.moving,false);assert.deepEqual(destinations,[]);
 });
 test('manual partial scroll snaps to the nearest page without an extra gesture',t=>{

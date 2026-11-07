@@ -71,10 +71,21 @@ test('visible previews represent separate subgroups and retain original video so
  assert.deepEqual(campaignPreviews(cocoa).map(p=>p.id),['social-05','social-08','social-18','social-07']);
  for(const c of campaigns)for(const p of campaignItems(c)){const original=projects.find(x=>x.id===p.id);if(original)assert.equal(p.sourceUrl,original.sourceUrl)}
 });
+test('campaign reels and short ads appear once in Short form and keep their collections',()=>{
+ const ids=new Set(campaigns.flatMap(campaign=>campaignItems(campaign).map(project=>project.id)));
+ const expected=projects.filter(project=>ids.has(project.id)&&project.category==='brands'&&['instagram','youtube'].includes(project.provider));
+ assert.equal(expected.length,27);
+ for(const size of [3,6]){
+  const shortForm=buildSections(projects,'curated','all',size).filter(scene=>scene.category==='short-form').flatMap(scene=>scene.items);
+  for(const project of expected)assert.equal(shortForm.filter(item=>item.id===project.id).length,1,project.id);
+  const bumble=buildSections(projects,'curated','Bumble',size).filter(scene=>scene.category==='short-form').flatMap(scene=>scene.items.map(project=>project.id));
+  assert.deepEqual(bumble,['brands-20','brands-21']);
+ }
+});
 test('non-campaign chapters preserve layouts, art and themes with the requested video placements',()=>{
  const baseline=JSON.parse(readFileSync('tests/fixtures/non-campaign-sections.json','utf8'));
  const legacy=new Set(projects.filter(p=>!p.addedToPortfolio||p.id==='ai-original-ad').map(p=>p.id));
- for(const size of [3,6])assert.deepEqual(buildSections(projects,'curated','all',size).filter(s=>s.category!=='brands').map(s=>({...s,items:s.items.filter(p=>legacy.has(p.id))})).filter(s=>s.items.length).map(s=>({id:s.id,layout:s.layout,art:s.art,theme:s.theme,items:s.items.map(p=>p.id)})),baseline[size]);
+ for(const size of [3,6])assert.deepEqual(buildSections(projects,'curated','all',size).filter(s=>s.category!=='brands').map(s=>({...s,items:s.items.filter(p=>legacy.has(p.id)&&(s.category!=='short-form'||p.category!=='brands'))})).filter(s=>s.items.length).map(s=>({id:s.id,layout:s.layout,art:s.art,theme:s.theme,items:s.items.map(p=>p.id)})),baseline[size]);
 });
 test('broken references cannot pass publication validation',()=>{
  const c=structuredClone(campaigns);c[0].sections[0].projectIds.push('missing-source');

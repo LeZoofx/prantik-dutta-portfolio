@@ -85,7 +85,7 @@ test('campaign reels and short ads appear once in Short form and keep their coll
 test('non-campaign chapters preserve layouts, art and themes with the requested video placements',()=>{
  const baseline=JSON.parse(readFileSync('tests/fixtures/non-campaign-sections.json','utf8'));
  const legacy=new Set(projects.filter(p=>!p.addedToPortfolio||p.id==='ai-original-ad').map(p=>p.id));
- for(const size of [3,6])assert.deepEqual(buildSections(projects,'curated','all',size).filter(s=>s.category!=='brands').map(s=>({...s,items:s.items.filter(p=>legacy.has(p.id)&&(s.category!=='short-form'||p.category!=='brands'))})).filter(s=>s.items.length).map(s=>({id:s.id,layout:s.layout,art:s.art,theme:s.theme,items:s.items.map(p=>p.id)})),baseline[size]);
+ for(const size of [3,6])assert.deepEqual(buildSections(projects,'curated','all',size).filter(s=>s.category!=='brands'&&s.category!=='ai').map(s=>({...s,items:s.items.filter(p=>legacy.has(p.id)&&(s.category!=='short-form'||p.category!=='brands'))})).filter(s=>s.items.length).map(s=>({id:s.id,layout:s.layout,art:s.art,theme:s.theme,items:s.items.map(p=>p.id)})),baseline[size].filter(s=>!s.id.startsWith('ai-')));
 });
 test('broken references cannot pass publication validation',()=>{
  const c=structuredClone(campaigns);c[0].sections[0].projectIds.push('missing-source');

@@ -1519,5 +1519,39 @@
     "description": "My original AI ad for my advertising services, told through a comic story set around the Leaning Tower of Pisa.",
     "duration": 131.2,
     "addedToPortfolio": true
+  },
+  {
+    "id": "ai-kofuku-strangers-email",
+    "title": "Kofuku — The Stranger’s Email",
+    "caseTitle": "Building a health brand around the kindness of strangers",
+    "category": "ai",
+    "provider": "drive",
+    "sourceUrl": "https://drive.google.com/file/d/1NemkybxpmeJIqqbul9A4r5byEMoAGC02/view",
+    "videoSource": "video/ai-kofuku-strangers-email.mp4",
+    "poster": "media/ai-kofuku-strangers-email.webp",
+    "aspect": 0.5625,
+    "description": "An 18-second animated campaign demo for Kofuku, built around the true story of news anchor Victoria Price and a viewer’s email. I researched nine documented cases and the opening patterns of health and educational channels to shape the hook. A stranger’s warning becomes a gesture of care, then a conversation on Kofuku. A continuous illustrated camera move and a carefully timed introduction of the brand’s cyan carry the story into the product. Part of a two-film campaign I took from brand research to finished films in three days.",
+    "role": "Brand breakdown, audience and competitor research, story selection, hook and retention structure, script, art and animation direction, AI production, compositing, brand end slate, edit and sound.",
+    "disclosure": "AI-assisted illustrated animation with controlled character continuity, camera movement and scene transitions. Brand typography and the end slate were assembled separately for precision.",
+    "duration": 18.368,
+    "addedToPortfolio": true,
+    "order": 117
+  },
+  {
+    "id": "ai-kofuku-the-report",
+    "title": "Kofuku — The Report",
+    "caseTitle": "Making a health brand the place people finally get heard",
+    "category": "ai",
+    "provider": "drive",
+    "sourceUrl": "https://drive.google.com/file/d/1Lkt2wghWAe9l_deHcb1PSb-9G4CQ4xVc/view",
+    "videoSource": "video/ai-kofuku-the-report.mp4",
+    "poster": "media/ai-kofuku-the-report.webp",
+    "aspect": 0.5625,
+    "description": "A 50-second Hindi campaign demo for Kofuku. A man leaves a consultation with a report and a question, only to find that everyone around him has an answer and nobody lets him ask. Each adviser takes the same place in frame, turning the match cuts into an escalating Indian comedy. His silence holds the question until Kofuku gives him somewhere to put it. I mapped the cast to the alternatives people turn to for health advice, then directed 16 AI characters across 13 shots with matched eyelines, regional dialogue and photographic environments. Both Kofuku films were researched, written, produced, edited and mixed by me in three days.",
+    "role": "Brand strategy, audience and competitor research, concept, script, casting and performance direction, photorealistic AI production, character continuity, Hindi voice and lip-sync direction, compositing, match-cut editing, brand end slate and sound design.",
+    "disclosure": "Photorealistic AI-generated performances and environments, with Hindi dialogue, lip-sync, compositing and edit repairs. The photographic look is generated. The brand end slate combines animation and code.",
+    "duration": 50.496,
+    "addedToPortfolio": true,
+    "order": 118
   }
 ]

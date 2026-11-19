@@ -338,5 +338,29 @@
         "detail": "An independent AI advertising film for Prantik Dutta’s advertising services."
       }
     ]
+  },
+  "ai-kofuku-strangers-email": {
+    "label": "Research-led AI animation",
+    "description": "A true story developed into a continuous animated campaign film, from research and the opening hook through illustration, motion, brand integration, edit and sound.",
+    "cues": [
+      {
+        "start": 0,
+        "kind": "ai",
+        "title": "Research-led AI animation",
+        "detail": "Story research, script, art direction and controlled AI animation. Character continuity and continuous scene movement carry the viewer into Kofuku’s brand world."
+      }
+    ]
+  },
+  "ai-kofuku-the-report": {
+    "label": "Photorealistic AI advertising",
+    "description": "A Hindi comedy directed around a brand insight, with 16 consistent AI characters, regional dialogue and matched compositions across 13 shots.",
+    "cues": [
+      {
+        "start": 0,
+        "kind": "ai",
+        "title": "Photorealistic AI advertising",
+        "detail": "Concept, script and direction through AI-generated performances and environments, Hindi lip-sync, compositing, match-cut editing, sound and the brand end slate."
+      }
+    ]
   }
 }

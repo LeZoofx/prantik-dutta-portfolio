@@ -30,7 +30,7 @@ test('AI adds one desktop scene; existing scenes retain their order, layouts and
  }
 });
 test('AI hierarchy features the original ad first and preserves the requested ordering, without duplicating archive records',()=>{
- assert.deepEqual(collection.slice(0,5),['ai-original-ad','ai-sheldon','ai-eric-schiffer','social-short-format-02','social-short-format-01']);
+ assert.deepEqual(collection.slice(0,7),['ai-original-ad','ai-kofuku-strangers-email','ai-kofuku-the-report','ai-sheldon','ai-eric-schiffer','social-short-format-02','social-short-format-01']);
  assert.deepEqual(collection.slice(-3),['ai-character-motion','social-short-format-03','social-short-format-11']);
  assert.equal(new Set(collection).size,collection.length);
  for(const id of collection){assert.equal(projects.filter(p=>p.id===id).length,1);assert.ok(annotations[id])}

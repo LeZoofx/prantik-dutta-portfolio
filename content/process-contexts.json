@@ -560,7 +560,8 @@
         "detail": "My work on the Jaquar trilogy connects creative treatment and scripting to generated product scenarios, a photoreal character, compositing and editing. The breakdown identifies where that work appears; the intervening passage supplies context. The task is to make the treatment hold together across the three pieces.",
         "evidence": []
       }
-    ]
+    ],
+    "label": "Jaquar"
   },
   "viewing-habits": {
     "campaigns": [],
@@ -578,7 +579,8 @@
         "detail": "My contribution here is the AI motion graphics illustrating an explainer about Netflix, Instagram and viewing habits. The images give the spoken point something concrete to show. This project is presented for that visual contribution.",
         "evidence": []
       }
-    ]
+    ],
+    "label": "Netflix / Instagram"
   },
   "partition": {
     "campaigns": [],
@@ -596,7 +598,8 @@
         "detail": "The Morning One Nation was Split uses AI-generated shots and characters for a photoreal dramatization of Partition. The work makes the historical premise visible through people and their surroundings, with the generated image carrying the scene rather than functioning as a separate technical demonstration.",
         "evidence": []
       }
-    ]
+    ],
+    "label": "Independent film"
   },
   "performance-test": {
     "campaigns": [],
@@ -614,7 +617,8 @@
         "detail": "This piece tests how natural an AI-recreated performance can feel. Lip-sync is part of a moving face and a performance, so the useful comparison is the whole passage. A convincing single frame cannot establish that the timing and expression work through the shot.",
         "evidence": []
       }
-    ]
+    ],
+    "label": "AI performance"
   },
   "character-motion": {
     "campaigns": [],
@@ -632,6 +636,7 @@
         "detail": "This project brings my AI character generation and motion graphics together. The character needs to remain readable while moving; the motion is part of how the performance reaches the viewer. The work is shown for those contributions.",
         "evidence": []
       }
-    ]
+    ],
+    "label": "AI character & motion"
   }
 }

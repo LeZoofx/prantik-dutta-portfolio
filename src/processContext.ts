@@ -1,10 +1,11 @@
 import steps from '../content/creative-process.json';
 import profiles from '../content/process-contexts.json';
 import campaigns from '../content/campaigns.json';
+import artefacts from '../content/process-artefacts.json';
 import type {PortfolioSection} from './portfolioSections';
 
 export type ProcessStep=typeof steps[number]&{baseId?:string;preview?:string;projectIds?:string[];contextTitle?:string};
-type Profile={campaigns:string[];projects:string[];cards:{base:string;title:string;lines:string[];detail:string;evidence:string[]}[]};
+type Profile={label?:string;campaigns:string[];projects:string[];cards:{base:string;title:string;lines:string[];detail:string;evidence:string[]}[]};
 const catalogue=profiles as Record<string,Profile>;
 
 // Match the actual page lineup, including campaign collections and brand filters.
@@ -23,7 +24,7 @@ export function processForPage(section?:PortfolioSection,focusedCampaignId?:stri
  }
  const cards:ProcessStep[]=[];
  for(const [key,projects] of matches){
-  const names=[...new Set(projects.flatMap(p=>{
+  const names=catalogue[key].label||[...new Set(projects.flatMap(p=>{
    const campaign=campaigns.find(c=>c.id===p.id||c.sections.some(s=>s.projectIds.includes(p.id)));
    return campaign?[campaign.brand]:key==='kofuku'?['Kofuku']:key==='pisa'?['My original AI film']:[p.caseTitle||p.title];
   }))].join(' / ');
@@ -39,4 +40,35 @@ export function processForPage(section?:PortfolioSection,focusedCampaignId?:stri
   cards.push({...base,id:'project-'+project.id,baseId:base.id,title:project.caseTitle||project.title,lines:campaign?campaign.scope.slice(0,2):[project.description,project.role,project.disclosure].filter((line):line is string=>!!line).slice(0,2),detail:campaign?[campaign.summary,...campaign.scope].join(' '):[project.description,project.role].filter(Boolean).join(' '),brand:campaign?.brand||'On this page',artifact:'Explore this project',evidence:campaign?.evidence||[],preview:project.poster,projectIds:[project.id]});
  }
  return cards;
+}
+
+export type ProcessArtefact=typeof artefacts[number];
+export type ProcessEntry=ProcessStep&{expanded?:ProcessStep[];compact?:boolean;artifactIds?:string[];showThumbnail?:boolean};
+const artefactPriority=(kind:string)=>/Character|Storyboard|Editorial board|Animation direction|Visual direction/.test(kind)?0:/deck/.test(kind)?2:1;
+export const artefactsForProjects=(ids:string[]=[])=>artefacts.filter(a=>a.projectIds.some(id=>ids.includes(id))).sort((a,b)=>artefactPriority(a.kind)-artefactPriority(b.kind));
+export const artefactById=(id:string)=>artefacts.find(a=>a.id===id);
+// One concise introduction per visible video/collection. Deeper themes are
+// withheld until the first reading pass is complete, without repeating copies.
+export function processPagePlan(section?:PortfolioSection){
+ if(!section)return {primary:steps as ProcessEntry[],additional:[] as ProcessEntry[]};
+ const primary:ProcessEntry[]=[],additional:ProcessEntry[]=[];
+ const used=new Set<string>();
+ const pick=(ids:string[],count:number)=>{const available=artefactsForProjects(ids).filter(a=>!used.has(a.id));const chosen=available.slice(0,count);chosen.forEach(a=>used.add(a.id));return chosen.map(a=>a.id)};
+ const deeper=new Map<string,ProcessEntry>();
+ for(const item of section.items){
+  const detail=processForPage({...section,items:[item]});
+  const first=detail[0];if(!first)continue;
+  const campaign=campaigns.find(c=>c.id===item.id);
+  const intro=campaign?.summary||item.description||item.disclosure||'';
+  const role=campaign?.scope.slice(0,2).join(' · ')||item.role;
+  primary.push({...first,id:'intro-'+item.id,title:item.caseTitle||item.title,lines:[intro,role].filter((s):s is string=>!!s),detail:intro||first.detail,evidence:[...new Set(detail.flatMap(c=>c.evidence))],preview:item.poster,projectIds:[item.id],expanded:detail,compact:true,showThumbnail:true,artifactIds:pick([item.id],2)});
+  for(const card of detail.slice(1)){
+   const key=card.id+':'+card.brand;
+   const existing=deeper.get(key);
+   if(existing)existing.projectIds=[...new Set([...(existing.projectIds||[]),item.id])];
+   else deeper.set(key,{...card,projectIds:[item.id],expanded:detail,compact:true});
+  }
+ }
+ for(const entry of deeper.values())additional.push({...entry,preview:undefined,showThumbnail:false,artifactIds:pick(entry.projectIds||[],2)});
+ return {primary,additional};
 }

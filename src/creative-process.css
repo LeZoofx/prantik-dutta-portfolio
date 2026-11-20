@@ -172,3 +172,26 @@
 /* The rail keeps its existing footprint; only the page context changes. */
 .process-library-button{min-height:26px;padding:3px 5px;border:1px solid #b9d2d24d;border-radius:5px;color:#d2e2de;font:inherit;white-space:nowrap}
 .process-related-projects{display:grid;gap:8px;margin:18px 0 24px}.process-related-projects a{font:12px/1.5 Arial,sans-serif;text-underline-offset:4px}
+
+/* One continuous page stream. Compact entries open into the complete record. */
+.process-track{position:relative;transform:none!important;will-change:auto}
+.process-run{min-height:var(--process-view-height,200px)}
+.process-run[data-current-page]{padding-bottom:22px}
+.process-scroller{scrollbar-gutter:stable}
+.process-compact-card{padding:13px 0 14px}
+.process-compact-card h3{font-size:clamp(19px,1.7vw,27px);line-height:1.13;margin:9px 0 7px;text-wrap:pretty}
+.process-compact-card .process-card-index{font-size:8px;align-items:start}
+.process-compact-card .process-card-index>span:last-child{margin-left:0;font-size:inherit;text-transform:none}
+.process-compact-card .process-card-lines{font:10px/1.5 Arial,sans-serif;gap:5px;margin-bottom:9px}
+.process-compact-card .process-card-lines span:first-child{font-size:inherit;color:inherit}
+.process-compact-card .process-proof{display:flex;align-items:center;gap:8px;padding:5px}
+.process-compact-card .process-proof img{width:65px;height:40px;flex:0 0 65px;object-fit:cover}
+.process-compact-card .process-proof>span{display:flex;gap:4px;align-items:center;padding:0;font:9px/1.4 Arial,sans-serif}
+.process-compact-card .process-proof i{display:inline;font:inherit;margin:0}
+.process-more{display:block;width:100%;min-height:35px;border-bottom:1px solid #b9d2d24d;color:#b9d5d0;font:9px/1.4 Mono,monospace}
+.process-expanded-sections{margin:25px 0}.process-expanded-sections>section{border-top:1px solid #b9d2d233;padding:18px 0}.process-expanded-sections h3{font:500 24px/1.2 Georgia,serif;margin:0 0 12px}.process-expanded-sections p{font:13px/1.7 Arial,sans-serif}
+@media(max-width:699px),(max-width:1024px) and (pointer:coarse){.process-compact-card h3{font-size:15px;line-height:1.16}.process-compact-card .process-card-index{font-size:6px;gap:5px}.process-compact-card .process-card-lines{font-size:8px;line-height:1.45}.process-compact-card .process-proof{gap:5px}.process-compact-card .process-proof img{width:33px;height:31px;flex-basis:33px}.process-compact-card .process-proof>span{font-size:7px}.process-compact-card{padding-block:11px}}
+
+.process-compact-card .process-card-lines>span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.process-compact-card h3{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+@media(max-width:699px),(max-width:1024px) and (pointer:coarse){.process-compact-card .process-card-lines>span{-webkit-line-clamp:4}}

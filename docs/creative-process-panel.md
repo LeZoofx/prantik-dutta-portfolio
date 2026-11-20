@@ -49,18 +49,18 @@ shooting, editing, motion, AI and VFX. No main-scroll or player logic was change
 
 ## 20 November 2026: context follows the work
 
-The existing rail now follows the current page and its settled featured work.
+The existing rail now follows the current page. Its scroll is independent of the featured-video orbit.
 `content/process-contexts.json` supplies authored project and programme context;
 `src/processContext.ts` matches real page items and campaign memberships rather
 than injecting category-wide examples. Campaign collections, brand filters and
 mobile pagination use the same lookup. Hover, touch reading, pause and open notes
-hold the selected context; leaving/resuming picks up the current featured work.
+pause the reading clock; leaving/resuming continues from the same reading position.
 The original wheel, paging, orbit timing and player allocation remain in place.
 
 All twelve original entries in `content/creative-process.json`, source extracts,
 artwork and document tabs remain accessible through **All notes** in the rail.
 The contextual cards add a layer around that library; they do not replace it.
-The smaller card previews use the work on the page. Source documents stay inside
+The compact first pass has one entry per visible video or collection. The smaller card previews use the work on the page. Source documents stay inside
 the relevant expanded note. The complete CV is not published.
 
 Context was reconciled with the existing campaign descriptions, published project
@@ -86,3 +86,62 @@ controls. Its three-second lifecycle begins when that embed activates. It is
 click-through, uses a short entrance/exit animation, and respects reduced motion.
 The earlier viewport portal and collision-based suppression were removed. Native
 and Instagram players do not display a YouTube warning.
+
+### Continuous stream and progressive depth, following the owner’s correction
+
+The rail is one native scroll surface. It does not remount its content when a
+video rotates. A page change appends the next page’s initial entries after the
+visible outgoing portion and scrolls them upward over 680 ms. The old prefix is
+removed only after the transition, preserving the visible position. Rapid page
+changes keep the pending stream continuous. No repeated duplicate run is used.
+
+`processPagePlan` gives every visible video or collection one compact initial
+entry, sized to its actual title and available description/role. CSS limits the
+initial excerpt; opening it immediately shows the full original description,
+expanded reasoning, relevant sources and project links. Missing descriptions are
+not filled with repeated generic slogans. Shared deeper themes are deduplicated
+within a channel/campaign and retain links to the related works.
+
+After the initial pass reaches its end, a 6.5–18 second reading hold based on text
+length precedes the next deeper entry. Further entries are appended individually
+as the reader stays and completes each pass. An explicit More button can reveal
+one immediately. Once all material has been presented the rail rests; it does
+not repeat the same entries. Each new page begins with its own initial pass.
+
+The reading speed is based on the rail’s measured width. ResizeObserver updates
+its limits when the mobile/desktop viewport, wrapped text or loaded images change.
+Hover, touch, keyboard reading, pause, hidden tabs and open notes suspend automatic
+movement. Touch resumes after eight seconds. Reduced motion keeps native manual
+scrolling and explicit expansion available without an automatic transition.
+Tests exercise continuity, reading holds, page scoping and deduplication.
+
+### Production walls
+
+The contextual entries now lead to a layered working wall of project-specific
+material. The catalogue maps 294 unique artefacts across eight production groups:
+BuzzFeed, TruNativ, Sorted, Hizzouse, Win Theory, The Product Report, Kofuku and
+Koi nahi aaya. These include editorial/storyboard panels, character studies,
+packaging, graphic masters and selected production-deck pages. Available related
+pieces are all accessible through the gallery and its type filters, with a
+full-size keyboard/touch viewer. Expanded reasoning is interleaved with artwork.
+
+Each initial rail entry has one small film thumbnail. Subsequent entries use
+different artefact peeks, without repeating that thumbnail or earlier peeks.
+The complete original notes and document extracts remain under All notes.
+The gallery follows the existing site's type, dark colour and motion system;
+the supplied collage reference informs arrangement only.
+
+The six supplied local production ZIPs provide the wider programme material.
+Kofuku deck pages and shot images are selected from its existing project files.
+Original Pisa character images were recovered read-only from their generation
+records, alongside the existing edit strip. No new image generation was used.
+Neutral public labels describe the document or visual's purpose. Private prompts,
+generation settings, source paths, job identifiers and provenance are excluded
+from the public catalogue. The builder keeps its source register in a temporary
+private file. Original packages, Drive comments and production files are unchanged.
+
+`scripts/build-process-artefacts.py` deduplicates source content and creates
+optimised previews/full-size images; editable vector artwork is retained where
+safe. One unreadable source PNG is excluded, with its sequence still represented
+by the available planning board. Tests verify valid project mappings, complete
+asset references, unique peeks and absence of active/remote SVG content.

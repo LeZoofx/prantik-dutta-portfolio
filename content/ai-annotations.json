@@ -328,38 +328,398 @@
     ]
   },
   "ai-original-ad": {
-    "label": "Original AI ad",
-    "description": "My original AI ad for my advertising services, told through a comic story set around the Leaning Tower of Pisa.",
+    "label": "Original film: concept to final mix",
+    "description": "My advertising pitch developed as a complete comic film. Follow the markers through the story, cultural detail, world and character design, AI production, visual reversals, performance, music direction and sound that make its argument.",
     "cues": [
       {
         "start": 0,
+        "end": 3.541667,
         "kind": "ai",
-        "title": "Original AI ad",
-        "detail": "An independent AI advertising film for Prantik Dutta’s advertising services."
+        "title": "Demonstrating the service through a story",
+        "detail": "I built my own advertising pitch around a familiar landmark with one changed condition: the Tower of Pisa is straight, and nobody comes. The premise gives the film an advertising problem the audience can see. A conspicuous production has failed to attract attention. I developed the concept, script and shot structure around what a creative intervention changes, then carried the world, cast, generated performances, edit and sound through to the finished film."
+      },
+      {
+        "start": 3.541667,
+        "end": 8.875,
+        "kind": "ai",
+        "title": "Giving an absurd premise ordinary working detail",
+        "detail": "The man on the rope makes the tower feel like something people have had to build and maintain. I designed his clothes, physical effort, position against the stone and the height relationship before generating the movement. The absurd premise depends on a world that behaves as if it is real. The low and high viewpoints establish that scale, letting a small human action sell the much larger setting."
+      },
+      {
+        "start": 8.875,
+        "end": 11.208333,
+        "kind": "ai",
+        "title": "Putting a local political ceremony in Pisa",
+        "detail": "I built the inauguration around the mayor’s garland, gamcha, moustache, waiting band and striped shamiana. These are recognisable signs of a local public event, placed against the Italian tower and played completely seriously. The collision gives the audience a way into an unfamiliar location through familiar behaviour. Casting, costume, set dressing and the photographic look all carry the idea together; the generated world has a social identity before the narration has to explain it."
+      },
+      {
+        "start": 11.208333,
+        "end": 13.25,
+        "kind": "ai",
+        "title": "Making the missing audience visible",
+        "detail": "The rows of white chairs turn “koi nahi aaya” into a composition. The mayor and his event are small against the tower, with the seats facing a ceremony nobody has attended. I planned that geography so the wide shot supplies information the close reactions cannot. It gives his public failure a scale and lets the edit move between the size of the occasion and the size of his disappointment."
+      },
+      {
+        "start": 13.25,
+        "end": 19.75,
+        "kind": "ai",
+        "title": "Giving absence enough time to become a joke",
+        "detail": "The tower, empty sky and returning reaction keep attention on what fails to arrive. I shaped the shot lengths and the gaps around the narration so the audience has time to wait with the mayor. Small environmental sounds keep the space present through that quiet. The joke depends on the interval and on where the camera looks, which made timing and sound decisions part of the writing from the start."
+      },
+      {
+        "start": 19.75,
+        "end": 22.375,
+        "kind": "ai",
+        "title": "Directing people who are trying to do their jobs",
+        "detail": "The bandsmen are ready for a celebration that has no audience. I gave them restrained looks, held preparations and small reactions, keeping their costumes and instruments as serious as the occasion is supposed to be. The short exchange of faces lets the comedy sit in their commitment. I developed those performance beats through the generated shots and their edit rhythm, giving each reaction its own place to land."
+      },
+      {
+        "start": 22.375,
+        "end": 25.666667,
+        "kind": "ai",
+        "title": "Turning a public failure into a personal story",
+        "detail": "The abrupt move into his private misery makes the failed opening cost him something. I designed the change of light, closer framings and musical direction around that turn, while keeping the mayor recognisably the same person. The story can now escalate through appetite, sleep, pride and support. That change of stakes gives the middle of the film a reason to exist beyond repeating the empty ceremony."
+      },
+      {
+        "start": 25.666667,
+        "end": 31.041667,
+        "kind": "ai",
+        "title": "Making the props tell a second story",
+        "detail": "The leaning stack of litti repeats the tower’s shape inside his home. I chose a familiar food and gave it the film’s central geometry, letting a domestic detail carry the idea before the tower itself changes. The meal, room, clothing and his lack of appetite belong to the same character world. I developed and generated those elements as connected art direction, so the frame offers another discovery while the main story continues."
+      },
+      {
+        "start": 31.041667,
+        "end": 39.625,
+        "kind": "ai",
+        "title": "Making lost support a change in behaviour",
+        "detail": "The folded hands and people passing him turn political decline into an ordinary social action: the greeting stops being returned. I staged it among the same ceremony and empty chairs, so the consequences remain tied to the failed event. The mayor’s performance stays sincere. The humour comes from how the world responds to him, carried through blocking, eyelines and the cut between his expectation and their response."
+      },
+      {
+        "start": 39.625,
+        "end": 46,
+        "kind": "ai",
+        "title": "Giving the dog a role in the reversal",
+        "detail": "The dog sits among the empty chairs as the mayor’s remaining audience. I made the animal’s placement and small reactions part of the political story, so its loyalty has something at stake. The reverse keeps the distance between them legible. When the audience returns later, this composition can return too, giving the dog’s place in the crowd a payoff the viewer recognises."
+      },
+      {
+        "start": 46,
+        "end": 55.166667,
+        "kind": "ai",
+        "title": "Showing the stalled thinking through an arrangement",
+        "detail": "The line of crumpled papers makes the time spent searching for an answer visible. I staged the hand and table from above, giving the papers a deliberate order instead of making the room generically messy. Their repetition echoes the problem of getting everything straight. The candle, hand movement and quiet pace extend the mayor’s fixation into the objects around him."
+      },
+      {
+        "start": 55.166667,
+        "end": 66.416667,
+        "kind": "ai",
+        "title": "Introducing the creative through observation",
+        "detail": "The arrival starts with feet and clothing before the face is revealed. I designed the older man’s appearance and reserved behaviour to contrast with the mayor’s anxiety, then gave him time to look. The film is selling the value of a different way of seeing, so that act of observation needs screen time. Character design, camera scale, generated performance and the music’s build all prepare the intervention before it is shown."
+      },
+      {
+        "start": 66.416667,
+        "end": 74,
+        "kind": "ai",
+        "title": "Treating an ordinary tool as the big answer",
+        "detail": "The bandsman unveils a shovel on a platter with the ceremony of presenting something precious. I staged the cloth, gesture and his committed performance around the mismatch between the grand reveal and the plain object. The tool then connects the creative’s observation to a physical consequence. That makes the solution part of the film’s own world, carried by a prop and an action the audience can remember."
+      },
+      {
+        "start": 74,
+        "end": 82.166667,
+        "kind": "ai",
+        "title": "Letting the night carry the suspense",
+        "detail": "I reduced the action to a few connected signs: contact with the ground, water responding, the mayor asleep, and the hanging plumb line. They let the audience anticipate a change without watching a lengthy explanation of the work. I planned the light, scale and continuity of those objects and shaped the score’s build and withdrawal around their order. The generated images and the sound create the suspense together."
+      },
+      {
+        "start": 82.166667,
+        "end": 91.541667,
+        "kind": "ai",
+        "title": "Giving the discovery a face before the wide reveal",
+        "detail": "The mayor’s reaction gets time to register before the film fully shows what has happened to the tower. I protected that hold in the performance and edit, using his alarm to give the unseen change a consequence. The earlier straight geometry and the plumb-line imagery have prepared the viewer to read the reveal. Information is released through the order of shots."
+      },
+      {
+        "start": 91.541667,
+        "end": 96.958333,
+        "kind": "ai",
+        "title": "Changing the tower’s meaning with one object",
+        "detail": "The leaning tower and shovel share the frame. I composed them so the ordinary tool explains the extraordinary result, completing the chain begun with its ceremonial unveiling. The camera angle gives the tilt scale while preserving the sense of a photographed place. This is the advertising idea arriving as an image: the thing that was perfectly correct has become the thing people notice."
+      },
+      {
+        "start": 96.958333,
+        "end": 101.875,
+        "kind": "ai",
+        "title": "Returning the viewpoint with the audience changed",
+        "detail": "The faces gathered above the camera replace the earlier isolation; the contemporary crowd extends that attention into a different time. I used the change in people and devices to show the result travelling beyond the mayor’s own occasion. The reversal is designed into the viewpoints and assembled through the edit. The film can demonstrate lasting attention through what people do around the landmark."
+      },
+      {
+        "start": 101.875,
+        "end": 111.5,
+        "kind": "ai",
+        "title": "Paying off the world we already know",
+        "detail": "The same mayor and ceremony now have a crowd. I return to the wife, meal, bed and public seating so the improved fortunes are legible as changes to earlier images. These paired compositions were planned through the shot development and held together across the AI-generated cast and environments. The final run rewards the viewer for remembering the details; success is something that has changed inside the story."
+      },
+      {
+        "start": 111.5,
+        "end": 117,
+        "kind": "ai",
+        "title": "Letting one detail resist the happy ending",
+        "detail": "The full seats pay off the empty rows and bring the dog back into a new social arrangement. The mirror then returns to the mayor’s private world, where his attention goes to his hair. I held that small exception inside the broader reversal so the ending has a human comic beat of its own. Character continuity and the repeated props let the edit make the comparison without restating the setup."
+      },
+      {
+        "start": 117,
+        "end": 131.2,
+        "kind": "ai",
+        "title": "Leaving the audience with the consequence",
+        "detail": "The contemporary crowd around the leaning landmark completes the journey from an empty inauguration to enduring attention. I let the last view of the tower carry the idea, finishing the narration, picture rhythm and sound around the result. The film demonstrates the kind of advertising I am offering through its own story: an unexpected choice that people have a reason to remember."
       }
     ]
   },
   "ai-kofuku-strangers-email": {
-    "label": "Research-led AI animation",
-    "description": "A true story developed into a continuous animated campaign film, from research and the opening hook through illustration, motion, brand integration, edit and sound.",
+    "label": "Research, art direction & AI animation",
+    "description": "An 18-second demonstration of a larger creative and production capability. Follow the markers from the researched story and audience-led opening through illustration, AI animation, scene movement, brand integration, edit, sound and the code-built campaign finish.",
     "cues": [
       {
         "start": 0,
+        "end": 1,
         "kind": "ai",
-        "title": "Research-led AI animation",
-        "detail": "Story research, script, art direction and controlled AI animation. Character continuity and continuous scene movement carry the viewer into Kofuku’s brand world."
+        "title": "Choosing a true story that demonstrates the product’s value",
+        "detail": "I researched nine documented cases and selected Victoria Price’s story because the useful intervention came from a stranger recognising something through lived experience. That makes Kofuku’s proposition concrete while leaving diagnosis with doctors. An illustrated retelling gives the serious story an approachable visual form. I built the 2020 newsroom, character and lower thirds around the real event. “NOTHING TO REPORT” adds a quiet second reading: the presenter has a consequential story on her own neck. Research, writing and art direction establish both credibility and a reason to look again."
+      },
+      {
+        "start": 1,
+        "end": 2.75,
+        "kind": "ai",
+        "title": "Designing the first question from audience research",
+        "detail": "I studied the openings of strong health and educational explainers to shape a hook that states a consequential claim and delays its explanation. “Unknown sender” gives anonymous contact a familiar uncertainty. The dark, torn-paper warning enters a warm drawn world, making that uncertainty visible through the contrast of materials. I designed the notification, its movement and her small reaction together so the opening creates a question the next reveal can answer."
+      },
+      {
+        "start": 2.75,
+        "end": 4.15,
+        "kind": "ai",
+        "title": "Revealing whose story we are watching",
+        "detail": "The newsroom becomes an image on a television and the sender’s phone enters the foreground. I planned the connected compositions and changes of scale before generating the animation, allowing the viewer to move from the recipient’s experience into the sender’s position. “Please have your thyroid checked” reveals the care behind the alarming opening. The continuous reveal turns anonymous contact into a specific helpful act, which is the perception the brand needs the story to establish."
+      },
+      {
+        "start": 4.15,
+        "end": 5.65,
+        "kind": "ai",
+        "title": "Directing a small reaction at viewing size",
+        "detail": "She checks her neck and the magnifier gives the lump enough screen space to be understood on a phone. I staged the movement so the foreground phone clears before the next point of attention arrives. That ordering gives the viewer one thing to follow at a time. Character poses, the lens placement and the animated change of scale were developed together; the detail driving the whole story has to remain legible through the movement."
+      },
+      {
+        "start": 5.65,
+        "end": 6.35,
+        "kind": "ai",
+        "title": "Making shared experience the visual transition",
+        "detail": "The lens grows from the detail on Victoria’s neck into the sender’s world. I developed the matching neck detail and its continuity across the images so “Hers had looked the same” becomes a visual connection between two people. The reveal carries the reason the stranger recognised it, while the narration moves the story forward. This is where pre-production, AI image development and animation direction turn the abstract value of lived experience into something the viewer can follow."
+      },
+      {
+        "start": 6.35,
+        "end": 8.15,
+        "kind": "ai",
+        "title": "Giving the helpful stranger a recognisable identity",
+        "detail": "I differentiated the sender through glasses, clothing, posture and her relationship to the phone and television. She looks up from the message she has sent; she is participating in an ordinary moment that has become useful to someone else. Keeping the characters distinguishable through the generated imagery makes the shared experience readable without another line of explanation. Their eventual meeting in one composition has already been prepared here."
+      },
+      {
+        "start": 8.15,
+        "end": 9.85,
+        "kind": "ai",
+        "title": "Keeping the clinical decision with the doctor",
+        "detail": "The view turns into the consultation, where the doctor hands Victoria a report. I designed that handover, the gown, clinic setting and report imagery to separate the stranger’s observation from the medical confirmation. That distinction is central to the brand strategy: the community can help someone take a useful next step towards care. The scene movement carries the viewer into that step while keeping the short narrative continuous."
+      },
+      {
+        "start": 9.85,
+        "end": 11,
+        "kind": "ai",
+        "title": "Introducing the brand colour through a relationship",
+        "detail": "The two women come together, each touching her neck, with phone and report still linking them to their earlier scenes. I held Kofuku’s cyan for the conversation bubble between them, so the brand colour gains its meaning through their connection. The matching gestures make the relationship immediately readable. Character blocking, palette and motion bring the brand into the story before the logo appears."
+      },
+      {
+        "start": 11,
+        "end": 13.3,
+        "kind": "ai",
+        "title": "Making a compact film carry several capabilities",
+        "detail": "I held the two women and their connection while the narration states what the email changed for Victoria. The continuous sequence has moved through a broadcast, message, shared physical detail and consultation without asking the audience to learn a new setup at each turn. I developed the illustrations and AI animation, then shaped their joins, compositing, narration and sound in the edit. This short demo concentrates those capabilities into one complete communication, leaving room for a larger production to develop them further."
+      },
+      {
+        "start": 13.3,
+        "end": 15,
+        "kind": "ai",
+        "title": "Turning the relationship into a place to ask",
+        "detail": "The women and their bubble move down as a larger field of conversations comes into view. I planned the movement around the bubble we already know, so the product world grows out of the story’s existing connection. The characters’ response and the movement of their clothes keep the transition physical. Art direction, generated animation and the final edit work together to make the change feel like a continuous discovery."
+      },
+      {
+        "start": 15,
+        "end": 16.35,
+        "kind": "graphics",
+        "title": "Making the product the next step in the story",
+        "detail": "“Has anyone experienced this?” settles into the Kofuku post. I chose the question because the film has just demonstrated why someone else’s experience can matter. The move from a chance email in 2020 to a place designed for health conversations gives the brand a practical role. I shaped the question, product graphics and transition so the viewer reaches the interface with a reason to understand it."
+      },
+      {
+        "start": 16.35,
+        "end": 18.368,
+        "kind": "graphics",
+        "title": "Carrying the campaign’s invitation across styles",
+        "detail": "The shared end line follows a different route here: the story has shown the consequence of one person choosing to speak up, and “You can ask that here” gives that action a destination. I designed and built the end-slate motion entirely in Claude Code / Codex, including the animated forms, type and original Kofuku wordmark reveal. Reusing the same authored finish connects this illustrated film to the photographic comedy as one campaign."
       }
     ]
   },
   "ai-kofuku-the-report": {
-    "label": "Photorealistic AI advertising",
-    "description": "A Hindi comedy directed around a brand insight, with 16 consistent AI characters, regional dialogue and matched compositions across 13 shots.",
+    "label": "Strategy, direction & AI production",
+    "description": "A two-film campaign I researched, wrote, directed, generated, edited and finished in three days. Follow the markers through the character, audience and brand decisions behind The Report, including the UI and end-slate animations I built in Claude Code / Codex.",
     "cues": [
       {
         "start": 0,
+        "end": 1.92,
         "kind": "ai",
-        "title": "Photorealistic AI advertising",
-        "detail": "Concept, script and direction through AI-generated performances and environments, Hindi lip-sync, compositing, match-cut editing, sound and the brand end slate."
+        "title": "A familiar world for an unfamiliar brand",
+        "detail": "I built this as an evergreen Indian comedy: the audience recognises the people before it needs to understand a new health platform. The doctor’s age, working desk, window light and unpolished room give him ordinary professional credibility. He is competent and pressed for time; keeping that distinction lets Kofuku sit alongside medical care. I tested the photographic look and established the frontal composition in pre-production, then carried them through the generated cast. The report, head scale and eye line give the later match cuts a common structure."
+      },
+      {
+        "start": 1.92,
+        "end": 3.083333,
+        "kind": "ai",
+        "title": "Putting the viewer in his chair",
+        "detail": "The report leaves the doctor’s frame and enters the reverse at the same lower edge. I planned the handover and camera relationship so the viewer receives it with the patient. His sage-green shirt and restrained expression become the constants we return to as everyone else supplies an opinion. Designing those continuities before generation makes the later changes of person and place readable; the edit can spend its time on his reactions."
+      },
+      {
+        "start": 3.083333,
+        "end": 5.63,
+        "kind": "ai",
+        "title": "The question the film withholds",
+        "detail": "He looks up to ask, and “Sister, agla mareez” moves the consultation on. I made that interruption the conflict: this is a man surrounded by answers who cannot get his question heard. The line comes from off-screen, with the room’s distance in the sound, keeping the pressure on the rushed encounter. That choice connects writing, performance, framing and sound to Kofuku’s eventual role. His question stays unresolved until he types it on the platform."
+      },
+      {
+        "start": 5.63,
+        "end": 8.67,
+        "kind": "ai",
+        "title": "Making the match cut do the comparing",
+        "detail": "I put the chemist first because he is a familiar next stop after a consultation. The shelves identify his trade while the pat on the report and “Course kar lo” treat the encounter as a routine transaction. His answer feels ready before the man has explained anything. I designed his own working environment around the repeated eye line and head scale, then generated and edited the shot to preserve the match. One cut establishes the film’s rule and introduces an alternative Kofuku needs to distinguish itself from."
+      },
+      {
+        "start": 8.67,
+        "end": 11.5,
+        "kind": "ai",
+        "title": "Building someone the audience already knows",
+        "detail": "I made the uncle a specific neighbourhood elder: sweater vest, thick glasses, his own table and the comfortable authority of someone who trusts his experience. Those details work together to make unsolicited advice feel familiar and well-meant. That warmth matters: viewers can recognise someone they know without the film turning its people into villains. Character design, wardrobe, set and the close frontal performance all prepare the recognition before his diagnosis arrives."
+      },
+      {
+        "start": 11.5,
+        "end": 13.46,
+        "kind": "ai",
+        "title": "Why the regional detail matters",
+        "detail": "“Gas chhe, boss” belongs to a Gujarati society uncle in Mumbai. I chose that specificity because an observed person is more recognisable than a generic “Indian uncle”; viewers can connect him to their own families and neighbours. The real recorded fart and his laugh give the verdict its physical source: he applies his own stomach to another man’s report. I timed the behaviour, sound and line together so the humour stays affectionate while exposing the limits of familiar advice."
+      },
+      {
+        "start": 13.46,
+        "end": 16.58,
+        "kind": "ai",
+        "title": "A character whose whole world sells one answer",
+        "detail": "The trainer’s broad confidence, worn vest, Totla’s Gym lettering, weights and tube lights all belong to the same self-made neighbourhood business. I designed his delivery and the name on his top as parts of that character, giving the audience a visual joke to discover alongside the spoken one. His universal protein prescription also places the wellness seller in the campaign’s competitive map. Costume, generated performance and environment establish that position without an explanatory caption."
+      },
+      {
+        "start": 16.58,
+        "end": 18.67,
+        "kind": "ai",
+        "title": "Changing the source of certainty",
+        "detail": "The astrologer takes the report into his own world: floor seat, shawl, beads and an open almanac. I placed the medical paper over the material he normally reads, so his habitual way of interpreting a problem is visible before “Shani bhaari.” His calm two-word judgement extends the pattern from bodily remedies into fate. The edit now moves through advisers faster, letting certainty accumulate while the patient’s original question remains unanswered."
+      },
+      {
+        "start": 18.67,
+        "end": 21.58,
+        "kind": "ai",
+        "title": "Letting an ordinary action become alarming",
+        "detail": "I made the barber apply the reflex of his trade to the wrong problem. He stands over a seated customer, scissors in hand, and raises the comb as casually as he would recommend a trim. “Kaatna padega” becomes alarming because of what the patient is asking about. The working shop, physical blocking and passing delivery keep him believable. This lets the film address the tendency to prescribe one’s own solution through a small comic scene, while preserving its respectful position towards doctors."
+      },
+      {
+        "start": 21.58,
+        "end": 23.5,
+        "kind": "ai",
+        "title": "Turning advice into a privacy problem",
+        "detail": "The neighbour already has the phone in both hands when she asks “Group pe daalu?” Her kitchen table makes the intrusion domestic and familiar. I directed the question as a decision she is already comfortable taking, so the patient starts losing ownership of his report as well as control of the conversation. That is the campaign’s second problem. Kofuku’s anonymity gains a purpose in the story before the product has to explain it."
+      },
+      {
+        "start": 23.5,
+        "end": 25.54,
+        "kind": "ai",
+        "title": "Making the loss of privacy visible",
+        "detail": "The cut takes us straight from asking about a group to six relatives talking across a call. I built the ensemble and screen composition so his private concern becomes a public discussion in one image. Each relative has a distinct face, setting and gesture; the layered voices give that crowded frame its social pressure. The short sound dissolve carries us into the call. Cast development, AI performances, compositing and sound all serve the same escalation: everyone can now discuss him, while he still cannot ask."
+      },
+      {
+        "start": 25.54,
+        "end": 27.375,
+        "kind": "ai",
+        "title": "Giving the machine someone else’s attention",
+        "detail": "I placed the cousin in the waiting area, looking at his own upright phone with its screen facing him. His attention belongs to the tool rather than the person he is helping. The AI remains unseen, which gives its answer a different kind of authority from the advisers we have met face to face. I planned that division between the cousin’s performance and the machine’s voice so the film can position an AI chatbot as another route people take with a health question."
+      },
+      {
+        "start": 27.375,
+        "end": 30.29,
+        "kind": "ai",
+        "title": "The most confident answer gets the longest pause",
+        "detail": "“Zaroor, yeh ek recipe hai” arrives through the small, boxy phone-speaker sound I shaped for the AI voice. Its confident tone and irrelevant answer complete the escalation. After the faster adviser cuts, I give this encounter longer to register, including the cousin listening to the machine. The performance, dialogue placement and sound perspective make the mistake legible. Kofuku can then offer the value this sequence has made desirable: contact with people who have relevant lived experience."
+      },
+      {
+        "start": 30.29,
+        "end": 33.21,
+        "kind": "ai",
+        "title": "Giving the accumulation a human cost",
+        "detail": "I added space for him to enter, sit and let his hands drop before the girl speaks. The busy sequence falls into a near-empty room, and his posture carries the exhaustion the preceding advice has produced. This pause is part of the narrative structure and the sound design together: the viewer needs to feel what all that certainty has cost him. It also changes the conditions for the next voice to be heard."
+      },
+      {
+        "start": 33.21,
+        "end": 36.5,
+        "kind": "ai",
+        "title": "Directing the brand’s warmth as behaviour",
+        "detail": "I made the girl look at him, feel for him, think briefly and then recognise somewhere he could ask. Her school uniform, lower eye line and phone resting in her lap keep the encounter ordinary. The slightly puzzled suggestion—“Aap Kofuku kyun nahi try karte?”—grows from that observation. I directed those small beats into the generated performance because they carry the brand’s reassurance: she has noticed the person before offering a destination. Her manner gives the spoken brand mention its reason to be there."
+      },
+      {
+        "start": 36.5,
+        "end": 37.92,
+        "kind": "ai",
+        "title": "Leaving room for the invitation to land",
+        "detail": "The line ends and the handover gets a quiet interval. I kept that space in the edit and soundtrack so the viewer can register the change from unsolicited verdicts to a useful invitation. The girl’s phone has a different role from the neighbour’s or cousin’s phone: this one gives the patient a way to participate. Holding that distinction through the pause makes the product transition feel earned."
+      },
+      {
+        "start": 37.92,
+        "end": 39.5,
+        "kind": "ai",
+        "title": "Returning to the first gesture with its meaning changed",
+        "detail": "He reaches beyond the camera to receive the phone, echoing how he received the report near the beginning. I planned the return in the blocking and generated performance, retaining the patient’s identity while changing what the handover offers him. The phone then comes unnecessarily close to his face, a recognisable habit that gives the relief a small physical joke. The same man and a familiar gesture carry us from the original problem towards its answer."
+      },
+      {
+        "start": 39.5,
+        "end": 42.21,
+        "kind": "ai",
+        "title": "Holding the result in his face",
+        "detail": "The crossed eyes give way to a slow, wordless smile. I protected the duration of that reaction in the edit and brought the music up with it, allowing the scene to become fun and upbeat. The benefit arrives first as something the viewer can read in him. That makes the following product screen a continuation of his experience, with no extra speech needed to sell it."
+      },
+      {
+        "start": 42.21,
+        "end": 43.15,
+        "kind": "graphics",
+        "title": "Building the product moment around his first question",
+        "detail": "“Yeh report samajh nahi aayi” is the question everyone else prevented him from asking. I wrote it in his language, under EkSawaalHai, and carried his face into the account details so the interface remains his part of the story. I recreated and animated the Kofuku UI in Claude Code / Codex, preserving the product’s visual identity. The post, Everyday Wellbeing tag and translation link make the brand’s welcome tangible: an ordinary person can bring an ordinary question here."
+      },
+      {
+        "start": 43.15,
+        "end": 44.46,
+        "kind": "graphics",
+        "title": "Animating the experience of being heard",
+        "detail": "I wrote “Poochhiye” and “Saath samajhte hain” as invitations to continue. The reply slots open beneath his question, the surrounding panel moves to accommodate them, and the counts update with the conversation. I built that timing and UI motion in code, so the response is something the viewer sees happen to his post. This completes the conflict set up at the consultation: the community makes room for the question he could not ask."
+      },
+      {
+        "start": 44.46,
+        "end": 48.4,
+        "kind": "graphics",
+        "title": "Making the closing line answer the whole film",
+        "detail": "“You can ask that here” completes the patient’s experience and gives Kofuku a clear role as a place for the conversation. I designed the slate’s animated forms and typography entirely in Claude Code / Codex. The words build towards the enlarged, underlined “that,” which stands for the question the viewer may also hesitate to raise. The motion gives the copy an order of emphasis; the end line continues the story’s meaning into the brand finish."
+      },
+      {
+        "start": 48.4,
+        "end": 50.496,
+        "kind": "graphics",
+        "title": "A recognisable finish across two different films",
+        "detail": "The Kofuku wordmark assembles beneath the invitation, followed by “Anonymous health conversations.” I used the original logo shapes and built their reveal, the surrounding forms and the final hold in code. The same designed finish connects the Hindi photographic comedy and the English illustrated story. It gives the pair a consistent campaign identity while allowing each film its own audience, language and visual treatment."
       }
     ]
   }

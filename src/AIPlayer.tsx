@@ -6,6 +6,7 @@ import {usePerformance,useVideoPermit} from './Performance';
 import {requestVideoConsent,useVideoConsent} from './videoConsent';
 import {playerAPI} from './JourneyPlayer';
 import InstagramPlayer from './InstagramPlayer';
+import YouTubeAdNotice from './YouTubeAdNotice';
 import annotationData from '../content/ai-annotations.json';
 import {activeCues,cueRange,markerLanes,timecode,type AIAnnotation,type AICue} from './aiWork';
 import './ai-player.css';
@@ -57,7 +58,7 @@ function YouTubePlayer({project,preview=false,enabled=false,playing:wantPlay=fal
  useEffect(()=>{if(!preview)return;if(wantPlay&&playbackReady&&!document.hidden)player.current?.playVideo();else player.current?.pauseVideo()},[wantPlay,playbackReady,preview]);
  useEffect(()=>{muted?player.current?.mute():player.current?.unMute()},[muted]);
  useEffect(()=>{const hide=()=>{if(document.hidden)player.current?.pauseVideo()};document.addEventListener('visibilitychange',hide);return()=>document.removeEventListener('visibilitychange',hide)},[]);
- return <div ref={root} className={'ai-provider-player'+(preview?' ai-preview':'')}><img className="ai-provider-poster" src={previewAsset(project.poster,960)} alt=""/><div className="ai-provider-host" ref={host}/>{!admitted&&!preview&&<button className="ai-big-play" aria-label={'Play '+project.title} onClick={()=>{void requestVideoConsent()}}>▶</button>}{!preview&&notesTarget&&createPortal(<ProductionNotes key={project.id} annotation={annotation} current={annotation.cues[0]} time={0} playing={playing} open={notesOpen} selected={selectedNote} onOpen={()=>{player.current?.pauseVideo();setSelectedNote(annotation.cues[0]);setNotesOpen(true)}} onClose={()=>setNotesOpen(false)} onSelect={c=>{player.current?.seekTo(c.start,true);player.current?.pauseVideo();setSelectedNote(c)}} onResume={()=>{setNotesOpen(false);player.current?.playVideo()}}/>,notesTarget)}{failed&&<a className="ai-provider-fallback" href={project.sourceUrl} target="_blank" rel="noopener noreferrer">Open video on YouTube ↗</a>}</div>;
+ return <div ref={root} className={'ai-provider-player'+(preview?' ai-preview':'')}><YouTubeAdNotice active={admitted&&(!preview||wantPlay&&playbackReady)} videoId={id||''}/><img className="ai-provider-poster" src={previewAsset(project.poster,960)} alt=""/><div className="ai-provider-host" ref={host}/>{!admitted&&!preview&&<button className="ai-big-play" aria-label={'Play '+project.title} onClick={()=>{void requestVideoConsent()}}>▶</button>}{!preview&&notesTarget&&createPortal(<ProductionNotes key={project.id} annotation={annotation} current={annotation.cues[0]} time={0} playing={playing} open={notesOpen} selected={selectedNote} onOpen={()=>{player.current?.pauseVideo();setSelectedNote(annotation.cues[0]);setNotesOpen(true)}} onClose={()=>setNotesOpen(false)} onSelect={c=>{player.current?.seekTo(c.start,true);player.current?.pauseVideo();setSelectedNote(c)}} onResume={()=>{setNotesOpen(false);player.current?.playVideo()}}/>,notesTarget)}{failed&&<a className="ai-provider-fallback" href={project.sourceUrl} target="_blank" rel="noopener noreferrer">Open video on YouTube ↗</a>}</div>;
 }
 function InstagramAnnotated(props:Props){
  const annotation=annotations[props.project.id],[notesOpen,setNotesOpen]=useState(false),[selectedNote,setSelectedNote]=useState<AICue|undefined>(undefined);

@@ -1,0 +1,7 @@
+.youtube-ad-notice{position:fixed;left:max(16px,env(safe-area-inset-left));z-index:100;display:flex;align-items:center;gap:9px;width:max-content;max-width:min(265px,calc(100vw - 32px));box-sizing:border-box;padding:11px 13px;border:1px solid #b7d6df45;border-radius:12px;background:#14232ff2;box-shadow:0 5px 22px #0003;color:#e4eef1;font:12px/1.45 Arial,sans-serif;text-align:left;pointer-events:none;user-select:none;animation:youtube-ad-notice 3s both}
+.youtube-ad-notice-icon{flex:0 0 18px;height:18px;border:1px solid #b8dbe47a;border-radius:50%;display:grid;place-items:center;color:#b8dbe4;font:italic 12px Georgia,serif}
+@keyframes youtube-ad-notice{0%{opacity:0;transform:translate3d(-14px,7px,0) scale(.97)}12%,88%{opacity:1;transform:translate3d(0,0,0) scale(1)}100%{opacity:0;transform:translate3d(-5px,3px,0)}}
+body:has(.media-theatre) .youtube-ad-notice{display:none}
+@keyframes youtube-ad-notice-fade{0%,100%{opacity:0}8%,92%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.youtube-ad-notice{animation:youtube-ad-notice-fade 3s both}}
+html[data-motion-paused=true] .youtube-ad-notice{animation:youtube-ad-notice-fade 3s both}

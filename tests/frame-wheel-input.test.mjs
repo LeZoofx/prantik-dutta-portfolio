@@ -8,7 +8,7 @@ const wheel=new URL('../node_modules/wheel-gestures/dist/wheel-gestures.esm.js',
 const {FrameWheelInput}=await import(moduleURL('../src/FrameWheelInput.ts',s=>s.replace("'./WheelSceneIntent'",JSON.stringify(intent)).replace("'./scenePaging'",JSON.stringify(paging)).replace("'wheel-gestures'",JSON.stringify(wheel))));
 const {NativeSceneScroll}=await import(moduleURL('../src/NativeSceneScroll.ts',s=>s.replace("'./scenePaging'",JSON.stringify(paging)).replace("'./SceneTransition'",JSON.stringify(transition))));
 const recorded=name=>JSON.parse(readFileSync(new URL('../node_modules/wheel-gestures/src/test/fixtures/'+name+'.json',import.meta.url))).wheelEvents;
-function fixture(t){
+function fixture(t,outer=false){
  t.mock.timers.enable({apis:['setTimeout','Date'],now:100});
  const saved={document:globalThis.document,performance:globalThis.performance,requestAnimationFrame:globalThis.requestAnimationFrame,cancelAnimationFrame:globalThis.cancelAnimationFrame};
  const doc=new EventTarget();doc.hidden=false;globalThis.document=doc;globalThis.performance={now:()=>Date.now()};globalThis.requestAnimationFrame=fn=>setTimeout(()=>fn(Date.now()),16);globalThis.cancelAnimationFrame=clearTimeout;
@@ -18,13 +18,13 @@ function fixture(t){
   scrollTo(o){this.scrollTop=o.top;this.dispatchEvent(new Event('scroll'))}
   wheel(data){const event=new Event('wheel',{cancelable:true});for(const [key,value] of Object.entries({deltaX:0,deltaY:0,deltaZ:0,deltaMode:0,timeStamp:Date.now(),...data}))Object.defineProperty(event,key,{value});this.dispatchEvent(event);return event.defaultPrevented}
  }
- const scroller=new Scroller(),steps=[];let paused=false;
+ const scroller=new Scroller(),eventRoot=outer?new Scroller():scroller,steps=[];let paused=false;
  const vertical=new NativeSceneScroll({scroller,root:{dataset:{},style:{setProperty(){}}},total:15,reduced:()=>false,paused:()=>paused,moving(){},invalidate(){}});vertical.resize();
- const input=new FrameWheelInput({scroller,step:n=>steps.push(n),page:n=>vertical.advance(n),paused:()=>paused});
+ const input=new FrameWheelInput({scroller,eventRoot,step:n=>steps.push(n),page:n=>vertical.advance(n),paused:()=>paused});
  const tick=ms=>{for(let left=ms;left>0;left-=Math.min(16,left))t.mock.timers.tick(Math.min(16,left))};
  function replay(name,horizontal=false){const events=recorded(name);let previous=events[0].timeStamp;for(const data of events){tick(Math.max(0,Math.round(data.timeStamp-previous)));previous=data.timeStamp;scroller.wheel({...data,deltaX:horizontal?data.deltaY:data.deltaX,deltaY:horizontal?data.deltaX:data.deltaY,timeStamp:Date.now()})}tick(1200);return Math.sign(events.find(e=>e.deltaY).deltaY)}
  t.after(()=>{input.destroy();vertical.destroy();Object.assign(globalThis,saved)});
- return {scroller,steps,vertical,tick,replay,setPaused:value=>paused=value,doc};
+ return {scroller,eventRoot,steps,vertical,tick,replay,setPaused:value=>paused=value,doc};
 }
 for(const name of ['swipe-down-trackpad','swipe-up-trackpad'])test(name+' cycles one video and never changes the page',t=>{
  const {steps,vertical,replay}=fixture(t),direction=replay(name,true);assert.deepEqual(steps,[direction]);assert.equal(vertical.position,0);
@@ -67,4 +67,52 @@ test('a fresh vertical gesture immediately hands control back to page navigation
 });
 test('pausing or hiding cancels a deferred horizontal request',t=>{
  const {scroller,steps,tick,doc}=fixture(t);scroller.wheel({deltaX:120});doc.hidden=true;doc.dispatchEvent(new Event('visibilitychange'));tick(1000);assert.deepEqual(steps,[]);
+});
+test('rapid deliberate axis changes register even before the previous motion settles',t=>{
+ const {scroller,steps,vertical,tick}=fixture(t);
+ scroller.wheel({deltaX:100});tick(60);scroller.wheel({deltaY:110});tick(60);scroller.wheel({deltaX:-100});tick(1200);
+ assert.deepEqual(steps,[1,-1]);assert.equal(vertical.position,1);
+});
+test('a direction handoff preserves a request awaiting its decision timer',t=>{
+ const {scroller,steps,vertical,tick}=fixture(t);
+ scroller.wheel({deltaX:100});tick(24);scroller.wheel({deltaY:110});tick(1200);
+ assert.deepEqual(steps,[1]);assert.equal(vertical.position,1);
+});
+test('rapid discrete line-wheel notches each retain their destination',t=>{
+ const {scroller,vertical,tick}=fixture(t);
+ for(let i=0;i<6;i++){scroller.wheel({deltaY:3,deltaMode:1});tick(60)}tick(1200);
+ assert.equal(vertical.position,6);
+});
+test('steady pixel-wheel notches remain separate deliberate impulses',t=>{
+ const {scroller,vertical,tick}=fixture(t);
+ for(let i=0;i<6;i++){scroller.wheel({deltaY:100});tick(70)}tick(1200);
+ assert.equal(vertical.position,6);
+});
+test('vertical wheel over the category strip still navigates; horizontal stays local',t=>{
+ const {scroller,vertical,tick}=fixture(t);
+ const closest=scroller.closest.bind(scroller);
+ scroller.closest=selector=>selector==='.depth-topbar nav'?{}:closest(selector);
+ assert.equal(scroller.wheel({deltaY:100}),true);tick(1000);assert.equal(vertical.position,1);
+ assert.equal(scroller.wheel({deltaX:100}),false);tick(1000);assert.equal(vertical.position,1);
+});
+test('gentle subpixel trackpad motion accumulates instead of leaking into native scroll',t=>{
+ const {scroller,vertical,tick}=fixture(t);
+ for(let i=0;i<12;i++){assert.equal(scroller.wheel({deltaY:.5}),true);tick(8)}tick(1200);
+ assert.equal(vertical.position,1);
+});
+test('a late event cannot erase an accepted request while the main thread delays timers',t=>{
+ const {scroller,vertical,tick}=fixture(t);
+ scroller.wheel({deltaY:100,timeStamp:100});
+ scroller.wheel({deltaY:100,timeStamp:800});
+ tick(1200);assert.equal(vertical.position,2);
+});
+test('a quick next/previous exhibit reversal preserves both accepted requests',t=>{
+ const {scroller,steps,tick}=fixture(t);
+ scroller.wheel({deltaX:100});tick(24);scroller.wheel({deltaX:-100});tick(1000);
+ assert.deepEqual(steps,[1,-1]);
+});
+test('the outer stage catches rail-heading input while nested reading controls remain native',t=>{
+ const {eventRoot,vertical,tick}=fixture(t,true);
+ assert.equal(eventRoot.wheel({deltaY:100}),true);tick(1000);assert.equal(vertical.position,1);
+ eventRoot.control=true;assert.equal(eventRoot.wheel({deltaY:100}),false);tick(1000);assert.equal(vertical.position,1);
 });

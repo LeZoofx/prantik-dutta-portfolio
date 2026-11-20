@@ -3,7 +3,13 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import ts from 'typescript';
 const code=ts.transpileModule(readFileSync(new URL('../src/scenePaging.ts',import.meta.url),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2020,module:ts.ModuleKind.ES2022}}).outputText;
-const {ScenePager,swipePages,nativeSnapPage,recenterPage}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
+const {ScenePager,swipePages,nativeSnapPage,recenterPage,sceneFlight}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
+test('retargeting retains the partially visible outgoing page in both directions',()=>{
+ assert.deepEqual(sceneFlight(.65,3,12),[0,1,2,3]);
+ assert.deepEqual(sceneFlight(3.35,1,12),[4,3,2,1]);
+ assert.deepEqual(sceneFlight(11.7,14,12),[11,0,1,2]);
+ assert.equal(new Set(sceneFlight(0,36,12)).size,12);
+});
 test('native recovery completes a partial stop without inventing another gesture',()=>{
  assert.equal(nativeSnapPage(12.1,60),12);
  assert.equal(nativeSnapPage(11.9,60),12);

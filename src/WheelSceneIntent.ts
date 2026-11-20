@@ -20,6 +20,7 @@ export class WheelSceneIntent {
   // Never trust an isStart created by the detector's short inertia timeout.
   // Fresh deliberate impulses or several rising samples reopen the gesture.
   const fresh=!this.direction||reversal||gap>420||
+   (this.committed&&!this.tail&&gap>=50&&magnitude>=Math.max(8,this.lastDelta*.9))||
    (state.isStart&&!weak)||
    (this.committed&&this.samples===1&&gap>=100&&magnitude>=8)||
    (this.committed&&this.tail&&magnitude>=Math.max(24,this.lastDelta*2.5)&&!weak);

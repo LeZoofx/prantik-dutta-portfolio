@@ -118,10 +118,11 @@ export default function CreativeProcess({ready,paused=false,reduced=false,sectio
   <button className="process-board-trigger" onClick={()=>setNotes({step,evidence:step.evidence[0]||''})} aria-label={'Read '+step.title}><ArtefactPreview ids={step.artifactIds}/><span className="process-board-link">Open the process <span aria-hidden="true">↗</span></span></button>
  </article>};
  return <><aside className="process-rail" aria-label="Creative strategy and production process" data-context={current.key} data-depth={current.shown} data-stopped={stopped}
-  onWheelCapture={e=>{e.stopPropagation();readManually(true)}} onPointerMoveCapture={e=>e.stopPropagation()}
-  onPointerEnter={e=>{if(e.pointerType==='mouse')readManually()}} onPointerLeave={e=>{if(e.pointerType==='mouse'&&!notes)resume()}}>
+  onWheelCapture={e=>{if((e.target as Element).closest('.process-scroller')){e.stopPropagation();readManually(true)}}} onPointerMoveCapture={e=>{if((e.target as Element).closest('.process-scroller'))e.stopPropagation()}}
+  >
   <header className="process-rail-head"><div><span className="process-kicker">Behind this page / {current.title}</span><h2>Strategy <i>&</i><br/>the making.</h2></div><button className="process-pause" aria-label={stopped?'Resume process animation':'Pause process animation'} aria-pressed={stopped} onClick={()=>setStopped(!stopped)}>{stopped?'▶':'Ⅱ'}</button></header>
   <div ref={viewport} className="process-scroller" tabIndex={0} aria-label="Process notes. Hover or touch to pause, scroll to read, select a card to open."
+   onPointerEnter={e=>{if(e.pointerType==='mouse')readManually()}} onPointerLeave={e=>{if(e.pointerType==='mouse'&&!notes)resume()}}
    onFocusCapture={e=>{if(e.target.matches(':focus-visible'))readManually()}} onBlurCapture={blur}
    onPointerDown={e=>{if(e.pointerType==='touch')readManually(true)}} onPointerUp={e=>{if(e.pointerType==='touch')touchTimer.current=setTimeout(()=>{if(!controls.current.notes)resume()},8000)}}
    onPointerCancel={e=>{if(e.pointerType==='touch')touchTimer.current=setTimeout(()=>{if(!controls.current.notes)resume()},8000)}}

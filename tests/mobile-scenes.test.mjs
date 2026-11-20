@@ -7,7 +7,7 @@ const compile=file=>ts.transpileModule(readFileSync(new URL(file,import.meta.url
 const data=source=>'data:text/javascript;base64,'+Buffer.from(source).toString('base64');
 const paging=data(compile('../src/scenePaging.ts'));
 const stub=`
-import {gestureAxis,ScenePager,swipePages} from '${paging}';
+import {gestureAxis,ScenePager,swipePages,sceneFlight} from '${paging}';
 import {sceneIndex} from '${data(compile('../src/sceneLinks.ts'))}';
 const f=()=>globalThis.mobileFixture;
 const depsSame=(a,b)=>a&&b&&a.length===b.length&&a.every((v,i)=>Object.is(v,b[i]));
@@ -19,14 +19,14 @@ const useEffect=(fn,deps)=>effect(fn,deps,false),useLayoutEffect=(fn,deps)=>effe
 const _jsx=(type,props,key)=>({type,props,key}),_jsxs=_jsx;
 const useId=()=>':glove:',memo=x=>x,useCallback=(fn,deps)=>useMemo(()=>fn,deps),lazy=()=>()=>null,Suspense=()=>null;
 const empty=()=>null;
-const BrandControls=empty,ResultsRibbon=empty,JourneyPlayer=empty,ExpandCue=empty,KineticName=empty,KineticType=empty,SceneAccents=empty,ClientMarquee=empty,PosterType=empty,KineticCopy=empty,Scene=empty,PlaybackToggle=empty,CreativeProcess=empty,AIAccess=empty;
+const BrandControls=empty,ResultsRibbon=empty,JourneyPlayer=empty,ExpandCue=empty,KineticName=empty,KineticType=empty,SceneAccents=empty,ClientMarquee=empty,PosterType=empty,KineticCopy=empty,Scene=empty,PlaybackToggle=empty,CreativeProcess=empty,AIAccess=empty,ScenePoster=empty;
 const asset=x=>x,previewAsset=x=>x,previewSrcSet=()=>'',href=()=>'/work/',projectPath=x=>'/work/'+x,platformLabel=()=> 'YouTube',brandFor=()=> 'Brand';
 const showcase=[{id:'p0',title:'Project 0'}],positioning={eyebrow:'Creative producer'},posterCopy={selected:[]};
 const portfolioCategories=[{id:'selected',label:'Highlights'},{id:'trailers',label:'Film'}];
 const buildSections=()=>f().sections,usePerformance=()=>f().performance,listenMedia=()=>()=>{};
 const NativeSceneScroll=class{constructor(){throw new Error('Desktop scroll controller used on mobile')}};
 const FrameWheelInput=class{cancelPending(){} destroy(){}};
-const isScrollControl=()=>false;
+const isScrollControl=()=>false,isLocalScroll=()=>false;
 const NativeSceneAnimator={supported:()=>false};
 const isAIWork=()=>false,leastFeaturedAI='',campaignFor=()=>undefined,CampaignTile=empty,CampaignControls=empty,ScrollGuide=empty,ExploreOpening=empty;
 `;
@@ -62,7 +62,7 @@ function fixture(t,initialScene){
  const flush=()=>{let guard=0;while(h.dirty){assert.ok(++guard<20,'Render loop did not settle');render()}};
  render();flush();
  function tick(ms){const end=clock+ms;while(clock<end){clock+=16;const batch=[...frames.values()];frames.clear();batch.forEach(fn=>fn(clock));flush()}}
- function pointer(type,y,time,x=195){const e=new Event(type);Object.defineProperties(e,{pointerType:{value:'touch'},isPrimary:{value:true},pointerId:{value:1},clientX:{value:x},clientY:{value:y},timeStamp:{value:time}});h.scroller.dispatchEvent(e);flush()}
+ function pointer(type,y,time,x=195){const e=new Event(type);Object.defineProperties(e,{pointerType:{value:'touch'},isPrimary:{value:true},pointerId:{value:1},clientX:{value:x},clientY:{value:y},timeStamp:{value:time}});h.root.dispatchEvent(e);flush()}
  function swipe(distance=90,duration=220){pointer('pointerdown',650,clock);pointer('pointermove',650-distance,clock+duration*.7);pointer('pointerup',650-distance,clock+duration);tick(1600)}
  function horizontal(distance=90,duration=220,drift=0){pointer('pointerdown',450,clock,310);pointer('pointermove',450-drift,clock+duration*.7,310-distance);pointer('pointerup',450-drift,clock+duration,310-distance);tick(1600)}
  tick(32);
@@ -93,7 +93,20 @@ test('filtering from a later mobile chapter to one collection never renders a mi
  assert.ok(h.worlds.every(w=>w.p['data-depth-index']===0));
 });
 test('left/right mobile swipes browse the current videos without changing pages',t=>{const {h,horizontal,swipe}=fixture(t);horizontal();visible(h,0);horizontal(-90);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1},{page:0,step:-1}]);swipe();visible(h,1);horizontal();assert.deepEqual(h.orbitSteps.at(-1),{page:1,step:1});visible(h,1)});
-test('a horizontal diagonal stays horizontal and suppresses the following video click',t=>{const f=fixture(t),{h,pointer,tick}=f;const start=f.clock;pointer('pointerdown',450,start,310);pointer('pointermove',420,start+90,210);pointer('pointerup',420,start+150,210);const click=new Event('click',{cancelable:true});Object.defineProperty(click,'timeStamp',{value:start+170});h.scroller.dispatchEvent(click);assert.equal(click.defaultPrevented,true);tick(1600);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1}])});
+test('exhibit swipes made while previews warm are retained beyond three requests',t=>{
+ const {h,horizontal,tick}=fixture(t);h.performance.ready=false;h.dirty=true;tick(32);
+ for(let i=0;i<7;i++)horizontal();
+ assert.deepEqual(h.orbitSteps,[]);
+ h.performance.ready=true;h.dirty=true;tick(64);
+ assert.deepEqual(h.orbitSteps,[{page:0,step:7}]);visible(h,0);
+});
+test('a touch starting on the opening continues as the same page gesture',t=>{
+ const f=fixture(t),{h,pointer,tick}=f;
+ function bridge(node){if(Array.isArray(node))return node.map(bridge).find(Boolean);if(node?.props)return node.props.onPointerStart||bridge(node.props.children)}
+ bridge(h.tree)({isPrimary:true,pointerType:'touch',pointerId:1,clientX:195,clientY:650,timeStamp:f.clock,target:h.root});
+ pointer('pointermove',560,f.clock+50);pointer('pointerup',560,f.clock+100);tick(900);visible(h,1);
+});
+test('a horizontal diagonal stays horizontal and suppresses the following video click',t=>{const f=fixture(t),{h,pointer,tick}=f;const start=f.clock;pointer('pointerdown',450,start,310);pointer('pointermove',420,start+90,210);pointer('pointerup',420,start+150,210);const click=new Event('click',{cancelable:true});Object.defineProperty(click,'timeStamp',{value:start+170});h.root.dispatchEvent(click);assert.equal(click.defaultPrevented,true);tick(1600);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1}])});
 test('a vertical diagonal cannot turn into horizontal browsing halfway through',t=>{const f=fixture(t),{h,pointer,tick}=f;const start=f.clock;pointer('pointerdown',600,start,250);pointer('pointermove',550,start+60,245);pointer('pointermove',540,start+100,160);pointer('pointerup',540,start+200,160);tick(1600);visible(h,1);assert.deepEqual(h.orbitSteps,[])});
 test('a short near-diagonal resolves on release and the following tap stays available',t=>{
  const f=fixture(t),{h,pointer,tick}=f,start=f.clock;
@@ -102,7 +115,7 @@ test('a short near-diagonal resolves on release and the following tap stays avai
  pointer('pointerup',471,start+100,209);
  pointer('pointerdown',471,start+135,209);
  pointer('pointerup',471,start+165,209);
- const click=new Event('click',{cancelable:true});h.scroller.dispatchEvent(click);
+ const click=new Event('click',{cancelable:true});h.root.dispatchEvent(click);
  assert.equal(click.defaultPrevented,false);
  tick(900);visible(h,0);assert.deepEqual(h.orbitSteps,[{page:0,step:1}]);
 });

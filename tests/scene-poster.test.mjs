@@ -1,0 +1,22 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import ts from 'typescript';
+let source=ts.transpileModule(readFileSync(new URL('../src/ScenePoster.tsx',import.meta.url),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText.replace(/^import .*;\n/gm,'');
+const stub=`const f=()=>globalThis.posterFixture;const useRef=()=>f().ref;const useState=()=>[f().state,next=>f().state=next];const useLayoutEffect=fn=>f().effect=fn;const _jsx=(type,props)=>({type,props}),_jsxs=_jsx,_Fragment='fragment';`;
+const {default:Poster}=await import('data:text/javascript;base64,'+Buffer.from(stub+source).toString('base64'));
+test('loading, cached and failed previews never replace or disable the film link',t=>{
+ const saved=globalThis.posterFixture;t.after(()=>{globalThis.posterFixture=saved});
+ const f=globalThis.posterFixture={state:'loading',ref:{current:{complete:false,naturalWidth:0}}};
+ const render=()=>Poster({src:'poster.webp',alt:'Film',active:true,priority:true});
+ let tree=render(),[image,placeholder]=tree.props.children;
+ assert.equal(image.props.loading,'eager');assert.equal(image.props.fetchPriority,'high');
+ assert.equal(placeholder.props.className,'scene-poster-loading');
+ image.props.onLoad();assert.equal(render().props.children[1],false);
+ image.props.onError();assert.equal(render().props.children[1].props['data-failed'],true);
+ f.ref.current={complete:true,naturalWidth:800};render();f.effect();assert.equal(f.state,'ready');
+ f.ref.current={complete:false,naturalWidth:0};render();f.effect();assert.equal(f.state,'loading');
+ f.ref.current={complete:true,naturalWidth:0};render();f.effect();assert.equal(f.state,'failed');
+ const css=readFileSync(new URL('../src/scene-loading.css',import.meta.url),'utf8');
+ assert.match(css,/pointer-events:none/);assert.match(css,/prefers-reduced-motion:reduce/);
+});

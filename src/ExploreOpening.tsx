@@ -7,12 +7,14 @@ const frameOptions:KeyframeAnimationOptions={duration,fill:'both'};
 const closeEase='cubic-bezier(.42,.06,.25,1)';
 const fold=.34,settle=.88;
 
-export default function ExploreOpening({bar,available,enabled,mobile,onActiveChange}:{
+export default function ExploreOpening({bar,available,enabled,mobile,onActiveChange,onWheel,onPointerStart}:{
  bar:RefObject<HTMLDivElement|null>;
  available?:{current:boolean};
  enabled:boolean;
  mobile:boolean;
  onActiveChange:(active:boolean)=>void;
+ onWheel?:(event:WheelEvent)=>void;
+ onPointerStart?:(event:PointerEvent)=>void;
 }){
  useEffect(()=>{
   if(!enabled||!available?.current||mobile!==matchMedia(mobileLayout).matches||typeof Element.prototype.animate!=='function')return;
@@ -40,7 +42,8 @@ export default function ExploreOpening({bar,available,enabled,mobile,onActiveCha
    available!.current=false;
    dismiss();
   }
-  for(const type of ['wheel','keydown','focusin','resize','pagehide']){
+  window.addEventListener('wheel',event=>{interrupt();onWheel?.(event)},{capture:true,passive:false,signal:events.signal});
+  for(const type of ['keydown','focusin','resize','pagehide']){
    window.addEventListener(type,interrupt,{capture:true,passive:true,signal:events.signal});
   }
 
@@ -58,9 +61,11 @@ export default function ExploreOpening({bar,available,enabled,mobile,onActiveCha
    layer.className='explore-opening';
    layer.style.setProperty('--opening-duration',duration+'ms');
    layer.setAttribute('aria-hidden','true');
-   // Swallow taps that land on the opening so they cannot reach the live controls.
+   // A swipe interrupts the opening and keeps the same pointer transaction.
+   // A tap must still never activate a control revealed beneath the opening.
    const ignorePointer=(event:Event)=>{event.preventDefault();event.stopPropagation();};
-   for(const type of ['pointerdown','pointerup','click','auxclick','touchstart','touchend','contextmenu']){
+   layer.addEventListener('pointerdown',event=>{ignorePointer(event);if(event.pointerType==='touch'){onPointerStart?.(event);interrupt()}},{passive:false});
+   for(const type of ['pointerup','click','auxclick','touchstart','touchend','contextmenu']){
     layer.addEventListener(type,ignorePointer,{passive:false});
    }
    const surface=document.createElement('div');
@@ -125,7 +130,7 @@ export default function ExploreOpening({bar,available,enabled,mobile,onActiveCha
    collapse.onfinish=dismiss;
   });
   return dismiss;
- },[available,bar,enabled,mobile,onActiveChange]);
+ },[available,bar,enabled,mobile,onActiveChange,onWheel,onPointerStart]);
 
  return null;
 }

@@ -1,7 +1,7 @@
 import {nativeSnapPage,recenterPage} from './scenePaging';
 import {SceneTransition} from './SceneTransition';
 
-type Options={scroller:HTMLElement;root:HTMLElement;total:number;initialPosition?:number;reduced:()=>boolean;paused:()=>boolean;moving:(value:boolean)=>void;invalidate:()=>void;prepare?:(from:number,to:number)=>void};
+type Options={scroller:HTMLElement;root:HTMLElement;total:number;initialPosition?:number;reduced:()=>boolean;paused:()=>boolean;moving:(value:boolean)=>void;invalidate:()=>void;prepare?:(from:number,to:number)=>void;rebase?:(position:number)=>void};
 
 // One destination owner. The same continuous position drives the existing
 // compositor scene timelines. New input retains speed instead of restarting easing.
@@ -46,11 +46,11 @@ export class NativeSceneScroll {
   this.o.moving(false);this.o.invalidate();
  }
  private go(page:number){
-  page=Math.max(0,Math.min(this.o.total*3-1,Math.round(page)));
+  page=Math.round(page);
   if(this.travelling&&page===this.destination)return;
   this.o.prepare?.(this.position,page-this.o.total);
   this.clear();this.destination=page;this.travelling=true;this.o.moving(true);
-  if(this.o.reduced()){this.transition.reset(page);this.write(page);this.settle();return}
+  if(this.o.reduced()){this.destination=recenterPage(page,this.o.total);this.transition.reset(this.destination);this.write(this.destination);this.settle();return}
   if(!this.transition.moving)this.transition.reset(this.page);
   this.transition.move(page,performance.now());
   if(!this.frame)this.frame=requestAnimationFrame(this.animate);
@@ -58,8 +58,16 @@ export class NativeSceneScroll {
  }
  private animate=(time:number)=>{
   this.frame=0;if(document.hidden||this.o.paused()){this.freeze();return}
-  const page=this.transition.sample(time);
+  let page=this.transition.sample(time),rebased=false;
+  // Rebase by whole cycles before reaching the finite DOM track's edge.
+  // Keep the curve's speed and every queued destination; never clamp input.
+  if(page<this.o.total*.5||page>this.o.total*2.5){
+   const offset=(1-Math.floor(page/this.o.total))*this.o.total;
+   this.transition.shift(offset);this.destination+=offset;page+=offset;rebased=true;
+  }
   this.write(page);
+  // Rebind compositor timelines in this frame, before the rebased scroll paints.
+  if(rebased)this.o.rebase?.(page-this.o.total);
   this.o.invalidate();
   if(this.transition.moving)this.frame=requestAnimationFrame(this.animate);else this.settle();
  };

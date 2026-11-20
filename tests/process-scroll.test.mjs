@@ -26,7 +26,7 @@ function fixture(t){
 }
 test('manual process scrolling keeps the chosen position without looping or layout reads',t=>{
  const {view,rail,scroller,reads}=fixture(t);
- rail.props.onPointerEnter({pointerType:'mouse'});
+ scroller.props.onPointerEnter({pointerType:'mouse'});
  for(let i=0;i<120;i++){
   view.scrollTop=10000+i;
   scroller.props.onScroll({currentTarget:view,stopPropagation(){}});
@@ -38,7 +38,13 @@ test('strategy wheel and pointer input are isolated before stage handlers, witho
  const {rail}=fixture(t);
  for(const handler of ['onWheelCapture','onPointerMoveCapture']){
   let stopped=0,prevented=0;
-  rail.props[handler]({stopPropagation(){stopped++},preventDefault(){prevented++}});
+  rail.props[handler]({target:{closest:()=>true},stopPropagation(){stopped++},preventDefault(){prevented++}});
   assert.equal(stopped,1);assert.equal(prevented,0);
  }
+});
+test('the rail heading leaves navigation gestures available to the page',t=>{
+ const {rail}=fixture(t);let stopped=0;
+ rail.props.onWheelCapture({target:{closest:()=>null},stopPropagation(){stopped++}});
+ rail.props.onPointerMoveCapture({target:{closest:()=>null},stopPropagation(){stopped++}});
+ assert.equal(stopped,0);
 });

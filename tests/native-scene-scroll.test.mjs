@@ -9,7 +9,7 @@ const {NativeSceneScroll}=await import(moduleURL('../src/NativeSceneScroll.ts',s
 const {FrameWheelInput}=await import(moduleURL('../src/FrameWheelInput.ts',s=>s.replace("'./scenePaging'",JSON.stringify(paging)).replace("'./WheelSceneIntent'",JSON.stringify(intent)).replace("'wheel-gestures'",JSON.stringify(wheel))));
 const {SceneTransition}=await import(transition);
 const recorded=name=>JSON.parse(readFileSync(new URL('../node_modules/wheel-gestures/src/test/fixtures/'+name+'.json',import.meta.url))).wheelEvents;
-function fixture(t){
+function fixture(t,reduced=false){
  t.mock.timers.enable({apis:['setTimeout','Date'],now:100});
  const saved={document:globalThis.document,performance:globalThis.performance,requestAnimationFrame:globalThis.requestAnimationFrame,cancelAnimationFrame:globalThis.cancelAnimationFrame};
  const doc=new EventTarget();doc.hidden=false;globalThis.document=doc;
@@ -22,15 +22,15 @@ function fixture(t){
   end(){this.dispatchEvent(new Event('scrollend'))}
   wheel(data){const event=new Event('wheel',{cancelable:true});for(const [key,value] of Object.entries({deltaX:0,deltaY:120,deltaMode:0,timeStamp:Date.now(),...data}))Object.defineProperty(event,key,{value});this.dispatchEvent(event);return event.defaultPrevented}
  }
- const scroller=new Scroller(),motion=[],destinations=[];
- const controller=new NativeSceneScroll({scroller,root:{dataset:{},style:{setProperty(){}}},total:15,reduced:()=>false,paused:()=>false,moving:v=>motion.push(v),invalidate(){},prepare:(from,to)=>destinations.push(to)});
+ const scroller=new Scroller(),motion=[],destinations=[],rebases=[];
+ const controller=new NativeSceneScroll({scroller,root:{dataset:{},style:{setProperty(){}}},total:15,reduced:()=>reduced,paused:()=>false,moving:v=>motion.push(v),invalidate(){},prepare:(from,to)=>destinations.push(to),rebase:position=>rebases.push({position,top:scroller.scrollTop})});
  const input=new FrameWheelInput({scroller,step:()=>{},page:n=>controller.advance(n),paused:()=>false});
  controller.resize();scroller.calls=[];
  t.after(()=>{input.destroy();controller.destroy();Object.assign(globalThis,saved)});
  const tick=ms=>{for(let left=ms;left>0;left-=Math.min(16,left))t.mock.timers.tick(Math.min(16,left))};
  const tail=()=>{for(const deltaY of [120,100,82,65,50,38,30,23,17,12,8,6,4,3]){tick(16);scroller.wheel({deltaY})}};
  const replay=events=>{let previous=events[0].timeStamp;for(const event of events){tick(Math.max(0,Math.round(event.timeStamp-previous)));previous=event.timeStamp;scroller.wheel({...event,timeStamp:Date.now()})}tick(1000)};
- return {scroller,controller,input,motion,destinations,tick,tail,replay,doc};
+ return {scroller,controller,input,motion,destinations,rebases,tick,tail,replay,doc};
 }
 test('recorded normal trackpad gestures and momentum tails land on exactly one page',t=>{
  const {scroller,controller,destinations,replay}=fixture(t);const events=recorded('swipe-down-trackpad'),direction=Math.sign(events.find(e=>e.deltaY).deltaY);replay(events);
@@ -95,6 +95,20 @@ test('a freeze cancels deferred intent and motion',t=>{
 test('manual partial scroll snaps to the nearest page without an extra gesture',t=>{
  const {scroller,controller,tick,destinations}=fixture(t);scroller.at(16.08);scroller.end();tick(1000);
  assert.equal(controller.position,1);assert.deepEqual(destinations,[1]);
+});
+test('continuous deliberate page requests survive crossing the scroll track boundary',t=>{
+ const {controller,tick,rebases}=fixture(t);
+ for(let i=0;i<38;i++){controller.advance(1);tick(90)}tick(1500);
+ assert.equal(controller.position,38%15);assert.equal(controller.moving,false);
+ for(let i=0;i<44;i++){controller.advance(-1);tick(90)}tick(1500);
+ assert.equal(controller.position,((38-44)%15+15)%15);assert.equal(controller.moving,false);
+ assert.ok(rebases.length>0);assert.ok(rebases.every(r=>Math.abs(r.top/800-15-r.position)<.00001));
+});
+test('reduced-motion page jumps remain inside the real scroll track',t=>{
+ const {scroller,controller}=fixture(t,true);
+ scroller.scrollTo=function(options){this.scrollTop=Math.max(0,Math.min(44*800,options.top));this.dispatchEvent(new Event('scroll'))};
+ controller.advance(41);assert.equal(controller.position,41%15);assert.equal(controller.moving,false);
+ controller.advance(-57);assert.equal(controller.position,14);assert.equal(controller.moving,false);
 });
 const {NativeSceneAnimator}=await import(moduleURL('../src/NativeSceneAnimator.ts'));
 test('layout changes update keyframes without restarting the entrance animation',t=>{

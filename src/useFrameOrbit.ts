@@ -41,7 +41,7 @@ export default function useFrameOrbit(count:number,enabled:boolean,motion:Journe
   }
   request.current=step=>{
    if(!enabled||count<2||document.hidden||!step||!Number.isFinite(step))return;
-   pending=Math.max(-3,Math.min(3,pending+Math.trunc(step)));pause();started=0;remaining=playing?20000:3200;fallback=false;
+   pending+=Math.trunc(step);pause();started=0;remaining=playing?20000:3200;fallback=false;
    // Finish the current curve without cancelling/restarting it. Changing rate
    // through WAAPI synchronizes the compositor's existing playback position.
    for(const a of animations.current){

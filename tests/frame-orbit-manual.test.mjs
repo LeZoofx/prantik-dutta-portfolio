@@ -87,3 +87,8 @@ test('the orbit interpolates rendered frame widths while preserving their unscal
 });
 test('manual reverse browsing wraps safely',async t=>{const {h,request,finish}=fixture(t);request(-1);assert.equal(h.api.turn,3);await finish();assert.equal(h.api.settledTurn,3)});
 test('reduced-motion browsing changes the video without starting motion effects',async t=>{const {h,request,microtasks}=fixture(t,{reduced:true});request(1);await microtasks();assert.equal(h.animations.length,0);assert.equal(h.api.settledTurn,1)});
+test('a busy orbit keeps every deliberate request beyond the old three-step cap',async t=>{
+ const {h,request,finish}=fixture(t);request(1);for(let i=0;i<7;i++)request(1);
+ for(let i=0;i<8;i++){await finish();assert.equal(h.api.settledTurn,(i+1)%4,'Every queued exhibit should complete in order')}
+ assert.equal(h.api.settledTurn,0);assert.equal(h.api.turn,0);
+});

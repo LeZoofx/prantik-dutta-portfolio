@@ -21,9 +21,9 @@ import './journey.css';
 import './depth-journey.css';
 import './highlights-layout.css';
 import Scene from './JourneyScene';
-import {gestureAxis,ScenePager,swipePages,type GestureAxis} from './scenePaging';
+import {gestureAxis,ScenePager,swipePages,sceneFlight,type GestureAxis} from './scenePaging';
 import {NativeSceneScroll} from './NativeSceneScroll';
-import {FrameWheelInput,isScrollControl} from './FrameWheelInput';
+import {FrameWheelInput,isScrollControl,isLocalScroll} from './FrameWheelInput';
 import './frame-orbit-controls.css';
 import {NativeSceneAnimator,type SceneExit} from './NativeSceneAnimator';
 import PlaybackToggle from './PlaybackToggle';
@@ -31,6 +31,7 @@ import CreativeProcess from './CreativeProcess';
 import ScrollGuide from './ScrollGuide';
 import AIAccess from './AIAccess';
 import ExploreOpening from './ExploreOpening';
+import ScenePoster from './ScenePoster';
 import {isAIWork,leastFeaturedAI} from './aiWork';
 import {campaignFamilyFor,campaignFor} from './campaigns';
 import {CampaignTile,CampaignControls} from './CampaignCollection';
@@ -61,7 +62,7 @@ function DepthWorld({section,active,autoplay,compact,paused,playing,muted,onProj
  <div className="depth-type-field" aria-hidden="true"><KineticType text={section.category==='selected'?'CREATE':section.title.toUpperCase()} variant={section.theme}/></div>
  <div className={'depth-gallery'+(section.category==='selected'&&section.items.length>(mobile?3:6)?' expanded-highlights':'')+(section.category==='ai'?' expanded-ai':'')+(section.category==='short-form'&&section.items.length>(mobile?3:6)?' expanded-short-form':'')} ref={gallery}>{section.items.map((p,i)=><article data-film={p.id} className={'depth-film'+(campaignFor(p.id)?' campaign-film':'')+' slot-'+(section.category==='ai'&&section.items.length>1&&p.id===leastFeaturedAI?primary.length:modulo((section.category==='ai'?primary.indexOf(p):i)-turn,primary.length))+(section.category==='ai'&&p.id===leastFeaturedAI?' ai-secondary':'')+((p.aspect||16/9)<1?' portrait-film':'')} key={p.id} style={{'--film-ratio':p.aspect||16/9,'--tile':i} as CSSProperties}>
   <div className="depth-film-body"><div className="depth-film-float"><div className="depth-film-label"><span><KineticCopy text={brandFor(p)||section.title}/></span><span className="depth-platform">{platformLabel(p)} <i aria-hidden="true">{section.theme===3?'_ □':'↗'}</i></span></div>
-  {campaignFor(p.id)?<div className="depth-film-frame campaign-frame"><CampaignTile id={p.id} onProject={onProject}/><span className="depth-film-seam" aria-hidden="true"/></div>:<div className="depth-film-frame"><div className="depth-media-surface" inert={mobile||isAIWork(p.id)?undefined:true}>{active&&ready&&playing&&!paused&&(p.videoSource||p.provider==='instagram'||p.provider==='youtube')?<JourneyPlayer project={p} enabled={autoplay&&playable.includes(p.id)} muted={muted||p.id!==playable[0]} playing={playing&&(quality==='full'||p.id===playable[0])} onOpen={()=>onProject(p)}/>:<a className="depth-poster" href={projectPath(p.id)} onClick={e=>{if(!e.metaKey&&!e.ctrlKey){e.preventDefault();onProject(p)}}} aria-label={'Watch '+title(p)}>{p.poster?<img src={previewAsset(p.poster)} srcSet={previewSrcSet(p.poster)} sizes="(max-width:699px) 75vw, 42vw" alt={title(p)} loading={active?'eager':'lazy'} fetchPriority={active&&i===0?'high':'low'} decoding="async"/>:<span>{title(p)}</span>}<span className="depth-play" aria-hidden="true">▶</span></a>}</div>{mobile?<ExpandCue title={title(p)} onOpen={()=>onProject(p)}/>:<a className="depth-video-hitarea" href={projectPath(p.id)} aria-label={'Expand video: '+title(p)} onClick={e=>{if(!e.metaKey&&!e.ctrlKey&&!e.shiftKey&&!e.altKey){e.preventDefault();onProject(p)}}}><span className="frame-expand-cue" aria-hidden="true"><span className="expand-corners">⤢</span><span>Expand</span></span></a>}<span className="depth-film-seam" aria-hidden="true"/></div>}
+  {campaignFor(p.id)?<div className="depth-film-frame campaign-frame"><CampaignTile id={p.id} onProject={onProject}/><span className="depth-film-seam" aria-hidden="true"/></div>:<div className="depth-film-frame"><div className="depth-media-surface" inert={mobile||isAIWork(p.id)?undefined:true}>{active&&ready&&playing&&!paused&&(p.videoSource||p.provider==='instagram'||p.provider==='youtube')?<JourneyPlayer project={p} enabled={autoplay&&playable.includes(p.id)} muted={muted||p.id!==playable[0]} playing={playing&&(quality==='full'||p.id===playable[0])} onOpen={()=>onProject(p)}/>:<a className="depth-poster" href={projectPath(p.id)} onClick={e=>{if(!e.metaKey&&!e.ctrlKey){e.preventDefault();onProject(p)}}} aria-label={'Watch '+title(p)}>{p.poster?<ScenePoster src={previewAsset(p.poster)} srcSet={previewSrcSet(p.poster)} alt={title(p)} active={active} priority={i===0}/>:<span>{title(p)}</span>}<span className="depth-play" aria-hidden="true">▶</span></a>}</div>{mobile?<ExpandCue title={title(p)} onOpen={()=>onProject(p)}/>:<a className="depth-video-hitarea" href={projectPath(p.id)} aria-label={'Expand video: '+title(p)} onClick={e=>{if(!e.metaKey&&!e.ctrlKey&&!e.shiftKey&&!e.altKey){e.preventDefault();onProject(p)}}}><span className="frame-expand-cue" aria-hidden="true"><span className="expand-corners">⤢</span><span>Expand</span></span></a>}<span className="depth-film-seam" aria-hidden="true"/></div>}
   <a className="depth-caption" href={projectPath(p.id)} onClick={e=>{if(!e.metaKey&&!e.ctrlKey){e.preventDefault();onProject(p)}}}><KineticCopy text={title(p)}/><span aria-hidden="true">↗</span></a>
  </div></div></article>)}</div>
  <Discovery project={section.items[Math.min(2,section.items.length-1)]} onReveal={section.category==='brands'?onProject:onDiscover} theme={section.theme} motion={motion}/>
@@ -82,6 +83,8 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
  },[]);
  const [scrollGuideOpen,setScrollGuideOpen]=useState(false),[openingVisible,setOpeningVisible]=useState(false),[guiding,setGuiding]=useState(false);
  const topbar=useRef<HTMLDivElement>(null);
+ const openingInput=useRef({wheel:(_event:WheelEvent)=>{},touch:(_event:PointerEvent)=>{}});
+ const onOpeningWheel=useCallback((event:WheelEvent)=>openingInput.current.wheel(event),[]),onOpeningTouch=useCallback((event:PointerEvent)=>openingInput.current.touch(event),[]);
  const closeGuide=useCallback(()=>setScrollGuideOpen(false),[]);
  const [brand,setBrand]=useState('all'),[sort,setSort]=useState<WorkSort>('curated'),[compact,setCompact]=useState(false),[saveData,setSaveData]=useState(false);
  const sections=useMemo(()=>buildSections(projects,sort,brand,compact?3:6),[projects,sort,brand,compact]);
@@ -101,7 +104,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
  const showPagePreview=useCallback((amount:number)=>{guideOffset.current=amount;wake.current()},[]);
  function cycleVideos(step:number){
   if(!step||!Number.isFinite(step)||settings.current.paused||settings.current.secret)return;
-  pendingOrbit.current=Math.max(-3,Math.min(3,pendingOrbit.current+step));
+  pendingOrbit.current+=Math.trunc(step);
   wake.current();
  }
  const section=sections[modulo(chapter,total)]||sections[0];
@@ -123,12 +126,12 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   let width=scroller.clientWidth,height=stage.clientHeight,pageHeight=scroller.clientHeight;
   const native=!mobile;
   outer.dataset.native=String(native);
-  const frameInput=new FrameWheelInput({scroller,step:cycleVideos,page:advance,paused:()=>settings.current.paused||settings.current.secret});
+  const frameInput=new FrameWheelInput({scroller,eventRoot:outer,step:cycleVideos,page:advance,paused:()=>settings.current.paused||settings.current.secret});
+  openingInput.current.wheel=event=>frameInput.handleWheel(event);
   const pager=new ScenePager(initial),landscape=outer.querySelector<HTMLElement>('.depth-landscape');
   const nativeController=native?new NativeSceneScroll({scroller,root:outer,total,initialPosition:initial,reduced:()=>settings.current.reduced,paused:()=>settings.current.paused||settings.current.secret,moving:markMoving,invalidate:start,prepare:(from,to)=>{
-   const first=Math.round(from),direction=Math.sign(to-first),count=Math.min(total,Math.abs(to-first)+1);
-   setFlight(Array.from({length:count},(_,i)=>modulo(first+i*direction,total)));
-  }}):null;
+   setFlight(sceneFlight(from,to,total));
+  },rebase:position=>paintPlanes(position)}):null;
   const animator=native&&NativeSceneAnimator.supported()?new NativeSceneAnimator(scroller):null;
   const worlds=outer.querySelector<HTMLElement>('.depth-worlds');
   let accelerated=false,planeQuality=settings.current.quality;
@@ -264,18 +267,19 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   }
   const fontLayout=()=>{layouts=new WeakMap();worldRefs.current.forEach(layer=>{layer.dataset.layoutVersion=String(window.performance.now())});start()};
   document.fonts?.addEventListener('loadingdone',fontLayout);
-  let touch:{x:number;y:number;time:number;committed:number;id:number;axis?:GestureAxis}|null=null,suppressClick=false;
+  let touch:{x:number;y:number;time:number;committed:number;id:number;target:EventTarget|null;axis?:GestureAxis}|null=null,suppressClick=false;
   function down(event:PointerEvent){
    suppressClick=false;
    if(!event.isPrimary){touch=null;return}
    if(event.pointerType!=='touch'||settings.current.paused||settings.current.secret||isScrollControl(event.target))return;
-   touch={x:event.clientX,y:event.clientY,time:event.timeStamp,committed:0,id:event.pointerId};
+   touch={x:event.clientX,y:event.clientY,time:event.timeStamp,committed:0,id:event.pointerId,target:event.target};
   }
   function moveTouch(event:PointerEvent){
    if(!touch||event.pointerId!==touch.id||touch.committed)return;
    const x=touch.x-event.clientX,y=touch.y-event.clientY;
    touch.axis??=gestureAxis(x,y,28);
    if(!touch.axis)return;
+   if(isLocalScroll(touch.target,touch.axis)){touch=null;return}
    touch.committed=Math.sign(touch.axis==='x'?x:y);
    suppressClick=true;
    scroller!.setPointerCapture?.(touch.id);
@@ -285,6 +289,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
    if(!touch||touch.id!==event.pointerId)return;
    const x=touch.x-event.clientX,y=touch.y-event.clientY;
    const axis=touch.axis??gestureAxis(x,y,28,true);
+   if(axis&&isLocalScroll(touch.target,axis)){touch=null;return}
    if(axis){
     const steps=swipePages(axis==='x'?x:y,event.timeStamp-touch.time,axis==='x'?width:height);
     if(steps&&(!touch.committed||Math.sign(steps)===touch.committed)){
@@ -293,6 +298,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
    }
    touch=null;
   }
+  openingInput.current.touch=event=>{down(event);if(touch){suppressClick=true;scroller.setPointerCapture?.(touch.id)}};
   const cancelTouch=()=>{touch=null},click=(event:MouseEvent)=>{if(suppressClick&&event.detail!==0){event.preventDefault();event.stopPropagation()}};
   navigate.current=(index:number)=>{
    frameInput.cancelPending();
@@ -304,10 +310,10 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
   };
   const pointer=(event:PointerEvent)=>{if(settings.current.reduced||event.pointerType==='touch')return;px=event.clientX/width*2-1;py=1-((event.clientY-(innerHeight-height))/height)*2;start()},leave=()=>{px=py=0;start()},home=()=>navigate.current(0);
   const observer=window.ResizeObserver?new ResizeObserver(resize):null;observer?.observe(scroller);window.addEventListener('resize',resize);resize();
-  scroller.addEventListener('pointerdown',down,{passive:true});scroller.addEventListener('pointermove',moveTouch,{passive:true});scroller.addEventListener('pointerup',up,{passive:true});scroller.addEventListener('pointercancel',cancelTouch);scroller.addEventListener('click',click,true);
+  outer.addEventListener('pointerdown',down,{passive:true});outer.addEventListener('pointermove',moveTouch,{passive:true});outer.addEventListener('pointerup',up,{passive:true});outer.addEventListener('pointercancel',cancelTouch);outer.addEventListener('click',click,true);
   const visibility=()=>{cancelAnimationFrame(raf);raf=0;last=0;motion.velocity=0;if(document.hidden)pendingOrbit.current=0;else start()};
   outer.addEventListener('pointermove',pointer,{passive:true});outer.addEventListener('portfolio-layout',start);outer.addEventListener('pointerleave',leave);document.addEventListener('visibilitychange',visibility);window.addEventListener('portfolio-home',home);start();
-  return()=>{bindPlanes.current=()=>{};frameInput.destroy();nativeController?.destroy();animator?.destroy();observer?.disconnect();window.removeEventListener('resize',resize);document.fonts?.removeEventListener('loadingdone',fontLayout);cancelAnimationFrame(raf);markMoving(false);scroller.removeEventListener('pointerdown',down);scroller.removeEventListener('pointermove',moveTouch);scroller.removeEventListener('pointerup',up);scroller.removeEventListener('pointercancel',cancelTouch);scroller.removeEventListener('click',click,true);outer.removeEventListener('pointermove',pointer);outer.removeEventListener('portfolio-layout',start);outer.removeEventListener('pointerleave',leave);document.removeEventListener('visibilitychange',visibility);window.removeEventListener('portfolio-home',home)};
+  return()=>{openingInput.current={wheel:()=>{},touch:()=>{}};bindPlanes.current=()=>{};frameInput.destroy();nativeController?.destroy();animator?.destroy();observer?.disconnect();window.removeEventListener('resize',resize);document.fonts?.removeEventListener('loadingdone',fontLayout);cancelAnimationFrame(raf);markMoving(false);outer.removeEventListener('pointerdown',down);outer.removeEventListener('pointermove',moveTouch);outer.removeEventListener('pointerup',up);outer.removeEventListener('pointercancel',cancelTouch);outer.removeEventListener('click',click,true);outer.removeEventListener('pointermove',pointer);outer.removeEventListener('portfolio-layout',start);outer.removeEventListener('pointerleave',leave);document.removeEventListener('visibilitychange',visibility);window.removeEventListener('portfolio-home',home)};
  },[motion,sections,total,performance.reportFrame,mobile,compact,brand,sort,canonical,alternate]);
  useEffect(()=>{
   const category=pendingShortcut.current;
@@ -358,7 +364,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
    </button></div>{mobile?<span className="depth-scroll-hint">Scroll to explore <i aria-hidden="true">↓</i></span>:<button className="depth-next-category depth-scroll-hint" onClick={()=>navigate.current(sections.findIndex(s=>s.category===nextCategory.id))} aria-label={'Explore '+nextCategory.label}><span>Next up</span><strong>{nextCategory.label}</strong><i aria-hidden="true">↗</i></button>}<div><button className="orbit-step" aria-label="Previous video on this page" title="Previous video · swipe left/right" disabled={!performance.ready||cycleCount<2} onClick={()=>cycleVideos(-1)}>‹</button><button className="orbit-step orbit-step-next" aria-label="Next video on this page" title="Next video · swipe left/right" disabled={!performance.ready||cycleCount<2} onClick={()=>cycleVideos(1)}>›</button><button onClick={()=>setRotate(!rotate)} aria-pressed={rotate}>{rotate?'Rotation on':'Rotation off'}</button><button onClick={()=>setMuted(!muted)} aria-pressed={!muted}>{muted?'Sound off':'Sound on'}</button>{mobile&&<button onClick={performance.toggleAutoplay} aria-pressed={!playing}>{playing?'Pause films':'Play films'}</button>}</div></div></div>
    </div></div></div>
   </div>
-  <ExploreOpening bar={topbar} available={opening} mobile={mobile} enabled={!paused&&!reduced} onActiveChange={setOpeningVisible}/>
+  <ExploreOpening bar={topbar} available={opening} mobile={mobile} enabled={!paused&&!reduced} onActiveChange={setOpeningVisible} onWheel={onOpeningWheel} onPointerStart={onOpeningTouch}/>
   <CreativeProcess section={section} ready={performance.ready} paused={paused||!!secret} reduced={reduced}/>
   <ScrollGuide root={root} mobile={mobile} onPagePreview={showPagePreview} onActiveChange={setGuiding} open={scrollGuideOpen&&!paused&&!secret} onClose={closeGuide} reduced={reduced} entry={guideEntry} automatic={performance.ready&&!openingVisible&&!paused&&!secret&&!playing}/>
   {secret&&!paused&&<Suspense fallback={null}><SecretPlayer project={secret} kind={['aperture','film','ticket','window','frame','aperture'][section.theme]} onClose={()=>setSecret(null)} onOpen={()=>{setSecret(null);onProject(secret)}}/></Suspense>}

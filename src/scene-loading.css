@@ -1,0 +1,13 @@
+/* A developing print inside the existing film frame, only while its image loads. */
+.depth-poster>img[data-poster-state]{transition:opacity .18s ease}
+.depth-poster>img[data-poster-state=loading],.depth-poster>img[data-poster-state=failed]{opacity:0}
+.depth-poster>.scene-poster-loading{position:absolute;inset:0;height:auto;display:block;padding:0;overflow:hidden;pointer-events:none;background:linear-gradient(145deg,#bccdb512,transparent 60%),#14272e;color:#c0d1c5;animation:poster-appear .2s .12s both}
+.scene-poster-loading::before{content:'';position:absolute;inset:17%;border:1px solid #bed5c51c;background:repeating-linear-gradient(0deg,transparent 0 11px,#bed5c50b 12px 13px);transform:rotate(-2deg)}
+.scene-poster-loading::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 25%,#d6e2bb15 48%,transparent 70%);translate:-100% 0;animation:poster-develop 1.8s .12s ease-in-out infinite}
+.scene-poster-loading>i{position:absolute;width:10px;height:10px;border-top:1px solid #bdd2ae77;border-left:1px solid #bdd2ae77;left:12px;top:12px}
+.scene-poster-loading>i:nth-child(2){left:auto;right:12px;rotate:90deg}.scene-poster-loading>i:nth-child(3){top:auto;bottom:12px;rotate:-90deg}.scene-poster-loading>i:nth-child(4){left:auto;top:auto;right:12px;bottom:12px;rotate:180deg}
+.scene-poster-loading>span{position:absolute;left:12px;right:12px;bottom:12px;display:flex;justify-content:space-between;gap:7px;font:8px/1.4 Mono,monospace;text-transform:uppercase;letter-spacing:.05em}
+.scene-poster-loading b{font-weight:400}.scene-poster-loading[data-failed=true]::after{animation:none;display:none}
+@keyframes poster-develop{to{translate:100% 0}}@keyframes poster-appear{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.scene-poster-loading,.scene-poster-loading::after{animation:none}.scene-poster-loading::after{translate:0 0}.depth-poster>img[data-poster-state]{transition:none}}
+html[data-motion-paused=true] .scene-poster-loading::after,html.page-hidden .scene-poster-loading::after{animation-play-state:paused}

@@ -3,6 +3,11 @@ export function nativeSnapPage(position:number,count:number){
  return Math.max(0,Math.min(count-1,Math.round(position)));
 }
 export function recenterPage(page:number,total:number){return total+((page%total)+total)%total}
+// Keep both visible neighbours when another gesture retargets a half-finished page.
+export function sceneFlight(from:number,to:number,total:number){
+ const direction=Math.sign(to-from)||1,first=direction>0?Math.floor(from):Math.ceil(from);
+ return Array.from({length:Math.min(total,Math.abs(to-first)+1)},(_,i)=>((first+i*direction)%total+total)%total);
+}
 
 export type GestureAxis='x'|'y';
 export function gestureAxis(x:number,y:number,threshold:number,finish=false):GestureAxis|undefined{

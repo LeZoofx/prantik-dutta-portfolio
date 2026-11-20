@@ -4,6 +4,7 @@ export class SceneTransition {
  position=0;target=0;velocity=0;moving=false;
  private from=0;private speed=0;private started=0;private duration=560;
  reset(position:number){this.position=this.target=this.from=position;this.velocity=this.speed=0;this.moving=false}
+ shift(offset:number){this.position+=offset;this.target+=offset;this.from+=offset}
  move(target:number,time:number){
   this.sample(time);
   if(target===this.target&&this.moving)return;

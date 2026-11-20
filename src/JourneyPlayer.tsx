@@ -50,7 +50,7 @@ function YouTubePlayer({project,enabled,muted,playing,onOpen}:{project:Project;e
 
  async function play(){if(!await requestVideoConsent())return;if(status==='blocked'){onOpen();return}setRequested(true);if(ready.current){player.current?.mute();player.current?.playVideo();startDeadline()}}
  return <div className={'journey-picture '+(status==='playing'?'is-playing':'')} data-player-state={status}>
-  <YouTubeAdNotice active={allowed&&playing} videoId={id||''}/>
+  <YouTubeAdNotice preview active={allowed&&playing} videoId={id||''}/>
   {project.poster&&<img className="journey-poster" src={previewAsset(project.poster)} srcSet={previewSrcSet(project.poster)} sizes="(max-width:699px) 75vw, 42vw" alt={project.title} loading="lazy" decoding="async"/>}
   {status==='loading'&&playing&&<span className="preview-loading">Loading preview…</span>}
   <div className="journey-player-host" ref={host} aria-hidden="true"/>

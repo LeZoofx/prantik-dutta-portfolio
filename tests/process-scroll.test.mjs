@@ -7,7 +7,9 @@ const react=url(`export const useRef=value=>({current:globalThis.processScrollFi
 const jsx=url(`export const jsx=(type,props)=>({type,props});export const jsxs=jsx;export const Fragment='fragment';`);
 let code=ts.transpileModule(readFileSync(new URL('../src/CreativeProcess.tsx',import.meta.url),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2020,module:ts.ModuleKind.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText;
 code=code.replace(/from ['"]react['"]/g,'from '+JSON.stringify(react)).replace(/from ['"]react\/jsx-runtime['"]/g,'from '+JSON.stringify(jsx));
-code=code.replace(/import \{ asset \} from ['"]\.\/content['"];?/,'const asset=value=>value;');
+code=code.replace(/import \{[^}]+\} from ['"]\.\/content['"];?/,'const asset=value=>value,previewAsset=value=>value,projectPath=value=>value,projects=[];');
+code=code.replace(/import \{ campaignProjects \} from [^;]+;/,'const campaignProjects=[];');
+code=code.replace(/import \{ processForPage \} from [^;]+;/,'const processForPage=()=>[];');
 for(const name of ['steps','excerpts','sourceIndex'])code=code.replace(new RegExp('import '+name+' from [^;]+;'),'const '+name+'='+JSON.stringify(name==='steps'?[]:{})+';');
 const {default:CreativeProcess}=await import(url(code));
 function fixture(t){

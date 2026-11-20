@@ -52,9 +52,10 @@ function DepthWorld({section,active,autoplay,compact,paused,playing,muted,onProj
  const ordered=[...primary.slice(playTurn),...primary.slice(0,playTurn),...section.items.filter(p=>!primary.includes(p))];
  const focusedCampaign=section.category==='brands'?campaignFor(primary[modulo(turn,primary.length)]?.id||''):undefined;
  const context=focusedCampaign?campaignFamilyFor(focusedCampaign.id):undefined;
+ const focusedWork=primary[modulo(playTurn,primary.length)];
  useLayoutEffect(()=>{
-  if(focusedCampaign)onCampaignFocus(section.id,focusedCampaign.id);
- },[focusedCampaign,section.id,onCampaignFocus]);
+  if(active&&focusedWork)onCampaignFocus(section.id,focusedWork.id);
+ },[active,focusedWork,section.id,onCampaignFocus]);
  const playable=ordered.filter(p=>p.videoSource||p.provider==='youtube'||p.provider==='instagram').slice(0,Math.min(compact?2:3,maxPlayers)).map(p=>p.id);
  return <><SceneAccents theme={context?.theme??section.theme} art={context?.art??section.art}/><div className="depth-heading">{section.category==='selected'&&section.offset===0?<><p className="depth-specialty"><KineticCopy text={positioning.eyebrow}/></p><h1><KineticName/></h1><PosterType lines={posterCopy.selected} art={section.art} className="depth-poster-copy"/><button className="process-link" onClick={onProcess}>How I lead a project ↗</button></>:<><p className="depth-specialty"><KineticCopy text={focusedCampaign?.title||section.focus}/></p><h2><KineticType text={section.title} variant={section.theme}/></h2>{context?<div className="campaign-focus-copy" data-art={context.art} key={focusedCampaign?.id}><PosterType lines={context.copy} art={context.art} className="depth-poster-copy"/></div>:<PosterType lines={section.copy||posterCopy[section.category]} art={section.art} className="depth-poster-copy"/>}</>}</div>
  <div className="depth-type-field" aria-hidden="true"><KineticType text={section.category==='selected'?'CREATE':section.title.toUpperCase()} variant={section.theme}/></div>
@@ -358,7 +359,7 @@ export default function Universe({header,projects,onProject,onIndex,onProcess,pa
    </div></div></div>
   </div>
   <ExploreOpening bar={topbar} available={opening} mobile={mobile} enabled={!paused&&!reduced} onActiveChange={setOpeningVisible}/>
-  <CreativeProcess ready={performance.ready} paused={paused||!!secret} reduced={reduced}/>
+  <CreativeProcess section={section} focusedCampaignId={campaignFocus[section.id]} ready={performance.ready} paused={paused||!!secret} reduced={reduced}/>
   <ScrollGuide root={root} mobile={mobile} onPagePreview={showPagePreview} onActiveChange={setGuiding} open={scrollGuideOpen&&!paused&&!secret} onClose={closeGuide} reduced={reduced} entry={guideEntry} automatic={performance.ready&&!openingVisible&&!paused&&!secret&&!playing}/>
   {secret&&!paused&&<Suspense fallback={null}><SecretPlayer project={secret} kind={['aperture','film','ticket','window','frame','aperture'][section.theme]} onClose={()=>setSecret(null)} onOpen={()=>{setSecret(null);onProject(secret)}}/></Suspense>}
  </div>;

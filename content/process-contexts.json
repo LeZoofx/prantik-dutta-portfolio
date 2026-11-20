@@ -1,0 +1,637 @@
+{
+  "trunativ": {
+    "campaigns": [
+      "campaign-trunativ"
+    ],
+    "projects": [],
+    "cards": [
+      {
+        "base": "research",
+        "title": "Give the premium a reason.",
+        "lines": [
+          "What makes this worth paying for?",
+          "Category research → a sharper promise."
+        ],
+        "detail": "I connect category and competitor research to the questions a customer actually has: source, quality, taste, serving and price. Those questions decide whether the next piece needs a founder answer, a product demonstration, a creator routine or a clearer label. Production quality supports the premium positioning; the explanation has to earn it.",
+        "evidence": [
+          "everyday-strategy",
+          "collagen-strategy",
+          "operating-plan"
+        ]
+      },
+      {
+        "base": "strategy",
+        "title": "One brand. Different reasons to buy.",
+        "lines": [
+          "Everyday nutrition and beauty have different jobs.",
+          "Positioning → message → film."
+        ],
+        "detail": "The Everyday range belongs in an ordinary routine. Marine Collagen needs a distinct beauty proposition and product language. I connect that distinction to scripts, creator choice, packaging and the visual brief, so the film and the product page make the same promise.",
+        "evidence": [
+          "collagen-strategy",
+          "identity-handoff",
+          "collagen-packaging"
+        ]
+      },
+      {
+        "base": "review",
+        "title": "Find the opening that earns the next step.",
+        "lines": [
+          "Test the concern, the use and the person explaining it.",
+          "Viewing behaviour and purchase intent guide the next brief."
+        ],
+        "detail": "I turn recurring customer questions into creative hypotheses. A concern-led hook and a use-led hook can be compared while keeping the product, offer and audience comparable. Watch behaviour tells me whether the explanation holds; qualified clicks and acquisition measures tell me whether it moves the right person further. The next commission gets the finding, not just a performance score.",
+        "evidence": [
+          "creative-tests"
+        ]
+      },
+      {
+        "base": "production",
+        "title": "Keep the idea intact through production.",
+        "lines": [
+          "Scripts, creators, packaging, shoots and post connect.",
+          "Clear ownership keeps revisions useful."
+        ],
+        "detail": "I carry the approved message into the storyboard, product holds, motion brief and handoff. Teams need the current pack, precise copy, coverage and review criteria before polishing. Planning those dependencies lets specialists work together without repeatedly rebuilding the same decision.",
+        "evidence": [
+          "sweet-shoot",
+          "alanna-shoot",
+          "cg-render"
+        ]
+      }
+    ]
+  },
+  "buzzfeed": {
+    "campaigns": [
+      "campaign-pero-like",
+      "campaign-cocoa-butter",
+      "campaign-tasty",
+      "campaign-a-pop"
+    ],
+    "projects": [],
+    "cards": [
+      {
+        "base": "playbooks",
+        "title": "Build for this audience.",
+        "lines": [
+          "The channel is a relationship, not a template.",
+          "Research → format → editorial language."
+        ],
+        "detail": "My work on {names} includes the channel-level thinking behind the cut: audience expectations, recurring formats, brand language and editorial rules. I use the actual conversation, performance or task to choose the structure. The format has to feel native to the people watching it.",
+        "evidence": [
+          "buzzfeed-playbook"
+        ]
+      },
+      {
+        "base": "edit",
+        "title": "Give the viewer something to stay for.",
+        "lines": [
+          "An opening promise. A developing question. A payoff.",
+          "Retention decisions begin before the finishing pass.",
+          "3:40 → 5:20 AVD · programme comparison"
+        ],
+        "detail": "I look for the moment that makes the episode worth watching, then protect the context needed to earn it. Repeated setup, a premature reveal or a reaction taken out of context can weaken the whole sequence. Source logging and the meaning cut come first; rhythm, graphics and sound sharpen that structure. My CV reports that average view duration changed from 3:40 to 5:20 across 20 comparable ten-minute uploads over six months. That is a programme-level comparison, not a result attributed to this individual cut.",
+        "evidence": [
+          "edit-strategy"
+        ]
+      },
+      {
+        "base": "personal-brand",
+        "title": "Make the next episode recognisable.",
+        "lines": [
+          "Titles, thumbnails, recurring devices and tone agree.",
+          "Discovery should lead to the film the viewer was promised."
+        ],
+        "detail": "I connect packaging and recurring editorial choices to the channel promise. This is where platform and audience research becomes practical: what earns the click, what the first minute delivers and what gives someone a reason to return. I use those signals to revise the format rather than treating the platform as a fixed recipe.",
+        "evidence": [
+          "buzzfeed-playbook",
+          "edit-strategy"
+        ]
+      },
+      {
+        "base": "production",
+        "title": "A stronger show needs a usable system.",
+        "lines": [
+          "Briefs, budgets, resources and review belong together.",
+          "The next editor should inherit decisions, not guess them.",
+          "32% lower post cost at equivalent scope · CV record"
+        ],
+        "detail": "I translate creative direction into source logs, graphic triggers, review criteria and handoffs, alongside post budgets and resource allocation. That gives the team room to make a good episode without rediscovering the channel language every time. Career outcomes remain programme-level comparisons, not results claimed for a single video. The CV reports post-production cost moving from ₹1.25 lakh to ₹85,000 per episode at equivalent scope.",
+        "evidence": [
+          "buzzfeed-playbook"
+        ]
+      }
+    ]
+  },
+  "sorted-girl": {
+    "campaigns": [
+      "campaign-sorted-girl"
+    ],
+    "projects": [
+      "social-short-format-04",
+      "social-short-format-07",
+      "social-short-format-08",
+      "social-short-format-09",
+      "social-short-format-10"
+    ],
+    "cards": [
+      {
+        "base": "research",
+        "title": "Give the familiar face a new situation.",
+        "lines": [
+          "Recognition opens the door. It cannot be the whole film.",
+          "Feed research → a different performance task."
+        ],
+        "detail": "I look at what the recurring opening promises and what remains once the recognition is over. For Aarti, the direction gives her someone to respond to, a practical task or a disagreement. That makes the performance more human at the scripting and shoot stage, before any casual-looking edit is added.",
+        "evidence": [
+          "research-viewpoint",
+          "creator-promise"
+        ]
+      },
+      {
+        "base": "personal-brand",
+        "title": "Let the place change the conversation.",
+        "lines": [
+          "Mumbai, local voices and lived questions supply the action.",
+          "Cultural research becomes format design."
+        ],
+        "detail": "A street, a rickshaw or a working office matters when it changes what happens. I connect the subject to a real interaction and leave room for listening and follow-up. The brand language, rough motion and nostalgic framing support the thought; they are chosen for the particular film.",
+        "evidence": [
+          "creator-format",
+          "creator-identity"
+        ]
+      },
+      {
+        "base": "strategy",
+        "title": "Make the brand earn its entrance.",
+        "lines": [
+          "Start with a useful human scene.",
+          "Then make the product part of what happens."
+        ],
+        "detail": "I distinguish independent audience-building content from paid integrations. A partner needs a role in the problem or action, and the factual explanation needs a moment where the audience wants it. This joins brand communication, scripting and production rather than adding a sales message over an unrelated format.",
+        "evidence": [
+          "creator-format",
+          "zoho-board"
+        ]
+      },
+      {
+        "base": "review",
+        "title": "Build the return visit into the format.",
+        "lines": [
+          "Package the thought clearly. Watch how people respond.",
+          "Useful signals change the next commission."
+        ],
+        "detail": "I connect titles, covers, captions and recurring formats to the creator’s promise. Viewing behaviour, shares, profile visits, follows and the substance of comments answer different questions. Matched comparisons help decide whether the next change belongs in the premise, performance, opening or packaging.",
+        "evidence": [
+          "format-review"
+        ]
+      }
+    ]
+  },
+  "sorted-consultancy": {
+    "campaigns": [
+      "campaign-sorted-consultancy"
+    ],
+    "projects": [
+      "social-short-format-03"
+    ],
+    "cards": [
+      {
+        "base": "strategy",
+        "title": "Make expertise useful to a buyer.",
+        "lines": [
+          "What decision can this help someone make?",
+          "Positioning → explanation → enquiry."
+        ],
+        "detail": "Sorted’s consultancy communication has a different job from a creator feed. I organise the proposition around the client’s problem, the recommendation and the work required to act on it. The content needs to demonstrate judgement and give a relevant buyer a clear next step.",
+        "evidence": [
+          "consultancy-strategy",
+          "sorted-playbook"
+        ]
+      },
+      {
+        "base": "playbooks",
+        "title": "Turn advice into something people return for.",
+        "lines": [
+          "A repeatable format with a concrete takeaway.",
+          "Research supplies the example; structure makes it usable."
+        ],
+        "detail": "A short advice series works when each episode resolves one useful question. I connect the researched example, opening promise, graphic hierarchy and closing action so the format stays recognisable without becoming a script people can predict line for line.",
+        "evidence": [
+          "sorted-playbook"
+        ]
+      },
+      {
+        "base": "review",
+        "title": "Close the gap between attention and intent.",
+        "lines": [
+          "The post, landing promise and CTA should agree.",
+          "Review qualified interest as well as reach."
+        ],
+        "detail": "I connect creative tests to the business question. A high view count does not establish a qualified enquiry. The review separates viewing behaviour, clicks, lead quality and conversion, then feeds a specific message or format change into the next brief.",
+        "evidence": [
+          "case-proof"
+        ]
+      }
+    ]
+  },
+  "hizzouse": {
+    "campaigns": [
+      "campaign-hizzouse"
+    ],
+    "projects": [],
+    "cards": [
+      {
+        "base": "research",
+        "title": "Know what the fans came for.",
+        "lines": [
+          "The people, their history and the episode’s real question.",
+          "Research gives the conversation a way in."
+        ],
+        "detail": "I connect the show’s identity and its audience to the story an episode can honestly deliver. Source ranges, quotation context and cue packets keep archival material and graphics attached to the conversation that calls for them.",
+        "evidence": [
+          "show-packaging",
+          "hizzouse-bible"
+        ]
+      },
+      {
+        "base": "edit",
+        "title": "Keep the conversation alive.",
+        "lines": [
+          "Setup, response and reaction need to belong together.",
+          "Long-form structure and clip hooks do different jobs."
+        ],
+        "detail": "I shape the episode around its developing subjects and preserve the response that makes a moment work. Multicam choices, cutaways and motion help the viewer follow the exchange. A short clip needs an entrance of its own while retaining the context that makes the conversation meaningful.",
+        "evidence": [
+          "conversation-edit"
+        ]
+      },
+      {
+        "base": "production",
+        "title": "Give a recurring show a repeatable backbone.",
+        "lines": [
+          "Camera, sound, source cues, graphics and reviews connect.",
+          "A clear handoff protects time and tone."
+        ],
+        "detail": "The team gets coverage requirements, source references, graphic triggers and delivery rules. Those shared decisions make episodes easier to commission and review while allowing the conversation itself to remain spontaneous.",
+        "evidence": [
+          "camera-sound",
+          "hizzouse-bible"
+        ]
+      }
+    ]
+  },
+  "product-report": {
+    "campaigns": [
+      "campaign-product-report"
+    ],
+    "projects": [
+      "ai-sheldon"
+    ],
+    "cards": [
+      {
+        "base": "research",
+        "title": "Make the question worth investigating.",
+        "lines": [
+          "A product claim becomes something the audience can examine.",
+          "Research → method → visual explanation."
+        ],
+        "detail": "I built The Product Report around evidence-led storytelling. The research has to establish the question, the comparison and what a test can actually tell us. That changes the script, practical coverage and graphics before the edit begins. Development materials describe the method; they do not stand in for missing test results.",
+        "evidence": [
+          "oil-research"
+        ]
+      },
+      {
+        "base": "graphics",
+        "title": "Make the evidence readable.",
+        "lines": [
+          "Price, method, observation and interpretation have different jobs.",
+          "Brand language carries the explanation."
+        ],
+        "detail": "I developed the channel’s visual language around clear evidence and comparison. A graphic should show the decisive detail at the moment it matters, then hold long enough to be read. That links research, script, motion and the meaning cut instead of treating the identity as decoration.",
+        "evidence": [
+          "graphic-system",
+          "evidence-edit"
+        ]
+      },
+      {
+        "base": "production",
+        "title": "Plan the work in the order it can happen.",
+        "lines": [
+          "Research approval, procurement, coverage and post have dependencies.",
+          "Budgets and resources belong in the creative plan."
+        ],
+        "detail": "I connect the show brief to production and post budgets, resource allocation and the handoff. Research decisions affect what can be filmed; what is captured affects the edit and the graphics. A repeatable system makes those dependencies visible. This unreleased programme carries no invented launch or growth result.",
+        "evidence": [
+          "oil-schedule",
+          "evidence-edit"
+        ]
+      }
+    ]
+  },
+  "win-theory": {
+    "campaigns": [
+      "campaign-win-theory"
+    ],
+    "projects": [
+      "ai-eric-schiffer"
+    ],
+    "cards": [
+      {
+        "base": "research",
+        "title": "Find the story inside the subject.",
+        "lines": [
+          "A ranking needs a viewpoint and a reason to follow it.",
+          "Subject research → script → visual argument."
+        ],
+        "detail": "I connect the programme’s premise, researched claims and episode structure before choosing visual treatment. The source ledger separates a verifiable claim from interpretation, so the show can have a voice without borrowing certainty it has not earned.",
+        "evidence": [
+          "claim-ledger"
+        ]
+      },
+      {
+        "base": "ai",
+        "title": "Make the whole shot believable.",
+        "lines": [
+          "Identity, light, movement and contact have to agree.",
+          "Hyperrealism is a moving-image judgement."
+        ],
+        "detail": "I direct generated shots through the same spatial and performance questions as photographed material. The character must belong to the place, the action must read and the next shot must continue the same world. Review covers the full moving sequence, not just a convincing still.",
+        "evidence": [
+          "ai-qc",
+          "vfx-shot-brief"
+        ]
+      },
+      {
+        "base": "vfx-brief",
+        "title": "Give the team a shot they can actually build.",
+        "lines": [
+          "Purpose, reference, action and protected details are clear.",
+          "A precise brief reduces expensive ambiguity."
+        ],
+        "detail": "I connect the script to shot sheets, identity references, camera constraints and motion handoffs. The team knows what the shot must communicate and which details have to remain consistent. That lets review address the idea and performance before final polish.",
+        "evidence": [
+          "vfx-workbook",
+          "motion-handoff"
+        ]
+      }
+    ]
+  },
+  "kofuku": {
+    "campaigns": [],
+    "projects": [
+      "ai-kofuku-the-report",
+      "ai-kofuku-strangers-email"
+    ],
+    "cards": [
+      {
+        "base": "strategy",
+        "title": "Make the health promise feel human.",
+        "lines": [
+          "Being heard and receiving help become the story.",
+          "Brand communication → premise → performance."
+        ],
+        "detail": "I developed these Kofuku films around recognisable human situations that make the brand’s purpose felt. The Report turns dismissal into the problem; The Stranger’s Email makes an act of help carry the promise. My role connects the idea, script, world and performances to the finished brand film.",
+        "evidence": []
+      },
+      {
+        "base": "storyboard",
+        "title": "Let the detail do some of the telling.",
+        "lines": [
+          "Character, setting and reactions carry meaning before the claim.",
+          "The production choices are part of the writing."
+        ],
+        "detail": "I design the people and their surroundings for what they tell the viewer. Cultural cues locate a character socially; held reactions and the order of reveals change how the situation reads. The film markers walk through those choices where their results appear on screen.",
+        "evidence": []
+      },
+      {
+        "base": "ai",
+        "title": "Direct the result through the whole film.",
+        "lines": [
+          "Generations, performance, edit, motion and sound work together.",
+          "Consistency has to survive the cut."
+        ],
+        "detail": "I carry the films through pre-production, generated images and movement, editing, motion and sound. Photographic plausibility and performance are judged in sequence. The animated film has its own visual world; the standard is that its characters, action and continuity remain coherent.",
+        "evidence": []
+      },
+      {
+        "base": "graphics",
+        "title": "Build motion around the moment.",
+        "lines": [
+          "The UI and end slate were built entirely in code.",
+          "Designed in Claude Code or Codex, timed for the film."
+        ],
+        "detail": "I made the UI animations and end slate in Claude Code or Codex, then integrated them with the cut. Their timing, hierarchy and handover to the brand are authored parts of the production. The portfolio shows the purpose and result without exposing the private production recipe.",
+        "evidence": []
+      }
+    ]
+  },
+  "pisa": {
+    "campaigns": [],
+    "projects": [
+      "ai-original-ad"
+    ],
+    "cards": [
+      {
+        "base": "strategy",
+        "title": "Show what a creative intervention changes.",
+        "lines": [
+          "A straight Tower of Pisa has an attention problem.",
+          "The story demonstrates the service."
+        ],
+        "detail": "I built my advertising pitch as a comic problem people can see: an enormous production has attracted nobody. The intervention changes that outcome. Concept, script, world design and the sequence of reveals work together to make the pitch through the film.",
+        "evidence": []
+      },
+      {
+        "base": "storyboard",
+        "title": "Make the absurd world socially specific.",
+        "lines": [
+          "Local ceremony, ordinary workers and deliberate empty space.",
+          "Cultural detail makes the premise legible."
+        ],
+        "detail": "I place familiar public-event behaviour against the Italian landmark and play it straight. Costume, set dressing, reactions, scale and the returning camera angles carry the humour. Those choices make the world understandable before the narration has to explain it.",
+        "evidence": []
+      },
+      {
+        "base": "ai",
+        "title": "Own the chain from premise to final mix.",
+        "lines": [
+          "Pre-production, generations, performance, edit and sound.",
+          "The idea has to survive every handoff."
+        ],
+        "detail": "I carried the film through character and world design, generated shots, editing, motion and the final sound work. Timing is part of the writing: a silence, an empty frame or a reaction has to last long enough for the audience to notice what has changed.",
+        "evidence": []
+      }
+    ]
+  },
+  "film": {
+    "campaigns": [
+      "campaign-film-releases",
+      "campaign-bookmyshow"
+    ],
+    "projects": [],
+    "cards": [
+      {
+        "base": "edit",
+        "title": "Promise a film without spending its surprises.",
+        "lines": [
+          "Choose what the audience should want to discover.",
+          "Story, reveal and rhythm make the invitation."
+        ],
+        "detail": "I shape trailer and promotional cuts around the film’s central tension and the audience it needs to reach. What is withheld matters as much as what is shown. The aim is a clear invitation to the film, with reveals, reactions and sound supporting the same promise.",
+        "evidence": []
+      },
+      {
+        "base": "graphics",
+        "title": "Give the release a recognisable language.",
+        "lines": [
+          "The edit, typography, motion and sound belong together.",
+          "Carry the campaign across its formats."
+        ],
+        "detail": "I connect visual treatment and finishing to the mood and information the release needs. Different durations and placements need their own entrances and reading time. That keeps a short social cut useful in its own setting while retaining the campaign’s identity.",
+        "evidence": []
+      },
+      {
+        "base": "production",
+        "title": "Make the delivery plan part of the craft.",
+        "lines": [
+          "Multiple versions need clear priorities and review.",
+          "Protect the idea while handling the rollout."
+        ],
+        "detail": "My film and campaign work includes post direction, resource planning and delivery across versions. Clear briefs, current assets and review ownership help the team keep pace without losing the central editorial decision.",
+        "evidence": []
+      }
+    ]
+  },
+  "live": {
+    "campaigns": [
+      "campaign-prime-comedy",
+      "campaign-live-comedy",
+      "campaign-nh7",
+      "campaign-lollapalooza"
+    ],
+    "projects": [],
+    "cards": [
+      {
+        "base": "edit",
+        "title": "Keep the timing that makes the moment work.",
+        "lines": [
+          "A setup, a pause and a real response.",
+          "The performance tells the edit where to move."
+        ],
+        "detail": "I build the cut around the exchange or performance that gives the moment its energy. Comedy needs the context that earns a laugh; a festival film needs a sense of the room. Reactions, sound and the length of a hold are editorial decisions, not interchangeable coverage.",
+        "evidence": []
+      },
+      {
+        "base": "strategy",
+        "title": "Give the campaign a way into the room.",
+        "lines": [
+          "A short invitation and a full performance serve different needs.",
+          "The audience and release determine the entrance."
+        ],
+        "detail": "I connect the event or special’s identity to the promise made by the promotional piece. The cut needs a reason for the intended audience to care while preserving enough of the performance to make that promise credible.",
+        "evidence": []
+      },
+      {
+        "base": "production",
+        "title": "Keep the moving parts coordinated.",
+        "lines": [
+          "Coverage, assets, specialists and versions need a shared plan.",
+          "Budget and review decisions protect the turnaround."
+        ],
+        "detail": "I connect creative treatment to post resources, asset reuse and delivery priorities. My broader production record includes managing teams and budgets across simultaneous campaigns; those responsibilities support the work without turning a single clip into a claim for an entire programme result.",
+        "evidence": []
+      }
+    ]
+  },
+  "jaquar": {
+    "campaigns": [],
+    "projects": [
+      "social-short-format-02"
+    ],
+    "cards": [
+      {
+        "base": "ai",
+        "title": "Give three films one visual language.",
+        "lines": [
+          "Product scenarios and a photoreal character.",
+          "Treatment → generation → composite → edit."
+        ],
+        "detail": "My work on the Jaquar trilogy connects creative treatment and scripting to generated product scenarios, a photoreal character, compositing and editing. The breakdown identifies where that work appears; the intervening passage supplies context. The task is to make the treatment hold together across the three pieces.",
+        "evidence": []
+      }
+    ]
+  },
+  "viewing-habits": {
+    "campaigns": [],
+    "projects": [
+      "social-short-format-06"
+    ],
+    "cards": [
+      {
+        "base": "graphics",
+        "title": "Make viewing behaviour visible.",
+        "lines": [
+          "An abstract platform behaviour becomes an image.",
+          "AI motion graphics support the explanation."
+        ],
+        "detail": "My contribution here is the AI motion graphics illustrating an explainer about Netflix, Instagram and viewing habits. The images give the spoken point something concrete to show. This project is presented for that visual contribution.",
+        "evidence": []
+      }
+    ]
+  },
+  "partition": {
+    "campaigns": [],
+    "projects": [
+      "social-short-format-01"
+    ],
+    "cards": [
+      {
+        "base": "ai",
+        "title": "Bring the historical premise down to human scale.",
+        "lines": [
+          "Generated people and places carry the dramatization.",
+          "Photoreal images serve the story."
+        ],
+        "detail": "The Morning One Nation was Split uses AI-generated shots and characters for a photoreal dramatization of Partition. The work makes the historical premise visible through people and their surroundings, with the generated image carrying the scene rather than functioning as a separate technical demonstration.",
+        "evidence": []
+      }
+    ]
+  },
+  "performance-test": {
+    "campaigns": [],
+    "projects": [
+      "social-short-format-11"
+    ],
+    "cards": [
+      {
+        "base": "ai",
+        "title": "Let the performance be the test.",
+        "lines": [
+          "A familiar human performance, recreated with AI lip-sync.",
+          "The result has to read in movement."
+        ],
+        "detail": "This piece tests how natural an AI-recreated performance can feel. Lip-sync is part of a moving face and a performance, so the useful comparison is the whole passage. A convincing single frame cannot establish that the timing and expression work through the shot.",
+        "evidence": []
+      }
+    ]
+  },
+  "character-motion": {
+    "campaigns": [],
+    "projects": [
+      "ai-character-motion"
+    ],
+    "cards": [
+      {
+        "base": "ai",
+        "title": "A character has to work in motion.",
+        "lines": [
+          "AI character generation meets motion graphics.",
+          "The performance is the thing the viewer sees."
+        ],
+        "detail": "This project brings my AI character generation and motion graphics together. The character needs to remain readable while moving; the motion is part of how the performance reaches the viewer. The work is shown for those contributions.",
+        "evidence": []
+      }
+    ]
+  }
+}

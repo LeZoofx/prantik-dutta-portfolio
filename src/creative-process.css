@@ -168,3 +168,7 @@
  .depth-journey .depth-film:not(.slot-0) .frame-expand-cue{min-height:24px;padding:2px 5px;gap:0}
  .depth-journey .depth-film:not(.slot-0) .frame-expand-cue>span:last-child{display:none}
 }
+
+/* The rail keeps its existing footprint; only the page context changes. */
+.process-library-button{min-height:26px;padding:3px 5px;border:1px solid #b9d2d24d;border-radius:5px;color:#d2e2de;font:inherit;white-space:nowrap}
+.process-related-projects{display:grid;gap:8px;margin:18px 0 24px}.process-related-projects a{font:12px/1.5 Arial,sans-serif;text-underline-offset:4px}
